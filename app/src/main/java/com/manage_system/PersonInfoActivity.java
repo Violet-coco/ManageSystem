@@ -17,7 +17,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 
 	private ImageView ivEmailClear,ivBindPhoneClear,ivPhoneClear;
 	private EditText person_email,person_bind_phone,person_phone;
-	private ImageButton person_info_back;
+	private ImageButton iv_back;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,8 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 		ivPhoneClear = (ImageView)findViewById(R.id.ivPhoneClear);
 		person_phone = (EditText)findViewById(R.id.person_phone);
 
-		person_info_back = (ImageButton)findViewById(R.id.person_info_back);
-		person_info_back.setOnClickListener(this);
+		iv_back = (ImageButton)findViewById(R.id.iv_back);
+		iv_back.setOnClickListener(this);
 
 		ivEmailClear.setOnClickListener(this);
 		ivBindPhoneClear.setOnClickListener(this);
@@ -70,7 +70,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 				//清空手机按钮点击监听
 				new TextClearSuit().addClearListener(person_phone, ivPhoneClear);
 				break;
-			case R.id.person_info_back:
+			case R.id.iv_back:
 				onViewClicked();
 			default:
 				break;

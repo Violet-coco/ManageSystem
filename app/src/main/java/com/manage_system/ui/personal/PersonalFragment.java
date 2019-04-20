@@ -23,7 +23,7 @@ import com.manage_system.ui.base.AlertDialog.OnDialogButtonClickListener;
 import com.manage_system.ui.base.BaseActivity;
 import com.manage_system.ui.base.BaseFragment;
 import com.manage_system.ui.base.CutPictureActivity;
-import com.manage_system.ui.base.SelectPictureActivity;
+//import com.manage_system.ui.base.SelectPictureActivity;
 import com.manage_system.ui.inter.FragmentPresenter;
 import com.manage_system.utils.DataKeeper;
 import com.manage_system.utils.StringUtil;
@@ -93,7 +93,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     private void selectPicture() {
 //        intent.setClass(this.getActivity(), PersonInfoActivity.class);
 //        startActivity(intent);
-        toActivity(SelectPictureActivity.createIntent(context), REQUEST_TO_SELECT_PICTURE, false);
+//        toActivity(SelectPictureActivity.createIntent(context), REQUEST_TO_SELECT_PICTURE, false);
     }
 
     /**裁剪图片
@@ -209,7 +209,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         switch (requestCode) {
             case REQUEST_TO_SELECT_PICTURE:
                 if (data != null) {
-                    cutPicture(data.getStringExtra(SelectPictureActivity.RESULT_PICTURE_PATH));
+//                    cutPicture(data.getStringExtra(SelectPictureActivity.RESULT_PICTURE_PATH));
                 }
                 break;
             case REQUEST_TO_CUT_PICTURE:

@@ -6,7 +6,7 @@
     <RelativeLayout style="@style/topbar_bg" >
 
         <ImageButton
-            android:id="@+id/person_info_back"
+            android:id="@+id/iv_back"
             style="@style/topbar_return_img" />
 
         <TextView

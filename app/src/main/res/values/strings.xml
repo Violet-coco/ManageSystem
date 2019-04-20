@@ -4,7 +4,7 @@
 
     <!--登录按钮-->
     <drawable name="login_normal">#75b6fa</drawable>
-    <drawable name="login_pressed">#BBFFFF</drawable>
+    <drawable name="login_pressed">#a2cbf6</drawable>
 
     <!-- 状态视图  -->
     <string name="loading">加载中...</string>
