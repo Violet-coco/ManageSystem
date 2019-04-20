@@ -1,0 +1,67 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="statusbar_view_height">0dp</dimen>
+    <dimen name="radius">3dp</dimen>
+    <dimen name="item_distance">15dp</dimen>
+    <dimen name="content_item_left_tv_padding_left">15dp</dimen>
+    <!-- textSize<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+
+    <dimen name="text_size_large">24sp</dimen>
+    <dimen name="text_size_huge">21sp</dimen>
+    <dimen name="text_size_big">19sp</dimen>
+    <dimen name="text_size_middle">16sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_micro">12sp</dimen>
+
+    <!-- textSize>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+
+
+    <!-- padding<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_huge">15dp</dimen>
+    <dimen name="padding_big">9dp</dimen>
+    <dimen name="padding_middle">6dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_micro">2dp</dimen>
+
+    <!-- padding>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+
+    <!-- common item -->
+    <dimen name="item_remind_tv_height">30dp</dimen>
+    <dimen name="item_height">45dp</dimen>
+    <dimen name="item_padding_left">42dp</dimen>
+    <dimen name="item_padding_right">12dp</dimen>
+    <dimen name="item_left_tv_padding">15dp</dimen>
+    <dimen name="item_right_img_padding_right">15dp</dimen>
+    <dimen name="item_padding_top">15dp</dimen>
+    <dimen name="item_padding_bottom">15dp</dimen>
+    <dimen name="item_right_tv_width">78dp</dimen>
+
+
+    <!-- common item -->
+
+    <!-- topbar -->
+
+    <dimen name="topbar_height">50dp</dimen>
+    <dimen name="topbar_title_padding">50dp</dimen>
+    <dimen name="topbar_btn_min_width">40dp</dimen>
+    <dimen name="bottombar_height">48dp</dimen>
+    <dimen name="bottom_drag_min_width">80dp</dimen>
+    <dimen name="bottom_drag_max_height">100dp</dimen>
+    <dimen name="bottom_drag_height">78dp</dimen>
+
+    <!-- topbar -->
+
+    <!-- button -->
+
+    <dimen name="btn_bottom_padding">10dp</dimen>
+    <dimen name="btn_middle">24dp</dimen>
+    <!-- button -->
+
+</resources>

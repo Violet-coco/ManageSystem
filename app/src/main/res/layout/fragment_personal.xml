@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <ScrollView
+        style="@style/ll_vertical_match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <LinearLayout
+                style="@style/ll_vertical_match_match_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/person_icon"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_margin="@dimen/item_distance"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/person_icon" />
+            </LinearLayout>
+
+            <View
+                style="@style/divider_horizontal_1px"
+                android:layout_marginTop="30dp" />
+
+            <LinearLayout
+                android:id="@+id/person_info"
+                style="@style/content_item_white" >
+
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="个人设置" />
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:id="@+id/person_edit_password"
+                style="@style/content_item_white" >
+
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="修改密码" />
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:id="@+id/person_exit"
+                style="@style/content_item_white" >
+
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="退出登录" />
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
