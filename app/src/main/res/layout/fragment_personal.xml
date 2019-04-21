@@ -10,15 +10,29 @@
 
             <LinearLayout
                 style="@style/ll_vertical_match_match_bg"
+                android:id="@+id/qqLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <ImageView
+
+                <com.manage_system.test.view.CircleImageView
+                    style="@style/topbar_title"
                     android:id="@+id/person_icon"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_centerVertical="true"
                     android:layout_margin="@dimen/item_distance"
-                    android:scaleType="centerCrop"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
                     android:src="@drawable/person_icon" />
+
+                <TextView
+                    style="@style/topbar_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/person_icon"
+                    android:layout_alignParentBottom="true"
+                    android:padding="15dp"
+                    android:text="流萤梦" />
             </LinearLayout>
 
             <View

@@ -15,6 +15,8 @@ import com.manage_system.PersonInfoActivity;
 import com.manage_system.EditPasswordActivity;
 import com.manage_system.R;
 import com.manage_system.component.ApplicationComponent;
+import com.manage_system.test.MainActivity1;
+import com.manage_system.test.view.CircleImageView;
 import com.manage_system.ui.base.AlertDialog;
 import com.manage_system.ui.base.AlertDialog.OnDialogButtonClickListener;
 import com.manage_system.ui.base.BaseFragment;
@@ -22,8 +24,11 @@ import com.manage_system.utils.ImageUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.disposables.CompositeDisposable;
 
 import com.manage_system.ui.inter.FragmentPresenter;
+
+import java.io.File;
 
 public class PersonalFragment1 extends BaseFragment implements OnDialogButtonClickListener {
     @BindView(R.id.person_icon)
@@ -51,6 +56,8 @@ public class PersonalFragment1 extends BaseFragment implements OnDialogButtonCli
     public void initInjector(ApplicationComponent appComponent) {
 
     }
+
+
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
@@ -85,9 +92,9 @@ public class PersonalFragment1 extends BaseFragment implements OnDialogButtonCli
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.person_icon:
-                ImageUtils.showImagePickDialog(this.getActivity());
-//                intent.setClass(this.getActivity(), SelectPictureActivity.class);
-//                startActivity(intent);
+//                ImageUtils.showImagePickDialog(this.getActivity());
+                intent.setClass(this.getActivity(), MainActivity1.class);
+                startActivity(intent);
                 break;
             case R.id.person_info:
                 intent.setClass(this.getActivity(), PersonInfoActivity.class);
@@ -101,48 +108,6 @@ public class PersonalFragment1 extends BaseFragment implements OnDialogButtonCli
                 Log.w(TAG,"点击了");
                 new AlertDialog(context, "退出登录", "确定退出登录？", true, 0, this).show();
                 break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode){
-            case ImageUtils.REQUEST_CODE_FROM_ALBUM: {
-
-                if (resultCode == FragmentPresenter.RESULT_CANCELED) {   //取消操作
-                    return;
-                }
-
-                Uri imageUri = data.getData();
-                ImageUtils.copyImageUri(this.getActivity(),imageUri);
-                ImageUtils.cropImageUri(this.getActivity(), ImageUtils.getCurrentUri(), 200, 200);
-                break;
-            }
-            case ImageUtils.REQUEST_CODE_FROM_CAMERA: {
-
-                if (resultCode == FragmentPresenter.RESULT_CANCELED) {     //取消操作
-                    ImageUtils.deleteImageUri(this.getActivity(), ImageUtils.getCurrentUri());   //删除Uri
-                }
-
-                ImageUtils.cropImageUri(this.getActivity(), ImageUtils.getCurrentUri(), 200, 200);
-                break;
-            }
-            case ImageUtils.REQUEST_CODE_CROP: {
-
-                if (resultCode == FragmentPresenter.RESULT_CANCELED) {     //取消操作
-                    return;
-                }
-
-                Uri imageUri = ImageUtils.getCurrentUri();
-                if (imageUri != null) {
-                    personIcon.setImageURI(imageUri);
-                }
-                break;
-            }
             default:
                 break;
         }

@@ -12,8 +12,6 @@ import com.bumptech.glide.request.target.ImageViewTarget;
 
 /**
  * desc: .
- * author: Will .
- * date: 2017/7/27 .
  */
 public class ImageLoaderUtil {
 

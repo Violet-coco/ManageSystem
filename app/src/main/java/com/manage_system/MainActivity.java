@@ -8,10 +8,9 @@ import com.manage_system.component.ApplicationComponent;
 import com.manage_system.ui.base.BaseActivity;
 import com.manage_system.ui.base.SupportFragment;
 import com.manage_system.ui.browse.BrowseFragment;
-import com.manage_system.ui.personal.PersonalFragment;
 import com.manage_system.ui.index.IndexFragment;
 import com.manage_system.ui.manage.ManageFragment;
-import com.manage_system.ui.personal.PersonalFragment1;
+import com.manage_system.ui.personal.PersonalFragment;
 import com.manage_system.utils.StatusBarUtil;
 import com.manage_system.widget.BottomBar;
 import com.manage_system.widget.BottomBarTab;
@@ -20,7 +19,7 @@ import butterknife.BindView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 public class MainActivity extends BaseActivity {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity1";
 
     @BindView(R.id.contentContainer)
     FrameLayout mContentContainer;
@@ -53,7 +52,7 @@ public class MainActivity extends BaseActivity {
             mFragments[0] = IndexFragment.newInstance();
             mFragments[1] = ManageFragment.newInstance();
             mFragments[2] = BrowseFragment.newInstance();
-            mFragments[3] = PersonalFragment1.newInstance();
+            mFragments[3] = PersonalFragment.newInstance();
 
             getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 0,
                     mFragments[0],

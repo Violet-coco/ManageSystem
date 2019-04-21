@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
@@ -47,7 +47,6 @@ dependencies {
     compile rootProject.ext.dependencies.rxlifecomponents
     compile rootProject.ext.dependencies["dagger"]
     annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
-
     compile rootProject.ext.dependencies["rxjava"]
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["rxbinding2"]
@@ -69,7 +68,6 @@ dependencies {
     compile rootProject.ext.dependencies["tablayout"]
     compile rootProject.ext.dependencies["androideventbus"]
     compile rootProject.ext.dependencies["gif-drawable"]
-
     compile rootProject.ext.dependencies["litepal"]
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
