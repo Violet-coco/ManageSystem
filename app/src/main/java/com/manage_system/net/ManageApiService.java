@@ -9,12 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/27 .
- */
-public interface JanDanApiService {
+public interface ManageApiService {
 
     @GET
     Observable<FreshNewsBean> getFreshNews(@Url String url, @Query("oxwlxojflwblxbsapi") String oxwlxojflwblxbsapi,

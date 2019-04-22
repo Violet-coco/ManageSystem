@@ -7,11 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * desc:
- * author: Will .
- * date: 2017/9/10 .
- */
 public class NewChannelEvent {
     public List<Channel> selectedDatas;
 

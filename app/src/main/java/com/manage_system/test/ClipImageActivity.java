@@ -93,6 +93,7 @@ public class ClipImageActivity extends AppCompatActivity implements View.OnClick
         //调用返回剪切图
         Bitmap zoomedCropBitmap;
         if (type == 1) {
+            Log.w(TAG,"aaaaaaaaaa");
             zoomedCropBitmap = clipViewLayout1.clip();
         } else {
             zoomedCropBitmap = clipViewLayout2.clip();

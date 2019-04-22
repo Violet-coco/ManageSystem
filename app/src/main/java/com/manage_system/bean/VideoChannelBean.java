@@ -2,16 +2,11 @@ package com.manage_system.bean;
 
 import java.util.List;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/19 .
- */
 public class VideoChannelBean {
 
 
     /**
-     * types : [{"id":9,"name":"娱乐","chType":"manage","position":"down"},{"id":18,"name":"美食","chType":"manage","position":"down"},{"id":22,"name":"锵锵三人行","chType":"manage","position":"down"},{"id":5,"name":"军事","chType":"manage","position":"up"},{"id":24,"name":"综艺","chType":"manage","position":"up"},{"id":10,"name":"体育","chType":"manage","position":"up"},{"id":8,"name":"生活","chType":"manage","position":"up"},{"id":25,"name":"纪录片","chType":"manage","position":"up"},{"id":4,"name":"社会","chType":"manage","position":"up"},{"id":27,"name":"萌萌哒","chType":"manage","position":"up"},{"id":2,"name":"段子","chType":"manage","position":"down"},{"id":3,"name":"历史","chType":"manage","position":"up"},{"id":1,"name":"美女","chType":"manage","position":"down"},{"id":23,"name":"鲁豫有约 ","chType":"manage","position":"down"}]
+     * types : [{"id":9,"name":"娱乐","chType":"browse","position":"down"},{"id":18,"name":"美食","chType":"browse","position":"down"},{"id":22,"name":"锵锵三人行","chType":"browse","position":"down"},{"id":5,"name":"军事","chType":"browse","position":"up"},{"id":24,"name":"综艺","chType":"browse","position":"up"},{"id":10,"name":"体育","chType":"browse","position":"up"},{"id":8,"name":"生活","chType":"browse","position":"up"},{"id":25,"name":"纪录片","chType":"browse","position":"up"},{"id":4,"name":"社会","chType":"browse","position":"up"},{"id":27,"name":"萌萌哒","chType":"browse","position":"up"},{"id":2,"name":"段子","chType":"browse","position":"down"},{"id":3,"name":"历史","chType":"browse","position":"up"},{"id":1,"name":"美女","chType":"browse","position":"down"},{"id":23,"name":"鲁豫有约 ","chType":"browse","position":"down"}]
      * totalPage : 20
      * currentPage : 1
      * type : list
@@ -68,7 +63,7 @@ public class VideoChannelBean {
         /**
          * id : 9
          * name : 娱乐
-         * chType : manage
+         * chType : browse
          * position : down
          */
 

@@ -1,4 +1,4 @@
-package com.manage_system.ui.browse;
+package com.manage_system.ui.manage;
 
 import android.app.Activity;
 import android.content.Intent;

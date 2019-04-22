@@ -2,8 +2,8 @@ package com.manage_system.module;
 
 import com.manage_system.MyApp;
 import com.manage_system.net.ApiConstants;
-import com.manage_system.net.JanDanApi;
-import com.manage_system.net.JanDanApiService;
+import com.manage_system.net.ManageApi;
+import com.manage_system.net.ManageApiService;
 import com.manage_system.net.NewsApi;
 import com.manage_system.net.NewsApiService;
 import com.manage_system.net.RetrofitConfig;
@@ -58,16 +58,16 @@ public class HttpModule {
     }
 
     @Provides
-    JanDanApi provideJanDanApis(OkHttpClient.Builder builder) {
+    ManageApi provideJanDanApis(OkHttpClient.Builder builder) {
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());
 
-        return JanDanApi.getInstance(retrofitBuilder
+        return ManageApi.getInstance(retrofitBuilder
                 .baseUrl(ApiConstants.sJanDanApi)
-                .build().create(JanDanApiService.class));
+                .build().create(ManageApiService.class));
     }
 
 }

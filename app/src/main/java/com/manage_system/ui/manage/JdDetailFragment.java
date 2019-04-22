@@ -1,4 +1,4 @@
-package com.manage_system.ui.browse;
+package com.manage_system.ui.manage;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import com.manage_system.bean.FreshNewsBean;
 import com.manage_system.bean.JdDetailBean;
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.component.DaggerHttpComponent;
-import com.manage_system.net.JanDanApi;
+import com.manage_system.net.ManageApi;
 import com.manage_system.ui.base.BaseFragment;
 import com.manage_system.widget.CustomLoadMoreView;
 
@@ -96,7 +96,7 @@ public class JdDetailFragment extends BaseFragment<JanDanPresenter> implements J
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (type.equals(JanDanApi.TYPE_FRESH)){
+                if (type.equals(ManageApi.TYPE_FRESH)){
                     ReadActivity.launch(getActivity(), (FreshNewsBean.PostsBean) adapter.getItem(position));
                 }
             }

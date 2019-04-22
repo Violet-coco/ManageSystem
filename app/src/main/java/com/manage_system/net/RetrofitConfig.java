@@ -19,11 +19,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 
-/**
- * desc:
- * author: Will .
- * date: 2017/9/2 .
- */
 public class RetrofitConfig {
     private static final String TAG = "RetrofitConfig";
 

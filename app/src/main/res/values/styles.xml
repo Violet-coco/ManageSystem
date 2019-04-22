@@ -20,7 +20,7 @@
     </style>
 
     <style name="topbar_bg">
-        <item name="android:background">@color/topbar_bg</item>
+        <item name="android:background">@color/colorPrimary</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">@dimen/topbar_height</item>
@@ -368,6 +368,10 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <style name="edit_item_ms_all" parent="edit_item">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="edit_item_right_et" parent="edit_item">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
@@ -579,6 +583,73 @@
         <item name="android:textColor">#2b2b2b</item>
         <item name="android:paddingRight">15dp</item>
         <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="edit_item_ms_grade" parent="edit_item_left_tv">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/item_left_tv_padding</item>
+        <item name="android:paddingTop">@dimen/item_left_tv_padding</item>
+        <item name="android:paddingBottom">@dimen/item_left_tv_padding</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:background">@color/white_selected</item>
+    </style>
+
+    <style name="edit_item_ms_border_title" parent="edit_item_left_tv">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:background">@color/main_bg</item>
+    </style>
+
+    <style name="edit_item_ms_border_check" parent="edit_item_ms_border_title">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:background">@color/divider</item>
+        <item name="android:textColor">@color/red_interest</item>
+    </style>
+
+    <style name="edit_item_ms_border_state" parent="edit_item_ms_border_check">
+        <item name="android:textColor">@color/gray_3</item>
+    </style>
+
+    <style name="edit_item_ms_grade_con" parent="edit_item_right_et_child">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/item_left_tv_padding</item>
+        <item name="android:paddingTop">@dimen/item_left_tv_padding</item>
+        <item name="android:paddingBottom">@dimen/item_left_tv_padding</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:background">@color/white_selected</item>
+    </style>
+
+    <style name="edit_item_ms_border_content" parent="edit_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/item_left_tv_padding</item>
+        <item name="android:paddingTop">@dimen/item_left_tv_padding</item>
+        <item name="android:paddingBottom">@dimen/item_left_tv_padding</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:background">@color/white_selected</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/gray_3</item>
+    </style>
+
+    <style name="edit_item_ms_border_edit" parent="edit_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:gravity">top</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:paddingLeft">@dimen/item_left_tv_padding</item>
+        <item name="android:paddingTop">@dimen/item_left_tv_padding</item>
+        <item name="android:paddingBottom">@dimen/item_left_tv_padding</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:background">@drawable/login_button_border_selector</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textColor">@color/gray_3</item>
+    </style>
+
+    <style name="edit_item_ms_border_edit_one" parent="edit_item_ms_border_edit">
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="content_item_lf_tv_black" parent="content_item_lf_tv">

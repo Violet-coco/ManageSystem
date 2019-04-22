@@ -1,11 +1,11 @@
-package com.manage_system.ui.manage.presenter;
+package com.manage_system.ui.browse.presenter;
 
 import com.manage_system.bean.VideoChannelBean;
 import com.manage_system.bean.VideoDetailBean;
 import com.manage_system.net.NewsApi;
 import com.manage_system.net.RxSchedulers;
 import com.manage_system.ui.base.BasePresenter;
-import com.manage_system.ui.manage.contract.VideoContract;
+import com.manage_system.ui.browse.contract.VideoContract;
 
 import java.util.List;
 
@@ -15,11 +15,6 @@ import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/10 .
- */
 public class VideoPresenter extends BasePresenter<VideoContract.View> implements VideoContract.Presenter {
     private NewsApi mNewsApi;
 

@@ -1,4 +1,4 @@
-package com.manage_system.ui.browse;
+package com.manage_system.ui.manage;
 
 import com.manage_system.bean.FreshNewsBean;
 import com.manage_system.bean.JdDetailBean;

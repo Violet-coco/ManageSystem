@@ -11,8 +11,6 @@ import android.widget.ImageView;
 
 import com.manage_system.ui.base.TextClearSuit;
 
-import butterknife.OnClick;
-
 public class PersonInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
 	private ImageView ivEmailClear,ivBindPhoneClear,ivPhoneClear;
@@ -22,7 +20,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.person_info);
+		setContentView(R.layout.ms_person_info);
         getId();
 	}
 

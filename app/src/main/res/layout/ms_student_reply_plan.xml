@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="答辩安排" />
+
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <ScrollView
+        style="@style/match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <LinearLayout
+                android:id="@+id/llUserBusinessCardContainer"
+                style="@style/ll_vertical_match_wrap"
+                android:layout_marginBottom="@dimen/padding_huge"
+                android:layout_marginTop="@dimen/padding_huge" >
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="课题题目" />
+
+                <EditText
+                    android:id="@+id/person_name"
+                    style="@style/edit_item_right_et"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    android:text="PMMA灯具基于moldflow三维流动优化的"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <View
+                style="@style/divider_horizontal_1px"
+                android:layout_marginBottom="@dimen/padding_huge" />
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:id="@+id/llUserTag"
+                style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="指导老师" />
+
+                <EditText
+                    android:id="@+id/tvUserTag"
+                    style="@style/edit_item_right_et_child"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:text="流萤梦" />
+
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="答辩时间" />
+
+                <EditText
+                    style="@style/edit_item_right_et_child"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:text="2019-01-05 17:47:28" />
+
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="答辩教室" />
+
+                <EditText
+                    style="@style/edit_item_right_et_child"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:text="6A-404" />
+
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="答辩教师" />
+
+                <EditText
+                    style="@style/edit_item_right_et_child"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:text="流萤梦" />
+
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="分　　组" />
+
+                <EditText
+                    style="@style/edit_item_right_et_child"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:text="第一组" />
+
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <LinearLayout
+        android:id="@+id/llUserBottomMenuContainer"
+        style="@style/ll_vertical_match_wrap" >
+    </LinearLayout>
+
+</LinearLayout>

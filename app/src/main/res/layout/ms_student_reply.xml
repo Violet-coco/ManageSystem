@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <ScrollView
+        style="@style/ll_vertical_match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <View
+                style="@style/divider_horizontal_1px"
+                android:layout_marginTop="30dp" />
+
+            <LinearLayout
+                android:id="@+id/student_find_reply_plan"
+                style="@style/content_item_white" >
+
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="答辩安排" />
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:id="@+id/student_find_reply_record"
+                style="@style/content_item_white" >
+
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="答辩记录" />
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:id="@+id/student_find_reply_grade"
+                style="@style/content_item_white" >
+
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="查看成绩" />
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

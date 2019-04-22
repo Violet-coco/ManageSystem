@@ -1,23 +1,18 @@
 package com.manage_system.component;
 
-import com.manage_system.ui.browse.JdDetailFragment;
+import com.manage_system.ui.manage.JdDetailFragment;
 import com.manage_system.ui.index.ArticleReadActivity;
 import com.manage_system.ui.index.ImageBrowseActivity;
 import com.manage_system.ui.index.IndexFragment;
-import com.manage_system.ui.manage.DetailFragment;
-import com.manage_system.ui.manage.ManageFragment;
+import com.manage_system.ui.browse.DetailFragment;
+import com.manage_system.ui.browse.BrowseFragment;
 
 import dagger.Component;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/2 .
- */
 @Component(dependencies = ApplicationComponent.class)
 public interface HttpComponent {
 
-    void inject(ManageFragment manageFragment);
+    void inject(BrowseFragment browseFragment);
 
     void inject(DetailFragment detailFragment);
 

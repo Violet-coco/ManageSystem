@@ -66,5 +66,4 @@ public interface NewsApiService {
                                                @Query("listtype") String listtype,
                                                @Query("typeid") String typeid);
 
-
 }

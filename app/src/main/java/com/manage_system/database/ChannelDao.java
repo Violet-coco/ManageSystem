@@ -9,11 +9,6 @@ import org.litepal.crud.callback.UpdateOrDeleteCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/7 .
- */
 public class ChannelDao {
 
     /**

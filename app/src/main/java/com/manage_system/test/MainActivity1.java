@@ -205,7 +205,7 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
         startActivityForResult(intent, REQUEST_CAPTURE);
     }
 
-
+    private static String TAG="MainActivity";
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         switch (requestCode) {
@@ -229,7 +229,9 @@ public class MainActivity1 extends AppCompatActivity implements View.OnClickList
                     String cropImagePath = getRealFilePathFromUri(getApplicationContext(), uri);
                     Bitmap bitMap = BitmapFactory.decodeFile(cropImagePath);
                     if (type == 1) {
+                        Log.w(TAG,"hhhh"+person_icon);
                         person_icon.setImageBitmap(bitMap);
+                        Log.w(TAG,"wwwww"+person_icon);
                     } else {
 //                        headImage2.setImageBitmap(bitMap);
                     }

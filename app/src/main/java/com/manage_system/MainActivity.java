@@ -8,8 +8,8 @@ import com.manage_system.component.ApplicationComponent;
 import com.manage_system.ui.base.BaseActivity;
 import com.manage_system.ui.base.SupportFragment;
 import com.manage_system.ui.browse.BrowseFragment;
-import com.manage_system.ui.index.IndexFragment;
 import com.manage_system.ui.manage.ManageFragment;
+import com.manage_system.ui.index.IndexFragment;
 import com.manage_system.ui.personal.PersonalFragment;
 import com.manage_system.utils.StatusBarUtil;
 import com.manage_system.widget.BottomBar;
@@ -19,7 +19,7 @@ import butterknife.BindView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 public class MainActivity extends BaseActivity {
-    private static final String TAG = "MainActivity1";
+    private static final String TAG = "MainActivity";
 
     @BindView(R.id.contentContainer)
     FrameLayout mContentContainer;
@@ -50,8 +50,8 @@ public class MainActivity extends BaseActivity {
         StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0, null);
         if (savedInstanceState == null) {
             mFragments[0] = IndexFragment.newInstance();
-            mFragments[1] = ManageFragment.newInstance();
-            mFragments[2] = BrowseFragment.newInstance();
+            mFragments[1] = BrowseFragment.newInstance();
+            mFragments[2] = ManageFragment.newInstance();
             mFragments[3] = PersonalFragment.newInstance();
 
             getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 0,
@@ -61,14 +61,14 @@ public class MainActivity extends BaseActivity {
                     mFragments[3]);
         } else {
             mFragments[0] = findFragment(IndexFragment.class);
-            mFragments[1] = findFragment(ManageFragment.class);
-            mFragments[2] = findFragment(BrowseFragment.class);
+            mFragments[1] = findFragment(BrowseFragment.class);
+            mFragments[2] = findFragment(ManageFragment.class);
             mFragments[3] = findFragment(PersonalFragment.class);
         }
 
         mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_index, "首页"))
-                .addItem(new BottomBarTab(this, R.drawable.ic_manage, "管理"))
                 .addItem(new BottomBarTab(this, R.drawable.ic_browse, "浏览"))
+                .addItem(new BottomBarTab(this, R.drawable.ic_manage, "管理"))
                 .addItem(new BottomBarTab(this, R.drawable.ic_my, "我的"));
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override

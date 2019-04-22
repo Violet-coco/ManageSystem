@@ -35,6 +35,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.manage_system.R;
@@ -42,7 +43,7 @@ import com.manage_system.R;
 /**
  * https://github.com/hdodenhof/CircleImageView
  */
-public class CircleImageView extends ImageView {
+public class CircleImageView extends android.support.v7.widget.AppCompatImageView {
 
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
@@ -80,6 +81,7 @@ public class CircleImageView extends ImageView {
     private boolean mSetupPending;
     private boolean mBorderOverlay;
     private boolean mDisableCircularTransformation;
+    private static String TAG = "CircleImageView";
 
     public CircleImageView(Context context) {
         super(context);
@@ -331,6 +333,7 @@ public class CircleImageView extends ImageView {
         }
 
         if (drawable instanceof BitmapDrawable) {
+            Log.w(TAG,"第二");
             return ((BitmapDrawable) drawable).getBitmap();
         }
 
@@ -354,9 +357,12 @@ public class CircleImageView extends ImageView {
     }
 
     private void initializeBitmap() {
+        Log.w(TAG,"第一");
         if (mDisableCircularTransformation) {
+            Log.w(TAG,"11111222222");
             mBitmap = null;
         } else {
+            Log.w(TAG,"333333444444");
             mBitmap = getBitmapFromDrawable(getDrawable());
         }
         setup();

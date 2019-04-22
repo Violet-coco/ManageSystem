@@ -1,4 +1,4 @@
-package com.manage_system.ui.manage.contract;
+package com.manage_system.ui.browse.contract;
 
 import com.manage_system.bean.VideoChannelBean;
 import com.manage_system.bean.VideoDetailBean;

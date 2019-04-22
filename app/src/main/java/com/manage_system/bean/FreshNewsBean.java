@@ -3,11 +3,6 @@ package com.manage_system.bean;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/27 .
- */
 public class FreshNewsBean implements Serializable {
 
     /**

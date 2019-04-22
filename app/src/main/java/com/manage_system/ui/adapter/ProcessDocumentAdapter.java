@@ -17,7 +17,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.manage_system.MyApp;
 import com.manage_system.R;
 import com.manage_system.bean.JdDetailBean;
-import com.manage_system.ui.browse.ImageBrowseActivity;
+import com.manage_system.ui.manage.ImageBrowseActivity;
 import com.manage_system.utils.ContextUtils;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.ImageLoaderUtil;
@@ -32,11 +32,11 @@ import java.util.List;
  * author: Will .
  * date: 2017/9/27 .
  */
-public class BoredPicAdapter extends BaseMultiItemQuickAdapter<JdDetailBean.CommentsBean, BaseViewHolder> {
-    private static final String TAG = "BoredPicAdapter";
+public class ProcessDocumentAdapter extends BaseMultiItemQuickAdapter<JdDetailBean.CommentsBean, BaseViewHolder> {
+    private static final String TAG = "ProcessDocumentAdapter";
     private Activity mContext;
 
-    public BoredPicAdapter(Activity context, @Nullable List<JdDetailBean.CommentsBean> data) {
+    public ProcessDocumentAdapter(Activity context, @Nullable List<JdDetailBean.CommentsBean> data) {
         super(data);
         addItemType(JdDetailBean.CommentsBean.TYPE_MULTIPLE, R.layout.item_jandan_pic);
         addItemType(JdDetailBean.CommentsBean.TYPE_SINGLE, R.layout.item_jandan_pic_single);
@@ -128,7 +128,7 @@ public class BoredPicAdapter extends BaseMultiItemQuickAdapter<JdDetailBean.Comm
                 viewHolder.getView(R.id.img_share).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ShareUtils.shareText(mContext, "http://browse.net/pic/");
+                        ShareUtils.shareText(mContext, "http://manage.net/pic/");
                     }
                 });
                 break;

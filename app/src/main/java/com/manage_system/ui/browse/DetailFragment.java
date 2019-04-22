@@ -1,4 +1,4 @@
-package com.manage_system.ui.manage;
+package com.manage_system.ui.browse;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +13,8 @@ import com.manage_system.component.ApplicationComponent;
 import com.manage_system.component.DaggerHttpComponent;
 import com.manage_system.ui.adapter.VideoDetailAdapter;
 import com.manage_system.ui.base.BaseFragment;
-import com.manage_system.ui.manage.contract.VideoContract;
-import com.manage_system.ui.manage.presenter.VideoPresenter;
+import com.manage_system.ui.browse.contract.VideoContract;
+import com.manage_system.ui.browse.presenter.VideoPresenter;
 import com.manage_system.widget.CustomLoadMoreView;
 
 import java.util.List;

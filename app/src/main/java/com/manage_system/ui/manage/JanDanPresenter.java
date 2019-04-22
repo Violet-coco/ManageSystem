@@ -1,11 +1,11 @@
-package com.manage_system.ui.browse;
+package com.manage_system.ui.manage;
 
 import android.util.Log;
 
 import com.manage_system.bean.FreshNewsBean;
 import com.manage_system.bean.JdDetailBean;
 import com.manage_system.net.BaseObserver;
-import com.manage_system.net.JanDanApi;
+import com.manage_system.net.ManageApi;
 import com.manage_system.net.RxSchedulers;
 import com.manage_system.ui.base.BasePresenter;
 
@@ -21,16 +21,16 @@ import io.reactivex.functions.Function;
  */
 public class JanDanPresenter extends BasePresenter<JanDanContract.View> implements JanDanContract.Presenter {
     private static final String TAG = "JanDanPresenter";
-    JanDanApi mJanDanApi;
+    ManageApi mManageApi;
 
     @Inject
-    public JanDanPresenter(JanDanApi janDanApi) {
-        this.mJanDanApi = janDanApi;
+    public JanDanPresenter(ManageApi manageApi) {
+        this.mManageApi = manageApi;
     }
 
     @Override
     public void getData(String type, int page) {
-        if (type.equals(JanDanApi.TYPE_FRESH)) {
+        if (type.equals(ManageApi.TYPE_FRESH)) {
             getFreshNews(page);
         } else {
             getDetailData(type, page);
@@ -39,7 +39,7 @@ public class JanDanPresenter extends BasePresenter<JanDanContract.View> implemen
 
     @Override
     public void getFreshNews(final int page) {
-        mJanDanApi.getFreshNews(page)
+        mManageApi.getFreshNews(page)
                 .compose(RxSchedulers.<FreshNewsBean>applySchedulers())
                 .compose(mView.<FreshNewsBean>bindToLife())
                 .subscribe(new BaseObserver<FreshNewsBean>() {
@@ -62,7 +62,7 @@ public class JanDanPresenter extends BasePresenter<JanDanContract.View> implemen
 
     @Override
     public void getDetailData(final String type, final int page) {
-        mJanDanApi.getJdDetails(type, page)
+        mManageApi.getJdDetails(type, page)
                 .compose(RxSchedulers.<JdDetailBean>applySchedulers())
                 .compose(mView.<JdDetailBean>bindToLife())
                 .map(new Function<JdDetailBean, JdDetailBean>() {

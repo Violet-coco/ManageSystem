@@ -13,21 +13,18 @@ import com.manage_system.utils.ImageLoaderUtil;
 
 import java.util.List;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/27 .
- */
-public class FreshNewsAdapter extends BaseQuickAdapter<FreshNewsBean.PostsBean, BaseViewHolder> implements BaseQuickAdapter.OnItemClickListener {
+public class StudentTitleAdapter extends BaseQuickAdapter<FreshNewsBean.PostsBean, BaseViewHolder> implements BaseQuickAdapter.OnItemClickListener {
     private Context mContext;
 
-    public FreshNewsAdapter(Context context, @Nullable List<FreshNewsBean.PostsBean> data) {
-        super(R.layout.item_freshnews, data);
+    public StudentTitleAdapter(Context context, @Nullable List<FreshNewsBean.PostsBean> data) {
+//        super(R.layout.item_freshnews, data);
+        super(R.layout.ms_student_choose_title);
         this.mContext = context;
     }
 
     @Override
     protected void convert(BaseViewHolder viewHolder, FreshNewsBean.PostsBean postsBean) {
+        // 课题题目
         viewHolder.setText(R.id.tv_title, postsBean.getTitle());
         viewHolder.setText(R.id.tv_info, postsBean.getAuthor().getName());
         viewHolder.setText(R.id.tv_commnetsize, postsBean.getComment_count() + "评论");

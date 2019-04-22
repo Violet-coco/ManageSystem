@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="毕业论文" />
+
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <ScrollView
+        style="@style/match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <RelativeLayout
+                android:id="@+id/llUserTag"
+                style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/graduation_thesis_key_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="关键词" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit_one"
+                    android:id="@+id/tvUserTag"
+                    android:editable="false"
+                    android:layout_below="@+id/graduation_thesis_key_title" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/graduation_thesis_new_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="创新点" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit"
+                    android:editable="false"
+                    android:layout_below="@+id/graduation_thesis_new_title" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/graduation_thesis_cmain_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="中文摘要" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit"
+                    android:editable="false"
+                    android:layout_below="@+id/graduation_thesis_cmain_title" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/graduation_thesis_emain_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="英文摘要" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit"
+                    android:editable="false"
+                    android:layout_below="@+id/graduation_thesis_emain_title" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/graduation_thesis_other_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="其他" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit"
+                    android:editable="false"
+                    android:layout_below="@+id/graduation_thesis_other_title" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/graduation_thesis_annex_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="附件" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:layout_below="@+id/graduation_thesis_annex_title"
+                    android:text="6A-404" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp">
+
+                <Button
+                    android:id="@+id/middle_check_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="提　交"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <LinearLayout
+        android:id="@+id/llUserBottomMenuContainer"
+        style="@style/ll_vertical_match_wrap" >
+    </LinearLayout>
+
+</LinearLayout>

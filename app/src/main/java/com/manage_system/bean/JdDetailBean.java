@@ -4,11 +4,6 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.List;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/27 .
- */
 public class JdDetailBean {
 
     /**

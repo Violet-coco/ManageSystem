@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="查看成绩" />
+
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <ScrollView
+        style="@style/match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout
+                android:id="@+id/llUserTag"
+                style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/reply_record_con"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="学生成绩" />
+
+                <LinearLayout
+                    android:id="@+id/final_grade"
+                    android:layout_below="@+id/reply_record_con"
+                    style="@style/edit_item" >
+
+                    <TextView
+                        style="@style/edit_item_ms_grade"
+                        android:text="最终成绩" />
+
+                    <TextView
+                        style="@style/edit_item_ms_grade_con"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:text="计算机学院" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_below="@+id/final_grade"
+                    style="@style/edit_item" >
+
+                    <TextView
+                        style="@style/edit_item_ms_grade"
+                        android:text="评　　语" />
+
+                    <TextView
+                        style="@style/edit_item_ms_grade_con"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:text="计算机学院" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/annotation_con"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="权重信息" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/annotation_con"
+                    android:text="评分 = 毕设/论文材料*30% + 答辩*30% + 系统*40%" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/annex"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="学生评分权重信息" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:layout_below="@+id/annex"
+                    android:editable="false"
+                    android:text="评分 = 90*30% + 90*30% + 90*40%" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <LinearLayout
+        android:id="@+id/llUserBottomMenuContainer"
+        style="@style/ll_vertical_match_wrap" >
+    </LinearLayout>
+
+</LinearLayout>

@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.manage_system.bean.VideoChannelBean;
 import com.manage_system.ui.base.BaseFragment;
-import com.manage_system.ui.manage.DetailFragment;
+import com.manage_system.ui.browse.DetailFragment;
 
 /**
  * desc:

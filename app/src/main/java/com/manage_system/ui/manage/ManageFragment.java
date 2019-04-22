@@ -2,37 +2,30 @@ package com.manage_system.ui.manage;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 import com.manage_system.R;
-import com.manage_system.bean.VideoChannelBean;
-import com.manage_system.bean.VideoDetailBean;
 import com.manage_system.component.ApplicationComponent;
-import com.manage_system.component.DaggerHttpComponent;
-import com.manage_system.ui.adapter.VideoPagerAdapter;
+import com.manage_system.net.ManageApi;
+import com.manage_system.ui.adapter.ProcessDocumentAdapter;
+import com.manage_system.ui.adapter.StudentTitleAdapter;
 import com.manage_system.ui.base.BaseFragment;
-import com.manage_system.ui.manage.contract.VideoContract;
-import com.manage_system.ui.manage.presenter.VideoPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-/**
- * desc: 视频页面
- * author: Will .
- * date: 2017/9/2 .
- */
-public class ManageFragment extends BaseFragment<VideoPresenter> implements VideoContract.View {
-    private static final String TAG = "ManageFragment";
+public class ManageFragment extends BaseFragment {
+
     @BindView(R.id.tablayout)
-    TabLayout mTablayout;
+    TabLayout mTabLayout;
     @BindView(R.id.viewpager)
     ViewPager mViewpager;
-    private VideoPagerAdapter mVideoPagerAdapter;
-
+    private ManagePagerAdapter mManagePagerAdapter;
 
     public static ManageFragment newInstance() {
         Bundle args = new Bundle();
@@ -43,20 +36,16 @@ public class ManageFragment extends BaseFragment<VideoPresenter> implements Vide
 
     @Override
     public int getContentLayout() {
-        return R.layout.fragment_video;
+        return R.layout.fragment_jiandan;
     }
 
     @Override
     public void initInjector(ApplicationComponent appComponent) {
-        DaggerHttpComponent.builder()
-                .applicationComponent(appComponent)
-                .build()
-                .inject(this);
+
     }
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
-
     }
 
     @Override
@@ -66,7 +55,15 @@ public class ManageFragment extends BaseFragment<VideoPresenter> implements Vide
 
     @Override
     public void initData() {
-        mPresenter.getVideoChannel();
+        List<String> strings = new ArrayList<>();
+        strings.add("学生选题");
+        strings.add("过程文档");
+        strings.add("答辩管理");
+        mManagePagerAdapter = new ManagePagerAdapter(getChildFragmentManager(), strings);
+        mViewpager.setAdapter(mManagePagerAdapter);
+        mViewpager.setOffscreenPageLimit(1);
+        mViewpager.setCurrentItem(0, false);
+        mTabLayout.setupWithViewPager(mViewpager, true);
     }
 
     @Override
@@ -84,23 +81,43 @@ public class ManageFragment extends BaseFragment<VideoPresenter> implements Vide
 
     }
 
-    @Override
-    public void loadVideoChannel(List<VideoChannelBean> channelBean) {
-        Log.i(TAG, "loadVideoChannel: " + channelBean.toString());
-        mVideoPagerAdapter = new VideoPagerAdapter(getChildFragmentManager(), channelBean.get(0));
-        mViewpager.setAdapter(mVideoPagerAdapter);
-        mViewpager.setOffscreenPageLimit(1);
-        mViewpager.setCurrentItem(0, false);
-        mTablayout.setupWithViewPager(mViewpager, true);
-    }
+    public class ManagePagerAdapter extends FragmentStatePagerAdapter {
+        private List<String> titles;
 
-    @Override
-    public void loadMoreVideoDetails(List<VideoDetailBean> detailBean) {
+        public ManagePagerAdapter(FragmentManager fm, List<String> titles) {
+            super(fm);
+            this.titles = titles;
+        }
 
-    }
+        @Override
+        public BaseFragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return JdDetailFragment.newInstance(ManageApi.TYPE_FRESH,new StudentTitleAdapter(getActivity(),null));
+                case 1:
+                    return JdDetailFragment.newInstance(ManageApi.TYPE_BORED,new ProcessDocumentAdapter(getActivity(),null));
+                case 2:
+                    return JdDetailFragment.newInstance(ManageApi.TYPE_GIRLS,new ProcessDocumentAdapter(getActivity(),null));
+//                case 3:
+//                    return JdDetailFragment.newInstance(ManageApi.TYPE_Duan,new JokesAdapter(null));
+            }
+            return null;
+        }
 
-    @Override
-    public void loadVideoDetails(List<VideoDetailBean> detailBean) {
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return titles.size();
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
 
     }
 

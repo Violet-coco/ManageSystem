@@ -11,18 +11,13 @@ import java.lang.annotation.RetentionPolicy;
 
 import io.reactivex.Observable;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/27 .
- */
-public class JanDanApi {
+public class ManageApi {
 
     public static final String TYPE_FRESH = "get_recent_posts";
     public static final String TYPE_FRESHARTICLE = "get_post";
-    public static final String TYPE_BORED = "browse.get_pic_comments";
-    public static final String TYPE_GIRLS = "browse.get_ooxx_comments";
-    public static final String TYPE_Duan = "browse.get_duan_comments";
+    public static final String TYPE_BORED = "manage.get_pic_comments";
+    public static final String TYPE_GIRLS = "manage.get_ooxx_comments";
+    public static final String TYPE_Duan = "manage.get_duan_comments";
 
     @StringDef({TYPE_FRESH, TYPE_BORED, TYPE_GIRLS, TYPE_Duan})
     @Retention(RetentionPolicy.SOURCE)
@@ -30,17 +25,17 @@ public class JanDanApi {
 
     }
 
-    public static JanDanApi sInstance;
+    public static ManageApi sInstance;
 
-    private JanDanApiService mService;
+    private ManageApiService mService;
 
-    public JanDanApi(JanDanApiService janDanApiService) {
-        this.mService = janDanApiService;
+    public ManageApi(ManageApiService manageApiService) {
+        this.mService = manageApiService;
     }
 
-    public static JanDanApi getInstance(JanDanApiService janDanApiService) {
+    public static ManageApi getInstance(ManageApiService manageApiService) {
         if (sInstance == null)
-            sInstance = new JanDanApi(janDanApiService);
+            sInstance = new ManageApi(manageApiService);
         return sInstance;
     }
 

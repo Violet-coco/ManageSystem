@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="外文译文和原文" />
+
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <ScrollView
+        style="@style/match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/login_normal"
+                android:layout_height="45dp">
+                <TextView
+                    style="@style/edit_item_ms_border_check"
+                    android:text="审核状态"/>
+                <TextView
+                    style="@style/edit_item_ms_border_state"
+                    android:layout_weight="1"
+                    android:text="已审核"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/llUserTag"
+                style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/fortra_translate_con_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="外文译文内容" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit"
+                    android:id="@+id/tvUserTag"
+                    android:editable="false"
+                    android:layout_below="@+id/fortra_translate_con_title" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/fortra_original_con_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="原文内容" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit"
+                    android:editable="false"
+                    android:layout_below="@+id/fortra_original_con_title"
+                     />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/fortra_comment_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="批注内容" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit"
+                    android:editable="false"
+                    android:layout_below="@+id/fortra_comment_title" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/fortra_translate_annex_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="外文译文附件" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:layout_below="@+id/fortra_translate_annex_title"
+                    android:text="6A-404" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/fortra_original_annex_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="原文附件" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:layout_below="@+id/fortra_original_annex_title"
+                    android:text="6A-404" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp">
+
+                <Button
+                    android:id="@+id/reply_record_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="修　改"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <LinearLayout
+        android:id="@+id/llUserBottomMenuContainer"
+        style="@style/ll_vertical_match_wrap" >
+    </LinearLayout>
+
+</LinearLayout>

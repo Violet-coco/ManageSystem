@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.manage_system.BuildConfig;
 import com.manage_system.EditPasswordActivity;
 import com.manage_system.PersonInfoActivity;
 import com.manage_system.R;
@@ -180,6 +181,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         popupWindow.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
         popupWindow.setOutsideTouchable(true);
         View parent = LayoutInflater.from(this.getActivity()).inflate(R.layout.fragment_personal, null);
+        person_icon = (CircleImageView) parent.findViewById(R.id.person_icon);
         popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
         //popupWindow在弹窗的时候背景半透明
         final WindowManager.LayoutParams params = getActivity().getWindow().getAttributes();
@@ -278,8 +280,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             //设置7.0中共享文件，分享路径定义在xml/file_paths.xml
             intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//            Uri contentUri = FileProvider.getUriForFile(MainActivity1.this, BuildConfig.APPLICATION_ID + ".fileProvider", tempFile);
-            Uri contentUri = FileProvider.getUriForFile(this.getActivity(),  "com.manage_system.fileProvider", tempFile);
+            Uri contentUri = FileProvider.getUriForFile(this.getActivity(), BuildConfig.APPLICATION_ID + ".fileProvider", tempFile);
+//            Uri contentUri = FileProvider.getUriForFile(this.getActivity(),  "com.manage_system.fileProvider", tempFile);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         } else {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
@@ -311,6 +313,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                     String cropImagePath = getRealFilePathFromUri(getActivity().getApplicationContext(), uri);
                     Bitmap bitMap = BitmapFactory.decodeFile(cropImagePath);
                     if (type == 1) {
+                        Log.w(TAG,"确认选择头像！！");
+                        Log.w(TAG,"11"+person_icon);
                         person_icon.setImageBitmap(bitMap);
                     } else {
 //                        headImage2.setImageBitmap(bitMap);

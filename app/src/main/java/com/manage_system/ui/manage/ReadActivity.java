@@ -1,4 +1,4 @@
-package com.manage_system.ui.browse;
+package com.manage_system.ui.manage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import com.manage_system.bean.FreshNewsArticleBean;
 import com.manage_system.bean.FreshNewsBean;
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.net.BaseObserver;
-import com.manage_system.net.JanDanApi;
+import com.manage_system.net.ManageApi;
 import com.manage_system.net.RxSchedulers;
 import com.manage_system.ui.base.BaseActivity;
 import com.manage_system.utils.DateUtil;
@@ -44,7 +44,7 @@ public class ReadActivity extends BaseActivity {
     ProgressBar progressWheel;
     @BindView(R.id.ll_content)
     LinearLayout llContent;
-    JanDanApi mJanDanApi;
+    ManageApi mManageApi;
     FreshNewsBean.PostsBean postsBean;
     FreshNewsArticleBean newsArticleBean;
     @BindView(R.id.iv_back)
@@ -70,7 +70,7 @@ public class ReadActivity extends BaseActivity {
 
     @Override
     public void initInjector(ApplicationComponent appComponent) {
-        mJanDanApi = appComponent.getJanDanApi();
+        mManageApi = appComponent.getJanDanApi();
     }
 
     @Override
@@ -128,7 +128,7 @@ public class ReadActivity extends BaseActivity {
     }
 
     private void getData(int id) {
-        mJanDanApi.getFreshNewsArticle(id)
+        mManageApi.getFreshNewsArticle(id)
                 .compose(RxSchedulers.<FreshNewsArticleBean>applySchedulers())
                 .compose(this.<FreshNewsArticleBean>bindToLifecycle())
                 .subscribe(new BaseObserver<FreshNewsArticleBean>() {
