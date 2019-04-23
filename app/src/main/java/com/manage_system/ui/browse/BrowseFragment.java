@@ -20,11 +20,6 @@ import java.util.List;
 
 import butterknife.BindView;
 
-/**
- * desc: 视频页面
- * author: Will .
- * date: 2017/9/2 .
- */
 public class BrowseFragment extends BaseFragment<VideoPresenter> implements VideoContract.View {
     private static final String TAG = "BrowseFragment";
     @BindView(R.id.tablayout)

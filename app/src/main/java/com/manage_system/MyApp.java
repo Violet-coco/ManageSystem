@@ -6,6 +6,7 @@ import com.manage_system.component.DaggerApplicationComponent;
 import com.manage_system.module.ApplicationModule;
 import com.manage_system.module.HttpModule;
 import com.manage_system.utils.ContextUtils;
+import com.mob.MobSDK;
 
 import org.litepal.LitePal;
 import org.litepal.LitePalApplication;
@@ -17,7 +18,7 @@ import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
  * author: Will .
  * date: 2017/9/2 .
  */
-public class MyApp extends LitePalApplication {
+public class MyApp extends LitePalApplication implements com.mob.tools.proguard.ProtectedMemberKeeper {
 
     private ApplicationComponent mApplicationComponent;
 
@@ -41,6 +42,7 @@ public class MyApp extends LitePalApplication {
         width = ContextUtils.getSreenWidth(MyApp.getContext());
         height = ContextUtils.getSreenHeight(MyApp.getContext());
 
+        MobSDK.init(this, null, null);
     }
 
     public static MyApp getInstance() {

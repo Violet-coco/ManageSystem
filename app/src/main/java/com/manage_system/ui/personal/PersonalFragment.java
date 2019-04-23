@@ -105,19 +105,18 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         if (! isPositive) {
             return;
         }
-
         switch (requestCode) {
             case 0:
-                logout();
+//                logout();
                 break;
             default:
                 break;
         }
     }
 
-    private void logout() {
-        context.finish();
-    }
+//    private void logout() {
+//        context.finish();
+//    }
 
     private static final String TAG = "个人页面";
 

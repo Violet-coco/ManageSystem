@@ -14,8 +14,8 @@ public class EditPasswordActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.ms_person_edit_password);
-        setContentView(R.layout.ms_student_pd_openrecord);
+        setContentView(R.layout.ms_person_edit_password);
+//        setContentView(R.layout.ms_student_pd_openrecord);
         getId();
     }
 

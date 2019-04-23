@@ -1,12 +1,16 @@
 package com.manage_system.ui.manage;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
+import com.manage_system.EditPasswordActivity;
 import com.manage_system.R;
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.net.ManageApi;
@@ -36,7 +40,7 @@ public class ManageFragment extends BaseFragment {
 
     @Override
     public int getContentLayout() {
-        return R.layout.fragment_jiandan;
+        return R.layout.fragment_manage;
     }
 
     @Override
@@ -89,14 +93,27 @@ public class ManageFragment extends BaseFragment {
             this.titles = titles;
         }
 
+        private String TAG = "测试中***************";
+
         @Override
         public BaseFragment getItem(int position) {
+            Intent intent = new Intent();
             switch (position) {
                 case 0:
+                    Log.w(TAG,"点击1"+JdDetailFragment.newInstance(ManageApi.TYPE_FRESH,new StudentTitleAdapter(getActivity(),null)));
+//                    intent.setClass(getActivity(), EditPasswordActivity.class);
+//                    startActivity(intent);
+//                    break;
                     return JdDetailFragment.newInstance(ManageApi.TYPE_FRESH,new StudentTitleAdapter(getActivity(),null));
                 case 1:
+                    Log.w(TAG,"点击2");
+//                    intent.setClass(getActivity(), EditPasswordActivity.class);
+//                    startActivity(intent);
                     return JdDetailFragment.newInstance(ManageApi.TYPE_BORED,new ProcessDocumentAdapter(getActivity(),null));
                 case 2:
+                    Log.w(TAG,"点击3");
+//                    intent.setClass(getActivity(), EditPasswordActivity.class);
+//                    startActivity(intent);
                     return JdDetailFragment.newInstance(ManageApi.TYPE_GIRLS,new ProcessDocumentAdapter(getActivity(),null));
 //                case 3:
 //                    return JdDetailFragment.newInstance(ManageApi.TYPE_Duan,new JokesAdapter(null));

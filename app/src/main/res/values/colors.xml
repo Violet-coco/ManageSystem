@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#F68E54</color>
     <color name="colorAccent">#FF4081</color>
     <color name="windowBackground">@android:color/white</color>
+    <color name="title_bar">#00c3a6</color>
+    <color name="xblue">#5B9CFE</color>
+    <color name="xxblue">#2C81FF</color>
 
     <color name="tab_unselect">#a3a3a3</color>
     <color name="news_tv_source_color">#a3a3a3</color>

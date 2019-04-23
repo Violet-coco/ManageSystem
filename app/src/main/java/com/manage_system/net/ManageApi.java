@@ -15,9 +15,9 @@ public class ManageApi {
 
     public static final String TYPE_FRESH = "get_recent_posts";
     public static final String TYPE_FRESHARTICLE = "get_post";
-    public static final String TYPE_BORED = "manage.get_pic_comments";
-    public static final String TYPE_GIRLS = "manage.get_ooxx_comments";
-    public static final String TYPE_Duan = "manage.get_duan_comments";
+    public static final String TYPE_BORED = "browse.get_pic_comments";
+    public static final String TYPE_GIRLS = "browse.get_ooxx_comments";
+    public static final String TYPE_Duan = "browse.get_duan_comments";
 
     @StringDef({TYPE_FRESH, TYPE_BORED, TYPE_GIRLS, TYPE_Duan})
     @Retention(RetentionPolicy.SOURCE)

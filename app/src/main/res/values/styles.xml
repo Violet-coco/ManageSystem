@@ -56,7 +56,20 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
         <!--<item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>-->
         <!--<item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>-->
+    </style>
 
+    <!--splashTheme-->
+    <style name="splashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/title_bar</item>
+    </style>
+
+    <style name="TextStyle111">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:visibility">invisible</item>
     </style>
 
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light.NoActionBar">
@@ -631,6 +644,10 @@
         <item name="android:paddingRight">10dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/gray_3</item>
+    </style>
+
+    <style name="edit_item_ms_border_content_final" parent="edit_item_ms_border_content">
+        <item name="android:singleLine">false</item>
     </style>
 
     <style name="edit_item_ms_border_edit" parent="edit_item">

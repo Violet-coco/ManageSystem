@@ -71,7 +71,14 @@ dependencies {
     compile rootProject.ext.dependencies["litepal"]
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
+    implementation 'com.squareup.okio:okio:1.11.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
 }
+
 repositories {
+    flatDir{
+        dirs 'libs'
+    }
     mavenCentral()
 }

@@ -17,8 +17,8 @@ public class StudentTitleAdapter extends BaseQuickAdapter<FreshNewsBean.PostsBea
     private Context mContext;
 
     public StudentTitleAdapter(Context context, @Nullable List<FreshNewsBean.PostsBean> data) {
-//        super(R.layout.item_freshnews, data);
-        super(R.layout.ms_student_choose_title);
+        super(R.layout.item_freshnews, data);
+//        super(R.layout.ms_student_choose_title,data);
         this.mContext = context;
     }
 

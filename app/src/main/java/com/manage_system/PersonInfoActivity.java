@@ -9,9 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.manage_system.component.ApplicationComponent;
+import com.manage_system.ui.base.AlertDialog;
+import com.manage_system.ui.base.BaseActivity;
 import com.manage_system.ui.base.TextClearSuit;
 
-public class PersonInfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class PersonInfoActivity extends AppCompatActivity implements View.OnClickListener, AlertDialog.OnDialogButtonClickListener {
 
 	private ImageView ivEmailClear,ivBindPhoneClear,ivPhoneClear;
 	private EditText person_email,person_bind_phone,person_phone;
@@ -53,12 +56,13 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 		ivBindPhoneClear.setOnClickListener(this);
 		ivPhoneClear.setOnClickListener(this);
 	}
-
+	private Context context;
 	public void onClick(View v) {//直接调用不会显示v被点击效果
 		switch (v.getId()) {
 			case R.id.ivEmailClear:
 				//清空邮箱按钮点击监听
-				new TextClearSuit().addClearListener(person_email, ivEmailClear);
+				new AlertDialog(context, "退出登录", "确定退出登录？", true, 0, this).show();
+//				new TextClearSuit().addClearListener(person_email, ivEmailClear);
 				break;
 			case R.id.ivBindPhoneClear:
 				//清空绑定手机按钮点击监听
@@ -78,4 +82,23 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 	public void onViewClicked() {
 		finish();
 	}
+
+	@Override
+	public void onDialogButtonClick(int requestCode, boolean isPositive) {
+		if (! isPositive) {
+			return;
+		}
+		switch (requestCode) {
+			case 0:
+//				logout();
+				break;
+			default:
+				break;
+		}
+	}
+
+//	private void logout() {
+//		context.finish();
+//	}
+
 }
