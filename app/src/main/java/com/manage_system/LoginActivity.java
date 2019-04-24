@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.manage_system.ui.personal.FindPasswordActivity;
+import com.manage_system.ui.personal.HelpActivity;
 import com.manage_system.utils.MD5Utils;
 import com.manage_system.utils.OkManager;
 

@@ -1,4 +1,4 @@
-package com.manage_system;
+package com.manage_system.ui.personal;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.manage_system.R;
 
 public class EditPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 

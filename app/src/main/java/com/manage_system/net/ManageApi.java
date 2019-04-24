@@ -11,13 +11,19 @@ import java.lang.annotation.RetentionPolicy;
 
 import io.reactivex.Observable;
 
+
+/**
+ * desc: .
+ * author: Will .
+ * date: 2017/9/27 .
+ */
 public class ManageApi {
 
     public static final String TYPE_FRESH = "get_recent_posts";
     public static final String TYPE_FRESHARTICLE = "get_post";
-    public static final String TYPE_BORED = "browse.get_pic_comments";
-    public static final String TYPE_GIRLS = "browse.get_ooxx_comments";
-    public static final String TYPE_Duan = "browse.get_duan_comments";
+    public static final String TYPE_BORED = "jandan.get_pic_comments";
+    public static final String TYPE_GIRLS = "jandan.get_ooxx_comments";
+    public static final String TYPE_Duan = "jandan.get_duan_comments";
 
     @StringDef({TYPE_FRESH, TYPE_BORED, TYPE_GIRLS, TYPE_Duan})
     @Retention(RetentionPolicy.SOURCE)
@@ -29,13 +35,13 @@ public class ManageApi {
 
     private ManageApiService mService;
 
-    public ManageApi(ManageApiService manageApiService) {
-        this.mService = manageApiService;
+    public ManageApi(ManageApiService janDanApiService) {
+        this.mService = janDanApiService;
     }
 
-    public static ManageApi getInstance(ManageApiService manageApiService) {
+    public static ManageApi getInstance(ManageApiService janDanApiService) {
         if (sInstance == null)
-            sInstance = new ManageApi(manageApiService);
+            sInstance = new ManageApi(janDanApiService);
         return sInstance;
     }
 

@@ -1,6 +1,5 @@
 package com.manage_system;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,8 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.manage_system.component.ApplicationComponent;
-import com.manage_system.ui.base.BaseActivity;
+import com.manage_system.ui.personal.HelpActivity;
 import com.manage_system.utils.TimeCountUtil;
 
 import cn.smssdk.EventHandler;

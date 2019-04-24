@@ -1,4 +1,4 @@
-package com.manage_system;
+package com.manage_system.ui.personal;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.manage_system.component.ApplicationComponent;
+import com.manage_system.R;
 import com.manage_system.ui.base.AlertDialog;
-import com.manage_system.ui.base.BaseActivity;
 import com.manage_system.ui.base.TextClearSuit;
 
 public class PersonInfoActivity extends AppCompatActivity implements View.OnClickListener, AlertDialog.OnDialogButtonClickListener {

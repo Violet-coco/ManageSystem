@@ -29,11 +29,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * desc: 新闻页面 .
- * author: Will .
- * date: 2017/9/7 .
- */
 public class IndexFragment extends BaseFragment<NewsPresenter> implements NewsContract.View {
 
     private static final String TAG = "IndexFragment";

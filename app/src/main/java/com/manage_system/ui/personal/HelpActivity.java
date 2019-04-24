@@ -1,8 +1,10 @@
-package com.manage_system;
+package com.manage_system.ui.personal;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
+
+import com.manage_system.R;
 
 public class HelpActivity extends Activity {
 

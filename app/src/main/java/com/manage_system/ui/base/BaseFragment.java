@@ -321,10 +321,10 @@ public abstract class BaseFragment<T1 extends BaseContract.BasePresenter> extend
      */
     public void showShortToast(String string) {
         Log.w(TAG,"isAlive()====="+isAlive());
-        if (isAlive() == false) {
-            Log.w(TAG, "showProgressDialog  isAlive() == false >> return;");
-            return;
-        }
+//        if (isAlive() == false) {
+//            Log.w(TAG, "showProgressDialog  isAlive() == false >> return;");
+//            return;
+//        }
         context.showShortToast(string);
     }
     /**快捷显示short toast方法，需要long toast就用 Toast.makeText(string, Toast.LENGTH_LONG).show(); ---不常用所以这个类里不写

@@ -1,7 +1,9 @@
-package com.manage_system;
+package com.manage_system.ui.personal;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.manage_system.R;
 
 public class FindPasswordActivity extends Activity {
 

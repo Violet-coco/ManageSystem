@@ -2,11 +2,11 @@ package com.manage_system.ui.personal;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,23 +20,20 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.manage_system.BuildConfig;
-import com.manage_system.EditPasswordActivity;
-import com.manage_system.PersonInfoActivity;
 import com.manage_system.R;
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.test.ClipImageActivity;
 import com.manage_system.test.util.FileUtil;
 import com.manage_system.test.view.CircleImageView;
-import com.manage_system.ui.base.AlertDialog;
-import com.manage_system.ui.base.AlertDialog.OnDialogButtonClickListener;
 import com.manage_system.ui.base.BaseFragment;
 
 import java.io.File;
@@ -46,7 +43,7 @@ import butterknife.OnClick;
 
 import static com.manage_system.test.util.FileUtil.getRealFilePathFromUri;
 
-public class PersonalFragment extends BaseFragment implements View.OnClickListener, OnDialogButtonClickListener {
+public class PersonalFragment extends BaseFragment implements View.OnClickListener{
     @BindView(R.id.person_icon)
     ImageView personIcon;
     @BindView(R.id.person_info)
@@ -99,24 +96,52 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     }
 
+    public void showDialog(){
+        final Dialog dialog = new Dialog(getActivity(), R.style.MyDialog);
+        //设置它的ContentView
+        dialog.setContentView(R.layout.alert_dialog);
+        ((TextView)dialog.findViewById(R.id.tvAlertDialogTitle)).setText("退出登录");
+        ((TextView)dialog.findViewById(R.id.tvAlertDialogMessage)).setText("确定退出登录？");
+        dialog.show();
 
-    @Override
-    public void onDialogButtonClick(int requestCode, boolean isPositive) {
-        if (! isPositive) {
-            return;
-        }
-        switch (requestCode) {
-            case 0:
-//                logout();
-                break;
-            default:
-                break;
-        }
+        Button confirm = (Button)dialog.findViewById(R.id.btnAlertDialogPositive);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Toast.makeText(getActivity(), "退出成功", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
+                System.exit(0);
+            }
+        });
+        Button cancel = (Button) dialog.findViewById(R.id.btnAlertDialogNegative);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                dialog.dismiss();
+            }
+        });
     }
 
-//    private void logout() {
-//        context.finish();
+
+//    @Override
+//    public void onDialogButtonClick(int requestCode, boolean isPositive) {
+//        if (! isPositive) {
+//            return;
+//        }
+//        switch (requestCode) {
+//            case 0:
+//                logout();
+//                break;
+//            default:
+//                break;
+//        }
 //    }
+
+    private void logout() {
+        context.finish();
+    }
 
     private static final String TAG = "个人页面";
 
@@ -141,7 +166,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.person_exit:
                 Log.w(TAG,"点击了");
-                new AlertDialog(context, "退出登录", "确定退出登录？", true, 0, this).show();
+                showDialog();
+//                new AlertDialog(context, "退出登录", "确定退出登录？", true, 0, this).show();
                 break;
             default:
                 break;

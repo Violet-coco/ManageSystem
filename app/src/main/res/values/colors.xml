@@ -8,6 +8,10 @@
     <color name="xblue">#5B9CFE</color>
     <color name="xxblue">#2C81FF</color>
 
+    <color name="ind_red">#B30E17</color>
+    <color name="blue_light">#00C0E4</color>
+    <color name="material_orange">#ffEF6C00</color>
+
     <color name="tab_unselect">#a3a3a3</color>
     <color name="news_tv_source_color">#a3a3a3</color>
     <color name="activity_bg">#f7f8f8</color>

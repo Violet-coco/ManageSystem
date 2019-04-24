@@ -19,6 +19,11 @@
         <!--<item name="android:windowIsTranslucent">true</item>-->
     </style>
 
+    <style name="TabStyle" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="topbar_bg">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:gravity">center_vertical</item>

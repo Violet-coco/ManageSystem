@@ -9,7 +9,7 @@ public class ApiConstants {
 
     public static final String sIFengApi = "http://api.iclient.ifeng.com/";
 
-    public static final String sJanDanApi = "http://i.browse.net/";
+    public static final String sJanDanApi = "http://i.jandan.net/";
 
     public static final String sGetNewsImagesApi = "NewRelativeVideoList";
 
