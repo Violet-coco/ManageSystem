@@ -33,7 +33,7 @@ public class LoginByPhoneActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_phone);
+        setContentView(R.layout.ms_login_phone);
         getId();
         //这里的倒计时的时间 是 ：用第二参数 / 第三个三参数 = 倒计时为60秒
         mTimeCountUtil = new TimeCountUtil(btn_checkCode, 60000, 1000);
