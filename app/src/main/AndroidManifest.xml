@@ -146,6 +146,31 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name="com.manage_system.test.MainActivity1" />
         <activity android:name="com.manage_system.test.ClipImageActivity"/>
+
+        <!--学生选题-->
+        <activity android:name="com.manage_system.ui.manage.activity.StudentChooseTitleActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentChooseDoneTitleActivity"/>
+        <activity android:name="com.manage_system.ui.personal.GuideTeacherInfoActivity"/>
+
+        <!--学生过程文档-->
+        <activity android:name="com.manage_system.ui.manage.activity.StudentGraduationThesisActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentLiteratureReviewActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentForeignTranslationActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentGuideReportActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentMiddleCheckActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentOpenReportActivity"/>
+
+        <activity android:name="com.manage_system.ui.manage.activity.StudentLiteratureReviewEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentForeignTranslationEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentGuideReportEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentMiddleCheckEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentOpenReportEditActivity"/>
+
+        <!--学生答辩管理-->
+        <activity android:name="com.manage_system.ui.manage.activity.StudentReplyRecordEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentReplyRecordActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentReplyGradeActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentReplyPlanActivity"/>
     </application>
 
 </manifest>

@@ -604,7 +604,7 @@
     </style>
 
     <style name="edit_item_ms_grade" parent="edit_item_left_tv">
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">@dimen/item_left_tv_padding</item>
         <item name="android:paddingTop">@dimen/item_left_tv_padding</item>
         <item name="android:paddingBottom">@dimen/item_left_tv_padding</item>
@@ -629,7 +629,7 @@
     </style>
 
     <style name="edit_item_ms_grade_con" parent="edit_item_right_et_child">
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">@dimen/item_left_tv_padding</item>
         <item name="android:paddingTop">@dimen/item_left_tv_padding</item>
         <item name="android:paddingBottom">@dimen/item_left_tv_padding</item>

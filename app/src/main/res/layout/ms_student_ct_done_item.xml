@@ -91,8 +91,10 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
+                    android:id="@+id/ct_teacher"
                     android:editable="false"
                     android:layout_below="@+id/ct_teacher_title"
+                    android:textColor="@color/blue_light"
                     android:text="2019-01-05 17:47:28" />
 
             </RelativeLayout>

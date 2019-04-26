@@ -92,7 +92,9 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ct_teacher"
                     android:layout_below="@+id/ct_teacher_title"
+                    android:textColor="@color/blue_light"
                     android:text="2019-01-05 17:47:28" />
 
             </RelativeLayout>
@@ -122,7 +124,7 @@
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/reply_record_edit"
+                    android:id="@+id/ct_is_choose"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"

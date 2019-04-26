@@ -12,7 +12,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="文献综述" />
+            android:text="修改文献综述" />
 
     </RelativeLayout>
 
@@ -50,24 +50,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_edit"
                     android:id="@+id/tvUserTag"
-                    android:editable="false"
                     android:layout_below="@+id/litreview_con_title" />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/litreview_comment_title"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="批注内容" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_edit"
-                    android:editable="false"
-                    android:layout_below="@+id/litreview_comment_title" />
 
             </RelativeLayout>
 
@@ -95,7 +78,7 @@
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/lite_review_edit"
+                    android:id="@+id/middle_check_edit"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"
@@ -103,7 +86,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/login_button_selector"
-                    android:text="修　改"
+                    android:text="确　定"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
             </LinearLayout>

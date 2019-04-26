@@ -128,7 +128,7 @@
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/reply_record_edit"
+                    android:id="@+id/for_tra_edit"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"

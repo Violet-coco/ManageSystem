@@ -165,9 +165,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 startActivity(intent);
                 break;
             case R.id.person_exit:
-                Log.w(TAG,"点击了");
                 showDialog();
-//                new AlertDialog(context, "退出登录", "确定退出登录？", true, 0, this).show();
                 break;
             default:
                 break;

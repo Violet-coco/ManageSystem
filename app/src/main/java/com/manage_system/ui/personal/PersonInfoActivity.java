@@ -60,8 +60,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 		switch (v.getId()) {
 			case R.id.ivEmailClear:
 				//清空邮箱按钮点击监听
-				new AlertDialog(context, "退出登录", "确定退出登录？", true, 0, this).show();
-//				new TextClearSuit().addClearListener(person_email, ivEmailClear);
+				new TextClearSuit().addClearListener(person_email, ivEmailClear);
 				break;
 			case R.id.ivBindPhoneClear:
 				//清空绑定手机按钮点击监听
