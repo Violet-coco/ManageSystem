@@ -4,21 +4,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
 import com.manage_system.ui.personal.FindPasswordActivity;
 import com.manage_system.ui.personal.HelpActivity;
 import com.manage_system.utils.MD5Utils;
 import com.manage_system.utils.OkManager;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,11 +39,14 @@ public class LoginActivity extends AppCompatActivity {
     private String userName,psw,spPsw;
     //编辑框
     private EditText et_user_name,et_psw;
+    //复选框
+    private CheckBox remember_password;
 
     private final static int SUCCESS_SATUS = 1;
     private final static int FAILURE = 0;
-//    private final static String Tag = LoginByPhoneActivity.class.getSimpleName();
     private final static String Tag = "11111111";
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     private OkManager manager;
 
@@ -69,6 +75,8 @@ public class LoginActivity extends AppCompatActivity {
         et_psw=(EditText) findViewById(R.id.et_psw);
         login_by_phone=(TextView) findViewById(R.id.login_by_phone);
         help=(TextView)findViewById(R.id.help);
+        //是否记住密码
+        remember_password = (CheckBox) findViewById(R.id.remember_password);
         //返回键的点击事件
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +102,17 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(intent);
             }
         });
-        //找回密码控件的点击事件
+        //记住密码的点击事件
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isRemember =sharedPreferences.getBoolean("remember_password",false);
+        if(isRemember)
+        {
+            et_user_name.setText(sharedPreferences.getString("et_user_name",""));
+            et_psw.setText(sharedPreferences.getString("et_psw",""));
+            remember_password.setChecked(true);
+        }
+
+        //帮助的点击事件
         help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,67 +125,94 @@ public class LoginActivity extends AppCompatActivity {
         //-----------------------------------------------------------------------------------------
         manager = OkManager.getInstance();
         //-------------------------------------------------------------------------
-        //用于登录请求测试，登录用户名和登录密码应该Server上的对应
+
+        //登录按钮的点击事件
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //开始登录，获取用户名和密码 getText().toString().trim();
+                userName=et_user_name.getText().toString().trim();
+                psw=et_psw.getText().toString().trim();
+
+                //对当前用户输入的密码进行MD5加密再进行比对判断, MD5Utils.md5( ); psw 进行加密判断是否一致
+                String md5Psw= MD5Utils.md5(psw);
+                // md5Psw ; spPsw 为 根据从SharedPreferences中用户名读取密码
+                // 定义方法 readPsw为了读取用户名，得到密码
+                spPsw=readPsw(userName);
+
+                // TextUtils.isEmpty
+                if(TextUtils.isEmpty(userName)){
+                    Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(TextUtils.isEmpty(psw)){
+                    Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if((spPsw!=null&&!TextUtils.isEmpty(spPsw)&&!md5Psw.equals(spPsw))){
+                    Toast.makeText(LoginActivity.this, "输入的用户名和密码不一致", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+//                else{
+//                    Toast.makeText(LoginActivity.this, "此用户名不存在", Toast.LENGTH_SHORT).show();
+//                }
+                // 连接接口
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("id", "3120150905119");
-                map.put("password", "123456");
+                map.put("id", userName);
+                map.put("password", psw);
                 manager.sendComplexForm(login_path, map, new OkManager.Fun4() {
                     @Override
-                    public void onResponse(JSONObject jsonObject) {
+                    public void onResponse(org.json.JSONObject jsonObject) {
                         Log.i(Tag, jsonObject.toString());
+
+                        JSONObject obj = JSON.parseObject(jsonObject.toString());
+                        String msg = obj.getString("msg");
+                        String authority = null;
+                        if(!TextUtils.isEmpty(obj.getString("data")) ){
+                            authority = obj.getJSONObject("data").get("authority").toString();
+                        }
+                        String token = obj.getJSONObject("data").get("jwtToken").toString();
+                        //保存登录状态，在界面保存登录的用户名 定义个方法 saveLoginStatus boolean 状态 , userName 用户名;
+                        saveLoginStatus(true, userName,authority,token);
+                        //一致登录成功
+                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        //登录成功后关闭此页面进入主页
+                        Intent data=new Intent();
+                        //datad.putExtra( ); name , value ;
+                        data.putExtra("isLogin",true);
+                        //RESULT_OK为Activity系统常量，状态码为-1
+                        // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
+                        setResult(RESULT_OK,data);
+                        // md5Psw.equals(); 判断，输入的密码加密后，是否与保存在SharedPreferences中一致
+                        if(obj.get("statusCode").equals(100)|| MD5Utils.md5(psw).equals(spPsw)){
+                            if(authority.equals("1")){
+                                Log.i(Tag, msg);
+                                editor=sharedPreferences.edit();
+                                if(remember_password.isChecked())
+                                {
+                                    editor.putString("et_user_name",userName);
+                                    editor.putString("et_psw",psw);
+                                    editor.putBoolean("remember_password",true);
+                                }
+                                else {
+                                    editor.clear();
+                                }
+                                editor.apply();
+
+                                Toast.makeText(LoginActivity.this, "学生界面", Toast.LENGTH_SHORT).show();
+                                //跳转到主界面，登录成功的状态传递到 MainActivity 中
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                //销毁登录界面
+                                finish();
+                            }
+
+                        }else{
+                            Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                 });
             }
         });
-        //登录按钮的点击事件
-//        btn_login.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //开始登录，获取用户名和密码 getText().toString().trim();
-//                userName=et_user_name.getText().toString().trim();
-//                System.out.print(userName);
-//                psw=et_psw.getText().toString().trim();
-//                //对当前用户输入的密码进行MD5加密再进行比对判断, MD5Utils.md5( ); psw 进行加密判断是否一致
-//                String md5Psw= MD5Utils.md5(psw);
-//                // md5Psw ; spPsw 为 根据从SharedPreferences中用户名读取密码
-//                // 定义方法 readPsw为了读取用户名，得到密码
-//                spPsw=readPsw(userName);
-//                // TextUtils.isEmpty
-//                if(TextUtils.isEmpty(userName)){
-//                    Toast.makeText(LoginActivity.this, "请输入账号", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }else if(TextUtils.isEmpty(psw)){
-//                    Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
-//                    return;
-//                    // md5Psw.equals(); 判断，输入的密码加密后，是否与保存在SharedPreferences中一致
-//                }else if(md5Psw.equals(spPsw)){
-//                    //一致登录成功
-//                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-//                    //保存登录状态，在界面保存登录的用户名 定义个方法 saveLoginStatus boolean 状态 , userName 用户名;
-//                    saveLoginStatus(true, userName);
-//                    //登录成功后关闭此页面进入主页
-//                    Intent data=new Intent();
-//                    //datad.putExtra( ); name , value ;
-//                    data.putExtra("isLogin",true);
-//                    //RESULT_OK为Activity系统常量，状态码为-1
-//                    // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
-//                    setResult(RESULT_OK,data);
-//                    //销毁登录界面
-//                    LoginActivity.this.finish();
-//                    //跳转到主界面，登录成功的状态传递到 LoginByPhoneActivity 中
-//                    startActivity(new Intent(LoginActivity.this, LoginByPhoneActivity.class));
-//                    return;
-//                }else if((spPsw!=null&&!TextUtils.isEmpty(spPsw)&&!md5Psw.equals(spPsw))){
-//                    Toast.makeText(LoginActivity.this, "输入的用户名和密码不一致", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }else{
-//                    Toast.makeText(LoginActivity.this, "此用户名不存在", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
     }
     /**
      *从SharedPreferences中根据用户名读取密码
@@ -182,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      *保存登录状态和登录用户名到SharedPreferences中
      */
-    private void saveLoginStatus(boolean status,String userName){
+    private void saveLoginStatus(boolean status,String userName,String authority,String token){
         //saveLoginStatus(true, userName);
         //loginInfo表示文件名  SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
         SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
@@ -192,15 +237,14 @@ public class LoginActivity extends AppCompatActivity {
         editor.putBoolean("isLogin", status);
         //存入登录状态时的用户名
         editor.putString("loginUserName", userName);
+        //存入用户身份
+        editor.putString("authority", authority);
+        //存入token
+        editor.putString("token", token);
         //提交修改
         editor.commit();
     }
-    /**
-     * 注册成功的数据返回至此
-     * @param requestCode 请求码
-     * @param resultCode 结果码
-     * @param data 数据
-     */
+
     @Override
     //显示数据， onActivityResult
     //startActivityForResult(intent, 1); 从注册界面中获取数据

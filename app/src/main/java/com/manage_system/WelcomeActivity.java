@@ -1,7 +1,9 @@
 package com.manage_system;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -103,8 +105,14 @@ public class WelcomeActivity extends BaseActivity {
         if (mCompositeDisposable != null) {
             mCompositeDisposable.dispose();
         }
+
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
         Intent intent = new Intent();
-        intent.setClass(WelcomeActivity.this, MainActivity.class);
+        if(!sp.getString("token" , "").isEmpty()) {
+            intent.setClass(WelcomeActivity.this, MainActivity.class);
+        }else {
+            intent.setClass(WelcomeActivity.this, LoginActivity.class);
+        }
         startActivity(intent);
         finish();
     }

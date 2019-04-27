@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -41,6 +42,7 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.manage_system.test.util.FileUtil.getRealFilePathFromUri;
 
 public class PersonalFragment extends BaseFragment implements View.OnClickListener{
@@ -110,6 +112,13 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
             public void onClick(View v) {
                 dialog.dismiss();
                 Toast.makeText(getActivity(), "退出成功", Toast.LENGTH_SHORT).show();
+                SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+                //获取编辑器
+                SharedPreferences.Editor editor=sp.edit();
+                //修改token
+                editor.putString("token", null);
+                //提交修改
+                editor.commit();
                 getActivity().finish();
                 System.exit(0);
             }

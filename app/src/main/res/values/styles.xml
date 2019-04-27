@@ -339,7 +339,7 @@
     </style>
 
     <style name="ll_vertical_match_match_bg" parent="ll_vertical_match_match">
-        <item name="android:background">@color/green</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
     <style name="ll_vertical_wrap_match" parent="wrap_match">
