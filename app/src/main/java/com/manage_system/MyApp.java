@@ -1,6 +1,8 @@
 package com.manage_system;
 
 
+import android.content.Context;
+
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.component.DaggerApplicationComponent;
 import com.manage_system.module.ApplicationModule;
@@ -13,11 +15,6 @@ import org.litepal.LitePalApplication;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/2 .
- */
 public class MyApp extends LitePalApplication implements com.mob.tools.proguard.ProtectedMemberKeeper {
 
     private ApplicationComponent mApplicationComponent;
@@ -27,11 +24,13 @@ public class MyApp extends LitePalApplication implements com.mob.tools.proguard.
     public static int width = 0;
 
     public static int height = 0;
+    private static Context context;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+        MyApp.context = getApplicationContext();
         sMyApp = this;
         BGASwipeBackManager.getInstance().init(this);
         mApplicationComponent = DaggerApplicationComponent.builder()
@@ -51,6 +50,10 @@ public class MyApp extends LitePalApplication implements com.mob.tools.proguard.
 
     public ApplicationComponent getApplicationComponent() {
         return mApplicationComponent;
+    }
+
+    public static Context getAppContext() {
+        return MyApp.context;
     }
 
 }

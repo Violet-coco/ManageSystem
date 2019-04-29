@@ -29,12 +29,12 @@
 
                 <TextView
                     style="@style/topbar_name"
+                    android:id="@+id/person_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/person_icon"
                     android:layout_alignParentBottom="true"
-                    android:padding="15dp"
-                    android:text="流萤梦" />
+                    android:padding="15dp" />
             </LinearLayout>
 
             <View

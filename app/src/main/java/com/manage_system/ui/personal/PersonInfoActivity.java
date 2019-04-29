@@ -10,15 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.manage_system.R;
 import com.manage_system.ui.base.AlertDialog;
 import com.manage_system.ui.base.TextClearSuit;
 
-public class PersonInfoActivity extends AppCompatActivity implements View.OnClickListener, AlertDialog.OnDialogButtonClickListener {
+public class PersonInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
 	private ImageView ivEmailClear,ivBindPhoneClear,ivPhoneClear;
 	private EditText person_email,person_bind_phone,person_phone;
+	private EditText person_name,person_id,person_college,person_department,person_major,person_class,person_sex;
 	private ImageButton iv_back;
 
 	@Override
@@ -42,20 +44,41 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 	private void getId()
 	{
 		ivEmailClear = (ImageView)findViewById(R.id.ivEmailClear);
-		person_email = (EditText)findViewById(R.id.person_email);
 
 		ivBindPhoneClear = (ImageView)findViewById(R.id.ivBindPhoneClear);
-		person_bind_phone = (EditText)findViewById(R.id.person_bind_phone);
 
 		ivPhoneClear = (ImageView)findViewById(R.id.ivPhoneClear);
-		person_phone = (EditText)findViewById(R.id.person_phone);
 
 		iv_back = (ImageButton)findViewById(R.id.iv_back);
+
 		iv_back.setOnClickListener(this);
 
 		ivEmailClear.setOnClickListener(this);
 		ivBindPhoneClear.setOnClickListener(this);
 		ivPhoneClear.setOnClickListener(this);
+
+		person_name = (EditText)findViewById(R.id.person_name);
+		person_id = (EditText)findViewById(R.id.person_id);
+		person_college = (EditText)findViewById(R.id.person_college);
+		person_department = (EditText)findViewById(R.id.person_department);
+		person_major = (EditText)findViewById(R.id.person_major);
+		person_class = (EditText)findViewById(R.id.person_class);
+		person_sex = (EditText)findViewById(R.id.person_sex);
+		person_email = (EditText)findViewById(R.id.person_email);
+		person_bind_phone = (EditText)findViewById(R.id.person_bind_phone);
+		person_phone = (EditText)findViewById(R.id.person_phone);
+
+		SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
+		person_name.setText(sp.getString("name" , ""));
+		person_id.setText(sp.getString("identifier" , ""));
+		person_college.setText(sp.getString("college" , ""));
+		person_department.setText(sp.getString("department" , ""));
+		person_major.setText(sp.getString("major" , ""));
+		person_class.setText(sp.getString("grade" , "")+"级-"+sp.getString("classNo" , "")+"班");
+		person_sex.setText(sp.getString("sex" , ""));
+		person_phone.setText(sp.getString("contactTel" , ""));
+		person_bind_phone.setText(sp.getString("bindTel" , ""));
+		person_email.setText(sp.getString("email" , ""));
 	}
 	private Context context;
 	public void onClick(View v) {//直接调用不会显示v被点击效果
@@ -82,23 +105,5 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 	public void onViewClicked() {
 		finish();
 	}
-
-	@Override
-	public void onDialogButtonClick(int requestCode, boolean isPositive) {
-		if (! isPositive) {
-			return;
-		}
-		switch (requestCode) {
-			case 0:
-//				logout();
-				break;
-			default:
-				break;
-		}
-	}
-
-//	private void logout() {
-//		context.finish();
-//	}
 
 }

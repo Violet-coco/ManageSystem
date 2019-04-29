@@ -13,9 +13,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -91,11 +93,11 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     }
 
-
-
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
-
+        TextView tv=(TextView) view.findViewById(R.id.person_name);
+        SharedPreferences sp=getActivity().getSharedPreferences("personInfo", MODE_PRIVATE);
+        tv.setText(sp.getString("name" , ""));
     }
 
     public void showDialog(){
@@ -117,8 +119,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 SharedPreferences.Editor editor=sp.edit();
                 //修改token
                 editor.putString("token", null);
+//                editor.clear();
                 //提交修改
                 editor.commit();
+//                editor.apply();
                 getActivity().finish();
                 System.exit(0);
             }
@@ -132,21 +136,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
             }
         });
     }
-
-
-//    @Override
-//    public void onDialogButtonClick(int requestCode, boolean isPositive) {
-//        if (! isPositive) {
-//            return;
-//        }
-//        switch (requestCode) {
-//            case 0:
-//                logout();
-//                break;
-//            default:
-//                break;
-//        }
-//    }
 
     private void logout() {
         context.finish();
@@ -166,14 +155,17 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 uploadHeadImage();
                 break;
             case R.id.person_info:
+                Log.w(TAG,"点击1");
                 intent.setClass(this.getActivity(), PersonInfoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.person_edit_password:
+                Log.w(TAG,"点击2");
                 intent.setClass(this.getActivity(), EditPasswordActivity.class);
                 startActivity(intent);
                 break;
             case R.id.person_exit:
+                Log.w(TAG,"点击3");
                 showDialog();
                 break;
             default:

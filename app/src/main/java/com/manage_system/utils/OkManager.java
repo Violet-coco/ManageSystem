@@ -1,9 +1,12 @@
 package com.manage_system.utils;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Looper;
+
+import com.manage_system.MyApp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +22,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * 封装工具类
@@ -278,7 +283,9 @@ public class OkManager {
         //声明一个请求对象体
         RequestBody request_body = form_builder.build();
         //采用post的方式进行提交
-        Request request = new Request.Builder().url(url).post(request_body).build();
+        SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("loginInfo", MODE_PRIVATE);
+
+        Request request = new Request.Builder().header("token",sp.getString("token" , "")).url(url).post(request_body).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

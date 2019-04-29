@@ -48,7 +48,6 @@
                     android:layout_weight="1"
                     android:maxLength="90"
                     android:editable="false"
-                    android:text="流萤梦"
                     />
 
             </LinearLayout>
@@ -65,7 +64,6 @@
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"
                     android:maxLength="90"
-                    android:text="3120150905115"
                     android:editable="false"
                     />
 
@@ -87,11 +85,11 @@
                     android:text="学院" />
 
                 <EditText
-                    android:id="@+id/tvUserTag"
+                    android:id="@+id/person_college"
                     style="@style/edit_item_right_et_child"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:text="计算机学院" />
+                     />
 
             </LinearLayout>
 
@@ -105,9 +103,9 @@
 
                 <EditText
                     style="@style/edit_item_right_et_child"
+                    android:id="@+id/person_department"
                     android:layout_weight="1"
-                    android:editable="false"
-                    android:text="软件工程" />
+                    android:editable="false" />
 
             </LinearLayout>
 
@@ -121,9 +119,10 @@
 
                 <EditText
                     style="@style/edit_item_right_et_child"
+                    android:id="@+id/person_major"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:text="软件工程" />
+                     />
 
             </LinearLayout>
 
@@ -137,9 +136,10 @@
 
                 <EditText
                     style="@style/edit_item_right_et_child"
+                    android:id="@+id/person_class"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:text="2015级 - 1班" />
+                    />
 
             </LinearLayout>
 
@@ -153,9 +153,10 @@
 
                 <EditText
                     style="@style/edit_item_right_et_child"
+                    android:id="@+id/person_sex"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:text="女" />
+                     />
 
             </LinearLayout>
 
@@ -172,7 +173,7 @@
                     style="@style/edit_item_right_et_child"
                     android:layout_weight="1"
                     android:hint="请输入邮箱"
-                    android:text="18227217142@163.com" />
+                    />
 
                 <ImageView
                     android:id="@+id/ivEmailClear"
@@ -193,7 +194,7 @@
                     style="@style/edit_item_right_et_child"
                     android:layout_weight="1"
                     android:hint="请输入手机号"
-                    android:text="18227217142" />
+                     />
 
                 <ImageView
                     android:id="@+id/ivBindPhoneClear"
@@ -214,7 +215,7 @@
                     style="@style/edit_item_right_et_child"
                     android:layout_weight="1"
                     android:hint="请输入手机号"
-                    android:text="18227217142" />
+                     />
 
                 <ImageView
                     android:id="@+id/ivPhoneClear"

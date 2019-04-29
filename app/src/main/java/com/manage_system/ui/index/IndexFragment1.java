@@ -29,9 +29,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class IndexFragment extends BaseFragment<NewsPresenter> implements NewsContract.View {
+public class IndexFragment1 extends BaseFragment<NewsPresenter> implements NewsContract.View {
 
-    private static final String TAG = "IndexFragment";
+    private static final String TAG = "IndexFragment1";
 
     @BindView(R.id.viewpager)
     CustomViewPager mViewpager;
@@ -48,9 +48,9 @@ public class IndexFragment extends BaseFragment<NewsPresenter> implements NewsCo
     private int selectedIndex;
     private String selectedChannel;
 
-    public static IndexFragment newInstance() {
+    public static IndexFragment1 newInstance() {
         Bundle args = new Bundle();
-        IndexFragment fragment = new IndexFragment();
+        IndexFragment1 fragment = new IndexFragment1();
         fragment.setArguments(args);
         return fragment;
     }

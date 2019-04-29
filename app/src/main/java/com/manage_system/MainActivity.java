@@ -1,19 +1,30 @@
 package com.manage_system;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.ui.base.BaseActivity;
 import com.manage_system.ui.base.SupportFragment;
-import com.manage_system.ui.browse.BrowseFragment;
-import com.manage_system.ui.index.IndexFragment;
+import com.manage_system.ui.browse.BrowseFragment1;
+import com.manage_system.ui.browse.fragment.BrowseFragment;
+import com.manage_system.ui.index.IndexFragment1;
+import com.manage_system.ui.index.fragment.IndexFragment;
 import com.manage_system.ui.manage.fragment.ManageFragment;
 import com.manage_system.ui.personal.PersonalFragment;
+import com.manage_system.utils.OkManager;
 import com.manage_system.utils.StatusBarUtil;
 import com.manage_system.widget.BottomBar;
 import com.manage_system.widget.BottomBarTab;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -25,6 +36,10 @@ public class MainActivity extends BaseActivity {
     FrameLayout mContentContainer;
     @BindView(R.id.bottomBar)
     BottomBar mBottomBar;
+
+    private OkManager manager;
+    //登录验证请求
+    private String login_path="http://www.yuanbw.cn:20086/gpms/rol/showRoleInfo";
 
     private SupportFragment[] mFragments = new SupportFragment[4];
 
@@ -74,6 +89,42 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onTabSelected(int position, int prePosition) {
                 getSupportDelegate().showHideFragment(mFragments[position], mFragments[prePosition]);
+                Log.w(TAG,position+"位置");
+                if(position == 3){
+                    // 连接接口
+                    manager = OkManager.getInstance();
+                    Map<String, String> map = new HashMap<String, String>();
+                    manager.sendComplexForm(login_path, map, new OkManager.Fun4() {
+                        @Override
+                        public void onResponse(org.json.JSONObject jsonObject) {
+                            JSONObject obj = JSON.parseObject(jsonObject.toString());
+                            Log.w(TAG,obj.toString());
+                            SharedPreferences sp1=getSharedPreferences("loginInfo", MODE_PRIVATE);
+                            Log.w(TAG,sp1.getString("token",""));
+                            if(obj.get("statusCode").equals(102)){
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }else {
+                                SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
+                                //获取编辑器
+                                SharedPreferences.Editor editor=sp.edit();
+                                editor.putString("identifier",obj.getJSONObject("data").getString("identifier"));
+                                editor.putString("name", obj.getJSONObject("data").getString("name"));
+                                editor.putString("college", obj.getJSONObject("data").getString("college"));
+                                editor.putString("sex", obj.getJSONObject("data").getString("sex"));
+                                editor.putString("contactTel", obj.getJSONObject("data").getString("contactTel"));
+                                editor.putString("bindTel", obj.getJSONObject("data").getString("bindTel"));
+                                editor.putString("major", obj.getJSONObject("data").getString("major"));
+                                editor.putString("grade", obj.getJSONObject("data").getString("grade"));
+                                editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
+                                editor.putString("department", obj.getJSONObject("data").getString("department"));
+                                editor.putString("email", obj.getJSONObject("data").getString("email"));
+                                //提交修改
+                                editor.commit();
+                            }
+                        }
+                    });
+                }
             }
 
             @Override

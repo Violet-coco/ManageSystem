@@ -20,8 +20,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class BrowseFragment extends BaseFragment<VideoPresenter> implements VideoContract.View {
-    private static final String TAG = "BrowseFragment";
+public class BrowseFragment1 extends BaseFragment<VideoPresenter> implements VideoContract.View {
+    private static final String TAG = "BrowseFragment1";
     @BindView(R.id.tablayout)
     TabLayout mTablayout;
     @BindView(R.id.viewpager)
@@ -29,9 +29,9 @@ public class BrowseFragment extends BaseFragment<VideoPresenter> implements Vide
     private VideoPagerAdapter mVideoPagerAdapter;
 
 
-    public static BrowseFragment newInstance() {
+    public static BrowseFragment1 newInstance() {
         Bundle args = new Bundle();
-        BrowseFragment fragment = new BrowseFragment();
+        BrowseFragment1 fragment = new BrowseFragment1();
         fragment.setArguments(args);
         return fragment;
     }

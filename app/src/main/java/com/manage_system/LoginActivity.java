@@ -130,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.w(Tag,"点击登录");
 
                 //开始登录，获取用户名和密码 getText().toString().trim();
                 userName=et_user_name.getText().toString().trim();
@@ -155,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
 //                else{
 //                    Toast.makeText(LoginActivity.this, "此用户名不存在", Toast.LENGTH_SHORT).show();
 //                }
+
                 // 连接接口
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("id", userName);
@@ -163,7 +165,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(org.json.JSONObject jsonObject) {
                         Log.i(Tag, jsonObject.toString());
-
                         JSONObject obj = JSON.parseObject(jsonObject.toString());
                         String msg = obj.getString("msg");
                         String authority = null;
@@ -171,6 +172,7 @@ public class LoginActivity extends AppCompatActivity {
                             authority = obj.getJSONObject("data").get("authority").toString();
                         }
                         String token = obj.getJSONObject("data").get("jwtToken").toString();
+                        Log.w(Tag,"token");
                         //保存登录状态，在界面保存登录的用户名 定义个方法 saveLoginStatus boolean 状态 , userName 用户名;
                         saveLoginStatus(true, userName,authority,token);
                         //一致登录成功
@@ -198,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 editor.apply();
 
-                                Toast.makeText(LoginActivity.this, "学生界面", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                                 //跳转到主界面，登录成功的状态传递到 MainActivity 中
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 //销毁登录界面
