@@ -13,28 +13,44 @@
             <LinearLayout
                 style="@style/ll_vertical_match_match_bg"
                 android:id="@+id/qqLayout"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="160dp">
 
                 <com.manage_system.test.view.CircleImageView
                     style="@style/topbar_title"
                     android:id="@+id/person_icon"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="@dimen/item_distance"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="45dp"
                     android:src="@drawable/person_icon" />
 
-                <TextView
-                    style="@style/topbar_name"
-                    android:id="@+id/person_name"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/person_icon"
-                    android:layout_alignParentBottom="true"
-                    android:padding="15dp" />
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/topbar_name"
+                        android:id="@+id/person_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/person_icon"
+                        android:paddingLeft="15dp"
+                        android:layout_marginTop="45dp" />
+
+                    <TextView
+                        android:id="@+id/person_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:paddingLeft="15dp"
+                        android:textColor="@android:color/black"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
 
             <View

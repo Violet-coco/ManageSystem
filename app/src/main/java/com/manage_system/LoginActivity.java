@@ -230,7 +230,7 @@ public class LoginActivity extends AppCompatActivity {
                                             public void onResponse(Call call, Response response) throws IOException {
                                                 String responseBody = response.body().string();
                                                 final JSONObject obj = JSON.parseObject(responseBody);
-                                                savePersonStatus( obj.getJSONObject("data").getString("name"));
+                                                savePersonStatus( obj.getJSONObject("data").getString("name"),obj.getJSONObject("data").getString("identifier"));
                                                 Log.e(Tag,obj.toString());
                                                 Log.e(Tag,obj.getJSONObject("data").getString("name"));
                                                 runOnUiThread(new Runnable() {
@@ -411,11 +411,12 @@ public class LoginActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    private void savePersonStatus(String name) {
+    private void savePersonStatus(String name,String id) {
         SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
         //获取编辑器
         SharedPreferences.Editor editor=sp.edit();
         editor.putString("name", name);
+        editor.putString("id", id);
         Log.w(Tag,"名字是"+name);
         //提交修改
         editor.commit();

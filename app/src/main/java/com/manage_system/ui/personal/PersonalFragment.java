@@ -13,11 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,7 +32,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.BuildConfig;
-import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.test.ClipImageActivity;
@@ -98,7 +95,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public int getContentLayout() {
-        return R.layout.fragment_personal;
+        return R.layout.ms_fragment_personal;
     }
 
     @Override
@@ -108,12 +105,14 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
-        TextView tv=(TextView) view.findViewById(R.id.person_name);
+        TextView person_name=(TextView) view.findViewById(R.id.person_name);
+        TextView person_id=(TextView) view.findViewById(R.id.person_id);
         Log.w(TAG,"hhh");
         SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
         Log.w(TAG,sp.getString("token" , ""));
         Log.w(TAG,sp.getString("name" , "")+"啦啦");
-        tv.setText(sp.getString("name" , ""));
+        person_name.setText(sp.getString("name" , ""));
+        person_id.setText(sp.getString("id" , ""));
     }
 
     public void showDialog(){
@@ -253,7 +252,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         final PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
         popupWindow.setOutsideTouchable(true);
-        View parent = LayoutInflater.from(this.getActivity()).inflate(R.layout.fragment_personal, null);
+        View parent = LayoutInflater.from(this.getActivity()).inflate(R.layout.ms_fragment_personal, null);
         person_icon = (CircleImageView) parent.findViewById(R.id.person_icon);
         popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
         //popupWindow在弹窗的时候背景半透明

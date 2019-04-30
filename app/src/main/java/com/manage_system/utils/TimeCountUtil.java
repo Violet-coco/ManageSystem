@@ -5,7 +5,7 @@ import android.os.CountDownTimer;
 import android.widget.Button;
 
 /**
- * Created by kqw on 2018/1/24
+ * Created by Violet-coco
  * TimeCountUtil
  */
 public class TimeCountUtil extends CountDownTimer {
@@ -29,6 +29,7 @@ public class TimeCountUtil extends CountDownTimer {
     public void onFinish() {
         // 按钮设置可用
         mButton.setEnabled(true);
+        mButton.setBackgroundColor(Color.parseColor("#75b6fa"));
         mButton.setText("重新获取验证码");
     }
 }
