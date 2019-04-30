@@ -99,25 +99,7 @@
         <!-- 通过AndroidManifest配置AppKey和AppSecret，如果你选择通过代码配置，则不需要配置以下meta-data -->
         <meta-data android:name="Mob-AppKey" android:value="2ad43f5ed4da8"/>
         <meta-data android:name="Mob-AppSecret" android:value="2ff444b92eaf20a36f7e69fe7003c48e"/>
-        <activity
-            android:name="com.manage_system.ui.index.ArticleReadActivity"
-            android:screenOrientation="portrait"
-            android:hardwareAccelerated="true"
-            android:theme="@style/AppTheme.Transparent"
-            android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
-        <activity
-            android:name="com.manage_system.ui.index.AdvertActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Transparent"
-            android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
-        <activity
-            android:name="com.manage_system.ui.index.ImageBrowseActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Transparent"
-            android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
+
         <activity
             android:name="com.manage_system.ui.manage.ImageBrowseActivity"
             android:screenOrientation="portrait"
@@ -136,6 +118,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.manage_system.ui.personal.EditPasswordActivity" />
+        <activity android:name="com.manage_system.ui.personal.FindPasswordActivity" />
         <activity android:name="com.manage_system.ui.personal.PersonInfoActivity" />
         <activity android:name="com.manage_system.ui.base.BottomMenuWindow" />
 
@@ -167,8 +150,6 @@
         <activity android:name="com.manage_system.ui.manage.activity.StudentOpenReportEditActivity"/>
 
         <!--学生答辩管理-->
-        <activity android:name="com.manage_system.ui.manage.activity.StudentReplyRecordEditActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentReplyRecordActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.StudentReplyGradeActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.StudentReplyPlanActivity"/>
     </application>

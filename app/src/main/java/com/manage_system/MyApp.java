@@ -6,7 +6,6 @@ import android.content.Context;
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.component.DaggerApplicationComponent;
 import com.manage_system.module.ApplicationModule;
-import com.manage_system.module.HttpModule;
 import com.manage_system.utils.ContextUtils;
 import com.mob.MobSDK;
 
@@ -35,7 +34,6 @@ public class MyApp extends LitePalApplication implements com.mob.tools.proguard.
         BGASwipeBackManager.getInstance().init(this);
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                .httpModule(new HttpModule())
                 .build();
         LitePal.initialize(this);
         width = ContextUtils.getSreenWidth(MyApp.getContext());

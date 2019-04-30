@@ -31,18 +31,27 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.manage_system.BuildConfig;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.test.ClipImageActivity;
 import com.manage_system.test.util.FileUtil;
 import com.manage_system.test.view.CircleImageView;
 import com.manage_system.ui.base.BaseFragment;
+import com.manage_system.utils.OkManager;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.manage_system.test.util.FileUtil.getRealFilePathFromUri;
@@ -76,6 +85,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     // 1: qq, 2: weixin
     private int type;
 
+    private OkManager manager;
+    //登录验证请求
+    private String path="http://www.yuanbw.cn:20086/gpms/rol/logout";
+
     public static PersonalFragment newInstance() {
         Bundle args = new Bundle();
         PersonalFragment fragment = new PersonalFragment();
@@ -96,7 +109,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
         TextView tv=(TextView) view.findViewById(R.id.person_name);
-        SharedPreferences sp=getActivity().getSharedPreferences("personInfo", MODE_PRIVATE);
+        Log.w(TAG,"hhh");
+        SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Log.w(TAG,sp.getString("token" , ""));
+        Log.w(TAG,sp.getString("name" , "")+"啦啦");
         tv.setText(sp.getString("name" , ""));
     }
 
@@ -115,14 +131,50 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 dialog.dismiss();
                 Toast.makeText(getActivity(), "退出成功", Toast.LENGTH_SHORT).show();
                 SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+                SharedPreferences sp1=getActivity().getSharedPreferences("personInfo", MODE_PRIVATE);
                 //获取编辑器
                 SharedPreferences.Editor editor=sp.edit();
+                SharedPreferences.Editor editor1=sp1.edit();
                 //修改token
-                editor.putString("token", null);
-//                editor.clear();
+//                editor.putString("token", null);
+                editor.clear();
+                editor1.clear();
                 //提交修改
                 editor.commit();
-//                editor.apply();
+                editor1.commit();
+                // 连接接口
+                manager = OkManager.getInstance();
+                Map<String, String> map = new HashMap<String, String>();
+
+                manager.post(path, map,new okhttp3.Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.e(TAG, "onFailure: ",e);
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String responseBody = response.body().string();
+                        final JSONObject obj = JSON.parseObject(responseBody);
+                        Log.e(TAG,obj.toString());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                            }
+                        });
+
+                    }
+                });
+
+//                manager.sendComplexForm(path, map, new OkManager.Fun4() {
+//                    @Override
+//                    public void onResponse(org.json.JSONObject jsonObject) {
+//                        JSONObject obj = JSON.parseObject(jsonObject.toString());
+//                        Log.w(TAG,obj.toString());
+//                    }
+//                });
+                SharedPreferences sp2=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+                Log.w(TAG,sp2.getString("token","")+"退出");
                 getActivity().finish();
                 System.exit(0);
             }
@@ -148,9 +200,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.person_icon:
-//              ImageUtils.showImagePickDialog(this.getActivity());
-//                intent.setClass(this.getActivity(), MainActivity1.class);
-//                startActivity(intent);
                 type = 1;
                 uploadHeadImage();
                 break;

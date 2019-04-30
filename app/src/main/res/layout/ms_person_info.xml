@@ -16,6 +16,7 @@
 
         <Button
             style="@style/topbar_right_btn"
+            android:id="@+id/person_info_save"
             android:text="保存" />
     </RelativeLayout>
 

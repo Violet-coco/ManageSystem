@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.manage_system.MyApp;
 
@@ -31,8 +32,10 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class OkManager {
     private OkHttpClient client;
-    private volatile static OkManager manager;   //防止多个线程访问时
+//    private volatile static OkManager manager;   //防止多个线程访问时
+    private static OkManager manager;
     private final String TAG = OkManager.class.getSimpleName();  //获得类名
+    private static String Tag = "hhhhhh";
     private Handler handler;
 
     //提交json数据
@@ -271,6 +274,41 @@ public class OkManager {
      * @param param
      * @param callback
      */
+    public void sendByPost(String url, Map<String, String> param, final Fun4 callback) {
+        FormBody.Builder form_builder = new FormBody.Builder();  //表单对象，包含以input开始的对象，模拟一个表单操作，以HTML表单为主
+        //如果键值对不为空，且值不为空
+        if (param != null && !param.isEmpty()) {
+            //循环这个表单，zengqiang for循环
+            for (Map.Entry<String, String> entry : param.entrySet()) {
+                form_builder.add(entry.getKey(), entry.getValue());
+            }
+        }
+        //声明一个请求对象体
+        RequestBody request_body = form_builder.build();
+
+        Request request = new Request.Builder().url(url).post(request_body).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response != null && response.isSuccessful()) {
+                    onSuccessJsonObjectMethod(response.body().string(), callback);
+                }
+            }
+        });
+    }
+
+    /**
+     * 模拟表单的提交
+     *
+     * @param url
+     * @param param
+     * @param callback
+     */
     public void sendComplexForm(String url, Map<String, String> param, final Fun4 callback) {
         FormBody.Builder form_builder = new FormBody.Builder();  //表单对象，包含以input开始的对象，模拟一个表单操作，以HTML表单为主
         //如果键值对不为空，且值不为空
@@ -284,6 +322,7 @@ public class OkManager {
         RequestBody request_body = form_builder.build();
         //采用post的方式进行提交
         SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Log.w(TAG,sp.getString("token" , "")+"哈哈");
 
         Request request = new Request.Builder().header("token",sp.getString("token" , "")).url(url).post(request_body).build();
         client.newCall(request).enqueue(new Callback() {
@@ -324,6 +363,28 @@ public class OkManager {
             }
         });
 
+    }
+
+    public static void post(String url, Map<String,String> map,okhttp3.Callback callback)
+    {
+        OkHttpClient client = new OkHttpClient();
+        FormBody.Builder builder = new FormBody.Builder();
+        SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Log.w(Tag,sp.getString("token" , "")+"哈哈");
+        if (map!=null)
+        {
+            for (Map.Entry<String,String> entry:map.entrySet())
+            {
+                builder.add(entry.getKey(),entry.getValue());
+            }
+        }
+        FormBody body = builder.build();
+        Request request = new Request.Builder()
+                .header("token",sp.getString("token" , ""))
+                .url(url)
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(callback);
     }
 
     //回调

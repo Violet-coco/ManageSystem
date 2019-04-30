@@ -1,13 +1,17 @@
 package com.manage_system.ui.manage.adapter;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.ui.manage.activity.StudentForeignTranslationActivity;
 import com.manage_system.ui.manage.activity.StudentGraduationThesisActivity;
@@ -15,8 +19,19 @@ import com.manage_system.ui.manage.activity.StudentGuideReportActivity;
 import com.manage_system.ui.manage.activity.StudentLiteratureReviewActivity;
 import com.manage_system.ui.manage.activity.StudentMiddleCheckActivity;
 import com.manage_system.ui.manage.activity.StudentOpenReportActivity;
+import com.manage_system.utils.OkManager;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocumentAdapter.AuthorViewHolder> {
+
+    private OkManager manager;
+    //登录验证请求
+    private String path="http://www.yuanbw.cn:20086/gpms/stu/showOpeningReport";
+    private String TAG = "开题报告";
 
     @Override
     public AuthorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,6 +46,17 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
         holder.student_submit_open_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 连接接口
+                manager = OkManager.getInstance();
+                Map<String, String> map = new HashMap<String, String>();
+
+                manager.sendComplexForm(path, map, new OkManager.Fun4() {
+                    @Override
+                    public void onResponse(org.json.JSONObject jsonObject) {
+                        JSONObject obj = JSON.parseObject(jsonObject.toString());
+                        Log.w(TAG,obj.toString());
+                    }
+                });
                 Intent intent=new Intent(v.getContext(),StudentOpenReportActivity.class);
                 v.getContext().startActivity(intent);
             }

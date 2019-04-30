@@ -51,23 +51,6 @@
                         android:text="计算机学院" />
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_below="@+id/final_grade"
-                    style="@style/edit_item" >
-
-                    <TextView
-                        style="@style/edit_item_ms_grade"
-                        android:text="评　　语" />
-
-                    <TextView
-                        style="@style/edit_item_ms_grade_con"
-                        android:layout_weight="1"
-                        android:editable="false"
-                        android:text="计算机学院" />
-
-                </LinearLayout>
-
             </RelativeLayout>
 
             <View style="@style/divider_horizontal_1px" />
@@ -84,23 +67,6 @@
                     android:editable="false"
                     android:layout_below="@+id/annotation_con"
                     android:text="评分 = 毕设/论文材料*30% + 答辩*30% + 系统*40%" />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/annex"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="学生评分权重信息" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_content"
-                    android:layout_below="@+id/annex"
-                    android:editable="false"
-                    android:text="评分 = 90*30% + 90*30% + 90*40%" />
 
             </RelativeLayout>
 

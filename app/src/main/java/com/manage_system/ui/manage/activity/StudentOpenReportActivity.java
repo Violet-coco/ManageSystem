@@ -1,19 +1,21 @@
 package com.manage_system.ui.manage.activity;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
-import com.manage_system.ui.personal.GuideTeacherInfoActivity;
+import com.manage_system.utils.OkManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class StudentOpenReportActivity extends AppCompatActivity implements View.OnClickListener {
 

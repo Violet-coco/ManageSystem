@@ -18,15 +18,20 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
+import com.manage_system.net.ApiConstants;
+import com.manage_system.ui.personal.EditPasswordActivity;
 import com.manage_system.ui.personal.FindPasswordActivity;
 import com.manage_system.ui.personal.HelpActivity;
 import com.manage_system.utils.MD5Utils;
 import com.manage_system.utils.OkManager;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
     //标题
@@ -53,7 +58,11 @@ public class LoginActivity extends AppCompatActivity {
     private OkHttpClient clients;
 
     //登录验证请求
-    private String login_path="http://www.yuanbw.cn:20086/gpms/rol/idloginMobile";
+    private String login_path = ApiConstants.Api + ApiConstants.commonApi + "/idloginMobile";
+//    private String login_path="http://www.yuanbw.cn:20086/gpms/rol/idloginMobile";
+
+    private String person_info_path = ApiConstants.Api + ApiConstants.commonApi + "/showRoleInfo";
+//    private String person_info_path="http://www.yuanbw.cn:20086/gpms/rol/showRoleInfo";
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -130,6 +139,8 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sp1=getSharedPreferences("loginInfo", MODE_PRIVATE);
+                Log.w(Tag,sp1.getString("token","")+"登录");
                 Log.w(Tag,"点击登录");
 
                 //开始登录，获取用户名和密码 getText().toString().trim();
@@ -161,58 +172,211 @@ public class LoginActivity extends AppCompatActivity {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("id", userName);
                 map.put("password", psw);
-                manager.sendComplexForm(login_path, map, new OkManager.Fun4() {
+                Log.w(Tag,userName);
+                Log.w(Tag,psw);
+
+                manager.post(login_path, map,new okhttp3.Callback() {
                     @Override
-                    public void onResponse(org.json.JSONObject jsonObject) {
-                        Log.i(Tag, jsonObject.toString());
-                        JSONObject obj = JSON.parseObject(jsonObject.toString());
-                        String msg = obj.getString("msg");
-                        String authority = null;
-                        if(!TextUtils.isEmpty(obj.getString("data")) ){
-                            authority = obj.getJSONObject("data").get("authority").toString();
-                        }
-                        String token = obj.getJSONObject("data").get("jwtToken").toString();
-                        Log.w(Tag,"token");
-                        //保存登录状态，在界面保存登录的用户名 定义个方法 saveLoginStatus boolean 状态 , userName 用户名;
-                        saveLoginStatus(true, userName,authority,token);
-                        //一致登录成功
-                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                        //登录成功后关闭此页面进入主页
-                        Intent data=new Intent();
-                        //datad.putExtra( ); name , value ;
-                        data.putExtra("isLogin",true);
-                        //RESULT_OK为Activity系统常量，状态码为-1
-                        // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
-                        setResult(RESULT_OK,data);
-                        // md5Psw.equals(); 判断，输入的密码加密后，是否与保存在SharedPreferences中一致
-                        if(obj.get("statusCode").equals(100)|| MD5Utils.md5(psw).equals(spPsw)){
-                            if(authority.equals("1")){
-                                Log.i(Tag, msg);
-                                editor=sharedPreferences.edit();
-                                if(remember_password.isChecked())
-                                {
-                                    editor.putString("et_user_name",userName);
-                                    editor.putString("et_psw",psw);
-                                    editor.putBoolean("remember_password",true);
-                                }
-                                else {
-                                    editor.clear();
-                                }
-                                editor.apply();
+                    public void onFailure(Call call, IOException e) {
+                        Log.e(Tag, "onFailure: ",e);
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String responseBody = response.body().string();
+                        final JSONObject obj = JSON.parseObject(responseBody);
+                        Log.e(Tag,obj.toString());
+                        final String msg = obj.getString("msg");
 
-                                Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                                //跳转到主界面，登录成功的状态传递到 MainActivity 中
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                //销毁登录界面
-                                finish();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(obj.get("statusCode").equals(100)|| MD5Utils.md5(psw).equals(spPsw)){
+                                    final String authority  = obj.getJSONObject("data").get("authority").toString();
+                                    final String token = obj.getJSONObject("data").get("jwtToken").toString();
+                                    Log.w(Tag,"token");
+                                    //保存登录状态，在界面保存登录的用户名 定义个方法 saveLoginStatus boolean 状态 , userName 用户名;
+                                    saveLoginStatus(true, userName,authority,token);
+                                    //一致登录成功
+                                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                    //登录成功后关闭此页面进入主页
+                                    Intent data=new Intent();
+                                    //datad.putExtra( ); name , value ;
+                                    data.putExtra("isLogin",true);
+                                    //RESULT_OK为Activity系统常量，状态码为-1
+                                    // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
+                                    setResult(RESULT_OK,data);
+                                    if(authority.equals("1")){
+                                        Log.i(Tag, msg);
+                                        editor=sharedPreferences.edit();
+                                        if(remember_password.isChecked())
+                                        {
+                                            editor.putString("et_user_name",userName);
+                                            editor.putString("et_psw",psw);
+                                            editor.putBoolean("remember_password",true);
+                                        }
+                                        else {
+                                            editor.clear();
+                                        }
+                                        editor.apply();
+
+                                        // 连接接口
+                                        Map<String, String> map1 = new HashMap<String, String>();
+                                        manager.post(person_info_path, map1,new okhttp3.Callback() {
+                                            @Override
+                                            public void onFailure(Call call, IOException e) {
+                                                Log.e(Tag, "onFailure: ",e);
+                                            }
+                                            @Override
+                                            public void onResponse(Call call, Response response) throws IOException {
+                                                String responseBody = response.body().string();
+                                                final JSONObject obj = JSON.parseObject(responseBody);
+                                                savePersonStatus( obj.getJSONObject("data").getString("name"));
+                                                Log.e(Tag,obj.toString());
+                                                Log.e(Tag,obj.getJSONObject("data").getString("name"));
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        SharedPreferences sp = getSharedPreferences("personInfo", MODE_PRIVATE);
+                                                        //获取编辑器
+                                                        SharedPreferences.Editor editor = sp.edit();
+                                                        editor.putString("identifier", obj.getJSONObject("data").getString("identifier"));
+                                                        editor.putString("name", obj.getJSONObject("data").getString("name"));
+                                                        editor.putString("college", obj.getJSONObject("data").getString("college"));
+                                                        editor.putString("sex", obj.getJSONObject("data").getString("sex"));
+                                                        editor.putString("contactTel", obj.getJSONObject("data").getString("contactTel"));
+                                                        editor.putString("bindTel", obj.getJSONObject("data").getString("bindTel"));
+                                                        editor.putString("major", obj.getJSONObject("data").getString("major"));
+                                                        editor.putString("grade", obj.getJSONObject("data").getString("grade"));
+                                                        editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
+                                                        editor.putString("department", obj.getJSONObject("data").getString("department"));
+                                                        editor.putString("email", obj.getJSONObject("data").getString("email"));
+                                                        //提交修改
+                                                        editor.commit();
+                                                    }
+                                                });
+
+                                            }
+                                        });
+
+//                                        manager.sendComplexForm(person_info_path, map1, new OkManager.Fun4() {
+//                                            @Override
+//                                            public void onResponse(org.json.JSONObject jsonObject) {
+//                                                JSONObject obj = JSON.parseObject(jsonObject.toString());
+//                                                Log.w(Tag,obj.toString());
+//                                                SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
+//                                                //获取编辑器
+//                                                SharedPreferences.Editor editor=sp.edit();
+//                                                editor.putString("identifier",obj.getJSONObject("data").getString("identifier"));
+//                                                editor.putString("name", obj.getJSONObject("data").getString("name"));
+//                                                editor.putString("college", obj.getJSONObject("data").getString("college"));
+//                                                editor.putString("sex", obj.getJSONObject("data").getString("sex"));
+//                                                editor.putString("contactTel", obj.getJSONObject("data").getString("contactTel"));
+//                                                editor.putString("bindTel", obj.getJSONObject("data").getString("bindTel"));
+//                                                editor.putString("major", obj.getJSONObject("data").getString("major"));
+//                                                editor.putString("grade", obj.getJSONObject("data").getString("grade"));
+//                                                editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
+//                                                editor.putString("department", obj.getJSONObject("data").getString("department"));
+//                                                editor.putString("email", obj.getJSONObject("data").getString("email"));
+//                                                //提交修改
+//                                                editor.commit();
+//                                            }
+//                                        });
+
+                                        Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                                        //跳转到主界面，登录成功的状态传递到 MainActivity 中
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        //销毁登录界面
+                                        finish();
+                                    }
+
+                                }else{
+                                    Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
                             }
+                        });
 
-                        }else{
-                            Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
                     }
                 });
+//                manager.sendComplexForm(login_path, map, new OkManager.Fun4() {
+//                    @Override
+//                    public void onResponse(org.json.JSONObject jsonObject) {
+//                        Log.i(Tag, jsonObject.toString());
+//                        JSONObject obj = JSON.parseObject(jsonObject.toString());
+//                        String msg = obj.getString("msg");
+//                        String authority = null;
+//                        String token = null;
+//                        if(!TextUtils.isEmpty(obj.getString("data")) ){
+//                            authority = obj.getJSONObject("data").get("authority").toString();
+//                            token = obj.getJSONObject("data").get("jwtToken").toString();
+//                        }
+//                        Log.w(Tag,"token");
+//                        //保存登录状态，在界面保存登录的用户名 定义个方法 saveLoginStatus boolean 状态 , userName 用户名;
+//                        saveLoginStatus(true, userName,authority,token);
+//                        //一致登录成功
+//                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+//                        //登录成功后关闭此页面进入主页
+//                        Intent data=new Intent();
+//                        //datad.putExtra( ); name , value ;
+//                        data.putExtra("isLogin",true);
+//                        //RESULT_OK为Activity系统常量，状态码为-1
+//                        // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
+//                        setResult(RESULT_OK,data);
+//                        // md5Psw.equals(); 判断，输入的密码加密后，是否与保存在SharedPreferences中一致
+//                        if(obj.get("statusCode").equals(100)|| MD5Utils.md5(psw).equals(spPsw)){
+//                            if(authority.equals("1")){
+//                                Log.i(Tag, msg);
+//                                editor=sharedPreferences.edit();
+//                                if(remember_password.isChecked())
+//                                {
+//                                    editor.putString("et_user_name",userName);
+//                                    editor.putString("et_psw",psw);
+//                                    editor.putBoolean("remember_password",true);
+//                                }
+//                                else {
+//                                    editor.clear();
+//                                }
+//                                editor.apply();
+//
+//                                // 连接接口
+//                                Map<String, String> map1 = new HashMap<String, String>();
+//                                manager.sendComplexForm(person_info_path, map1, new OkManager.Fun4() {
+//                                    @Override
+//                                    public void onResponse(org.json.JSONObject jsonObject) {
+//                                        JSONObject obj = JSON.parseObject(jsonObject.toString());
+//                                        Log.w(Tag,obj.toString());
+//                                        SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
+//                                        //获取编辑器
+//                                        SharedPreferences.Editor editor=sp.edit();
+//                                        editor.putString("identifier",obj.getJSONObject("data").getString("identifier"));
+//                                        editor.putString("name", obj.getJSONObject("data").getString("name"));
+//                                        editor.putString("college", obj.getJSONObject("data").getString("college"));
+//                                        editor.putString("sex", obj.getJSONObject("data").getString("sex"));
+//                                        editor.putString("contactTel", obj.getJSONObject("data").getString("contactTel"));
+//                                        editor.putString("bindTel", obj.getJSONObject("data").getString("bindTel"));
+//                                        editor.putString("major", obj.getJSONObject("data").getString("major"));
+//                                        editor.putString("grade", obj.getJSONObject("data").getString("grade"));
+//                                        editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
+//                                        editor.putString("department", obj.getJSONObject("data").getString("department"));
+//                                        editor.putString("email", obj.getJSONObject("data").getString("email"));
+//                                        //提交修改
+//                                        editor.commit();
+//                                    }
+//                                });
+//
+//                                Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+//                                //跳转到主界面，登录成功的状态传递到 MainActivity 中
+//                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                                //销毁登录界面
+//                                finish();
+//                            }
+//
+//                        }else{
+//                            Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+//                    }
+//                });
             }
         });
     }
@@ -243,6 +407,16 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("authority", authority);
         //存入token
         editor.putString("token", token);
+        //提交修改
+        editor.commit();
+    }
+
+    private void savePersonStatus(String name) {
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        //获取编辑器
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString("name", name);
+        Log.w(Tag,"名字是"+name);
         //提交修改
         editor.commit();
     }
