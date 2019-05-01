@@ -402,6 +402,11 @@
         <item name="android:textSize">17sp</item>
     </style>
 
+    <style name="edit_item_right_et_r" parent="edit_item_right_et">
+        <item name="android:gravity">center|right</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
     <style name="edit_item_right_et_child" parent="edit_item">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
@@ -603,6 +608,10 @@
         <item name="android:textSize">17sp</item>
     </style>
 
+    <style name="edit_item_left_tv_child" parent="edit_item_left_tv">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
     <style name="edit_item_ms_grade" parent="edit_item_left_tv">
         <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">@dimen/item_left_tv_padding</item>
@@ -735,7 +744,7 @@
 
     <style name="topbar_title">
         <item name="android:id">@id/tvBaseTitle</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        cardview:cardCornerRadius="4dp"
+        cardview:cardElevation="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="PMMA灯具基于moldflow三维流动优化的注塑模设计"
+                    android:textColor="@color/blue_light"/>
+
+                <TextView
+                    android:id="@+id/tv_motto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="学生姓名：张珊珊"
+                    android:textColor="@android:color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_motto1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="学生学号：3120150905909"
+                    android:textColor="@android:color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_motto2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="答辩组长：廖永衡"
+                    android:textColor="@android:color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_motto3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="状　　态：已完成"
+                    android:textColor="@android:color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_motto4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="分　　数：90"
+                    android:textColor="@android:color/black"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

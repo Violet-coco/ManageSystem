@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="毕业设计评审" />
+
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <ScrollView
+        style="@style/match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="课题题目" />
+
+                <EditText
+                    android:id="@+id/ps_title"
+                    style="@style/edit_item_right_et"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="学生姓名" />
+
+                <EditText
+                    android:id="@+id/ps_stu_name"
+                    style="@style/edit_item_right_et"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="学生学号" />
+
+                <EditText
+                    android:id="@+id/ps_stu_id"
+                    style="@style/edit_item_right_et"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="指导教师" />
+
+                <EditText
+                    android:id="@+id/person_name"
+                    style="@style/edit_item_right_et"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:id="@+id/llUserBusinessCardContainer"
+                style="@style/ll_vertical_match_wrap"
+                android:layout_marginBottom="@dimen/padding_huge"
+                android:layout_marginTop="@dimen/padding_huge" >
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:padding="16dp">
+
+                <EditText
+                    android:id="@+id/iv_logo"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="8dp"
+                    android:background="@drawable/login_button_border_selector"
+                    android:transitionName="topview"
+                    android:scaleType="centerCrop"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="16.0dip"
+                    android:layout_toLeftOf="@id/iv_logo"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="调查、论证（满分：4分）"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:textSize="16.0sp"/>
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:text="能独立查阅文献和调研；能正确翻译外文资料；能较好地写出开题报告； 有收集、综合及正确利用各种信息及获取新知识的能力。"
+                    android:textColor="@color/secondary_text_default_material_light"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#ffd9d9d9"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:padding="16dp">
+
+                <EditText
+                    android:id="@+id/et_two"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="8dp"
+                    android:background="@drawable/login_button_border_selector"
+                    android:transitionName="topview"
+                    android:scaleType="centerCrop"
+                    />
+
+                <TextView
+                    android:id="@+id/et_two_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="16.0dip"
+                    android:layout_toLeftOf="@id/et_two"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="方案设计与技术路线（满分：8分）"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:textSize="16.0sp"/>
+
+                <TextView
+                    android:id="@+id/et_two_info"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:maxLines="7"
+                    android:text=" 方案设计合理，方案综合比较论证充分，切实可行，有较详细的实施措施； 技术路线正确，拟采用数据采集、计算、处理方式正确； 结构设计合理、工艺具有可行性、推导正确或程序运行具有可靠性."
+                    android:textColor="@color/secondary_text_default_material_light"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#ffd9d9d9"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:padding="16dp">
+
+                <EditText
+                    android:id="@+id/et_three_logo"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="8dp"
+                    android:background="@drawable/login_button_border_selector"
+                    android:transitionName="topview"
+                    android:scaleType="centerCrop"
+                    />
+
+                <TextView
+                    android:id="@+id/et_three_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="16.0dip"
+                    android:layout_toLeftOf="@id/et_three_logo"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="分析与解决问题的能力（满分：8分）"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:textSize="16.0sp"/>
+
+                <TextView
+                    android:id="@+id/et_three_info"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="能运用所学知识和技能去发现问题，分析问题思路清晰、严谨， 数据处理正确，理论分析文理清楚。"
+                    android:textColor="@color/secondary_text_default_material_light"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#ffd9d9d9"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:padding="16dp">
+
+                <EditText
+                    android:id="@+id/et_four_logo"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="8dp"
+                    android:background="@drawable/login_button_border_selector"
+                    android:transitionName="topview"
+                    android:scaleType="centerCrop"
+                    />
+
+                <TextView
+                    android:id="@+id/et_four_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="16.0dip"
+                    android:layout_toLeftOf="@id/et_four_logo"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="工作量、工作态度（满分：6分）"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:textSize="16.0sp"/>
+
+                <TextView
+                    android:id="@+id/et_four_info"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:maxLines="5"
+                    android:text="按期完成规定的任务，认真记录了毕业设计（论文）过程中存在的问题、相关数据及处理方式， 难易程度和工作量符合教学要求；工作努力，遵守纪律；工作作风严谨务实；善于与他人合作。"
+                    android:textColor="@color/secondary_text_default_material_light"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#ffd9d9d9"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:padding="16dp">
+
+                <EditText
+                    android:id="@+id/et_five_logo"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="90dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="8dp"
+                    android:background="@drawable/login_button_border_selector"
+                    android:transitionName="topview"
+                    android:scaleType="centerCrop"
+                    />
+
+                <TextView
+                    android:id="@+id/et_five_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="16.0dip"
+                    android:layout_toLeftOf="@id/et_five_logo"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="设计质量及设计说明书质量（满分：10分）"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:textSize="16.0sp"/>
+
+                <TextView
+                    android:id="@+id/et_five_info"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:maxLines="6"
+                    android:text="方案设计合理，切实可行，技术路线正确，所用的数据采集、计算、处理方式正确， 数据真实可信，结构、工艺设计合理，设计说明书文理通顺，语言流畅、技术用语准确， 符号统一、规范，编号齐全；图表完备、整洁、正确；绘图符合国家标准。"
+                    android:textColor="@color/secondary_text_default_material_light"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#ffd9d9d9"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:padding="16dp">
+
+                <EditText
+                    android:id="@+id/et_six_logo"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="8dp"
+                    android:background="@drawable/login_button_border_selector"
+                    android:transitionName="topview"
+                    android:scaleType="centerCrop"
+                    />
+
+                <TextView
+                    android:id="@+id/et_six_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="16.0dip"
+                    android:layout_toLeftOf="@id/et_six_logo"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="创新（满分：4分）"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:textSize="16.0sp"/>
+
+                <TextView
+                    android:id="@+id/et_six_info"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:maxLines="5"
+                    android:text="工作中有创新意识；对前人工作有改进、突破，或立意新颖、见解独特，有一定应用价值。"
+                    android:textColor="@color/secondary_text_default_material_light"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#ffd9d9d9"/>
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv_child"
+                    android:text="是否同意答辩" />
+
+                <Spinner
+                    style="@style/edit_item_ms_border_content"
+                    android:id="@+id/spinner6"
+                    android:entries="@array/subject_source"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/llUserTag"
+                style="@style/edit_item_ms_all" >
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit"
+                    android:id="@+id/tvUserTag"
+                    android:hint="评语"
+                    android:layout_below="@+id/fortra_translate_con_title" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="25dp">
+
+                <Button
+                    android:id="@+id/ct_item_del"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="确　定"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/llUserBottomMenuContainer"
+        style="@style/ll_vertical_match_wrap" >
+    </LinearLayout>
+
+</LinearLayout>

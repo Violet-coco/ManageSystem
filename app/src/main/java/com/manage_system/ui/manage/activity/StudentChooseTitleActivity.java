@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,14 +13,28 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginByPhoneActivity;
 import com.manage_system.R;
+import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.personal.GuideTeacherInfoActivity;
+import com.manage_system.utils.OkManager;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class StudentChooseTitleActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton iv_back;
     Button ct_is_choose;
     EditText ct_teacher;
+
+    private static String TAG = "选题界面";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

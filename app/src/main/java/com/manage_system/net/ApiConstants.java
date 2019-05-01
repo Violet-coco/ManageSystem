@@ -9,9 +9,9 @@ public class ApiConstants {
 
     public static final String Api = "http://www.yuanbw.cn:20086/gpms";
 
-    public static final String commonApi = "/rol";
-    public static final String studentApi = "/stu";
-    public static final String teacherApi = "/tea";
-    public static final String managerApi = "/man";
+    public static final String commonApi = Api + "/rol";
+    public static final String studentApi = Api + "/stu";
+    public static final String teacherApi = Api + "/tea";
+    public static final String managerApi = Api + "/man";
 
 }

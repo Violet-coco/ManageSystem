@@ -12,7 +12,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="指导记录" />
+            android:text="答辩打分详情" />
 
     </RelativeLayout>
 
@@ -24,84 +24,120 @@
 
         <LinearLayout style="@style/ll_vertical_match_match" >
 
-            <RelativeLayout
-                android:id="@+id/llUserTag"
-                style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/guide_record_theme_title"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="主题" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_edit_one"
-                    android:id="@+id/tvUserTag"
-                    android:editable="false"
-                    android:layout_below="@+id/guide_record_theme_title" />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/guide_record_time_title"
+                    android:id="@+id/subject_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="指导时间" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_edit_one"
-                    android:editable="false"
-                    android:layout_below="@+id/guide_record_time_title" />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/guide_record_work_title"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="主要工作" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_edit"
-                    android:editable="false"
-                    android:layout_below="@+id/guide_record_work_title" />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/guide_record_annotation_title"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="批注内容" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_edit"
-                    android:editable="false"
-                    android:layout_below="@+id/guide_record_annotation_title" />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/guide_record_annex_title"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="附件" />
+                    android:text="课题题目" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
-                    android:layout_below="@+id/guide_record_annex_title"
-                    android:text="6A-404" />
+                    android:editable="false"
+                    android:layout_below="@+id/subject_title"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_source"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="学生姓名" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_source"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject1_source"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="学生学号" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject1_source"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_type"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="打分分类" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_type"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/review_status"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="状　　态" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/review_status"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/review_type"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="分　　数" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/review_type"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/review_annex"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="附　　件" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/review_annex"
+                    />
 
             </RelativeLayout>
 
@@ -110,48 +146,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <RelativeLayout style="@style/edit_item_ms_all" >
-
-                    <TextView
-                        android:id="@+id/open_record_check"
-                        style="@style/edit_item_ms_border_title"
-                        android:text="开题报告审核" />
-
-                    <EditText
-                        style="@style/edit_item_ms_border_content"
-                        android:layout_below="@+id/open_record_check"
-                        android:text="6A-404" />
-
-                </RelativeLayout>
-
-                <View style="@style/divider_horizontal_1px" />
-                <RelativeLayout style="@style/edit_item_ms_all" >
-
-                    <TextView
-                        android:id="@+id/open_record_result"
-                        style="@style/edit_item_ms_border_title"
-                        android:text="审核结果" />
-
-                    <Spinner
-                        style="@style/edit_item_ms_border_content"
-                        android:layout_below="@+id/open_record_result"
-                        android:id="@+id/spinner2"
-                        android:entries="@array/subject_source"
-                        />
-
-                </RelativeLayout>
-
-                <View style="@style/divider_horizontal_1px" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/guide_record_edit"
+                    android:id="@+id/ct_item_del"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"
@@ -159,7 +158,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/login_button_selector"
-                    android:text="修　改"
+                    android:text="打　分"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -167,7 +166,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <View style="@style/divider_horizontal_1px" />
 
     <LinearLayout
         android:id="@+id/llUserBottomMenuContainer"

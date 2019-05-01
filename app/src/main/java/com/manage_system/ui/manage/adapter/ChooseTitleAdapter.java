@@ -1,6 +1,9 @@
 package com.manage_system.ui.manage.adapter;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.widget.LinearLayout;
 import com.manage_system.R;
 import com.manage_system.ui.manage.activity.StudentChooseDoneTitleActivity;
 import com.manage_system.ui.manage.activity.StudentChooseTitleActivity;
+import com.manage_system.ui.manage.activity.StudentChooseTitleMainActivity;
 
 public class ChooseTitleAdapter extends RecyclerView.Adapter<ChooseTitleAdapter.AuthorViewHolder> {
 
@@ -28,7 +32,7 @@ public class ChooseTitleAdapter extends RecyclerView.Adapter<ChooseTitleAdapter.
         holder.student_choose_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),StudentChooseTitleActivity.class);
+                Intent intent=new Intent(v.getContext(),StudentChooseTitleMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });

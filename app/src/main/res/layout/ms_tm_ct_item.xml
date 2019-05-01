@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="详细信息" />
+
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <ScrollView
+        style="@style/match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="课题题目" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_title"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_source"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="题目来源" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_source"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_type"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="题目类型" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_type"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_choose_number"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="已选人数/可选人数" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_choose_number"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_task"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="任务书" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_task"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_check_status"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="审核状态" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_check_status"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="25dp">
+
+                <Button
+                    android:id="@+id/ct_item_edit"
+                    android:layout_width="120dp"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="修　改"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/ct_item_del"
+                    android:layout_width="120dp"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="删　除"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llUserBottomMenuContainer"
+        style="@style/ll_vertical_match_wrap" >
+    </LinearLayout>
+
+</LinearLayout>

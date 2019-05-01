@@ -95,7 +95,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public int getContentLayout() {
-        return R.layout.ms_fragment_personal;
+        return R.layout.ms_personal_fragment;
     }
 
     @Override
@@ -252,7 +252,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
         final PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
         popupWindow.setOutsideTouchable(true);
-        View parent = LayoutInflater.from(this.getActivity()).inflate(R.layout.ms_fragment_personal, null);
+        View parent = LayoutInflater.from(this.getActivity()).inflate(R.layout.ms_personal_fragment, null);
         person_icon = (CircleImageView) parent.findViewById(R.id.person_icon);
         popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
         //popupWindow在弹窗的时候背景半透明

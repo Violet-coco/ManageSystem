@@ -24,25 +24,18 @@
 
         <LinearLayout style="@style/ll_vertical_match_match" >
 
-            <View style="@style/divider_horizontal_1px" />
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout
-                android:id="@+id/llUserTag"
-                style="@style/edit_item_ms_all" >
+            <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/gt_name_title"
+                    android:id="@+id/subject_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="教师（工号）" />
+                    android:text="课题题目" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
-                    android:id="@+id/tvUserTag"
-                    android:layout_below="@+id/gt_name_title"
                     android:editable="false"
-                    android:text="流萤梦" />
+                    android:layout_below="@+id/subject_title"
+                    />
 
             </RelativeLayout>
 
@@ -51,15 +44,15 @@
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/gt_position_title"
+                    android:id="@+id/subject_source"
                     style="@style/edit_item_ms_border_title"
-                    android:text="教师职称" />
+                    android:text="题目来源" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
-                    android:layout_below="@+id/gt_position_title"
-                    android:text="2019-01-05 17:47:28" />
+                    android:layout_below="@+id/subject_source"
+                    />
 
             </RelativeLayout>
 
@@ -68,15 +61,15 @@
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/gt_email_title"
+                    android:id="@+id/subject_type"
                     style="@style/edit_item_ms_border_title"
-                    android:text="联系邮箱" />
+                    android:text="题目类型" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
-                    android:layout_below="@+id/gt_email_title"
                     android:editable="false"
-                    android:text="6A-404" />
+                    android:layout_below="@+id/subject_type"
+                    />
 
             </RelativeLayout>
 
@@ -85,15 +78,15 @@
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/gt_phone_title"
+                    android:id="@+id/subject_choose_number"
                     style="@style/edit_item_ms_border_title"
-                    android:text="联系电话" />
+                    android:text="学生（学号）" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
-                    android:layout_below="@+id/gt_phone_title"
-                    android:text="2019-01-05 17:47:28" />
+                    android:layout_below="@+id/subject_choose_number"
+                    />
 
             </RelativeLayout>
 
@@ -102,24 +95,56 @@
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/gt_college_title"
+                    android:id="@+id/subject_check_status"
                     style="@style/edit_item_ms_border_title"
-                    android:text="学　　院" />
+                    android:text="审核状态" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
-                    android:layout_below="@+id/gt_college_title"
-                    android:text="2019-01-05 17:47:28" />
+                    android:layout_below="@+id/subject_check_status"
+                    />
 
             </RelativeLayout>
 
             <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="25dp">
+
+                <Button
+                    android:id="@+id/ct_item_edit"
+                    android:layout_width="120dp"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="通　过"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/ct_item_del"
+                    android:layout_width="120dp"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="不通过"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
-    <View style="@style/divider_horizontal_1px" />
 
     <LinearLayout
         android:id="@+id/llUserBottomMenuContainer"

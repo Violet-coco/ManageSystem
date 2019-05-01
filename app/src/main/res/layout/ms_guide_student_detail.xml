@@ -35,7 +35,7 @@
                 <TextView
                     android:id="@+id/gt_name_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="教师（工号）" />
+                    android:text="姓名" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
@@ -53,7 +53,7 @@
                 <TextView
                     android:id="@+id/gt_position_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="教师职称" />
+                    android:text="学号" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
@@ -70,7 +70,7 @@
                 <TextView
                     android:id="@+id/gt_email_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="联系邮箱" />
+                    android:text="院系" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
@@ -87,7 +87,7 @@
                 <TextView
                     android:id="@+id/gt_phone_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="联系电话" />
+                    android:text="专业" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
@@ -104,12 +104,29 @@
                 <TextView
                     android:id="@+id/gt_college_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="学　　院" />
+                    android:text="班级" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
                     android:layout_below="@+id/gt_college_title"
+                    android:text="2019-01-05 17:47:28" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/stu_sex_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="性别" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/stu_sex_title"
                     android:text="2019-01-05 17:47:28" />
 
             </RelativeLayout>

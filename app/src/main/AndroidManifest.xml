@@ -67,12 +67,12 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         <!--</activity>-->
-        <activity
-            android:name="com.manage_system.LoginActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-        </activity>
+        <!--<activity-->
+            <!--android:name="com.manage_system.LoginActivity"-->
+            <!--android:configChanges="orientation|screenSize|keyboardHidden"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/AppTheme">-->
+        <!--</activity>-->
         <activity
             android:name="com.manage_system.LoginByPhoneActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -107,7 +107,7 @@
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
-            android:name="com.manage_system.WelcomeActivity"
+            android:name="com.manage_system.TestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoBar"
             android:windowSoftInputMode="stateAlwaysHidden">
@@ -132,6 +132,7 @@
 
         <!--学生选题-->
         <activity android:name="com.manage_system.ui.manage.activity.StudentChooseTitleActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentChooseTitleMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.StudentChooseDoneTitleActivity"/>
         <activity android:name="com.manage_system.ui.personal.GuideTeacherInfoActivity"/>
 

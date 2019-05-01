@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="subject_source">
+        <item>生产实际（社会实践）题</item>
+        <item>教师科研课题</item>
+        <item>其他</item>
+    </string-array>
+</resources>

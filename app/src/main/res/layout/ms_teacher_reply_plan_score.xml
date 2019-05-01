@@ -12,7 +12,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="修改答辩记录" />
+            android:text="答辩打分" />
 
     </RelativeLayout>
 
@@ -24,21 +24,17 @@
 
         <LinearLayout style="@style/ll_vertical_match_match" >
 
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout
-                android:id="@+id/llUserTag"
-                style="@style/edit_item_ms_all" >
+            <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/reply_record_con"
+                    android:id="@+id/subject_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="提交答辩记录" />
+                    android:text="课题题目" />
 
                 <EditText
-                    style="@style/edit_item_ms_border_edit"
-                    android:id="@+id/tvUserTag"
-                    android:layout_below="@+id/reply_record_con"
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_title"
                     />
 
             </RelativeLayout>
@@ -48,14 +44,49 @@
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/annotation_con"
+                    android:id="@+id/subject_source"
                     style="@style/edit_item_ms_border_title"
-                    android:text="添加附件" />
+                    android:text="学生姓名（学号）" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
-                    android:layout_below="@+id/annotation_con"
-                    android:text="2019-01-05 17:47:28" />
+                    android:editable="false"
+                    android:layout_below="@+id/subject_source"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_type"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="指导教师（工号）" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_type"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_choose_number"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="分　　数" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_choose_number"
+                    />
 
             </RelativeLayout>
 
@@ -64,10 +95,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/reply_record_edit"
+                    android:id="@+id/ct_item_del"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"
@@ -75,15 +107,14 @@
                     android:layout_marginRight="20dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/login_button_selector"
-                    android:text="修　改"
+                    android:text="打　分"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
             </LinearLayout>
 
+
         </LinearLayout>
     </ScrollView>
-
-    <View style="@style/divider_horizontal_1px" />
 
     <LinearLayout
         android:id="@+id/llUserBottomMenuContainer"

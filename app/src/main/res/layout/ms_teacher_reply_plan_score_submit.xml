@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="提交答辩打分" />
+
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <ScrollView
+        style="@style/match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="学生姓名（学号）" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_title"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_source"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="课题题目" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_source"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="平均分数" />
+
+                <EditText
+                    android:id="@+id/person0_name"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="陈红红" />
+
+                <EditText
+                    android:id="@+id/person_name"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="陈红红" />
+
+                <EditText
+                    android:id="@+id/person1_name"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="陈红红" />
+
+                <EditText
+                    android:id="@+id/person2_name"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="陈红红" />
+
+                <EditText
+                    android:id="@+id/person3_name"
+                    style="@style/edit_item_right_et"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="陈红红" />
+
+                <EditText
+                    android:id="@+id/person4_name"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="25dp">
+
+                <Button
+                    android:id="@+id/ct_item_del"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="打　分"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/llUserBottomMenuContainer"
+        style="@style/ll_vertical_match_wrap" >
+    </LinearLayout>
+
+</LinearLayout>
