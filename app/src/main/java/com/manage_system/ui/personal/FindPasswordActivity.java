@@ -13,7 +13,7 @@ public class FindPasswordActivity extends Activity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.forget_password);
+        setContentView(R.layout.ms_forget_password);
         getId();
     }
 

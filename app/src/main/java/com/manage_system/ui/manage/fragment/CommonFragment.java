@@ -8,15 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import com.manage_system.R;
-import com.manage_system.ui.manage.adapter.ChooseTitleAdapter;
+import com.manage_system.ui.manage.adapter.CommonAdapter;
 
-public class ChooseTitleFragment extends Fragment {
+public class CommonFragment extends Fragment {
 
     public static Fragment newInstance() {
-        ChooseTitleFragment fragment = new ChooseTitleFragment();
+        CommonFragment fragment = new CommonFragment();
         return fragment;
     }
     @Nullable
@@ -27,7 +26,7 @@ public class ChooseTitleFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new ChooseTitleAdapter());
+        recyclerView.setAdapter(new CommonAdapter());
         return rootView;
     }
 }

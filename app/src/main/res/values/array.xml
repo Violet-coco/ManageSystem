@@ -5,4 +5,9 @@
         <item>教师科研课题</item>
         <item>其他</item>
     </string-array>
+
+    <string-array name="choose_title">
+        <item>选题</item>
+        <item>已选课题</item>
+    </string-array>
 </resources>

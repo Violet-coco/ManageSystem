@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.manage_system.R;
 import com.manage_system.ui.manage.activity.StudentChooseDoneTitleActivity;
+import com.manage_system.ui.manage.activity.StudentChooseDoneTitleMainActivity;
 import com.manage_system.ui.manage.activity.StudentChooseTitleActivity;
 import com.manage_system.ui.manage.activity.StudentChooseTitleMainActivity;
 
@@ -40,7 +41,7 @@ public class ChooseTitleAdapter extends RecyclerView.Adapter<ChooseTitleAdapter.
         holder.student_choose_done_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),StudentChooseDoneTitleActivity.class);
+                Intent intent=new Intent(v.getContext(),StudentChooseDoneTitleMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });

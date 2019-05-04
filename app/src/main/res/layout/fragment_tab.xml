@@ -4,6 +4,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        style="@style/topbar_bg"
+        android:id="@+id/tool_bar"
+        android:visibility="gone"
+        >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:id="@+id/top_title"
+            android:layout_centerHorizontal="true"
+            android:text="选题列表" />
+
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"

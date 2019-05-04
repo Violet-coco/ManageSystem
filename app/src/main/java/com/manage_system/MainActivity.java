@@ -1,10 +1,12 @@
 package com.manage_system;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -62,8 +64,8 @@ public class MainActivity extends BaseActivity {
     public void bindView(View view, Bundle savedInstanceState) {
         // 连接接口
         OkManager manager = OkManager.getInstance();
-        Map<String, String> map1 = new HashMap<String, String>();
-        manager.post(ApiConstants.commonApi + "/showRoleInfo", map1,new okhttp3.Callback() {
+        Map<String, String> map = new HashMap<String, String>();
+        manager.post(ApiConstants.commonApi + "/showRoleInfo", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -72,39 +74,47 @@ public class MainActivity extends BaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String responseBody = response.body().string();
                 final JSONObject obj = JSON.parseObject(responseBody);
-                SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
-                //获取编辑器
-                SharedPreferences.Editor editor=sp.edit();
-                editor.putString("name", obj.getJSONObject("data").getString("name"));
-                editor.putString("id", obj.getJSONObject("data").getString("identifier"));
-                //提交修改
-                editor.commit();
                 Log.e(TAG,obj.toString());
-                Log.e(TAG,obj.getJSONObject("data").getString("name"));
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        SharedPreferences sp = getSharedPreferences("personInfo", MODE_PRIVATE);
-                        //获取编辑器
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putString("identifier", obj.getJSONObject("data").getString("identifier"));
-                        editor.putString("name", obj.getJSONObject("data").getString("name"));
-                        editor.putString("college", obj.getJSONObject("data").getString("college"));
-                        editor.putString("sex", obj.getJSONObject("data").getString("sex"));
-                        editor.putString("contactTel", obj.getJSONObject("data").getString("contactTel"));
-                        editor.putString("bindTel", obj.getJSONObject("data").getString("bindTel"));
-                        editor.putString("major", obj.getJSONObject("data").getString("major"));
-                        editor.putString("grade", obj.getJSONObject("data").getString("grade"));
-                        editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
-                        editor.putString("department", obj.getJSONObject("data").getString("department"));
-                        editor.putString("email", obj.getJSONObject("data").getString("email"));
-                        //提交修改
-                        editor.commit();
+                        if(obj.get("statusCode").equals(100)){
+                            SharedPreferences sp1=getSharedPreferences("loginInfo", MODE_PRIVATE);
+                            //获取编辑器
+                            SharedPreferences.Editor editor1=sp1.edit();
+                            editor1.putString("name", obj.getJSONObject("data").getString("name"));
+                            editor1.putString("id", obj.getJSONObject("data").getString("identifier"));
+                            //提交修改
+                            editor1.commit();
+
+                            SharedPreferences sp = getSharedPreferences("personInfo", MODE_PRIVATE);
+                            //获取编辑器
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("identifier", obj.getJSONObject("data").getString("identifier"));
+                            editor.putString("name", obj.getJSONObject("data").getString("name"));
+                            editor.putString("college", obj.getJSONObject("data").getString("college"));
+                            editor.putString("sex", obj.getJSONObject("data").getString("sex"));
+                            editor.putString("contactTel", obj.getJSONObject("data").getString("contactTel"));
+                            editor.putString("bindTel", obj.getJSONObject("data").getString("bindTel"));
+                            editor.putString("major", obj.getJSONObject("data").getString("major"));
+                            editor.putString("grade", obj.getJSONObject("data").getString("grade"));
+                            editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
+                            editor.putString("department", obj.getJSONObject("data").getString("department"));
+                            editor.putString("email", obj.getJSONObject("data").getString("email"));
+                            //提交修改
+                            editor.commit();
+                        }else {
+                            Toast.makeText(MainActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                        }
+
                     }
                 });
 
             }
         });
+
         StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0, null);
         if (savedInstanceState == null) {
             mFragments[0] = IndexFragment.newInstance();

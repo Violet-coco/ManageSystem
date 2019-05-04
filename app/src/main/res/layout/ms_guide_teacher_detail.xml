@@ -26,8 +26,6 @@
 
             <View style="@style/divider_horizontal_1px" />
 
-            <View style="@style/divider_horizontal_1px" />
-
             <RelativeLayout
                 android:id="@+id/llUserTag"
                 style="@style/edit_item_ms_all" >
@@ -39,10 +37,10 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
-                    android:id="@+id/tvUserTag"
+                    android:id="@+id/t_name_id"
                     android:layout_below="@+id/gt_name_title"
                     android:editable="false"
-                    android:text="流萤梦" />
+                    />
 
             </RelativeLayout>
 
@@ -57,9 +55,10 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
+                    android:id="@+id/t_pro"
                     android:editable="false"
                     android:layout_below="@+id/gt_position_title"
-                    android:text="2019-01-05 17:47:28" />
+                    />
 
             </RelativeLayout>
 
@@ -74,9 +73,10 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
+                    android:id="@+id/t_email"
                     android:layout_below="@+id/gt_email_title"
                     android:editable="false"
-                    android:text="6A-404" />
+                   />
 
             </RelativeLayout>
 
@@ -91,9 +91,10 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
+                    android:id="@+id/t_phone"
                     android:editable="false"
                     android:layout_below="@+id/gt_phone_title"
-                    android:text="2019-01-05 17:47:28" />
+                    />
 
             </RelativeLayout>
 
@@ -108,9 +109,10 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
+                    android:id="@+id/t_college"
                     android:editable="false"
                     android:layout_below="@+id/gt_college_title"
-                    android:text="2019-01-05 17:47:28" />
+                    />
 
             </RelativeLayout>
 

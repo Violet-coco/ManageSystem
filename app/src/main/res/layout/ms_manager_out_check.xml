@@ -12,7 +12,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="选题" />
+            android:text="课题详细信息" />
 
     </RelativeLayout>
 
@@ -26,21 +26,23 @@
 
             <View style="@style/divider_horizontal_1px" />
 
+            <View style="@style/divider_horizontal_1px" />
+
             <RelativeLayout
                 android:id="@+id/llUserTag"
                 style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/ct_topic_title"
+                    android:id="@+id/ct_title"
                     style="@style/edit_item_ms_border_title"
                     android:text="课题题目" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
-                    android:id="@+id/ct_topic"
-                    android:layout_below="@+id/ct_topic_title"
+                    android:id="@+id/tvUserTag"
+                    android:layout_below="@+id/ct_title"
                     android:editable="false"
-                     />
+                    android:text="流萤梦" />
 
             </RelativeLayout>
 
@@ -49,16 +51,15 @@
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/ct_type_title"
+                    android:id="@+id/ct_type"
                     style="@style/edit_item_ms_border_title"
                     android:text="题目类型" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
-                    android:id="@+id/ct_type"
+                    android:layout_below="@+id/ct_type"
                     android:editable="false"
-                    android:layout_below="@+id/ct_type_title"
-                    />
+                    android:text="6A-404" />
 
             </RelativeLayout>
 
@@ -67,16 +68,15 @@
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/ct_resource_title"
+                    android:id="@+id/ct_resource"
                     style="@style/edit_item_ms_border_title"
                     android:text="题目来源" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
-                    android:id="@+id/ct_resource"
-                    android:layout_below="@+id/ct_resource_title"
                     android:editable="false"
-                    />
+                    android:layout_below="@+id/ct_resource"
+                    android:text="2019-01-05 17:47:28" />
 
             </RelativeLayout>
 
@@ -85,17 +85,15 @@
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/ct_teacher_title"
+                    android:id="@+id/ct_profession"
                     style="@style/edit_item_ms_border_title"
-                    android:text="指导教师" />
+                    android:text="指导老师" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
-                    android:id="@+id/ct_teacher"
-                    android:layout_below="@+id/ct_teacher_title"
-                    android:textColor="@color/blue_light"
-                    />
+                    android:layout_below="@+id/ct_profession"
+                    android:text="2019-01-05 17:47:28" />
 
             </RelativeLayout>
 
@@ -104,16 +102,32 @@
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
-                    android:id="@+id/ct_number_title"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="可选人数" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_content"
-                    android:editable="false"
                     android:id="@+id/ct_number"
-                    android:layout_below="@+id/ct_number_title"
-                    />
+                    style="@style/edit_item_ms_border_title"
+                    android:text="申报时间" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/ct_number"
+                    android:text="2019-01-05 17:47:28" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/ct_time"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="审核状态" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/ct_time"
+                    android:text="2019-01-05 17:47:28" />
 
             </RelativeLayout>
 
@@ -122,10 +136,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/ct_is_choose"
+                    android:id="@+id/ct_item_del"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"
@@ -133,7 +148,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/login_button_selector"
-                    android:text="选　择"
+                    android:text="审　核"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
             </LinearLayout>

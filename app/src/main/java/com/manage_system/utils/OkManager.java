@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,8 +33,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class OkManager {
     private OkHttpClient client;
-//    private volatile static OkManager manager;   //防止多个线程访问时
-    private static OkManager manager;
+    private volatile static OkManager manager;   //防止多个线程访问时
     private final String TAG = OkManager.class.getSimpleName();  //获得类名
     private static String Tag = "hhhhhh";
     private Handler handler;
@@ -367,7 +367,11 @@ public class OkManager {
 
     public static void post(String url, Map<String,String> map,okhttp3.Callback callback)
     {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(60000, TimeUnit.MILLISECONDS)
+                .readTimeout(60000, TimeUnit.MILLISECONDS)
+                .build();
+//        OkHttpClient client = new OkHttpClient();
+
         FormBody.Builder builder = new FormBody.Builder();
         SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("loginInfo", MODE_PRIVATE);
         Log.w(Tag,sp.getString("token" , "")+"哈哈");

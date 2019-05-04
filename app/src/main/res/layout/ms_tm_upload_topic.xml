@@ -81,12 +81,28 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="题目来源" />
 
-                <Spinner
-                    style="@style/edit_item_ms_border_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/subject_source"
-                    android:id="@+id/spinner2"
-                    android:entries="@array/subject_source"
-                    />
+                    android:layout_height="match_parent">
+                    <Spinner
+                        style="@style/edit_item_ms_pull"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/spinner2"
+                        android:entries="@array/subject_source"
+                     />
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_selected"
+                        android:src="@drawable/pull_down"
+                        />
+                </LinearLayout>
+
+
 
             </RelativeLayout>
 
@@ -99,12 +115,26 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="题目类型" />
 
-                <Spinner
-                    style="@style/edit_item_ms_border_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/subject_type"
-                    android:id="@+id/spinner3"
-                    android:entries="@array/subject_source"
-                    />
+                    android:layout_height="match_parent">
+                    <Spinner
+                        style="@style/edit_item_ms_pull"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/spinner3"
+                        android:entries="@array/subject_source"
+                        />
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_selected"
+                        android:src="@drawable/pull_down"
+                        />
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -117,12 +147,26 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="可选人数" />
 
-                <Spinner
-                    style="@style/edit_item_ms_border_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/subject_choose_number"
-                    android:id="@+id/spinner5"
-                    android:entries="@array/subject_source"
-                    />
+                    android:layout_height="match_parent">
+                    <Spinner
+                        style="@style/edit_item_ms_pull"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/spinner5"
+                        android:entries="@array/subject_source"
+                        />
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_selected"
+                        android:src="@drawable/pull_down"
+                        />
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -135,12 +179,26 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="所属专业" />
 
-                <Spinner
-                    style="@style/edit_item_ms_border_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/subject_is_really"
-                    android:id="@+id/spinner4"
-                    android:entries="@array/subject_source"
-                    />
+                    android:layout_height="match_parent">
+                    <Spinner
+                        style="@style/edit_item_ms_pull"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/spinner4"
+                        android:entries="@array/subject_source"
+                        />
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_selected"
+                        android:src="@drawable/pull_down"
+                        />
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -153,12 +211,26 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="可选专业" />
 
-                <Spinner
-                    style="@style/edit_item_ms_border_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/ut_choose_pro"
-                    android:id="@+id/spinner6"
-                    android:entries="@array/subject_source"
-                    />
+                    android:layout_height="match_parent">
+                    <Spinner
+                        style="@style/edit_item_ms_pull"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/spinner6"
+                        android:entries="@array/subject_source"
+                        />
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_selected"
+                        android:src="@drawable/pull_down"
+                        />
+                </LinearLayout>
 
             </RelativeLayout>
 

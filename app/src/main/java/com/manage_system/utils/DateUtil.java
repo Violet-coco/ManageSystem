@@ -193,4 +193,14 @@ public class DateUtil {
         return new SimpleDateFormat("yyyy年MM月dd日 星期").format(date) + WEEK[dayOfWeek - 1];
     }
 
+    public static String getDateFormat(String str) {
+        long time = Long.parseLong(str);//long now = android.os.SystemClock.uptimeMillis();
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date=new Date(time);
+        return format.format(date);
+    }
+
+
+
+
 }

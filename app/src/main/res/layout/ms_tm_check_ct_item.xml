@@ -95,6 +95,40 @@
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
+                    android:id="@+id/subject_choose_teacher"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="指导教师" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_choose_teacher"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/subject_choose_status"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="指导教师审核状态" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:layout_below="@+id/subject_choose_status"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
                     android:id="@+id/subject_check_status"
                     style="@style/edit_item_ms_border_title"
                     android:text="审核状态" />
