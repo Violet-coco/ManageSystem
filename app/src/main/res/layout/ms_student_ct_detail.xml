@@ -164,6 +164,8 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
+                    android:textColor="@color/blue"
+                    android:autoLink="all"
                     android:editable="false"
                     android:id="@+id/ct_task"
                     android:layout_below="@+id/ct_task_title"
@@ -182,6 +184,8 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
+                    android:textColor="@color/blue"
+                    android:autoLink="all"
                     android:editable="false"
                     android:id="@+id/ct_annex"
                     android:layout_below="@+id/ct_annex_title"

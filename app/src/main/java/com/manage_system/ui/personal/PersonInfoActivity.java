@@ -192,20 +192,6 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 
 								}
 							});
-//							manager.sendComplexForm(path, map1, new OkManager.Fun4() {
-//								@Override
-//								public void onResponse(org.json.JSONObject jsonObject) {
-//									JSONObject obj = JSON.parseObject(jsonObject.toString());
-//									Log.w(TAG,obj.toString());
-//									SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
-//									//获取编辑器
-//									SharedPreferences.Editor editor=sp.edit();
-//									editor.putString("bindTel",obj.getJSONObject("data").getString("bindTel"));
-//									editor.putString("contactTel",obj.getJSONObject("data").getString("contactTel"));
-//									editor.putString("email",obj.getJSONObject("data").getString("email"));
-//									editor.commit();
-//								}
-//							});
 							finish();
 						}else{
 							Toast.makeText(PersonInfoActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
@@ -215,35 +201,6 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 
 			}
 		});
-//		manager.sendComplexForm(save_info_path, map, new OkManager.Fun4() {
-//			@Override
-//			public void onResponse(org.json.JSONObject jsonObject) {
-//				JSONObject obj = JSON.parseObject(jsonObject.toString());
-//				Log.w(TAG,obj.toString());
-//				if(obj.get("statusCode").equals(100)){
-//					Toast.makeText(PersonInfoActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-//					// 连接接口
-//					Map<String, String> map1 = new HashMap<String, String>();
-//					manager.sendComplexForm(path, map1, new OkManager.Fun4() {
-//						@Override
-//						public void onResponse(org.json.JSONObject jsonObject) {
-//							JSONObject obj = JSON.parseObject(jsonObject.toString());
-//							Log.w(TAG,obj.toString());
-//							SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
-//							//获取编辑器
-//							SharedPreferences.Editor editor=sp.edit();
-//							editor.putString("bindTel",obj.getJSONObject("data").getString("bindTel"));
-//							editor.putString("contactTel",obj.getJSONObject("data").getString("contactTel"));
-//							editor.putString("email",obj.getJSONObject("data").getString("email"));
-//							editor.commit();
-//						}
-//					});
-//					finish();
-//				}else{
-//					Toast.makeText(PersonInfoActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-//				}
-//			}
-//		});
 	}
 
 }

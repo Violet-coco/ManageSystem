@@ -131,16 +131,20 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 Toast.makeText(getActivity(), "退出成功", Toast.LENGTH_SHORT).show();
                 SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
                 SharedPreferences sp1=getActivity().getSharedPreferences("personInfo", MODE_PRIVATE);
+                SharedPreferences sp2=getActivity().getSharedPreferences("chooseTitle", MODE_PRIVATE);
                 //获取编辑器
                 SharedPreferences.Editor editor=sp.edit();
                 SharedPreferences.Editor editor1=sp1.edit();
+                SharedPreferences.Editor editor2=sp2.edit();
                 //修改token
 //                editor.putString("token", null);
                 editor.clear();
                 editor1.clear();
+                editor2.clear();
                 //提交修改
                 editor.commit();
                 editor1.commit();
+                editor2.commit();
                 // 连接接口
                 manager = OkManager.getInstance();
                 Map<String, String> map = new HashMap<String, String>();
@@ -165,15 +169,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                     }
                 });
 
-//                manager.sendComplexForm(path, map, new OkManager.Fun4() {
-//                    @Override
-//                    public void onResponse(org.json.JSONObject jsonObject) {
-//                        JSONObject obj = JSON.parseObject(jsonObject.toString());
-//                        Log.w(TAG,obj.toString());
-//                    }
-//                });
-                SharedPreferences sp2=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
-                Log.w(TAG,sp2.getString("token","")+"退出");
                 getActivity().finish();
                 System.exit(0);
             }
@@ -186,10 +181,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 dialog.dismiss();
             }
         });
-    }
-
-    private void logout() {
-        context.finish();
     }
 
     private static final String TAG = "个人页面";

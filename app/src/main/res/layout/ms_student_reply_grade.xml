@@ -36,7 +36,7 @@
                     android:text="学生成绩" />
 
                 <LinearLayout
-                    android:id="@+id/final_grade"
+                    android:id="@+id/final_grade_title"
                     android:layout_below="@+id/reply_record_con"
                     style="@style/edit_item" >
 
@@ -46,9 +46,10 @@
 
                     <TextView
                         style="@style/edit_item_ms_grade_con"
+                        android:id="@+id/final_grade"
                         android:layout_weight="1"
                         android:editable="false"
-                        android:text="计算机学院" />
+                        />
 
                 </LinearLayout>
             </RelativeLayout>
