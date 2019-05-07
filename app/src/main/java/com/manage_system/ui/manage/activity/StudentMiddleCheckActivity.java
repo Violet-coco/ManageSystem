@@ -207,7 +207,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
 
                         }else if(obj.get("statusCode").equals(101)){
                             Toast.makeText(StudentMiddleCheckActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentMiddleCheckActivity.this,StudentOpenReportEditActivity.class);
+                            Intent intent = new Intent(StudentMiddleCheckActivity.this,StudentMiddleCheckEditActivity.class);
                             startActivity(intent);
                         }else{
                             Toast.makeText(StudentMiddleCheckActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -227,7 +227,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("intro", intro) // 提交普通字段
                 .addFormDataPart("fileId", fileId) // 提交普通字段
-                .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("application/msword"), file))
+                .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
                 .build();
         Log.w(TAG,"hhh1:"+intro);
         Log.w(TAG,"hhh5:"+uploadfile);
