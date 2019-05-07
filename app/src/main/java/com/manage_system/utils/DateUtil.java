@@ -200,6 +200,13 @@ public class DateUtil {
         return format.format(date);
     }
 
+    public static String getDateFormatNoTime(String str) {
+        long time = Long.parseLong(str);//long now = android.os.SystemClock.uptimeMillis();
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        Date date=new Date(time);
+        return format.format(date);
+    }
+
 
 
 

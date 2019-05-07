@@ -40,12 +40,11 @@
                     android:text="课题题目" />
 
                 <EditText
-                    android:id="@+id/person_name"
+                    android:id="@+id/reply_title"
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"
                     android:maxLength="90"
                     android:editable="false"
-                    android:text="PMMA灯具基于moldflow三维流动优化的"
                     />
 
             </LinearLayout>
@@ -66,11 +65,11 @@
                     android:text="指导老师" />
 
                 <EditText
-                    android:id="@+id/tvUserTag"
+                    android:id="@+id/reply_guide_teacher"
                     style="@style/edit_item_right_et_child"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:text="流萤梦" />
+                    />
 
             </LinearLayout>
 
@@ -84,9 +83,10 @@
 
                 <EditText
                     style="@style/edit_item_right_et_child"
+                    android:id="@+id/reply_time"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:text="2019-01-05 17:47:28" />
+                     />
 
             </LinearLayout>
 
@@ -100,9 +100,10 @@
 
                 <EditText
                     style="@style/edit_item_right_et_child"
+                    android:id="@+id/reply_class"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:text="6A-404" />
+                     />
 
             </LinearLayout>
 
@@ -117,8 +118,9 @@
                 <EditText
                     style="@style/edit_item_right_et_child"
                     android:layout_weight="1"
+                    android:id="@+id/reply_teacher"
                     android:editable="false"
-                    android:text="流萤梦" />
+                     />
 
             </LinearLayout>
 
@@ -133,6 +135,7 @@
                 <EditText
                     style="@style/edit_item_right_et_child"
                     android:layout_weight="1"
+                    android:id="@+id/reply_group"
                     android:editable="false"
                     android:text="第一组" />
 

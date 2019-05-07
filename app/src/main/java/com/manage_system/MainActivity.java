@@ -101,6 +101,8 @@ public class MainActivity extends BaseActivity {
                             editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
                             editor.putString("department", obj.getJSONObject("data").getString("department"));
                             editor.putString("email", obj.getJSONObject("data").getString("email"));
+                            editor.putString("pName", obj.getJSONObject("data").getString("pName"));
+                            editor.putString("mtName", obj.getJSONObject("data").getString("mtName"));
                             //提交修改
                             editor.commit();
                         }else {

@@ -30,6 +30,8 @@ public class StudentReplyGradeActivity extends AppCompatActivity implements View
     ImageButton iv_back;
     @BindView(R.id.final_grade)
     TextView final_grade;
+    @BindView(R.id.final_level)
+    TextView final_level;
     private String TAG = "答辩成绩";
 
     @Override
@@ -79,6 +81,8 @@ public class StudentReplyGradeActivity extends AppCompatActivity implements View
                         if(obj.get("statusCode").equals(100)){
                             Log.w(TAG,obj.getJSONObject("data").toString());
                             final_grade.setText(obj.getJSONObject("data").get("scoreTotal").toString());
+                            final_level.setText(obj.getJSONObject("data").get("grade").toString());
+
                         }else{
                             Toast.makeText(StudentReplyGradeActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }

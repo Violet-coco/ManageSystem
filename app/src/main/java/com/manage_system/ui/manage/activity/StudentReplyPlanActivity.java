@@ -2,11 +2,13 @@ package com.manage_system.ui.manage.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -16,12 +18,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.adapter.MyAdapter;
+import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.OkManager;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -29,13 +34,29 @@ public class StudentReplyPlanActivity extends AppCompatActivity implements View.
 
     ImageButton iv_back;
     private String TAG = "答辩安排";
+    @BindView(R.id.reply_title)
+    EditText reply_title;
+    @BindView(R.id.reply_guide_teacher)
+    EditText reply_guide_teacher;
+    @BindView(R.id.reply_time)
+    EditText reply_time;
+    @BindView(R.id.reply_class)
+    EditText reply_class;
+    @BindView(R.id.reply_teacher)
+    EditText reply_teacher;
+    @BindView(R.id.reply_group)
+    EditText reply_group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ms_student_reply_plan);
+        ButterKnife.bind(this);
         getId();
         initData();
+        SharedPreferences sp = getSharedPreferences("personInfo", MODE_PRIVATE);
+        reply_title.setText(sp.getString("pName",""));
+        reply_guide_teacher.setText(sp.getString("mtName",""));
     }
 
     /**启动这个Activity的Intent
@@ -74,7 +95,18 @@ public class StudentReplyPlanActivity extends AppCompatActivity implements View.
                     @Override
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
-
+                            JSONObject object = obj.getJSONObject("data");
+                            String teachers = "";
+                            JSONArray array = new JSONArray(obj.getJSONObject("data").getJSONArray("teaGroup"));
+                            for (int i = 0; i < array.size(); i++) {
+                                Log.w(TAG,array.getJSONObject(i).toString());
+                                teachers = teachers + array.getJSONObject(i).getJSONObject("teaAuth").getString("name") +"　";
+                                Log.w(TAG,teachers);
+                            }
+                            reply_time.setText(DateUtil.getDateFormatNoTime(object.getString("defDate"))+"　第"+object.get("defWeek")+"周  星期"+object.get("defDay"));
+                            reply_class.setText(object.getString("defClass"));
+                            reply_teacher.setText(teachers);
+                            reply_group.setText("第"+object.getString("groupNum")+"组");
                         }else{
                             Toast.makeText(StudentReplyPlanActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }

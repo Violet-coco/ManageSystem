@@ -111,11 +111,13 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
                 annex_fileId = project.getString("fileId");
                 if(task_fileId.equals("0")){
                     ct_task.setEnabled(false);
+                    ct_task.setText("暂无任务书");
                 }else{
                     ct_task.setText(Html.fromHtml("<u>"+project.getString("title")+".任务书"+"</u>"));
                 }
                 if(annex_fileId.equals("0")){
                     ct_annex.setEnabled(false);
+                    ct_annex.setText("暂无附件");
                 }else{
                     ct_annex.setText(Html.fromHtml("<u>"+project.getString("title")+".附件"+"</u>"));
                 }

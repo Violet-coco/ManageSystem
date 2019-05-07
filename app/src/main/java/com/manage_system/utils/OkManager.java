@@ -12,7 +12,9 @@ import com.manage_system.MyApp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +22,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -370,12 +373,11 @@ public class OkManager {
         OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(60000, TimeUnit.MILLISECONDS)
                 .readTimeout(60000, TimeUnit.MILLISECONDS)
                 .build();
-//        OkHttpClient client = new OkHttpClient();
 
         FormBody.Builder builder = new FormBody.Builder();
         SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("loginInfo", MODE_PRIVATE);
         Log.w(Tag,sp.getString("token" , "")+"哈哈");
-        if (map!=null)
+        if (map!=null && !map.isEmpty())
         {
             for (Map.Entry<String,String> entry:map.entrySet())
             {
@@ -390,6 +392,37 @@ public class OkManager {
                 .build();
         client.newCall(request).enqueue(callback);
     }
+
+    public static void postFile(String url, Map<String,String> map,okhttp3.Callback callback)
+    {
+        OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(60000, TimeUnit.MILLISECONDS)
+                .readTimeout(60000, TimeUnit.MILLISECONDS)
+                .build();
+
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        //设置类型
+        builder.setType(MultipartBody.FORM);
+        //追加参数
+        for (String key : map.keySet()) {
+            Object object = map.get(key);
+            if (!(object instanceof File)) {
+                builder.addFormDataPart(key, object.toString());
+            } else {
+                File file = (File) object;
+                builder.addFormDataPart(key, file.getName(), RequestBody.create(null, file));
+            }
+        }
+        //创建RequestBody
+        RequestBody body = builder.build();
+        SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Request request = new Request.Builder()
+                .header("token",sp.getString("token" , ""))
+                .url(url)
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
 
     //回调
     public interface Fun1 {

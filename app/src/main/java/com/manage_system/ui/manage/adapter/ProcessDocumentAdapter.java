@@ -46,17 +46,6 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
         holder.student_submit_open_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 连接接口
-                manager = OkManager.getInstance();
-                Map<String, String> map = new HashMap<String, String>();
-
-                manager.sendComplexForm(path, map, new OkManager.Fun4() {
-                    @Override
-                    public void onResponse(org.json.JSONObject jsonObject) {
-                        JSONObject obj = JSON.parseObject(jsonObject.toString());
-                        Log.w(TAG,obj.toString());
-                    }
-                });
                 Intent intent=new Intent(v.getContext(),StudentOpenReportActivity.class);
                 v.getContext().startActivity(intent);
             }
