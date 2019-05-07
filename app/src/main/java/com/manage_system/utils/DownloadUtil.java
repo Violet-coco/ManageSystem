@@ -77,7 +77,7 @@ public class DownloadUtil {
                 try {
                     is = response.body().byteStream();
                     long total = response.body().contentLength();
-                    File file = new File(savePath, getNameFromUrl(url,fileName));
+                    File file = new File(savePath, getNameFromUrl(url));
                     Log.w(TAG,"最终路径："+file);
                     fos = new FileOutputStream(file);
                     long sum = 0;
@@ -132,9 +132,8 @@ public class DownloadUtil {
      * 从下载连接中解析出文件名
      */
     @NonNull
-    public String getNameFromUrl(String url,String filename) {
-        Log.w(TAG,"解析文件名：");
-        return filename+".doc";
+    public String getNameFromUrl(String url) {
+        return url.substring(url.lastIndexOf("/") + 1);
     }
 
     public interface OnDownloadListener {

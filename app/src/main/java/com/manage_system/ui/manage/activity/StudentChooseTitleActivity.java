@@ -99,7 +99,11 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
         editor.putString("teacher",teacher.toString());
         editor.commit();
         Log.e(TAG,object.toString());
-        fileName = project.getString("title");
+        if(!project.getJSONObject("file").getString("fileName").isEmpty()){
+            fileName = project.getJSONObject("file").getString("fileName");
+        }else{
+            fileName = project.getString("title");
+        }
         ct_topic.setText(project.getString("title"));
         ct_type.setText(project.getString("genre"));
         ct_resource.setText(project.getString("source"));
@@ -151,7 +155,7 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
-                onViewClicked();
+                finish();
                 break;
             case R.id.ct_is_choose:
                 showDialog();
@@ -227,10 +231,6 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
         });
     }
 
-    public void onViewClicked() {
-        finish();
-    }
-
     public void downLoad(String title,String message,final String fileId){
         final Dialog dialog = new Dialog(StudentChooseTitleActivity.this, R.style.MyDialog);
         //设置它的ContentView
@@ -260,55 +260,7 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
                 dialog.setProgress(0);
                 dialog.setMax(100);
                 dialog.show();
-                Log.w(TAG,ApiConstants.commonApi + "/downloadFile"+"?fileId="+fileId);
-                //启动下载方法
-                DownloadUtil.get().download(StudentChooseTitleActivity.this, ApiConstants.commonApi + "/downloadFile"+"?fileId="+fileId,saveurl,fileName,  new DownloadUtil.OnDownloadListener() {
-                    @Override
-                    public void onDownloadSuccess() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                getNotificationManager().notify(1,getNotification("文件下载成功，点击进行查看",-1));
-                                Toast.makeText(StudentChooseTitleActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-
-                                if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-
-                                    return;
-                                }
-
-                                File file = new File(Environment.getExternalStorageDirectory().getPath() + "/download/"+fileName+".doc");
-                                Log.w(TAG,"路径2："+file);
-                                try {
-                                    Log.w(TAG,"打开");
-                                    OpenFileUtils.openFile(mContext, file);
-                                } catch (Exception e) {
-                                    Log.w(TAG,"无打开方式");
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onDownloading(int progress) {
-
-                        dialog.setProgress(progress);
-                        getNotificationManager().notify(1,getNotification("下载中...",progress));
-                    }
-
-                    @Override
-                    public void onDownloadFailed() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                getNotificationManager().notify(1,getNotification("下载失败",-1));
-                                Toast.makeText(StudentChooseTitleActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }
-                        });
-                    }
-                });
+                startDownload(dialog,fileId,saveurl);
 
             }
         });
@@ -318,6 +270,57 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 dialog.dismiss();
+            }
+        });
+    }
+
+    public void startDownload(final ProgressDialog dialog,String fileId,String saveurl){
+        //启动下载方法
+        DownloadUtil.get().download(StudentChooseTitleActivity.this, ApiConstants.commonApi + "/downloadFile"+"?fileId="+fileId,saveurl,fileName,  new DownloadUtil.OnDownloadListener() {
+            @Override
+            public void onDownloadSuccess() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getNotificationManager().notify(1,getNotification("文件下载成功，点击进行查看",-1));
+                        Toast.makeText(StudentChooseTitleActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+
+                        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+
+                            return;
+                        }
+
+                        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/download/"+fileName);
+                        Log.w(TAG,"路径2："+file);
+                        try {
+                            Log.w(TAG,"打开");
+                            OpenFileUtils.openFile(mContext, file);
+                        } catch (Exception e) {
+                            Log.w(TAG,"无打开方式");
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onDownloading(int progress) {
+
+                dialog.setProgress(progress);
+                getNotificationManager().notify(1,getNotification("下载中...",progress));
+            }
+
+            @Override
+            public void onDownloadFailed() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getNotificationManager().notify(1,getNotification("下载失败",-1));
+                        Toast.makeText(StudentChooseTitleActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }

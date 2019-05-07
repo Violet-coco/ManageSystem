@@ -12,7 +12,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="修改开题报告" />
+            android:text="提交开题报告" />
 
     </RelativeLayout>
 
@@ -110,6 +110,7 @@
                         android:textColor="@color/blue"
                         android:background="@color/white"
                         android:id="@+id/or_annex"
+                        android:editable="false"
                         android:layout_weight="1"
                         android:layout_below="@+id/open_record_annex_title"
                         />

@@ -393,27 +393,17 @@ public class OkManager {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void postFile(String url, Map<String,String> map,okhttp3.Callback callback)
+    public static void postFile(String url, RequestBody requestBody ,okhttp3.Callback callback)
     {
         OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(60000, TimeUnit.MILLISECONDS)
                 .readTimeout(60000, TimeUnit.MILLISECONDS)
                 .build();
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
-        //设置类型
-        builder.setType(MultipartBody.FORM);
-        //追加参数
-        for (String key : map.keySet()) {
-            Object object = map.get(key);
-            if (!(object instanceof File)) {
-                builder.addFormDataPart(key, object.toString());
-            } else {
-                File file = (File) object;
-                builder.addFormDataPart(key, file.getName(), RequestBody.create(null, file));
-            }
-        }
-        //创建RequestBody
-        RequestBody body = builder.build();
+
+        // 上传文件使用MultipartBody.Builder
+        RequestBody body = requestBody;
+
         SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("loginInfo", MODE_PRIVATE);
         Request request = new Request.Builder()
                 .header("token",sp.getString("token" , ""))

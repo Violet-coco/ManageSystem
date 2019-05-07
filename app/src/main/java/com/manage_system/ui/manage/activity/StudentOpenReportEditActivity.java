@@ -1,12 +1,18 @@
 package com.manage_system.ui.manage.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,14 +20,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
+import com.manage_system.utils.DownloadUtil;
 import com.manage_system.utils.FileUtils;
 import com.manage_system.utils.OkManager;
+import com.manage_system.utils.OpenFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,9 +55,7 @@ import static com.manage_system.utils.FileUtils.getRealPathFromURI;
 public class StudentOpenReportEditActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton iv_back;
-    private OkManager manager;
 
-    private String path;
     private String TAG = "修改开题报告";
     @BindView(R.id.or_aim)
     EditText or_aim;
@@ -65,9 +72,8 @@ public class StudentOpenReportEditActivity extends AppCompatActivity implements 
     @BindView(R.id.or_submit_annex)
     Button or_submit_annex;
     private String aim,content,tech,plan,uploadfile;
-    private File tempFile;
-    private OkHttpClient okHttpClient;
-    private static final int FILE_SELECT_CODE = 1;
+    private String path;
+    private File file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +104,7 @@ public class StudentOpenReportEditActivity extends AppCompatActivity implements 
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
-                onViewClicked();
+                finish();
                 break;
             case R.id.open_record_submit:
                 Log.w(TAG,"点击提交");
@@ -125,13 +131,15 @@ public class StudentOpenReportEditActivity extends AppCompatActivity implements 
         Log.w(TAG,"hhh4:"+plan);
         Log.w(TAG,"hhh5:"+uploadfile);
         OkManager manager = OkManager.getInstance();
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("aim",aim);
-        map.put("content",content);
-        map.put("tech",tech);
-        map.put("plan",plan);
-        map.put("uploadfile",uploadfile);
-        manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", map,new okhttp3.Callback() {
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("aim", aim) // 提交普通字段
+                .addFormDataPart("content", content)
+                .addFormDataPart("tech", tech)
+                .addFormDataPart("plan", plan)
+                .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("application/msword"), file))
+                .build();
+        manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -174,7 +182,7 @@ public class StudentOpenReportEditActivity extends AppCompatActivity implements 
             Uri uri = data.getData();
             if ("file".equalsIgnoreCase(uri.getScheme())){//使用第三方应用打开
                 path = uri.getPath();
-                File file = new File(path);
+                file = new File(path);
                 uploadfile = file.getName();
                 or_annex.setText(uploadfile);
                 Log.w(TAG,"getName==="+uploadfile);
@@ -184,7 +192,7 @@ public class StudentOpenReportEditActivity extends AppCompatActivity implements 
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
                 path = getPath(this, uri);
                 Log.w(TAG,path);
-                File file = new File(path);
+                file = new File(path);
                 uploadfile = file.getName();
                 or_annex.setText(uploadfile);
                 Log.w(TAG,"getName==="+uploadfile);
@@ -198,7 +206,4 @@ public class StudentOpenReportEditActivity extends AppCompatActivity implements 
 
     }
 
-    public void onViewClicked() {
-        finish();
-    }
 }
