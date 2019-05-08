@@ -140,6 +140,9 @@
 
         <!--学生过程文档-->
         <activity android:name="com.manage_system.ui.manage.activity.StudentGraduationThesisActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentGraduationThesisEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentGraduationThesisMainActivity"/>
+
         <activity android:name="com.manage_system.ui.manage.activity.StudentLiteratureReviewActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.StudentForeignTranslationActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.StudentGuideReportActivity"/>
@@ -149,6 +152,7 @@
         <activity android:name="com.manage_system.ui.manage.activity.StudentLiteratureReviewEditActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.StudentForeignTranslationEditActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.StudentGuideReportEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.StudentGuideReportMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.StudentMiddleCheckEditActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.StudentOpenReportEditActivity"/>
 

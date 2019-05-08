@@ -12,7 +12,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="修改指导记录" />
+            android:text="提交指导记录" />
 
     </RelativeLayout>
 
@@ -35,7 +35,7 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_edit_one"
-                    android:id="@+id/tvUserTag"
+                    android:id="@+id/gr_theme"
                     android:layout_below="@+id/guide_record_theme_title" />
 
             </RelativeLayout>
@@ -49,8 +49,9 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="指导时间" />
 
-                <EditText
+                <Button
                     style="@style/edit_item_ms_border_edit_one"
+                    android:id="@+id/gr_date"
                     android:layout_below="@+id/guide_record_time_title" />
 
             </RelativeLayout>
@@ -66,6 +67,7 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_edit"
+                    android:id="@+id/gr_work"
                     android:layout_below="@+id/guide_record_work_title" />
 
             </RelativeLayout>
@@ -79,10 +81,34 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="附件" />
 
-                <EditText
-                    style="@style/edit_item_ms_border_content"
+                <LinearLayout
+                    android:id="@+id/or_submit_annex_title"
                     android:layout_below="@+id/guide_record_annex_title"
-                    android:text="6A-404" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        style="@style/edit_item_ms_border_check"
+                        android:textColor="@color/blue"
+                        android:background="@color/white"
+                        android:id="@+id/gr_annex"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:layout_below="@+id/litreview_annex_title"
+                        />
+
+                    <Button
+                        style="@style/edit_item_ms_border_state"
+                        android:textColor="@color/white"
+                        android:layout_width="120dp"
+                        android:id="@+id/guide_record_annex"
+                        android:gravity="center"
+                        android:background="@drawable/login_button_selector"
+                        android:layout_below="@+id/open_record_annex1_title"
+                        android:text="浏览"
+                        />
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -94,7 +120,7 @@
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/guide_record_edit"
+                    android:id="@+id/guide_record_submit"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"

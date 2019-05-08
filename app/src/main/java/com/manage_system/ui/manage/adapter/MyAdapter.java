@@ -2,6 +2,7 @@ package com.manage_system.ui.manage.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,10 +53,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             holder.project_title.setText(list.get(position).get("title").toString());
             holder.project_teacher.setText("指导老师："+list.get(position).get("name").toString());
             holder.project_number.setText("可选人数："+list.get(position).get("rest").toString());
+            holder.project_state.setVisibility(View.GONE);
         }else if(string.equals("1002")){
             holder.project_title.setText(list.get(position).get("title").toString());
             holder.project_teacher.setText("指导老师："+list.get(position).get("name").toString());
             holder.project_number.setText("审核状态："+list.get(position).get("cStatus").toString());
+            holder.project_state.setVisibility(View.GONE);
+        }else if(string.equals("1003")){
+            holder.project_title.setText(list.get(position).get("title").toString());
+            holder.project_teacher.setText("提交时间："+list.get(position).get("submitDate").toString());
+            holder.project_number.setText("记录编号："+list.get(position).get("record_times").toString());
+            holder.project_state.setText("审核状态："+list.get(position).get("cStatus").toString());
         }
 
 
@@ -80,11 +88,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
         private TextView project_title;
         private TextView project_teacher;
         private TextView project_number;
+        private TextView project_state;
         public AuthorViewHolder(View itemView) {
             super(itemView);
             project_title = (TextView)itemView.findViewById(R.id.project_title);
             project_teacher = (TextView)itemView.findViewById(R.id.project_teacher);
             project_number = (TextView)itemView.findViewById(R.id.project_number);
+            project_state = (TextView)itemView.findViewById(R.id.project_state);
         }
     }
 

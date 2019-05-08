@@ -177,7 +177,7 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
 
     public void initData() {
         OkManager manager = OkManager.getInstance();
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         manager.post(ApiConstants.studentApi + "/showForeignOriginal", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -203,6 +203,7 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                                 cStatus = "审核不通过";
                             }else if(status.equals("1")){
                                 cStatus = "审核通过";
+                                for_tra_submit.setVisibility(View.GONE);
                             }else if(status.equals("2")|| status.equals("3")){
                                 cStatus = "审核中";
                             }

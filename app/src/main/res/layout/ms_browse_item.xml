@@ -22,7 +22,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
@@ -48,6 +48,15 @@
 
                 <TextView
                     android:id="@+id/project_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="可选人数"
+                    android:textColor="@android:color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/project_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

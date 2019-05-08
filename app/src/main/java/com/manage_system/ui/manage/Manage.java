@@ -41,7 +41,7 @@ public class Manage {
             public void onResponse(Call call, Response response) throws IOException {
                 String responseBody = response.body().string();
                 final JSONObject obj = JSON.parseObject(responseBody);
-                SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("chooseTitle", MODE_PRIVATE);
+                SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("processData", MODE_PRIVATE);
                 //获取编辑器
                 SharedPreferences.Editor editor=sp.edit();
                 editor.putString("obj", obj.toString());

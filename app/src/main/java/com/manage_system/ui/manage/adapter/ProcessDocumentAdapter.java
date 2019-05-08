@@ -15,7 +15,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.ui.manage.activity.StudentForeignTranslationActivity;
 import com.manage_system.ui.manage.activity.StudentGraduationThesisActivity;
+import com.manage_system.ui.manage.activity.StudentGraduationThesisMainActivity;
 import com.manage_system.ui.manage.activity.StudentGuideReportActivity;
+import com.manage_system.ui.manage.activity.StudentGuideReportMainActivity;
 import com.manage_system.ui.manage.activity.StudentLiteratureReviewActivity;
 import com.manage_system.ui.manage.activity.StudentMiddleCheckActivity;
 import com.manage_system.ui.manage.activity.StudentOpenReportActivity;
@@ -61,7 +63,7 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
         holder.student_submit_guide_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),StudentGuideReportActivity.class);
+                Intent intent=new Intent(v.getContext(),StudentGuideReportMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
@@ -84,7 +86,7 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
         holder.student_submit_graduation_thesis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),StudentGraduationThesisActivity.class);
+                Intent intent=new Intent(v.getContext(),StudentGraduationThesisMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });

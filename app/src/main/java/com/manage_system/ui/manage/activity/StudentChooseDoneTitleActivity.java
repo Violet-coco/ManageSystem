@@ -89,7 +89,7 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
         ct_number = (EditText)findViewById(R.id.ct_number);
         ct_is_choose.setText("取　消");
 
-        SharedPreferences sp=getSharedPreferences("chooseTitle", MODE_PRIVATE);
+        SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
         Log.w(TAG,sp.getString("obj" , ""));
         JSONObject obj = JSON.parseObject(sp.getString("obj" , ""));
         JSONArray array = new JSONArray(obj.getJSONObject("data").getJSONArray("projects"));

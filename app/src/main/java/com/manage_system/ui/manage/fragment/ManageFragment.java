@@ -73,7 +73,7 @@ public class ManageFragment extends BaseFragment {
                 String responseBody = response.body().string();
                 final JSONObject obj = JSON.parseObject(responseBody);
                 Log.e(TAG,obj.toString());
-                SharedPreferences sp=getActivity().getSharedPreferences("chooseTitle", MODE_PRIVATE);
+                SharedPreferences sp=getActivity().getSharedPreferences("processData", MODE_PRIVATE);
                 //获取编辑器
                 SharedPreferences.Editor editor=sp.edit();
                 editor.putString("obj", obj.toString());

@@ -20,6 +20,11 @@
             android:layout_centerHorizontal="true"
             android:text="选题列表" />
 
+        <Button
+            style="@style/topbar_right_btn"
+            android:id="@+id/add"
+             />
+
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

@@ -85,7 +85,7 @@ public class DateUtil {
                 return String.format("%d小时前", splitTime / ONE_HOUR);
             }
 
-            return String.format("%d天前  %s", splitTime / ONE_DAY,date2HHmm(date));
+            return String.format("%d天前  %s", splitTime / ONE_DAY, date2HHmm(date));
         }
         String result;
         result = "M月d日 HH:mm";
@@ -167,6 +167,10 @@ public class DateUtil {
         return new SimpleDateFormat("yyyy.MM.dd").format(date);
     }
 
+    public static String date2String(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
+
     /**
      * Date 转换 MM月dd日 星期
      *
@@ -195,19 +199,34 @@ public class DateUtil {
 
     public static String getDateFormat(String str) {
         long time = Long.parseLong(str);//long now = android.os.SystemClock.uptimeMillis();
-        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date=new Date(time);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(time);
         return format.format(date);
     }
 
     public static String getDateFormatNoTime(String str) {
         long time = Long.parseLong(str);//long now = android.os.SystemClock.uptimeMillis();
-        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-        Date date=new Date(time);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(time);
         return format.format(date);
     }
 
+    public static String date2TimeStamp(String date) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            return String.valueOf(sdf.parse(date).getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
+
+    public static String DateToString(Date date) {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String str=sdf.format(date);
+        return str;
+    }
 
 
 }

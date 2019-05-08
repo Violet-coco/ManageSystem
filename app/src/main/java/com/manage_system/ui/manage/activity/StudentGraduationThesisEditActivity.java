@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -35,28 +37,36 @@ import okhttp3.Response;
 import static com.manage_system.utils.FileUtils.getPath;
 import static com.manage_system.utils.FileUtils.getRealPathFromURI;
 
-public class StudentLiteratureReviewEditActivity extends AppCompatActivity implements View.OnClickListener {
+public class StudentGraduationThesisEditActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton iv_back;
-    @BindView(R.id.lr_intro)
-    EditText lr_intro;
-    @BindView(R.id.lr_annex)
-    EditText lr_annex;
-    @BindView(R.id.lite_review_submit)
-    Button lite_review_submit;
-    @BindView(R.id.mc_submit_annex)
-    Button mc_submit_annex;
-    private String TAG = "提交文献综述";
-    private String intro,uploadfile;
-    private String path;
+    @BindView(R.id.gt_keywords)
+    EditText gt_keywords;
+    @BindView(R.id.gt_innovatePoint)
+    EditText gt_innovatePoint;
+    @BindView(R.id.gt_cnSummary)
+    EditText gt_cnSummary;
+    @BindView(R.id.gt_enSummary)
+    EditText gt_enSummary;
+    @BindView(R.id.gt_other)
+    EditText gt_other;
+    @BindView(R.id.gt_word)
+    EditText gt_word;
+    @BindView(R.id.gt_annex)
+    EditText gt_annex;
+    private String TAG = "毕业论文展示";
+    private String path,uploadfile;
+    private int fileIdType = 0;
     private File file;
+    private Context mContext;
+    private String keywords,innovatePoint,cnSummary,enSummary,other,uploadDocFile,uploadAttFile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ms_student_pd_litreview_edit);
+        setContentView(R.layout.ms_student_pd_graduation_thesis_edit);
         ButterKnife.bind(this);
-        getId();
     }
 
     /**启动这个Activity的Intent
@@ -64,30 +74,25 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, StudentLiteratureReviewEditActivity.class);
+        return new Intent(context, StudentGraduationThesisEditActivity.class);
     }
 
-    /**
-     * 获取id
-     */
-    private void getId()
-    {
-        iv_back = (ImageButton)findViewById(R.id.iv_back);
-        iv_back.setOnClickListener(this);
-    }
 
-    @OnClick({R.id.mc_submit_annex,R.id.lite_review_submit})
+    @OnClick({R.id.iv_back,R.id.graduation_thesis_submit,R.id.gt_word_submit,R.id.gt_annex_submit,R.id.gt_word,R.id.gt_annex})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.lite_review_submit:
-                Log.w(TAG,"点击提交");
-                initData();
+            case R.id.graduation_thesis_submit:
+                submitData();
                 break;
-            case R.id.mc_submit_annex:
-                Log.w(TAG,"选择文件");
+            case R.id.gt_word_submit:
+                fileIdType = 1;
+                showFileChooser();
+                break;
+            case R.id.gt_annex_submit:
+                fileIdType = 2;
                 showFileChooser();
                 break;
             default:
@@ -95,16 +100,27 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
         }
     }
 
-    public void initData() {
-        intro=lr_intro.getText().toString().trim();
-        uploadfile=lr_annex.getText().toString().trim();
+    public void submitData() {
+        keywords=gt_keywords.getText().toString().trim();
+        innovatePoint=gt_innovatePoint.getText().toString().trim();
+        cnSummary=gt_cnSummary.getText().toString().trim();
+        enSummary=gt_enSummary.getText().toString().trim();
+        other=gt_other.getText().toString().trim();
+        uploadDocFile=gt_word.getText().toString().trim();
+        uploadAttFile=gt_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("intro", intro) // 提交普通字段
-                .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
+                .addFormDataPart("keywords", keywords)
+                .addFormDataPart("innovatePoint", innovatePoint)
+                .addFormDataPart("cnSummary", cnSummary)
+                .addFormDataPart("enSummary", enSummary)
+                .addFormDataPart("other", other)
+                .addFormDataPart("uploadDocFile", uploadDocFile, RequestBody.create(MediaType.parse("*/*"), file))
+                .addFormDataPart("uploadAttFile", uploadAttFile, RequestBody.create(MediaType.parse("*/*"), file))
                 .build();
-        manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
+
+        manager.postFile(ApiConstants.studentApi + "/addGraduationProject", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -112,17 +128,18 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
                 final JSONObject obj = JSON.parseObject(responseBody);
                 Log.e(TAG,obj.toString());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
-                            Toast.makeText(StudentLiteratureReviewEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentLiteratureReviewEditActivity.this,StudentLiteratureReviewActivity.class);
+                            Toast.makeText(StudentGraduationThesisEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentGraduationThesisEditActivity.this,StudentGraduationThesisMainActivity.class);
                             startActivity(intent);
                         }else {
-                            Toast.makeText(StudentLiteratureReviewEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentGraduationThesisEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -148,8 +165,12 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
                 path = uri.getPath();
                 file = new File(path);
                 uploadfile = file.getName();
-                lr_annex.setText(uploadfile);
-                Log.w(TAG,"getName==="+uploadfile);
+                if(fileIdType == 1){
+                    gt_word.setText(uploadfile);
+                }
+                if(fileIdType == 2){
+                    gt_annex.setText(uploadfile);
+                }
                 Toast.makeText(this,path+"11111",Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -158,13 +179,17 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
                 Log.w(TAG,path);
                 file = new File(path);
                 uploadfile = file.getName();
-                lr_annex.setText(uploadfile);
-                Log.w(TAG,"getName==="+uploadfile);
+                if(fileIdType == 1){
+                    gt_word.setText(uploadfile);
+                }
+                if(fileIdType == 2){
+                    gt_annex.setText(uploadfile);
+                }
                 Toast.makeText(this,path,Toast.LENGTH_SHORT).show();
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(this,uri);
                 Log.w(TAG,path);
-                Toast.makeText(StudentLiteratureReviewEditActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudentGraduationThesisEditActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
             }
         }
 

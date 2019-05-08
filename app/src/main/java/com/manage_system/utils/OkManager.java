@@ -399,8 +399,6 @@ public class OkManager {
                 .readTimeout(60000, TimeUnit.MILLISECONDS)
                 .build();
 
-        MultipartBody.Builder builder = new MultipartBody.Builder();
-
         // 上传文件使用MultipartBody.Builder
         RequestBody body = requestBody;
 

@@ -142,7 +142,7 @@
                     <TextView
                         android:id="@+id/open_record_check"
                         style="@style/edit_item_ms_border_title"
-                        android:text="开题报告审核" />
+                        android:text="中期检查审核" />
 
                     <EditText
                         style="@style/edit_item_ms_border_content"
@@ -175,6 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:layout_marginTop="25dp">
 
                 <Button

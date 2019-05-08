@@ -215,6 +215,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                                 cStatus = "审核不通过";
                             }else if(status.equals("1")){
                                 cStatus = "审核通过";
+                                open_record_submit.setVisibility(View.GONE);
                             }else if(status.equals("2")|| status.equals("3")){
                                 cStatus = "审核中";
                             }
@@ -229,7 +230,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                                 or_annex.setText("暂无附件");
                                 or_annex.setEnabled(false);
                             }else{
-                                if(!object.getJSONObject("file").getString("fileName").isEmpty()){
+                                if(object.containsKey("file")){
                                     fileName = object.getJSONObject("file").getString("fileName");
                                     or_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
                                 }else{

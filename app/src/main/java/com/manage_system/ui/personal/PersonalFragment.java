@@ -131,7 +131,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 Toast.makeText(getActivity(), "退出成功", Toast.LENGTH_SHORT).show();
                 SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
                 SharedPreferences sp1=getActivity().getSharedPreferences("personInfo", MODE_PRIVATE);
-                SharedPreferences sp2=getActivity().getSharedPreferences("chooseTitle", MODE_PRIVATE);
+                SharedPreferences sp2=getActivity().getSharedPreferences("processData", MODE_PRIVATE);
                 //获取编辑器
                 SharedPreferences.Editor editor=sp.edit();
                 SharedPreferences.Editor editor1=sp1.edit();

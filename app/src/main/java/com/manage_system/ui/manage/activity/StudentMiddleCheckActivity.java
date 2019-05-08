@@ -185,6 +185,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                                 cStatus = "审核不通过";
                             }else if(status.equals("1")){
                                 cStatus = "审核通过";
+                                middle_check_submit.setVisibility(View.GONE);
                             }else if(status.equals("2")|| status.equals("3")){
                                 cStatus = "审核中";
                             }
@@ -196,7 +197,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                                 mc_annex.setText("暂无附件");
                                 mc_annex.setEnabled(false);
                             }else{
-                                if(!object.getJSONObject("file").getString("fileName").isEmpty()){
+                                if(object.getJSONObject("file").getString("fileName").isEmpty()){
                                     fileName = object.getJSONObject("file").getString("fileName");
                                     mc_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
                                 }else{
@@ -268,7 +269,6 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, 1);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

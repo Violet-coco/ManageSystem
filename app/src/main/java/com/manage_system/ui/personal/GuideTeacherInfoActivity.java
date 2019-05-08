@@ -36,7 +36,7 @@ public class GuideTeacherInfoActivity extends AppCompatActivity implements View.
         t_email = (EditText) findViewById(R.id.t_email);
         t_phone = (EditText) findViewById(R.id.t_phone);
         t_college = (EditText) findViewById(R.id.t_college);
-        SharedPreferences sp=getSharedPreferences("chooseTitle", MODE_PRIVATE);
+        SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
         Log.w(TAG,sp.getString("teacher" , ""));
         JSONObject obj = JSON.parseObject(sp.getString("teacher" , ""));
 
