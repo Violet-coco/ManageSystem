@@ -105,13 +105,24 @@ public class StudentForeignTranslationEditActivity extends AppCompatActivity imp
         uploadOrifile=ft_forFile.getText().toString().trim();
         uploadForfile=ft_oriFile.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("foreign", foreign)
-                .addFormDataPart("original", original) // 提交普通字段
-                .addFormDataPart("uploadForfile", uploadForfile, RequestBody.create(MediaType.parse("*/*"), file))
-                .addFormDataPart("uploadOrifile", uploadOrifile, RequestBody.create(MediaType.parse("*/*"), file))
-                .build();
+        RequestBody requestBody;
+        if(file == null){
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("foreign", foreign)
+                    .addFormDataPart("original", original) // 提交普通字段
+                    .addFormDataPart("uploadForfile", uploadForfile)
+                    .addFormDataPart("uploadOrifile", uploadOrifile)
+                    .build();
+        }else {
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("foreign", foreign)
+                    .addFormDataPart("original", original) // 提交普通字段
+                    .addFormDataPart("uploadForfile", uploadForfile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .addFormDataPart("uploadOrifile", uploadOrifile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .build();
+        }
 
         manager.postFile(ApiConstants.studentApi + "/commitForeignOriginal", requestBody,new okhttp3.Callback() {
             @Override

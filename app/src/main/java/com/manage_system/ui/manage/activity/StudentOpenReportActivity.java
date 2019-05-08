@@ -226,17 +226,13 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                             or_plan.setText(object.getString("plan"));
                             or_annotation.setText(object.getString("annotation"));
                             fileId = object.getString("fileId");
-                            if(object.get("fileId").equals(0)){
+                            if(object.containsKey("file")){
+                                fileName = object.getJSONObject("file").getString("fileName");
+                                or_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
+                            }else{
+                                fileName = object.getString("title");
                                 or_annex.setText("暂无附件");
                                 or_annex.setEnabled(false);
-                            }else{
-                                if(object.containsKey("file")){
-                                    fileName = object.getJSONObject("file").getString("fileName");
-                                    or_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
-                                }else{
-                                    fileName = object.getString("title");
-                                    or_annex.setText(Html.fromHtml("<u>"+"开题报告.附件"+"</u>"));
-                                }
                             }
 
                         }else if(obj.get("statusCode").equals(101)){
@@ -264,16 +260,30 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
         Log.w(TAG,"hhh4:"+plan);
         Log.w(TAG,"hhh5:"+uploadfile);
         OkManager manager = OkManager.getInstance();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("aim", aim) // 提交普通字段
-                .addFormDataPart("content", content)
-                .addFormDataPart("tech", tech)
-                .addFormDataPart("plan", plan)
+        RequestBody requestBody;
+        if(file == null){
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("aim", aim) // 提交普通字段
+                    .addFormDataPart("content", content)
+                    .addFormDataPart("tech", tech)
+                    .addFormDataPart("plan", plan)
+                    .addFormDataPart("fileId", fileId) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile)
+                    .build();
+        }else{
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("aim", aim) // 提交普通字段
+                    .addFormDataPart("content", content)
+                    .addFormDataPart("tech", tech)
+                    .addFormDataPart("plan", plan)
 
-                .addFormDataPart("fileId", fileId) // 提交普通字段
-                .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("application/msword"), file))
-                .build();
+                    .addFormDataPart("fileId", fileId) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("application/msword"), file))
+                    .build();
+        }
+
         manager.postFile(ApiConstants.studentApi + "/commitMidInspection", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

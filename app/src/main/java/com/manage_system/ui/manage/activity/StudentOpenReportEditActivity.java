@@ -131,14 +131,26 @@ public class StudentOpenReportEditActivity extends AppCompatActivity implements 
         Log.w(TAG,"hhh4:"+plan);
         Log.w(TAG,"hhh5:"+uploadfile);
         OkManager manager = OkManager.getInstance();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("aim", aim) // 提交普通字段
-                .addFormDataPart("content", content)
-                .addFormDataPart("tech", tech)
-                .addFormDataPart("plan", plan)
-                .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("application/msword"), file))
-                .build();
+        RequestBody requestBody;
+        if(file == null){
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("aim", aim) // 提交普通字段
+                    .addFormDataPart("content", content)
+                    .addFormDataPart("tech", tech)
+                    .addFormDataPart("plan", plan)
+                    .addFormDataPart("uploadfile", uploadfile)
+                    .build();
+        }else{
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("aim", aim) // 提交普通字段
+                    .addFormDataPart("content", content)
+                    .addFormDataPart("tech", tech)
+                    .addFormDataPart("plan", plan)
+                    .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("application/msword"), file))
+                    .build();
+        }
         manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

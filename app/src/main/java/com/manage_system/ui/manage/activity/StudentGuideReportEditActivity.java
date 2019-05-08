@@ -111,13 +111,24 @@ public class StudentGuideReportEditActivity extends AppCompatActivity implements
         uploadfile=gr_annex.getText().toString().trim();
         Log.e(TAG,date);
         OkManager manager = OkManager.getInstance();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("theme", theme)
-                .addFormDataPart("work", work)
-                .addFormDataPart("date", date)
-                .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
-                .build();
+        RequestBody requestBody;
+        if(file == null){
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("theme", theme)
+                    .addFormDataPart("work", work)
+                    .addFormDataPart("date", date)
+                    .addFormDataPart("uploadfile", uploadfile)
+                    .build();
+        }else{
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("theme", theme)
+                    .addFormDataPart("work", work)
+                    .addFormDataPart("date", date)
+                    .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .build();
+        }
 
         manager.postFile(ApiConstants.studentApi + "/addGuidanceRecord", requestBody,new okhttp3.Callback() {
             @Override

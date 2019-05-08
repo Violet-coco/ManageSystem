@@ -109,16 +109,30 @@ public class StudentGraduationThesisEditActivity extends AppCompatActivity imple
         uploadDocFile=gt_word.getText().toString().trim();
         uploadAttFile=gt_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("keywords", keywords)
-                .addFormDataPart("innovatePoint", innovatePoint)
-                .addFormDataPart("cnSummary", cnSummary)
-                .addFormDataPart("enSummary", enSummary)
-                .addFormDataPart("other", other)
-                .addFormDataPart("uploadDocFile", uploadDocFile, RequestBody.create(MediaType.parse("*/*"), file))
-                .addFormDataPart("uploadAttFile", uploadAttFile, RequestBody.create(MediaType.parse("*/*"), file))
-                .build();
+        RequestBody requestBody;
+        if(file == null){
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("keywords", keywords)
+                    .addFormDataPart("innovatePoint", innovatePoint)
+                    .addFormDataPart("cnSummary", cnSummary)
+                    .addFormDataPart("enSummary", enSummary)
+                    .addFormDataPart("other", other)
+                    .addFormDataPart("uploadDocFile", uploadDocFile)
+                    .addFormDataPart("uploadAttFile", uploadAttFile)
+                    .build();
+        }else{
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("keywords", keywords)
+                    .addFormDataPart("innovatePoint", innovatePoint)
+                    .addFormDataPart("cnSummary", cnSummary)
+                    .addFormDataPart("enSummary", enSummary)
+                    .addFormDataPart("other", other)
+                    .addFormDataPart("uploadDocFile", uploadDocFile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .addFormDataPart("uploadAttFile", uploadAttFile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .build();
+        }
 
         manager.postFile(ApiConstants.studentApi + "/addGraduationProject", requestBody,new okhttp3.Callback() {
             @Override

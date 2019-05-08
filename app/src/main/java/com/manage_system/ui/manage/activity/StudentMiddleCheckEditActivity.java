@@ -102,11 +102,21 @@ public class StudentMiddleCheckEditActivity extends AppCompatActivity implements
         intro=mc_infro.getText().toString().trim();
         uploadfile=mc_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("intro", intro) // 提交普通字段
-                .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
-                .build();
+        RequestBody requestBody;
+        if(file == null){
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile)
+                    .build();
+        }else {
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .build();
+        }
+
         manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

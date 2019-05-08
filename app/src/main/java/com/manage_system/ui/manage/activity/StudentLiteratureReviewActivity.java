@@ -221,15 +221,22 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
         intro=lr_intro.getText().toString().trim();
         uploadfile=lr_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("intro", intro) // 提交普通字段
-                .addFormDataPart("fileId", fileId) // 提交普通字段
-                .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
-                .build();
-        Log.w(TAG,"hhh1:"+intro);
-        Log.w(TAG,"hhh5:"+uploadfile);
-        Log.w(TAG,"hhh6:"+file);
+        RequestBody requestBody;
+        if(file == null){
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("fileId", fileId) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile)
+                    .build();
+        }else{
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("fileId", fileId) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .build();
+        }
         manager.postFile(ApiConstants.studentApi + "/commitMidInspection", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

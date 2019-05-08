@@ -193,17 +193,13 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                             mc_intro.setText(object.getString("intro"));
                             mc_annotation.setText(object.getString("annotation"));
                             fileId = object.getString("fileId");
-                            if(object.get("fileId").equals(0)){
-                                mc_annex.setText("暂无附件");
-                                mc_annex.setEnabled(false);
+                            if(object.containsKey("file")){
+                                fileName = object.getJSONObject("file").getString("fileName");
+                                mc_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
                             }else{
-                                if(object.getJSONObject("file").getString("fileName").isEmpty()){
-                                    fileName = object.getJSONObject("file").getString("fileName");
-                                    mc_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
-                                }else{
-                                    fileName = object.getString("title");
-                                    mc_annex.setText(Html.fromHtml("<u>"+"中期检查.附件"+"</u>"));
-                                }
+                                fileName = object.getString("title");
+                                mc_annex.setEnabled(false);
+                                mc_annex.setText("暂无附件");
                             }
 
                         }else if(obj.get("statusCode").equals(101)){
@@ -224,15 +220,23 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
         intro=mc_intro.getText().toString().trim();
         uploadfile=mc_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("intro", intro) // 提交普通字段
-                .addFormDataPart("fileId", fileId) // 提交普通字段
-                .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
-                .build();
-        Log.w(TAG,"hhh1:"+intro);
-        Log.w(TAG,"hhh5:"+uploadfile);
-        Log.w(TAG,"hhh6:"+file);
+        RequestBody requestBody;
+        if(file == null){
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("fileId", fileId) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile)
+                    .build();
+        }else{
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("fileId", fileId) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .build();
+        }
+
         manager.postFile(ApiConstants.studentApi + "/commitMidInspection", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

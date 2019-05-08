@@ -54,6 +54,8 @@ import static com.manage_system.utils.FileUtils.getRealPathFromURI;
 
 public class StudentGraduationThesisActivity extends AppCompatActivity implements View.OnClickListener {
 
+    @BindView(R.id.nav_title)
+    TextView nav_title;
     @BindView(R.id.gt_state)
     TextView gt_state;
     @BindView(R.id.gt_suggest)
@@ -147,6 +149,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
                 break;
             case R.id.graduation_thesis_edit:
                 changeState();
+                nav_title.setText("修改毕业论文");
                 break;
             case R.id.graduation_thesis_submit:
                 submitData();
@@ -223,19 +226,36 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         uploadDocFile=gt_word.getText().toString().trim();
         uploadAttFile=gt_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("id", id)
-                .addFormDataPart("keywords", keywords)
-                .addFormDataPart("innovatePoint", innovatePoint)
-                .addFormDataPart("cnSummary", cnSummary)
-                .addFormDataPart("enSummary", enSummary)
-                .addFormDataPart("other", other)
-                .addFormDataPart("docFileId", docFileId)
-                .addFormDataPart("fileId", fileId)
-                .addFormDataPart("uploadDocFile", uploadDocFile, RequestBody.create(MediaType.parse("*/*"), file))
-                .addFormDataPart("uploadAttFile", uploadAttFile, RequestBody.create(MediaType.parse("*/*"), file))
-                .build();
+        RequestBody requestBody;
+        if(file == null){
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("id", id)
+                    .addFormDataPart("keywords", keywords)
+                    .addFormDataPart("innovatePoint", innovatePoint)
+                    .addFormDataPart("cnSummary", cnSummary)
+                    .addFormDataPart("enSummary", enSummary)
+                    .addFormDataPart("other", other)
+                    .addFormDataPart("docFileId", docFileId)
+                    .addFormDataPart("fileId", fileId)
+                    .addFormDataPart("uploadDocFile", uploadDocFile)
+                    .addFormDataPart("uploadAttFile", uploadAttFile)
+                    .build();
+        }else{
+            requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("id", id)
+                    .addFormDataPart("keywords", keywords)
+                    .addFormDataPart("innovatePoint", innovatePoint)
+                    .addFormDataPart("cnSummary", cnSummary)
+                    .addFormDataPart("enSummary", enSummary)
+                    .addFormDataPart("other", other)
+                    .addFormDataPart("docFileId", docFileId)
+                    .addFormDataPart("fileId", fileId)
+                    .addFormDataPart("uploadDocFile", uploadDocFile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .addFormDataPart("uploadAttFile", uploadAttFile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .build();
+        }
 
         manager.postFile(ApiConstants.studentApi + "/modifyGraduationProject", requestBody,new okhttp3.Callback() {
             @Override
