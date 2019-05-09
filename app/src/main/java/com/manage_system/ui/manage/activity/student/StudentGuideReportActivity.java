@@ -1,6 +1,7 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -18,6 +19,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -29,7 +31,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
-import com.manage_system.ui.personal.GuideTeacherInfoActivity;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.DownloadUtil;
 import com.manage_system.utils.OkManager;
@@ -37,6 +38,7 @@ import com.manage_system.utils.OpenFileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,62 +54,52 @@ import okhttp3.Response;
 import static com.manage_system.utils.FileUtils.getPath;
 import static com.manage_system.utils.FileUtils.getRealPathFromURI;
 
-public class StudentGraduationThesisActivity extends AppCompatActivity implements View.OnClickListener {
+public class StudentGuideReportActivity extends AppCompatActivity implements View.OnClickListener {
 
+    ImageButton iv_back;
+    Button guide_record_edit;
     @BindView(R.id.nav_title)
     TextView nav_title;
-    @BindView(R.id.gt_state)
-    TextView gt_state;
-    @BindView(R.id.gt_suggest)
-    TextView gt_suggest;
-    @BindView(R.id.gt_keywords)
-    EditText gt_keywords;
-    @BindView(R.id.gt_innovatePoint)
-    EditText gt_innovatePoint;
-    @BindView(R.id.gt_cnSummary)
-    EditText gt_cnSummary;
-    @BindView(R.id.gt_enSummary)
-    EditText gt_enSummary;
-    @BindView(R.id.gt_annotation)
-    EditText gt_annotation;
-    @BindView(R.id.gt_other)
-    EditText gt_other;
-    @BindView(R.id.gt_word)
-    EditText gt_word;
-    @BindView(R.id.gt_annex)
-    EditText gt_annex;
-    @BindView(R.id.gt_word_submit)
-    Button gt_word_submit;
-    @BindView(R.id.gt_annex_submit)
-    Button gt_annex_submit;
-    @BindView(R.id.graduation_thesis_edit)
-    Button graduation_thesis_edit;
-    @BindView(R.id.graduation_thesis_submit)
-    Button graduation_thesis_submit;
-    @BindView(R.id.tm_check_main)
-    LinearLayout tm_check_main;
-    @BindView(R.id.gt_annotation_main)
-    RelativeLayout gt_annotation_main;
-    private String TAG = "毕业论文展示";
-    private String id,fileName,path,uploadfile;
-    private String fileId,docFileId;
-    private int fileIdType = 0;
+    @BindView(R.id.gr_state)
+    TextView gr_state;
+    @BindView(R.id.gr_suggest)
+    TextView gr_suggest;
+    @BindView(R.id.gr_theme)
+    EditText gr_theme;
+    @BindView(R.id.gr_date)
+    Button gr_date;
+    @BindView(R.id.gr_work)
+    EditText gr_work;
+    @BindView(R.id.gr_annotation)
+    EditText gr_annotation;
+    @BindView(R.id.gr_annex)
+    EditText gr_annex;
+    @BindView(R.id.guide_record_annex)
+    Button guide_record_annex;
+    @BindView(R.id.gr_annotation_main)
+    RelativeLayout gr_annotation_main;
+    @BindView(R.id.guide_record_submit)
+    Button guide_record_submit;
+    @BindView(R.id.guide_record_check)
+    LinearLayout guide_record_check;
+    private String TAG = "指导记录";
+    private String fileId = "0";
+    private String path,id,theme,work,date,uploadfile;
     private File file;
+    private String fileName = null;
     private Context mContext;
-    private String keywords,innovatePoint,cnSummary,enSummary,other,uploadDocFile,uploadAttFile;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ms_student_pd_graduation_thesis);
+        setContentView(R.layout.ms_student_pd_guide_record);
         ButterKnife.bind(this);
-        gt_word_submit.setVisibility(View.GONE);
-        gt_annex_submit.setVisibility(View.GONE);
-        tm_check_main.setVisibility(View.GONE);
-        graduation_thesis_submit.setVisibility(View.GONE);
+        guide_record_annex.setVisibility(View.GONE);
+        guide_record_check.setVisibility(View.GONE);
+        guide_record_submit.setVisibility(View.GONE);
         initEditStatus();
-        initData();
+        getId();
+        initDate();
     }
 
     /**启动这个Activity的Intent
@@ -115,57 +107,59 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, StudentGraduationThesisActivity.class);
+        return new Intent(context, StudentGuideReportActivity.class);
     }
 
     public void initEditStatus() {
-        gt_keywords.setEnabled(false);
-        gt_innovatePoint.setEnabled(false);
-        gt_cnSummary.setEnabled(false);
-        gt_enSummary.setEnabled(false);
-        gt_other.setEnabled(false);
+        gr_theme.setEnabled(false);
+        gr_date.setEnabled(false);
+        gr_work.setEnabled(false);
+        gr_annotation.setEnabled(false);
     }
 
     public void changeState() {
         Log.w(TAG,"可编辑");
-        gt_keywords.setEnabled(true);
-        gt_keywords.setFocusable(true);
-        gt_innovatePoint.setEnabled(true);
-        gt_cnSummary.setEnabled(true);
-        gt_enSummary.setEnabled(true);
-        gt_other.setEnabled(true);
-        gt_annotation_main.setVisibility(View.GONE);
-        gt_word_submit.setVisibility(View.VISIBLE);
-        gt_annex_submit.setVisibility(View.VISIBLE);
-        graduation_thesis_edit.setVisibility(View.GONE);
-        graduation_thesis_submit.setVisibility(View.VISIBLE);
+        gr_theme.setEnabled(true);
+        gr_theme.setFocusable(true);
+        gr_date.setEnabled(true);
+        gr_work.setEnabled(true);
+        gr_annotation_main.setVisibility(View.GONE);
+        guide_record_annex.setVisibility(View.VISIBLE);
+        guide_record_edit.setVisibility(View.GONE);
+        guide_record_submit.setVisibility(View.VISIBLE);
     }
 
-    @OnClick({R.id.iv_back,R.id.graduation_thesis_edit,R.id.graduation_thesis_submit,R.id.gt_word_submit,R.id.gt_annex_submit,R.id.gt_word,R.id.gt_annex})
+    /**
+     * 获取id
+     */
+    private void getId()
+    {
+        iv_back = (ImageButton)findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(this);
+        guide_record_edit = (Button)findViewById(R.id.guide_record_edit);
+        guide_record_edit.setOnClickListener(this);
+    }
+
+    @OnClick({R.id.guide_record_submit,R.id.gr_date,R.id.guide_record_annex,R.id.gr_annex})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.graduation_thesis_edit:
+            case R.id.guide_record_edit:
                 changeState();
-                nav_title.setText("修改毕业论文");
+                nav_title.setText("修改指导记录");
                 break;
-            case R.id.graduation_thesis_submit:
+            case R.id.guide_record_submit:
                 submitData();
                 break;
-            case R.id.gt_word_submit:
-                fileIdType = 1;
+            case R.id.gr_date:
+                showDatePicker();
+                break;
+            case R.id.guide_record_annex:
                 showFileChooser();
                 break;
-            case R.id.gt_annex_submit:
-                fileIdType = 2;
-                showFileChooser();
-                break;
-            case R.id.gt_word:
-                downLoad("下载文件","确认下载文档？",docFileId);
-                break;
-            case R.id.gt_annex:
+            case R.id.gr_annex:
                 downLoad("下载文件","确认下载附件？",fileId);
                 break;
             default:
@@ -173,10 +167,10 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         }
     }
 
-    public void initData() {
+    public void initDate() {
         SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
         Log.w(TAG,sp.getString("obj" , ""));
-        JSONObject obj = JSON.parseObject(sp.getString("graduation_thesis" , ""));
+        JSONObject obj = JSON.parseObject(sp.getString("guide_record" , ""));
         Log.w(TAG,obj.toString());
         id = obj.getString("id");
         String status = obj.getString("cStatus");
@@ -184,80 +178,62 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         Log.w(TAG,status+"喔喔");
         if(status.equals("0")){
             cStatus = "审核不通过";
-            graduation_thesis_edit.setVisibility(View.GONE);
         }else if(status.equals("1")){
             cStatus = "审核通过";
-            graduation_thesis_edit.setVisibility(View.GONE);
+            guide_record_edit.setVisibility(View.GONE);
         }else if(status.equals("2")|| status.equals("3")){
             cStatus = "审核中";
         }
-        gt_state.setText(cStatus);
-        gt_suggest.setText(obj.getString("cSuggest"));
-        gt_keywords.setText(obj.getString("keywords"));
-        gt_innovatePoint.setText(obj.getString("innovatePoint"));
-        gt_cnSummary.setText(obj.getString("cnSummary"));
-        gt_enSummary.setText(obj.getString("enSummary"));
-        gt_annotation.setText(obj.getString("annotation"));
-        gt_other.setText(obj.getString("other"));
+        gr_state.setText(cStatus);
+        gr_suggest.setText(obj.getString("cSuggest"));
+        gr_theme.setText(obj.getString("theme"));
+        gr_date.setText(DateUtil.getDateFormatNoTime(obj.getString("date")));
+        gr_work.setText(obj.getString("work"));
+        gr_annotation.setText(obj.getString("annotation"));
         fileId = obj.getString("fileId");
-        docFileId = obj.getString("docFileId");
-        if(obj.containsKey("docFile")){
-            fileName = obj.getJSONObject("docFile").getString("fileName");
-            gt_word.setText(Html.fromHtml("<u>"+obj.getJSONObject("file").getString("fileName")+"</u>"));
-        }else{
-            gt_word.setText("暂无附件");
-            gt_word.setEnabled(false);
-        }
         if(obj.containsKey("file")){
             fileName = obj.getJSONObject("file").getString("fileName");
-            gt_annex.setText(Html.fromHtml("<u>"+obj.getJSONObject("file").getString("fileName")+"</u>"));
+            gr_annex.setText(Html.fromHtml("<u>"+obj.getJSONObject("file").getString("fileName")+"</u>"));
         }else{
-            gt_annex.setText("暂无附件");
-            gt_annex.setEnabled(false);
+            fileName = obj.getString("title");
+            gr_annex.setText("暂无附件");
+            gr_annex.setEnabled(false);
         }
     }
 
     public void submitData() {
-        keywords=gt_keywords.getText().toString().trim();
-        innovatePoint=gt_innovatePoint.getText().toString().trim();
-        cnSummary=gt_cnSummary.getText().toString().trim();
-        enSummary=gt_enSummary.getText().toString().trim();
-        other=gt_other.getText().toString().trim();
-        uploadDocFile=gt_word.getText().toString().trim();
-        uploadAttFile=gt_annex.getText().toString().trim();
+        theme=gr_theme.getText().toString().trim();
+        work=gr_work.getText().toString().trim();
+        date = DateUtil.date2TimeStamp(gr_date.getText().toString().trim());
+        Log.w(TAG,date+"哈哈 ");
+        uploadfile=gr_annex.getText().toString().trim();
+        Log.w(TAG,uploadfile);
+        Log.e(TAG,fileId);
         OkManager manager = OkManager.getInstance();
         RequestBody requestBody;
         if(file == null){
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("id", id)
-                    .addFormDataPart("keywords", keywords)
-                    .addFormDataPart("innovatePoint", innovatePoint)
-                    .addFormDataPart("cnSummary", cnSummary)
-                    .addFormDataPart("enSummary", enSummary)
-                    .addFormDataPart("other", other)
-                    .addFormDataPart("docFileId", docFileId)
+                    .addFormDataPart("theme", theme)
+                    .addFormDataPart("work", work)
+                    .addFormDataPart("date", date)
                     .addFormDataPart("fileId", fileId)
-                    .addFormDataPart("uploadDocFile", uploadDocFile)
-                    .addFormDataPart("uploadAttFile", uploadAttFile)
+                    .addFormDataPart("uploadfile", uploadfile)
                     .build();
-        }else{
+        }else {
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("id", id)
-                    .addFormDataPart("keywords", keywords)
-                    .addFormDataPart("innovatePoint", innovatePoint)
-                    .addFormDataPart("cnSummary", cnSummary)
-                    .addFormDataPart("enSummary", enSummary)
-                    .addFormDataPart("other", other)
-                    .addFormDataPart("docFileId", docFileId)
+                    .addFormDataPart("theme", theme)
+                    .addFormDataPart("work", work)
+                    .addFormDataPart("date", date)
                     .addFormDataPart("fileId", fileId)
-                    .addFormDataPart("uploadDocFile", uploadDocFile, RequestBody.create(MediaType.parse("*/*"), file))
-                    .addFormDataPart("uploadAttFile", uploadAttFile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
                     .build();
         }
 
-        manager.postFile(ApiConstants.studentApi + "/modifyGraduationProject", requestBody,new okhttp3.Callback() {
+        manager.postFile(ApiConstants.studentApi + "/modifyGuidanceRecord", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -272,17 +248,37 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
                     @Override
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
-                            Toast.makeText(StudentGraduationThesisActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentGraduationThesisActivity.this,StudentGraduationThesisMainActivity.class);
+                            Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentGuideReportActivity.this,StudentGuideReportMainActivity.class);
                             startActivity(intent);
                         }else {
-                            Toast.makeText(StudentGraduationThesisActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
             }
         });
+    }
+
+    public void showDatePicker() {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog dialog = new DatePickerDialog(StudentGuideReportActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Log.d(TAG, "onDateSet: year: " + year + ", month: " + month + ", dayOfMonth: " + dayOfMonth);
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, month);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        gr_date.setText(DateUtil.date2String(calendar.getTime()));
+                        Log.e(TAG,DateUtil.date2String(calendar.getTime()));
+                    }
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
     }
 
     //打开文件选择器
@@ -302,12 +298,8 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
                 path = uri.getPath();
                 file = new File(path);
                 uploadfile = file.getName();
-                if(fileIdType == 1){
-                    gt_word.setText(uploadfile);
-                }
-                if(fileIdType == 2){
-                    gt_annex.setText(uploadfile);
-                }
+                gr_annex.setText(uploadfile);
+                Log.w(TAG,"getName==="+uploadfile);
                 Toast.makeText(this,path+"11111",Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -316,24 +308,19 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
                 Log.w(TAG,path);
                 file = new File(path);
                 uploadfile = file.getName();
-                if(fileIdType == 1){
-                    gt_word.setText(uploadfile);
-                }
-                if(fileIdType == 2){
-                    gt_annex.setText(uploadfile);
-                }
+                gr_annex.setText(uploadfile);
+                Log.w(TAG,"getName==="+uploadfile);
                 Toast.makeText(this,path,Toast.LENGTH_SHORT).show();
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(this,uri);
                 Log.w(TAG,path);
-                Toast.makeText(StudentGraduationThesisActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudentGuideReportActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
             }
         }
 
     }
 
     public void downLoad(String title,String message,final String fileId){
-        Log.w(TAG,"下载文档"+fileId);
         final Dialog dialog = new Dialog(this, R.style.MyDialog);
         //设置它的ContentView
         dialog.setContentView(R.layout.alert_dialog);
@@ -353,7 +340,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
                 final String saveurl="/download/";
                 Log.w(TAG,"路径1："+saveurl);
                 //配置progressDialog
-                final ProgressDialog dialog= new ProgressDialog(StudentGraduationThesisActivity.this);
+                final ProgressDialog dialog= new ProgressDialog(StudentGuideReportActivity.this);
                 dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.setCancelable(true);
@@ -385,7 +372,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
                     @Override
                     public void run() {
                         getNotificationManager().notify(1,getNotification("文件下载成功，点击进行查看",-1));
-                        Toast.makeText(StudentGraduationThesisActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentGuideReportActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
 
                         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -419,7 +406,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
                     @Override
                     public void run() {
                         getNotificationManager().notify(1,getNotification("下载失败",-1));
-                        Toast.makeText(StudentGraduationThesisActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentGuideReportActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });

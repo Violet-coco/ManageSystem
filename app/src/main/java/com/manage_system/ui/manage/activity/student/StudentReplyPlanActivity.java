@@ -1,11 +1,10 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +16,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
-import com.manage_system.ui.manage.adapter.MyAdapter;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.OkManager;
 

@@ -137,7 +137,7 @@
                     android:layout_weight="1"
                     android:id="@+id/reply_group"
                     android:editable="false"
-                    android:text="第一组" />
+                   />
 
             </LinearLayout>
 

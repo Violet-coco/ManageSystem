@@ -1,4 +1,4 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +19,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,7 +28,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
-import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.DownloadUtil;
 import com.manage_system.utils.OkManager;
 import com.manage_system.utils.OpenFileUtils;
@@ -50,48 +49,60 @@ import okhttp3.Response;
 import static com.manage_system.utils.FileUtils.getPath;
 import static com.manage_system.utils.FileUtils.getRealPathFromURI;
 
-public class StudentLiteratureReviewActivity extends AppCompatActivity implements View.OnClickListener {
+public class StudentGraduationThesisActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton iv_back;
     @BindView(R.id.nav_title)
     TextView nav_title;
-    @BindView(R.id.lr_time)
-    TextView lr_time;
-    @BindView(R.id.lr_state)
-    TextView lr_state;
-    @BindView(R.id.lr_intro)
-    EditText lr_intro;
-    @BindView(R.id.lr_annotation)
-    EditText lr_annotation;
-    @BindView(R.id.lr_annex)
-    EditText lr_annex;
-    @BindView(R.id.lite_review_edit)
-    Button lite_review_edit;
-    @BindView(R.id.lite_review_submit)
-    Button lite_review_submit;
-    @BindView(R.id.lite_review_check)
-    LinearLayout lite_review_check;
-    @BindView(R.id.lite_review_annex)
-    Button lite_review_annex;
-    @BindView(R.id.lr_annotation_main)
-    RelativeLayout lr_annotation_main;
-    private String TAG = "文献综述";
-    private String intro,uploadfile;
-    private String fileId = "0";
-    private String path;
+    @BindView(R.id.gt_state)
+    TextView gt_state;
+    @BindView(R.id.gt_suggest)
+    TextView gt_suggest;
+    @BindView(R.id.gt_keywords)
+    EditText gt_keywords;
+    @BindView(R.id.gt_innovatePoint)
+    EditText gt_innovatePoint;
+    @BindView(R.id.gt_cnSummary)
+    EditText gt_cnSummary;
+    @BindView(R.id.gt_enSummary)
+    EditText gt_enSummary;
+    @BindView(R.id.gt_annotation)
+    EditText gt_annotation;
+    @BindView(R.id.gt_other)
+    EditText gt_other;
+    @BindView(R.id.gt_word)
+    EditText gt_word;
+    @BindView(R.id.gt_annex)
+    EditText gt_annex;
+    @BindView(R.id.gt_word_submit)
+    Button gt_word_submit;
+    @BindView(R.id.gt_annex_submit)
+    Button gt_annex_submit;
+    @BindView(R.id.graduation_thesis_edit)
+    Button graduation_thesis_edit;
+    @BindView(R.id.graduation_thesis_submit)
+    Button graduation_thesis_submit;
+    @BindView(R.id.tm_check_main)
+    LinearLayout tm_check_main;
+    @BindView(R.id.gt_annotation_main)
+    RelativeLayout gt_annotation_main;
+    private String TAG = "毕业论文展示";
+    private String id,fileName,path,uploadfile;
+    private String fileId,docFileId;
+    private int fileIdType = 0;
     private File file;
-    private String fileName = null;
     private Context mContext;
+    private String keywords,innovatePoint,cnSummary,enSummary,other,uploadDocFile,uploadAttFile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ms_student_pd_litreview);
+        setContentView(R.layout.ms_student_pd_graduation_thesis);
         ButterKnife.bind(this);
-        getId();
-        lite_review_annex.setVisibility(View.GONE);
-        lite_review_check.setVisibility(View.GONE);
-        lite_review_submit.setVisibility(View.GONE);
+        gt_word_submit.setVisibility(View.GONE);
+        gt_annex_submit.setVisibility(View.GONE);
+        tm_check_main.setVisibility(View.GONE);
+        graduation_thesis_submit.setVisibility(View.GONE);
         initEditStatus();
         initData();
     }
@@ -101,52 +112,57 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, StudentLiteratureReviewActivity.class);
+        return new Intent(context, StudentGraduationThesisActivity.class);
     }
 
     public void initEditStatus() {
-        lr_intro.setEnabled(false);
-        lr_annotation.setEnabled(false);
-        lr_annex.setEnabled(false);
+        gt_keywords.setEnabled(false);
+        gt_innovatePoint.setEnabled(false);
+        gt_cnSummary.setEnabled(false);
+        gt_enSummary.setEnabled(false);
+        gt_other.setEnabled(false);
     }
 
     public void changeState() {
         Log.w(TAG,"可编辑");
-        lr_intro.setEnabled(true);
-        lr_intro.setFocusable(true);
-        lr_annotation_main.setVisibility(View.GONE);
-        lite_review_annex.setVisibility(View.VISIBLE);
-        lite_review_edit.setVisibility(View.GONE);
-        lite_review_submit.setVisibility(View.VISIBLE);
+        gt_keywords.setEnabled(true);
+        gt_keywords.setFocusable(true);
+        gt_innovatePoint.setEnabled(true);
+        gt_cnSummary.setEnabled(true);
+        gt_enSummary.setEnabled(true);
+        gt_other.setEnabled(true);
+        gt_annotation_main.setVisibility(View.GONE);
+        gt_word_submit.setVisibility(View.VISIBLE);
+        gt_annex_submit.setVisibility(View.VISIBLE);
+        graduation_thesis_edit.setVisibility(View.GONE);
+        graduation_thesis_submit.setVisibility(View.VISIBLE);
     }
 
-
-    /**
-     * 获取id
-     */
-    private void getId()
-    {
-        iv_back = (ImageButton)findViewById(R.id.iv_back);
-        iv_back.setOnClickListener(this);
-    }
-
-    @OnClick({R.id.lite_review_edit,R.id.lite_review_submit,R.id.lite_review_annex,R.id.lr_annex})
+    @OnClick({R.id.iv_back,R.id.graduation_thesis_edit,R.id.graduation_thesis_submit,R.id.gt_word_submit,R.id.gt_annex_submit,R.id.gt_word,R.id.gt_annex})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.lite_review_edit:
-                nav_title.setText("修改文献综述");
+            case R.id.graduation_thesis_edit:
                 changeState();
+                nav_title.setText("修改毕业论文");
                 break;
-            case R.id.lite_review_submit:
+            case R.id.graduation_thesis_submit:
                 submitData();
                 break;
-            case R.id.lite_review_annex:
+            case R.id.gt_word_submit:
+                fileIdType = 1;
                 showFileChooser();
                 break;
-            case R.id.lr_annex:
+            case R.id.gt_annex_submit:
+                fileIdType = 2;
+                showFileChooser();
+                break;
+            case R.id.gt_word:
+                downLoad("下载文件","确认下载文档？",docFileId);
+                break;
+            case R.id.gt_annex:
                 downLoad("下载文件","确认下载附件？",fileId);
                 break;
             default:
@@ -155,89 +171,90 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
     }
 
     public void initData() {
-        OkManager manager = OkManager.getInstance();
-        Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.studentApi + "/showLiteratureReview", map,new okhttp3.Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e(TAG, "onFailure: ",e);
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String responseBody = response.body().string();
-                final JSONObject obj = JSON.parseObject(responseBody);
-                Log.e(TAG,obj.toString());
-                final String msg = obj.getString("msg");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(obj.get("statusCode").equals(100)){
-                            JSONObject object = obj.getJSONObject("data");
-                            Log.w(TAG,obj.getJSONObject("data").toString());
-                            lr_time.setText(DateUtil.getDateFormat(object.getString("submitDate")));
-                            String status = object.getString("cStatus");
-                            String cStatus = null;
-                            Log.w(TAG,status+"喔喔");
-                            if(status.equals("0")){
-                                cStatus = "审核不通过";
-                            }else if(status.equals("1")){
-                                cStatus = "审核通过";
-                                lite_review_submit.setVisibility(View.GONE);
-                            }else if(status.equals("2")|| status.equals("3")){
-                                cStatus = "审核中";
-                            }
-                            lr_state.setText(cStatus);
-                            lr_intro.setText(object.getString("intro"));
-                            lr_annotation.setText(object.getString("annotation"));
-                            fileId = object.getString("fileId");
-                            if(object.get("fileId").equals(0)){
-                                lr_annex.setText("暂无附件");
-                                lr_annex.setEnabled(false);
-                            }else{
-                                if(!object.getJSONObject("file").getString("fileName").isEmpty()){
-                                    fileName = object.getJSONObject("file").getString("fileName");
-                                    lr_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
-                                }else{
-                                    fileName = object.getString("title");
-                                    lr_annex.setText(Html.fromHtml("<u>"+"中期检查.附件"+"</u>"));
-                                }
-                            }
-
-                        }else if(obj.get("statusCode").equals(101)){
-                            Toast.makeText(StudentLiteratureReviewActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentLiteratureReviewActivity.this,StudentLiteratureReviewEditActivity.class);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(StudentLiteratureReviewActivity.this, msg, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-            }
-        });
+        SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
+        Log.w(TAG,sp.getString("obj" , ""));
+        JSONObject obj = JSON.parseObject(sp.getString("graduation_thesis" , ""));
+        Log.w(TAG,obj.toString());
+        id = obj.getString("id");
+        String status = obj.getString("cStatus");
+        String cStatus = null;
+        Log.w(TAG,status+"喔喔");
+        if(status.equals("0")){
+            cStatus = "审核不通过";
+            graduation_thesis_edit.setVisibility(View.GONE);
+        }else if(status.equals("1")){
+            cStatus = "审核通过";
+            graduation_thesis_edit.setVisibility(View.GONE);
+        }else if(status.equals("2")|| status.equals("3")){
+            cStatus = "审核中";
+        }
+        gt_state.setText(cStatus);
+        gt_suggest.setText(obj.getString("cSuggest"));
+        gt_keywords.setText(obj.getString("keywords"));
+        gt_innovatePoint.setText(obj.getString("innovatePoint"));
+        gt_cnSummary.setText(obj.getString("cnSummary"));
+        gt_enSummary.setText(obj.getString("enSummary"));
+        gt_annotation.setText(obj.getString("annotation"));
+        gt_other.setText(obj.getString("other"));
+        fileId = obj.getString("fileId");
+        docFileId = obj.getString("docFileId");
+        if(obj.containsKey("docFile")){
+            fileName = obj.getJSONObject("docFile").getString("fileName");
+            gt_word.setText(Html.fromHtml("<u>"+obj.getJSONObject("file").getString("fileName")+"</u>"));
+        }else{
+            gt_word.setText("暂无附件");
+            gt_word.setEnabled(false);
+        }
+        if(obj.containsKey("file")){
+            fileName = obj.getJSONObject("file").getString("fileName");
+            gt_annex.setText(Html.fromHtml("<u>"+obj.getJSONObject("file").getString("fileName")+"</u>"));
+        }else{
+            gt_annex.setText("暂无附件");
+            gt_annex.setEnabled(false);
+        }
     }
 
     public void submitData() {
-        intro=lr_intro.getText().toString().trim();
-        uploadfile=lr_annex.getText().toString().trim();
+        keywords=gt_keywords.getText().toString().trim();
+        innovatePoint=gt_innovatePoint.getText().toString().trim();
+        cnSummary=gt_cnSummary.getText().toString().trim();
+        enSummary=gt_enSummary.getText().toString().trim();
+        other=gt_other.getText().toString().trim();
+        uploadDocFile=gt_word.getText().toString().trim();
+        uploadAttFile=gt_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
         RequestBody requestBody;
         if(file == null){
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("intro", intro) // 提交普通字段
-                    .addFormDataPart("fileId", fileId) // 提交普通字段
-                    .addFormDataPart("uploadfile", uploadfile)
+                    .addFormDataPart("id", id)
+                    .addFormDataPart("keywords", keywords)
+                    .addFormDataPart("innovatePoint", innovatePoint)
+                    .addFormDataPart("cnSummary", cnSummary)
+                    .addFormDataPart("enSummary", enSummary)
+                    .addFormDataPart("other", other)
+                    .addFormDataPart("docFileId", docFileId)
+                    .addFormDataPart("fileId", fileId)
+                    .addFormDataPart("uploadDocFile", uploadDocFile)
+                    .addFormDataPart("uploadAttFile", uploadAttFile)
                     .build();
         }else{
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("intro", intro) // 提交普通字段
-                    .addFormDataPart("fileId", fileId) // 提交普通字段
-                    .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .addFormDataPart("id", id)
+                    .addFormDataPart("keywords", keywords)
+                    .addFormDataPart("innovatePoint", innovatePoint)
+                    .addFormDataPart("cnSummary", cnSummary)
+                    .addFormDataPart("enSummary", enSummary)
+                    .addFormDataPart("other", other)
+                    .addFormDataPart("docFileId", docFileId)
+                    .addFormDataPart("fileId", fileId)
+                    .addFormDataPart("uploadDocFile", uploadDocFile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .addFormDataPart("uploadAttFile", uploadAttFile, RequestBody.create(MediaType.parse("*/*"), file))
                     .build();
         }
-        manager.postFile(ApiConstants.studentApi + "/commitMidInspection", requestBody,new okhttp3.Callback() {
+
+        manager.postFile(ApiConstants.studentApi + "/modifyGraduationProject", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -252,11 +269,11 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                     @Override
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
-                            Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentLiteratureReviewActivity.this,StudentLiteratureReviewActivity.class);
+                            Toast.makeText(StudentGraduationThesisActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentGraduationThesisActivity.this,StudentGraduationThesisMainActivity.class);
                             startActivity(intent);
                         }else {
-                            Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentGraduationThesisActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -282,8 +299,12 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                 path = uri.getPath();
                 file = new File(path);
                 uploadfile = file.getName();
-                lr_annex.setText(uploadfile);
-                Log.w(TAG,"getName==="+uploadfile);
+                if(fileIdType == 1){
+                    gt_word.setText(uploadfile);
+                }
+                if(fileIdType == 2){
+                    gt_annex.setText(uploadfile);
+                }
                 Toast.makeText(this,path+"11111",Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -292,19 +313,24 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                 Log.w(TAG,path);
                 file = new File(path);
                 uploadfile = file.getName();
-                lr_annex.setText(uploadfile);
-                Log.w(TAG,"getName==="+uploadfile);
+                if(fileIdType == 1){
+                    gt_word.setText(uploadfile);
+                }
+                if(fileIdType == 2){
+                    gt_annex.setText(uploadfile);
+                }
                 Toast.makeText(this,path,Toast.LENGTH_SHORT).show();
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(this,uri);
                 Log.w(TAG,path);
-                Toast.makeText(StudentLiteratureReviewActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudentGraduationThesisActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
             }
         }
 
     }
 
     public void downLoad(String title,String message,final String fileId){
+        Log.w(TAG,"下载文档"+fileId);
         final Dialog dialog = new Dialog(this, R.style.MyDialog);
         //设置它的ContentView
         dialog.setContentView(R.layout.alert_dialog);
@@ -324,7 +350,7 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                 final String saveurl="/download/";
                 Log.w(TAG,"路径1："+saveurl);
                 //配置progressDialog
-                final ProgressDialog dialog= new ProgressDialog(StudentLiteratureReviewActivity.this);
+                final ProgressDialog dialog= new ProgressDialog(StudentGraduationThesisActivity.this);
                 dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.setCancelable(true);
@@ -356,7 +382,7 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                     @Override
                     public void run() {
                         getNotificationManager().notify(1,getNotification("文件下载成功，点击进行查看",-1));
-                        Toast.makeText(StudentLiteratureReviewActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentGraduationThesisActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
 
                         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -390,7 +416,7 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                     @Override
                     public void run() {
                         getNotificationManager().notify(1,getNotification("下载失败",-1));
-                        Toast.makeText(StudentLiteratureReviewActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentGraduationThesisActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -413,5 +439,4 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
         }
         return builder.build();
     }
-
 }

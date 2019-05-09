@@ -1,23 +1,18 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +34,6 @@ import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.DownloadUtil;
-import com.manage_system.utils.FileUtils;
 import com.manage_system.utils.OkManager;
 import com.manage_system.utils.OpenFileUtils;
 

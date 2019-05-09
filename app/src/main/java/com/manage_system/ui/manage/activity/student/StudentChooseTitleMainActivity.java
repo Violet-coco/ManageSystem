@@ -1,4 +1,4 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,9 +21,7 @@ import com.manage_system.ui.manage.adapter.MyAdapter;
 import com.manage_system.utils.OkManager;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

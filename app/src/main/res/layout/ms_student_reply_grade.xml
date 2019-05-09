@@ -55,7 +55,7 @@
 
                 <LinearLayout
                     android:id="@+id/final_level_title"
-                    android:layout_below="@+id/reply_record_con"
+                    android:layout_below="@+id/final_grade_title"
                     style="@style/edit_item" >
 
                     <TextView

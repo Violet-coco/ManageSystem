@@ -1,4 +1,4 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.app.Activity;
 import android.content.Context;
@@ -35,27 +35,26 @@ import okhttp3.Response;
 import static com.manage_system.utils.FileUtils.getPath;
 import static com.manage_system.utils.FileUtils.getRealPathFromURI;
 
-public class StudentForeignTranslationEditActivity extends AppCompatActivity implements View.OnClickListener {
+public class StudentLiteratureReviewEditActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton iv_back;
-    @BindView(R.id.ft_foreign)
-    EditText ft_foreign;
-    @BindView(R.id.ft_original)
-    EditText ft_original;
-    @BindView(R.id.ft_forFile)
-    EditText ft_forFile;
-    @BindView(R.id.ft_oriFile)
-    EditText ft_oriFile;
-    private int fileIdType = 0;
-    private String TAG = "外文译文和原文修改";
+    @BindView(R.id.lr_intro)
+    EditText lr_intro;
+    @BindView(R.id.lr_annex)
+    EditText lr_annex;
+    @BindView(R.id.lite_review_submit)
+    Button lite_review_submit;
+    @BindView(R.id.lite_review_annex)
+    Button lite_review_annex;
+    private String TAG = "提交文献综述";
+    private String intro,uploadfile;
     private String path;
     private File file;
-    private String original,foreign,uploadOrifile,uploadForfile,uploadfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ms_student_pd_fortra_edit);
+        setContentView(R.layout.ms_student_pd_litreview_edit);
         ButterKnife.bind(this);
         getId();
     }
@@ -65,7 +64,7 @@ public class StudentForeignTranslationEditActivity extends AppCompatActivity imp
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, StudentForeignTranslationEditActivity.class);
+        return new Intent(context, StudentLiteratureReviewEditActivity.class);
     }
 
     /**
@@ -77,54 +76,44 @@ public class StudentForeignTranslationEditActivity extends AppCompatActivity imp
         iv_back.setOnClickListener(this);
     }
 
-    @OnClick({R.id.ft_submit_for_annex,R.id.ft_submit_ori_annex,R.id.for_tra_submit})
+    @OnClick({R.id.lite_review_annex,R.id.lite_review_submit})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.ft_submit_for_annex:
-                fileIdType = 1;
-                showFileChooser();
+            case R.id.lite_review_submit:
+                Log.w(TAG,"点击提交");
+                initData();
                 break;
-            case R.id.ft_submit_ori_annex:
-                fileIdType = 2;
+            case R.id.lite_review_annex:
+                Log.w(TAG,"选择文件");
                 showFileChooser();
-                break;
-            case R.id.for_tra_submit:
-                submitData();
                 break;
             default:
                 break;
         }
     }
 
-    public void submitData() {
-        original=ft_foreign.getText().toString().trim();
-        foreign=ft_original.getText().toString().trim();
-        uploadOrifile=ft_forFile.getText().toString().trim();
-        uploadForfile=ft_oriFile.getText().toString().trim();
+    public void initData() {
+        intro=lr_intro.getText().toString().trim();
+        uploadfile=lr_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
         RequestBody requestBody;
         if(file == null){
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("foreign", foreign)
-                    .addFormDataPart("original", original) // 提交普通字段
-                    .addFormDataPart("uploadForfile", uploadForfile)
-                    .addFormDataPart("uploadOrifile", uploadOrifile)
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile)
                     .build();
-        }else {
+        }else{
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("foreign", foreign)
-                    .addFormDataPart("original", original) // 提交普通字段
-                    .addFormDataPart("uploadForfile", uploadForfile, RequestBody.create(MediaType.parse("*/*"), file))
-                    .addFormDataPart("uploadOrifile", uploadOrifile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
                     .build();
         }
-
-        manager.postFile(ApiConstants.studentApi + "/commitForeignOriginal", requestBody,new okhttp3.Callback() {
+        manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -132,18 +121,17 @@ public class StudentForeignTranslationEditActivity extends AppCompatActivity imp
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseBody = response.body().string();
-                Log.e(TAG,responseBody);
                 final JSONObject obj = JSON.parseObject(responseBody);
                 Log.e(TAG,obj.toString());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
-                            Toast.makeText(StudentForeignTranslationEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentForeignTranslationEditActivity.this,StudentForeignTranslationActivity.class);
+                            Toast.makeText(StudentLiteratureReviewEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentLiteratureReviewEditActivity.this,StudentLiteratureReviewActivity.class);
                             startActivity(intent);
                         }else {
-                            Toast.makeText(StudentForeignTranslationEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentLiteratureReviewEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -169,12 +157,8 @@ public class StudentForeignTranslationEditActivity extends AppCompatActivity imp
                 path = uri.getPath();
                 file = new File(path);
                 uploadfile = file.getName();
-                if(fileIdType == 1){
-                    ft_forFile.setText(uploadfile);
-                }
-                if(fileIdType == 2){
-                    ft_oriFile.setText(uploadfile);
-                }
+                lr_annex.setText(uploadfile);
+                Log.w(TAG,"getName==="+uploadfile);
                 Toast.makeText(this,path+"11111",Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -183,20 +167,15 @@ public class StudentForeignTranslationEditActivity extends AppCompatActivity imp
                 Log.w(TAG,path);
                 file = new File(path);
                 uploadfile = file.getName();
-                if(fileIdType == 1){
-                    ft_forFile.setText(uploadfile);
-                }
-                if(fileIdType == 2){
-                    ft_oriFile.setText(uploadfile);
-                }
+                lr_annex.setText(uploadfile);
+                Log.w(TAG,"getName==="+uploadfile);
                 Toast.makeText(this,path,Toast.LENGTH_SHORT).show();
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(this,uri);
                 Log.w(TAG,path);
-                Toast.makeText(StudentForeignTranslationEditActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudentLiteratureReviewEditActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
             }
         }
 
     }
-
 }

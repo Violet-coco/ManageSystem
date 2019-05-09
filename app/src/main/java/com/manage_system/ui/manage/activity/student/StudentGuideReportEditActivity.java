@@ -1,8 +1,10 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -18,10 +21,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
+import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.OkManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,26 +40,27 @@ import okhttp3.Response;
 import static com.manage_system.utils.FileUtils.getPath;
 import static com.manage_system.utils.FileUtils.getRealPathFromURI;
 
-public class StudentLiteratureReviewEditActivity extends AppCompatActivity implements View.OnClickListener {
+public class StudentGuideReportEditActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton iv_back;
-    @BindView(R.id.lr_intro)
-    EditText lr_intro;
-    @BindView(R.id.lr_annex)
-    EditText lr_annex;
-    @BindView(R.id.lite_review_submit)
-    Button lite_review_submit;
-    @BindView(R.id.mc_submit_annex)
-    Button mc_submit_annex;
-    private String TAG = "提交文献综述";
-    private String intro,uploadfile;
-    private String path;
+    @BindView(R.id.gr_theme)
+    EditText gr_theme;
+    @BindView(R.id.gr_date)
+    Button gr_date;
+    @BindView(R.id.gr_work)
+    EditText gr_work;
+    @BindView(R.id.gr_annex)
+    EditText gr_annex;
+    @BindView(R.id.guide_record_submit)
+    Button guide_record_submit;
+    private String theme,work,date,uploadfile,path;
     private File file;
+    private String TAG = "提交指导记录";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ms_student_pd_litreview_edit);
+        setContentView(R.layout.ms_student_pd_guide_record_edit);
         ButterKnife.bind(this);
         getId();
     }
@@ -64,7 +70,7 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, StudentLiteratureReviewEditActivity.class);
+        return new Intent(context, StudentGuideReportEditActivity.class);
     }
 
     /**
@@ -76,18 +82,19 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
         iv_back.setOnClickListener(this);
     }
 
-    @OnClick({R.id.mc_submit_annex,R.id.lite_review_submit})
+    @OnClick({R.id.guide_record_submit,R.id.gr_date,R.id.guide_record_annex})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.lite_review_submit:
-                Log.w(TAG,"点击提交");
+            case R.id.guide_record_submit:
                 initData();
                 break;
-            case R.id.mc_submit_annex:
-                Log.w(TAG,"选择文件");
+            case R.id.gr_date:
+                showDatePicker();
+                break;
+            case R.id.guide_record_annex:
                 showFileChooser();
                 break;
             default:
@@ -96,24 +103,34 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
     }
 
     public void initData() {
-        intro=lr_intro.getText().toString().trim();
-        uploadfile=lr_annex.getText().toString().trim();
+        theme=gr_theme.getText().toString().trim();
+        work=gr_work.getText().toString().trim();
+        date=DateUtil.DateToString(DateUtil.string2Date(gr_date.getText().toString().trim(),"yyyy-MM-dd"));
+        Log.w(TAG,DateUtil.string2Date(gr_date.getText().toString().trim(),"yyyy-MM-dd")+"哈哈 1");
+        Log.w(TAG,date+"哈哈 ");
+        uploadfile=gr_annex.getText().toString().trim();
+        Log.e(TAG,date);
         OkManager manager = OkManager.getInstance();
         RequestBody requestBody;
         if(file == null){
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("theme", theme)
+                    .addFormDataPart("work", work)
+                    .addFormDataPart("date", date)
                     .addFormDataPart("uploadfile", uploadfile)
                     .build();
         }else{
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("theme", theme)
+                    .addFormDataPart("work", work)
+                    .addFormDataPart("date", date)
                     .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
                     .build();
         }
-        manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
+
+        manager.postFile(ApiConstants.studentApi + "/addGuidanceRecord", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -121,23 +138,48 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
                 final JSONObject obj = JSON.parseObject(responseBody);
                 Log.e(TAG,obj.toString());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
-                            Toast.makeText(StudentLiteratureReviewEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentLiteratureReviewEditActivity.this,StudentLiteratureReviewActivity.class);
+                            SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
+                            SharedPreferences.Editor editor=sp.edit();
+                            editor.putString("guide_record",obj.toString());
+                            editor.commit();
+                            Toast.makeText(StudentGuideReportEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentGuideReportEditActivity.this,StudentGuideReportActivity.class);
                             startActivity(intent);
                         }else {
-                            Toast.makeText(StudentLiteratureReviewEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentGuideReportEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
             }
         });
+    }
+
+    public void showDatePicker() {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog dialog = new DatePickerDialog(StudentGuideReportEditActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Log.d(TAG, "onDateSet: year: " + year + ", month: " + month + ", dayOfMonth: " + dayOfMonth);
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, month);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        gr_date.setText(DateUtil.date2String(calendar.getTime()));
+                        Log.e(TAG,DateUtil.date2String(calendar.getTime()));
+                    }
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
     }
 
     //打开文件选择器
@@ -157,7 +199,7 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
                 path = uri.getPath();
                 file = new File(path);
                 uploadfile = file.getName();
-                lr_annex.setText(uploadfile);
+                gr_annex.setText(uploadfile);
                 Log.w(TAG,"getName==="+uploadfile);
                 Toast.makeText(this,path+"11111",Toast.LENGTH_SHORT).show();
                 return;
@@ -167,13 +209,13 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
                 Log.w(TAG,path);
                 file = new File(path);
                 uploadfile = file.getName();
-                lr_annex.setText(uploadfile);
+                gr_annex.setText(uploadfile);
                 Log.w(TAG,"getName==="+uploadfile);
                 Toast.makeText(this,path,Toast.LENGTH_SHORT).show();
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(this,uri);
                 Log.w(TAG,path);
-                Toast.makeText(StudentLiteratureReviewEditActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudentGuideReportEditActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
             }
         }
 

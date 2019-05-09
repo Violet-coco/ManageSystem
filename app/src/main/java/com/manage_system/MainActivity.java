@@ -97,12 +97,15 @@ public class MainActivity extends BaseActivity {
                             editor.putString("contactTel", obj.getJSONObject("data").getString("contactTel"));
                             editor.putString("bindTel", obj.getJSONObject("data").getString("bindTel"));
                             editor.putString("major", obj.getJSONObject("data").getString("major"));
-                            editor.putString("grade", obj.getJSONObject("data").getString("grade"));
-                            editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
                             editor.putString("department", obj.getJSONObject("data").getString("department"));
                             editor.putString("email", obj.getJSONObject("data").getString("email"));
-                            editor.putString("pName", obj.getJSONObject("data").getString("pName"));
-                            editor.putString("mtName", obj.getJSONObject("data").getString("mtName"));
+                            Log.e(TAG,sp.getString("authority",""));
+                            if(sp.getString("authority","").equals("1")){
+                                editor.putString("grade", obj.getJSONObject("data").getString("grade"));
+                                editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
+                                editor.putString("pName", obj.getJSONObject("data").getString("pName"));
+                                editor.putString("mtName", obj.getJSONObject("data").getString("mtName"));
+                            }
                             //提交修改
                             editor.commit();
                         }else {

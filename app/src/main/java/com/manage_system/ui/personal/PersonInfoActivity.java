@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -24,6 +26,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -35,6 +39,10 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 	private ImageButton iv_back;
 	private Button person_info_save;
 	private String bindTel,contactTel,email;
+	@BindView(R.id.tm_id)
+	TextView tm_id;
+	@BindView(R.id.tm_class)
+	LinearLayout tm_class;
 
 	private OkManager manager;
 	//登录验证请求
@@ -47,6 +55,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ms_person_info);
+		ButterKnife.bind(this);
         getId();
 	}
 
@@ -92,12 +101,19 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 		person_phone = (EditText)findViewById(R.id.person_phone);
 
 		SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
+		SharedPreferences login=getSharedPreferences("loginInfo", MODE_PRIVATE);
+
+		if(login.getString("authority","").equals("1")){
+			person_class.setText(sp.getString("grade" , "")+"级-"+sp.getString("classNo" , "")+"班");
+		}else if(login.getString("authority","").equals("2")){
+			tm_id.setText("工号");
+			tm_class.setVisibility(View.GONE);
+		}
 		person_name.setText(sp.getString("name" , ""));
 		person_id.setText(sp.getString("identifier" , ""));
 		person_college.setText(sp.getString("college" , ""));
 		person_department.setText(sp.getString("department" , ""));
 		person_major.setText(sp.getString("major" , ""));
-		person_class.setText(sp.getString("grade" , "")+"级-"+sp.getString("classNo" , "")+"班");
 		person_sex.setText(sp.getString("sex" , ""));
 		person_phone.setText(sp.getString("contactTel" , ""));
 		person_bind_phone.setText(sp.getString("bindTel" , ""));
@@ -119,7 +135,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 				new TextClearSuit().addClearListener(person_phone, ivPhoneClear);
 				break;
 			case R.id.iv_back:
-				onViewClicked();
+				finish();
 				break;
 			case R.id.person_info_save:
 				savePersonInfo();
@@ -127,10 +143,6 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 			default:
 				break;
 		}
-	}
-
-	public void onViewClicked() {
-		finish();
 	}
 
 	public void savePersonInfo() {

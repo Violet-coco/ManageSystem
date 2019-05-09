@@ -1,25 +1,19 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -98,11 +92,12 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
             JSONObject project = object.getJSONObject("project");
             JSONObject teacher = object.getJSONObject("teacher");
             if(project.getString("id").equals(id)){
-                if(!project.getJSONObject("file").getString("fileName").isEmpty()){
+                if(project.containsKey("file")){
                     fileName = project.getJSONObject("file").getString("fileName");
                 }else{
                     fileName = project.getString("title");
                 }
+                Log.e(TAG,object.toString());
                 ct_topic.setText(project.getString("title"));
                 ct_type.setText(project.getString("genre"));
                 ct_resource.setText(project.getString("source"));
@@ -111,19 +106,20 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
                 ct_profession.setText(project.getString("major"));
                 ct_time.setText(DateUtil.getDateFormat(object.getString("setDate")));
                 ct_detail.setText(project.getString("briefIntro"));
-                task_fileId = project.getJSONObject("taskBook").getString("fileId");
-                annex_fileId = project.getString("fileId");
-                if(task_fileId.equals("0")){
+                if(project.containsKey("taskBook")){
+                    task_fileId = project.getJSONObject("taskBook").getString("fileId");
+                    ct_task.setText(Html.fromHtml("<u>"+project.getJSONObject("taskBook").getString("task")+"</u>"));
+                }else{
                     ct_task.setEnabled(false);
                     ct_task.setText("暂无任务书");
-                }else{
-                    ct_task.setText(Html.fromHtml("<u>"+project.getString("title")+".任务书"+"</u>"));
                 }
-                if(annex_fileId.equals("0")){
+
+                if(project.containsKey("file")){
+                    annex_fileId = project.getString("fileId");
+                    ct_annex.setText(Html.fromHtml("<u>"+project.getJSONObject("file").getString("fileName")+"</u>"));
+                }else{
                     ct_annex.setEnabled(false);
                     ct_annex.setText("暂无附件");
-                }else{
-                    ct_annex.setText(Html.fromHtml("<u>"+project.getString("title")+".附件"+"</u>"));
                 }
                 SharedPreferences.Editor editor=sp.edit();
                 editor.putString("teacher",teacher.toString());

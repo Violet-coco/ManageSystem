@@ -1,4 +1,4 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.app.Dialog;
 import android.app.Notification;
@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.manage_system.LoginByPhoneActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.Manage;
@@ -35,10 +34,7 @@ import com.manage_system.utils.OpenFileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -99,7 +95,7 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
         editor.putString("teacher",teacher.toString());
         editor.commit();
         Log.e(TAG,object.toString());
-        if(!project.getJSONObject("file").getString("fileName").isEmpty()){
+        if(project.containsKey("file")){
             fileName = project.getJSONObject("file").getString("fileName");
         }else{
             fileName = project.getString("title");
@@ -111,20 +107,20 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
         ct_teacher.setText(teacher.getString("name"));
         ct_profession.setText(project.getString("major"));
         ct_time.setText(DateUtil.getDateFormat(object.getString("setDate")));
-        task_fileId = project.getJSONObject("taskBook").getString("fileId");
-        annex_fileId = project.getString("fileId");
-        Log.w(TAG,task_fileId);
-        if(task_fileId.equals("0")){
+        if(project.containsKey("taskBook")){
+            task_fileId = project.getJSONObject("taskBook").getString("fileId");
+            ct_task.setText(Html.fromHtml("<u>"+project.getJSONObject("taskBook").getString("task")+"</u>"));
+        }else{
             ct_task.setEnabled(false);
             ct_task.setText("暂无任务书");
-        }else{
-            ct_task.setText(Html.fromHtml("<u>"+project.getString("title")+".任务书"+"</u>"));
         }
-        if(annex_fileId.equals("0")){
+
+        if(project.containsKey("file")){
+            annex_fileId = project.getString("fileId");
+            ct_annex.setText(Html.fromHtml("<u>"+project.getJSONObject("file").getString("fileName")+"</u>"));
+        }else{
             ct_annex.setEnabled(false);
             ct_annex.setText("暂无附件");
-        }else{
-            ct_annex.setText(Html.fromHtml("<u>"+project.getString("title")+".附件"+"</u>"));
         }
         ct_detail.setText(project.getString("briefIntro"));
 

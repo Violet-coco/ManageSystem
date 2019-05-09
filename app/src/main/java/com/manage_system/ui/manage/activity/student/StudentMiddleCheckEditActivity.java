@@ -1,4 +1,4 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,8 +22,6 @@ import com.manage_system.utils.OkManager;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,7 +77,7 @@ public class StudentMiddleCheckEditActivity extends AppCompatActivity implements
         iv_back.setOnClickListener(this);
     }
 
-    @OnClick({R.id.middle_check_submit,R.id.or_submit_annex})
+    @OnClick({R.id.middle_check_submit,R.id.mc_submit_annex})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:

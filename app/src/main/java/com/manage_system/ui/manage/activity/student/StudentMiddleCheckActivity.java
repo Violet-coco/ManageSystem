@@ -1,27 +1,22 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.text.Html;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -30,11 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
-import com.manage_system.ui.personal.GuideTeacherInfoActivity;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.DownloadUtil;
 import com.manage_system.utils.OkManager;
@@ -42,8 +35,6 @@ import com.manage_system.utils.OpenFileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,37 +50,34 @@ import okhttp3.Response;
 import static com.manage_system.utils.FileUtils.getPath;
 import static com.manage_system.utils.FileUtils.getRealPathFromURI;
 
-public class StudentGuideReportActivity extends AppCompatActivity implements View.OnClickListener {
+public class StudentMiddleCheckActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton iv_back;
-    Button guide_record_edit;
+    Button middle_check_edit;
     @BindView(R.id.nav_title)
     TextView nav_title;
-    @BindView(R.id.gr_state)
-    TextView gr_state;
-    @BindView(R.id.gr_suggest)
-    TextView gr_suggest;
-    @BindView(R.id.gr_theme)
-    EditText gr_theme;
-    @BindView(R.id.gr_date)
-    Button gr_date;
-    @BindView(R.id.gr_work)
-    EditText gr_work;
-    @BindView(R.id.gr_annotation)
-    EditText gr_annotation;
-    @BindView(R.id.gr_annex)
-    EditText gr_annex;
-    @BindView(R.id.guide_record_annex)
-    Button guide_record_annex;
-    @BindView(R.id.gr_annotation_main)
-    RelativeLayout gr_annotation_main;
-    @BindView(R.id.guide_record_submit)
-    Button guide_record_submit;
-    @BindView(R.id.guide_record_check)
-    LinearLayout guide_record_check;
-    private String TAG = "指导记录";
+    @BindView(R.id.mc_time)
+    TextView mc_time;
+    @BindView(R.id.mc_state)
+    TextView mc_state;
+    @BindView(R.id.mc_intro)
+    EditText mc_intro;
+    @BindView(R.id.mc_annotation)
+    EditText mc_annotation;
+    @BindView(R.id.mc_annex)
+    EditText mc_annex;
+    @BindView(R.id.tm_middle_check)
+    LinearLayout tm_middle_check;
+    @BindView(R.id.mc_submit_annex)
+    Button mc_submit_annex;
+    @BindView(R.id.middle_check_submit)
+    Button middle_check_submit;
+    @BindView(R.id.mc_annotation_main)
+    RelativeLayout mc_annotation_main;
+    private String TAG = "中期检查";
+    private String intro,uploadfile;
     private String fileId = "0";
-    private String path,id,theme,work,date,uploadfile;
+    private String path;
     private File file;
     private String fileName = null;
     private Context mContext;
@@ -97,14 +85,14 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ms_student_pd_guide_record);
+        setContentView(R.layout.ms_student_pd_middlecheck);
         ButterKnife.bind(this);
-        guide_record_annex.setVisibility(View.GONE);
-        guide_record_check.setVisibility(View.GONE);
-        guide_record_submit.setVisibility(View.GONE);
-        initEditStatus();
+        mc_submit_annex.setVisibility(View.GONE);
+        tm_middle_check.setVisibility(View.GONE);
+        middle_check_submit.setVisibility(View.GONE);
         getId();
-        initDate();
+        initEditStatus();
+        initData();
     }
 
     /**启动这个Activity的Intent
@@ -112,26 +100,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, StudentGuideReportActivity.class);
-    }
-
-    public void initEditStatus() {
-        gr_theme.setEnabled(false);
-        gr_date.setEnabled(false);
-        gr_work.setEnabled(false);
-        gr_annotation.setEnabled(false);
-    }
-
-    public void changeState() {
-        Log.w(TAG,"可编辑");
-        gr_theme.setEnabled(true);
-        gr_theme.setFocusable(true);
-        gr_date.setEnabled(true);
-        gr_work.setEnabled(true);
-        gr_annotation_main.setVisibility(View.GONE);
-        guide_record_annex.setVisibility(View.VISIBLE);
-        guide_record_edit.setVisibility(View.GONE);
-        guide_record_submit.setVisibility(View.VISIBLE);
+        return new Intent(context, StudentMiddleCheckActivity.class);
     }
 
     /**
@@ -141,30 +110,27 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
     {
         iv_back = (ImageButton)findViewById(R.id.iv_back);
         iv_back.setOnClickListener(this);
-        guide_record_edit = (Button)findViewById(R.id.guide_record_edit);
-        guide_record_edit.setOnClickListener(this);
+        middle_check_edit = (Button)findViewById(R.id.middle_check_edit);
+        middle_check_edit.setOnClickListener(this);
     }
 
-    @OnClick({R.id.guide_record_submit,R.id.gr_date,R.id.guide_record_annex,R.id.gr_annex})
+    @OnClick({R.id.middle_check_submit,R.id.mc_submit_annex,R.id.mc_annex})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.guide_record_edit:
+            case R.id.middle_check_edit:
                 changeState();
-                nav_title.setText("修改指导记录");
                 break;
-            case R.id.guide_record_submit:
+            case R.id.middle_check_submit:
+                nav_title.setText("修改中期检查");
                 submitData();
                 break;
-            case R.id.gr_date:
-                showDatePicker();
-                break;
-            case R.id.guide_record_annex:
+            case R.id.mc_submit_annex:
                 showFileChooser();
                 break;
-            case R.id.gr_annex:
+            case R.id.mc_annex:
                 downLoad("下载文件","确认下载附件？",fileId);
                 break;
             default:
@@ -172,73 +138,105 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
         }
     }
 
-    public void initDate() {
-        SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
-        Log.w(TAG,sp.getString("obj" , ""));
-        JSONObject obj = JSON.parseObject(sp.getString("guide_record" , ""));
-        Log.w(TAG,obj.toString());
-        id = obj.getString("id");
-        String status = obj.getString("cStatus");
-        String cStatus = null;
-        Log.w(TAG,status+"喔喔");
-        if(status.equals("0")){
-            cStatus = "审核不通过";
-        }else if(status.equals("1")){
-            cStatus = "审核通过";
-            guide_record_edit.setVisibility(View.GONE);
-        }else if(status.equals("2")|| status.equals("3")){
-            cStatus = "审核中";
-        }
-        gr_state.setText(cStatus);
-        gr_suggest.setText(obj.getString("cSuggest"));
-        gr_theme.setText(obj.getString("theme"));
-        gr_date.setText(DateUtil.getDateFormatNoTime(obj.getString("date")));
-        gr_work.setText(obj.getString("work"));
-        gr_annotation.setText(obj.getString("annotation"));
-        fileId = obj.getString("fileId");
-        if(obj.containsKey("file")){
-            fileName = obj.getJSONObject("file").getString("fileName");
-            gr_annex.setText(Html.fromHtml("<u>"+obj.getJSONObject("file").getString("fileName")+"</u>"));
-        }else{
-            fileName = obj.getString("title");
-            gr_annex.setText("暂无附件");
-            gr_annex.setEnabled(false);
-        }
+    public void initEditStatus() {
+        mc_time.setEnabled(false);
+        mc_state.setEnabled(false);
+        mc_intro.setEnabled(false);
+        mc_annotation.setEnabled(false);
+        mc_annex.setEnabled(false);
+    }
+
+    public void changeState() {
+        Log.w(TAG,"可编辑");
+        mc_intro.setEnabled(true);
+        mc_intro.setFocusable(true);
+        mc_annotation_main.setVisibility(View.GONE);
+        mc_submit_annex.setVisibility(View.VISIBLE);
+        middle_check_edit.setVisibility(View.GONE);
+        middle_check_submit.setVisibility(View.VISIBLE);
+    }
+
+    public void initData() {
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        manager.post(ApiConstants.studentApi + "/showMidInspection", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                final String msg = obj.getString("msg");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            JSONObject object = obj.getJSONObject("data");
+                            Log.w(TAG,obj.getJSONObject("data").toString());
+                            mc_time.setText(DateUtil.getDateFormat(object.getString("submitDate")));
+                            String status = object.getString("cStatus");
+                            String cStatus = null;
+                            Log.w(TAG,status+"喔喔");
+                            if(status.equals("0")){
+                                cStatus = "审核不通过";
+                            }else if(status.equals("1")){
+                                cStatus = "审核通过";
+                                middle_check_submit.setVisibility(View.GONE);
+                            }else if(status.equals("2")|| status.equals("3")){
+                                cStatus = "审核中";
+                            }
+                            mc_state.setText(cStatus);
+                            mc_intro.setText(object.getString("intro"));
+                            mc_annotation.setText(object.getString("annotation"));
+                            fileId = object.getString("fileId");
+                            if(object.containsKey("file")){
+                                fileName = object.getJSONObject("file").getString("fileName");
+                                mc_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
+                            }else{
+                                fileName = object.getString("title");
+                                mc_annex.setEnabled(false);
+                                mc_annex.setText("暂无附件");
+                            }
+
+                        }else if(obj.get("statusCode").equals(101)){
+                            Toast.makeText(StudentMiddleCheckActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentMiddleCheckActivity.this,StudentMiddleCheckEditActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(StudentMiddleCheckActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
     }
 
     public void submitData() {
-        theme=gr_theme.getText().toString().trim();
-        work=gr_work.getText().toString().trim();
-        date = DateUtil.date2TimeStamp(gr_date.getText().toString().trim());
-        Log.w(TAG,date+"哈哈 ");
-        uploadfile=gr_annex.getText().toString().trim();
-        Log.w(TAG,uploadfile);
-        Log.e(TAG,fileId);
+        intro=mc_intro.getText().toString().trim();
+        uploadfile=mc_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
         RequestBody requestBody;
         if(file == null){
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("id", id)
-                    .addFormDataPart("theme", theme)
-                    .addFormDataPart("work", work)
-                    .addFormDataPart("date", date)
-                    .addFormDataPart("fileId", fileId)
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("fileId", fileId) // 提交普通字段
                     .addFormDataPart("uploadfile", uploadfile)
                     .build();
-        }else {
+        }else{
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("id", id)
-                    .addFormDataPart("theme", theme)
-                    .addFormDataPart("work", work)
-                    .addFormDataPart("date", date)
-                    .addFormDataPart("fileId", fileId)
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("fileId", fileId) // 提交普通字段
                     .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
                     .build();
         }
 
-        manager.postFile(ApiConstants.studentApi + "/modifyGuidanceRecord", requestBody,new okhttp3.Callback() {
+        manager.postFile(ApiConstants.studentApi + "/commitMidInspection", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -253,11 +251,11 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                     @Override
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
-                            Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentGuideReportActivity.this,StudentGuideReportMainActivity.class);
+                            Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentMiddleCheckActivity.this,StudentMiddleCheckActivity.class);
                             startActivity(intent);
                         }else {
-                            Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -266,25 +264,6 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
         });
     }
 
-    public void showDatePicker() {
-        final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog dialog = new DatePickerDialog(StudentGuideReportActivity.this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        Log.d(TAG, "onDateSet: year: " + year + ", month: " + month + ", dayOfMonth: " + dayOfMonth);
-                        calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH, month);
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        gr_date.setText(DateUtil.date2String(calendar.getTime()));
-                        Log.e(TAG,DateUtil.date2String(calendar.getTime()));
-                    }
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH));
-        dialog.show();
-    }
 
     //打开文件选择器
     private void showFileChooser() {
@@ -303,7 +282,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                 path = uri.getPath();
                 file = new File(path);
                 uploadfile = file.getName();
-                gr_annex.setText(uploadfile);
+                mc_annex.setText(uploadfile);
                 Log.w(TAG,"getName==="+uploadfile);
                 Toast.makeText(this,path+"11111",Toast.LENGTH_SHORT).show();
                 return;
@@ -313,13 +292,13 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                 Log.w(TAG,path);
                 file = new File(path);
                 uploadfile = file.getName();
-                gr_annex.setText(uploadfile);
+                mc_annex.setText(uploadfile);
                 Log.w(TAG,"getName==="+uploadfile);
                 Toast.makeText(this,path,Toast.LENGTH_SHORT).show();
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(this,uri);
                 Log.w(TAG,path);
-                Toast.makeText(StudentGuideReportActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudentMiddleCheckActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -345,7 +324,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                 final String saveurl="/download/";
                 Log.w(TAG,"路径1："+saveurl);
                 //配置progressDialog
-                final ProgressDialog dialog= new ProgressDialog(StudentGuideReportActivity.this);
+                final ProgressDialog dialog= new ProgressDialog(StudentMiddleCheckActivity.this);
                 dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.setCancelable(true);
@@ -377,7 +356,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                     @Override
                     public void run() {
                         getNotificationManager().notify(1,getNotification("文件下载成功，点击进行查看",-1));
-                        Toast.makeText(StudentGuideReportActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentMiddleCheckActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
 
                         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -411,7 +390,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                     @Override
                     public void run() {
                         getNotificationManager().notify(1,getNotification("下载失败",-1));
-                        Toast.makeText(StudentGuideReportActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentMiddleCheckActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -434,4 +413,5 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
         }
         return builder.build();
     }
+
 }

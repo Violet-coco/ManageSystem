@@ -132,33 +132,33 @@
         <activity android:name="com.manage_system.test.ClipImageActivity"/>
 
         <!--学生选题-->
-        <activity android:name="com.manage_system.ui.manage.activity.StudentChooseTitleActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentChooseTitleMainActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentChooseDoneTitleActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentChooseDoneTitleMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentChooseTitleActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentChooseTitleMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentChooseDoneTitleActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentChooseDoneTitleMainActivity"/>
         <activity android:name="com.manage_system.ui.personal.GuideTeacherInfoActivity"/>
 
         <!--学生过程文档-->
-        <activity android:name="com.manage_system.ui.manage.activity.StudentGraduationThesisActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentGraduationThesisEditActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentGraduationThesisMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentGraduationThesisActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentGraduationThesisEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentGraduationThesisMainActivity"/>
 
-        <activity android:name="com.manage_system.ui.manage.activity.StudentLiteratureReviewActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentForeignTranslationActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentGuideReportActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentMiddleCheckActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentOpenReportActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentLiteratureReviewActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentForeignTranslationActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentGuideReportActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentMiddleCheckActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentOpenReportActivity"/>
 
-        <activity android:name="com.manage_system.ui.manage.activity.StudentLiteratureReviewEditActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentForeignTranslationEditActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentGuideReportEditActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentGuideReportMainActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentMiddleCheckEditActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentOpenReportEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentLiteratureReviewEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentForeignTranslationEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentGuideReportEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentGuideReportMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentMiddleCheckEditActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentOpenReportEditActivity"/>
 
         <!--学生答辩管理-->
-        <activity android:name="com.manage_system.ui.manage.activity.StudentReplyGradeActivity"/>
-        <activity android:name="com.manage_system.ui.manage.activity.StudentReplyPlanActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentReplyGradeActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.student.StudentReplyPlanActivity"/>
     </application>
 
 </manifest>

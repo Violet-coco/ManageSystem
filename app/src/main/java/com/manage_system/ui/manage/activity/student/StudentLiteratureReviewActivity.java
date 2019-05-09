@@ -1,4 +1,4 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -28,7 +28,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
-import com.manage_system.ui.personal.GuideTeacherInfoActivity;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.DownloadUtil;
 import com.manage_system.utils.OkManager;
@@ -51,58 +50,49 @@ import okhttp3.Response;
 import static com.manage_system.utils.FileUtils.getPath;
 import static com.manage_system.utils.FileUtils.getRealPathFromURI;
 
-public class StudentForeignTranslationActivity extends AppCompatActivity implements View.OnClickListener {
+public class StudentLiteratureReviewActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton iv_back;
     @BindView(R.id.nav_title)
     TextView nav_title;
-    @BindView(R.id.ft_time)
-    TextView ft_time;
-    @BindView(R.id.ft_state)
-    TextView ft_state;
-    @BindView(R.id.ft_foreign)
-    EditText ft_foreign;
-    @BindView(R.id.ft_original)
-    EditText ft_original;
-    @BindView(R.id.ft_annotation)
-    EditText ft_annotation;
-    @BindView(R.id.ft_forFile)
-    EditText ft_forFile;
-    @BindView(R.id.ft_oriFile)
-    EditText ft_oriFile;
-    @BindView(R.id.for_tra_edit)
-    Button for_tra_edit;
-    @BindView(R.id.for_tra_submit)
-    Button for_tra_submit;
-    @BindView(R.id.tm_check_main)
-    LinearLayout tm_check_main;
-    @BindView(R.id.ft_submit_for_annex)
-    Button ft_submit_for_annex;
-    @BindView(R.id.ft_submit_ori_annex)
-    Button ft_submit_ori_annex;
-    @BindView(R.id.ft_annotation_main)
-    RelativeLayout ft_annotation_main;
-    private String TAG = "外文译文和原文";
-    private String original,foreign,uploadOrifile,uploadForfile,uploadfile;
-    private String forFileId = "0";
-    private String oriFileId = "0";
+    @BindView(R.id.lr_time)
+    TextView lr_time;
+    @BindView(R.id.lr_state)
+    TextView lr_state;
+    @BindView(R.id.lr_intro)
+    EditText lr_intro;
+    @BindView(R.id.lr_annotation)
+    EditText lr_annotation;
+    @BindView(R.id.lr_annex)
+    EditText lr_annex;
+    @BindView(R.id.lite_review_edit)
+    Button lite_review_edit;
+    @BindView(R.id.lite_review_submit)
+    Button lite_review_submit;
+    @BindView(R.id.lite_review_check)
+    LinearLayout lite_review_check;
+    @BindView(R.id.lite_review_annex)
+    Button lite_review_annex;
+    @BindView(R.id.lr_annotation_main)
+    RelativeLayout lr_annotation_main;
+    private String TAG = "文献综述";
+    private String intro,uploadfile;
+    private String fileId = "0";
     private String path;
     private File file;
     private String fileName = null;
     private Context mContext;
-    private int fileIdType=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ms_student_pd_fortra);
+        setContentView(R.layout.ms_student_pd_litreview);
         ButterKnife.bind(this);
-        initEditStatus();
-        tm_check_main.setVisibility(View.GONE);
-        for_tra_submit.setVisibility(View.GONE);
-        ft_submit_for_annex.setVisibility(View.GONE);
-        ft_submit_ori_annex.setVisibility(View.GONE);
         getId();
+        lite_review_annex.setVisibility(View.GONE);
+        lite_review_check.setVisibility(View.GONE);
+        lite_review_submit.setVisibility(View.GONE);
+        initEditStatus();
         initData();
     }
 
@@ -111,28 +101,25 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, StudentForeignTranslationActivity.class);
+        return new Intent(context, StudentLiteratureReviewActivity.class);
     }
 
     public void initEditStatus() {
-        ft_time.setEnabled(false);
-        ft_state.setEnabled(false);
-        ft_foreign.setEnabled(false);
-        ft_original.setEnabled(false);
-        ft_annotation.setEnabled(false);
+        lr_intro.setEnabled(false);
+        lr_annotation.setEnabled(false);
+        lr_annex.setEnabled(false);
     }
 
     public void changeState() {
         Log.w(TAG,"可编辑");
-        ft_foreign.setEnabled(true);
-        ft_foreign.setFocusable(true);
-        ft_original.setEnabled(true);
-        ft_annotation_main.setVisibility(View.GONE);
-        ft_submit_for_annex.setVisibility(View.VISIBLE);
-        ft_submit_ori_annex.setVisibility(View.VISIBLE);
-        for_tra_edit.setVisibility(View.GONE);
-        for_tra_submit.setVisibility(View.VISIBLE);
+        lr_intro.setEnabled(true);
+        lr_intro.setFocusable(true);
+        lr_annotation_main.setVisibility(View.GONE);
+        lite_review_annex.setVisibility(View.VISIBLE);
+        lite_review_edit.setVisibility(View.GONE);
+        lite_review_submit.setVisibility(View.VISIBLE);
     }
+
 
     /**
      * 获取id
@@ -143,32 +130,24 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
         iv_back.setOnClickListener(this);
     }
 
-    @OnClick({R.id.for_tra_edit,R.id.ft_submit_for_annex,R.id.ft_submit_ori_annex,R.id.for_tra_submit,R.id.ft_forFile,R.id.ft_oriFile})
+    @OnClick({R.id.lite_review_edit,R.id.lite_review_submit,R.id.lite_review_annex,R.id.lr_annex})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.for_tra_edit:
+            case R.id.lite_review_edit:
+                nav_title.setText("修改文献综述");
                 changeState();
-                nav_title.setText("修改外文译文和原文");
                 break;
-            case R.id.ft_submit_for_annex:
-                fileIdType = 1;
-                showFileChooser();
-                break;
-            case R.id.ft_submit_ori_annex:
-                fileIdType = 2;
-                showFileChooser();
-                break;
-            case R.id.for_tra_submit:
+            case R.id.lite_review_submit:
                 submitData();
                 break;
-            case R.id.ft_forFile:
-                downLoad("下载文件","确认下载原文译文附件？",forFileId);
+            case R.id.lite_review_annex:
+                showFileChooser();
                 break;
-            case R.id.ft_oriFile:
-                downLoad("下载文件","确认下载原文附件？",oriFileId);
+            case R.id.lr_annex:
+                downLoad("下载文件","确认下载附件？",fileId);
                 break;
             default:
                 break;
@@ -177,8 +156,8 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
 
     public void initData() {
         OkManager manager = OkManager.getInstance();
-        Map<String, String> map = new HashMap<>();
-        manager.post(ApiConstants.studentApi + "/showForeignOriginal", map,new okhttp3.Callback() {
+        Map<String, String> map = new HashMap<String, String>();
+        manager.post(ApiConstants.studentApi + "/showLiteratureReview", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -195,7 +174,7 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                         if(obj.get("statusCode").equals(100)){
                             JSONObject object = obj.getJSONObject("data");
                             Log.w(TAG,obj.getJSONObject("data").toString());
-                            ft_time.setText(DateUtil.getDateFormat(object.getString("submitDate")));
+                            lr_time.setText(DateUtil.getDateFormat(object.getString("submitDate")));
                             String status = object.getString("cStatus");
                             String cStatus = null;
                             Log.w(TAG,status+"喔喔");
@@ -203,49 +182,33 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                                 cStatus = "审核不通过";
                             }else if(status.equals("1")){
                                 cStatus = "审核通过";
-                                for_tra_submit.setVisibility(View.GONE);
+                                lite_review_submit.setVisibility(View.GONE);
                             }else if(status.equals("2")|| status.equals("3")){
                                 cStatus = "审核中";
                             }
-                            ft_state.setText(cStatus);
-                            ft_foreign.setText(object.getString("foreign"));
-                            ft_original.setText(object.getString("original"));
-                            ft_annotation.setText(object.getString("annotation"));
-
-                            oriFileId = object.getString("oriFileId");
-                            forFileId = object.getString("forFileId");
-                            if(object.get("forFileId").equals(0)){
-                                ft_forFile.setText("暂无附件");
-                                ft_forFile.setEnabled(false);
+                            lr_state.setText(cStatus);
+                            lr_intro.setText(object.getString("intro"));
+                            lr_annotation.setText(object.getString("annotation"));
+                            fileId = object.getString("fileId");
+                            if(object.get("fileId").equals(0)){
+                                lr_annex.setText("暂无附件");
+                                lr_annex.setEnabled(false);
                             }else{
-                                if(!object.getJSONObject("forFile").getString("fileName").isEmpty()){
-                                    fileName = object.getJSONObject("forFile").getString("fileName");
-                                    ft_forFile.setText(Html.fromHtml("<u>"+object.getJSONObject("forFile").getString("fileName")+"</u>"));
+                                if(!object.getJSONObject("file").getString("fileName").isEmpty()){
+                                    fileName = object.getJSONObject("file").getString("fileName");
+                                    lr_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
                                 }else{
                                     fileName = object.getString("title");
-                                    ft_forFile.setText(Html.fromHtml("<u>"+"外文译文.附件"+"</u>"));
-                                }
-                            }
-
-                            if(object.get("oriFileId").equals(0)){
-                                ft_oriFile.setText("暂无附件");
-                                ft_oriFile.setEnabled(false);
-                            }else{
-                                if(!object.getJSONObject("oriFile").getString("fileName").isEmpty()){
-                                    fileName = object.getJSONObject("oriFile").getString("fileName");
-                                    ft_oriFile.setText(Html.fromHtml("<u>"+object.getJSONObject("oriFile").getString("fileName")+"</u>"));
-                                }else{
-                                    fileName = object.getString("title");
-                                    ft_oriFile.setText(Html.fromHtml("<u>"+"原文.附件"+"</u>"));
+                                    lr_annex.setText(Html.fromHtml("<u>"+"中期检查.附件"+"</u>"));
                                 }
                             }
 
                         }else if(obj.get("statusCode").equals(101)){
-                            Toast.makeText(StudentForeignTranslationActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentForeignTranslationActivity.this,StudentForeignTranslationEditActivity.class);
+                            Toast.makeText(StudentLiteratureReviewActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentLiteratureReviewActivity.this,StudentLiteratureReviewEditActivity.class);
                             startActivity(intent);
                         }else{
-                            Toast.makeText(StudentForeignTranslationActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentLiteratureReviewActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -255,35 +218,26 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
     }
 
     public void submitData() {
-        original=ft_foreign.getText().toString().trim();
-        foreign=ft_original.getText().toString().trim();
-        uploadOrifile=ft_forFile.getText().toString().trim();
-        uploadForfile=ft_oriFile.getText().toString().trim();
+        intro=lr_intro.getText().toString().trim();
+        uploadfile=lr_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
         RequestBody requestBody;
         if(file == null){
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("foreign", foreign)
-                    .addFormDataPart("original", original) // 提交普通字段
-                    .addFormDataPart("forFileId", forFileId) // 提交普通字段
-                    .addFormDataPart("oriFileId", oriFileId)
-                    .addFormDataPart("uploadForfile", uploadForfile)
-                    .addFormDataPart("uploadOrifile", uploadOrifile)
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("fileId", fileId) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile)
                     .build();
         }else{
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("foreign", foreign)
-                    .addFormDataPart("original", original) // 提交普通字段
-                    .addFormDataPart("forFileId", forFileId) // 提交普通字段
-                    .addFormDataPart("oriFileId", oriFileId)
-                    .addFormDataPart("uploadForfile", uploadForfile, RequestBody.create(MediaType.parse("*/*"), file))
-                    .addFormDataPart("uploadOrifile", uploadOrifile, RequestBody.create(MediaType.parse("*/*"), file))
+                    .addFormDataPart("intro", intro) // 提交普通字段
+                    .addFormDataPart("fileId", fileId) // 提交普通字段
+                    .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
                     .build();
         }
-
-        manager.postFile(ApiConstants.studentApi + "/commitForeignOriginal", requestBody,new okhttp3.Callback() {
+        manager.postFile(ApiConstants.studentApi + "/commitMidInspection", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -298,11 +252,11 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                     @Override
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
-                            Toast.makeText(StudentForeignTranslationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentForeignTranslationActivity.this,StudentForeignTranslationActivity.class);
+                            Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentLiteratureReviewActivity.this,StudentLiteratureReviewActivity.class);
                             startActivity(intent);
                         }else {
-                            Toast.makeText(StudentForeignTranslationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -328,12 +282,8 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                 path = uri.getPath();
                 file = new File(path);
                 uploadfile = file.getName();
-                if(fileIdType == 1){
-                    ft_forFile.setText(uploadfile);
-                }
-                if(fileIdType == 2){
-                    ft_oriFile.setText(uploadfile);
-                }
+                lr_annex.setText(uploadfile);
+                Log.w(TAG,"getName==="+uploadfile);
                 Toast.makeText(this,path+"11111",Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -342,17 +292,13 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                 Log.w(TAG,path);
                 file = new File(path);
                 uploadfile = file.getName();
-                if(fileIdType == 1){
-                    ft_forFile.setText(uploadfile);
-                }
-                if(fileIdType == 2){
-                    ft_oriFile.setText(uploadfile);
-                }
+                lr_annex.setText(uploadfile);
+                Log.w(TAG,"getName==="+uploadfile);
                 Toast.makeText(this,path,Toast.LENGTH_SHORT).show();
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(this,uri);
                 Log.w(TAG,path);
-                Toast.makeText(StudentForeignTranslationActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudentLiteratureReviewActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -378,7 +324,7 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                 final String saveurl="/download/";
                 Log.w(TAG,"路径1："+saveurl);
                 //配置progressDialog
-                final ProgressDialog dialog= new ProgressDialog(StudentForeignTranslationActivity.this);
+                final ProgressDialog dialog= new ProgressDialog(StudentLiteratureReviewActivity.this);
                 dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.setCancelable(true);
@@ -410,7 +356,7 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                     @Override
                     public void run() {
                         getNotificationManager().notify(1,getNotification("文件下载成功，点击进行查看",-1));
-                        Toast.makeText(StudentForeignTranslationActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentLiteratureReviewActivity.this, "下载成功", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
 
                         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -444,7 +390,7 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                     @Override
                     public void run() {
                         getNotificationManager().notify(1,getNotification("下载失败",-1));
-                        Toast.makeText(StudentForeignTranslationActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentLiteratureReviewActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -467,4 +413,5 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
         }
         return builder.build();
     }
+
 }

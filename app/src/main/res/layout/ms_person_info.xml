@@ -58,6 +58,7 @@
 
                 <TextView
                     style="@style/edit_item_left_tv"
+                    android:id="@+id/tm_id"
                     android:text="学号" />
 
                 <EditText
@@ -129,7 +130,9 @@
 
             <View style="@style/divider_horizontal_1px" />
 
-            <LinearLayout style="@style/edit_item" >
+            <LinearLayout
+                android:id="@+id/tm_class"
+                style="@style/edit_item" >
 
                 <TextView
                     style="@style/edit_item_left_tv"

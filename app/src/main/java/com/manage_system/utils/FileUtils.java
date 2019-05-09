@@ -1,39 +1,21 @@
 package com.manage_system.utils;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.manage_system.R;
-import com.manage_system.net.ApiConstants;
-import com.manage_system.ui.manage.activity.StudentChooseDoneTitleActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * Created by kelvin on 16/4/20.

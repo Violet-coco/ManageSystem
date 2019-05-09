@@ -1,4 +1,4 @@
-package com.manage_system.ui.manage.activity;
+package com.manage_system.ui.manage.activity.student;
 
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +36,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class StudentGuideReportMainActivity extends AppCompatActivity {
+public class StudentGraduationThesisMainActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler)
     RecyclerView recycleView;
@@ -51,7 +51,7 @@ public class StudentGuideReportMainActivity extends AppCompatActivity {
 
     public List<Map<String,Object>> list=new ArrayList<>();
 
-    private static String TAG = "指导记录界面";
+    private static String TAG = "毕业论文界面";
     private int times;
 
     @Override
@@ -70,13 +70,13 @@ public class StudentGuideReportMainActivity extends AppCompatActivity {
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, StudentGuideReportMainActivity.class);
+        return new Intent(context, StudentGraduationThesisMainActivity.class);
     }
 
     public void initData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.studentApi + "/showGuidanceRecord", map,new okhttp3.Callback() {
+        manager.post(ApiConstants.studentApi + "/showGraduationProjects", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -116,34 +116,34 @@ public class StudentGuideReportMainActivity extends AppCompatActivity {
                                 map.put("record_times", i+1);
                                 list.add(map);
                             }
-                            recycleView.setLayoutManager(new LinearLayoutManager(StudentGuideReportMainActivity.this,LinearLayoutManager.VERTICAL,false));
+                            recycleView.setLayoutManager(new LinearLayoutManager(StudentGraduationThesisMainActivity.this,LinearLayoutManager.VERTICAL,false));
                             //设置适配器
-                            MyAdapter adapter = new MyAdapter(StudentGuideReportMainActivity.this,list,"1003");
+                            MyAdapter adapter = new MyAdapter(StudentGraduationThesisMainActivity.this,list,"1003");
                             adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(int position) {
                                     // 这里本来是跳转页面 ，我们就在这里直接让其弹toast来演示
                                     Log.w(TAG,"位置是："+position);
-                                    Intent intent = new Intent(StudentGuideReportMainActivity.this,StudentGuideReportActivity.class);
+                                    Intent intent = new Intent(StudentGraduationThesisMainActivity.this,StudentGraduationThesisActivity.class);
                                     intent.putExtra("id",list.get(position).get("id").toString());
                                     intent.putExtra("position",position + "");
                                     SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
                                     SharedPreferences.Editor editor=sp.edit();
-                                    editor.putString("guide_record",obj.getJSONArray("data").getJSONObject(position).toString());
+                                    editor.putString("graduation_thesis",obj.getJSONArray("data").getJSONObject(position).toString());
                                     editor.commit();
                                     startActivity(intent);
-                                    Toast.makeText(StudentGuideReportMainActivity.this , list.get(position).get("title").toString() , Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(StudentGraduationThesisMainActivity.this , list.get(position).get("title").toString() , Toast.LENGTH_SHORT).show();
                                 }
                             });
                             recycleView.setAdapter(adapter);
                             // 设置数据后就要给RecyclerView设置点击事件
 
                         }else if(obj.get("statusCode").equals(101)){
-                            Toast.makeText(StudentGuideReportMainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentGuideReportMainActivity.this,StudentGuideReportEditActivity.class);
+                            Toast.makeText(StudentGraduationThesisMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentGraduationThesisMainActivity.this,StudentGraduationThesisEditActivity.class);
                             startActivity(intent);
                         }else{
-                            Toast.makeText(StudentGuideReportMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentGraduationThesisMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -159,11 +159,11 @@ public class StudentGuideReportMainActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.add:
-                if(times < 10){
-                    Intent intent = new Intent(StudentGuideReportMainActivity.this,StudentGuideReportEditActivity.class);
+                if(times < 3){
+                    Intent intent = new Intent(StudentGraduationThesisMainActivity.this,StudentGraduationThesisEditActivity.class);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(StudentGuideReportMainActivity.this, "提交记录不能超过10次！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudentGraduationThesisMainActivity.this, "提交记录不能超过10次！", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:

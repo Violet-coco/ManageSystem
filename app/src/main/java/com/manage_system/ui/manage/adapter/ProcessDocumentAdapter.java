@@ -1,32 +1,20 @@
 package com.manage_system.ui.manage.adapter;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
-import com.manage_system.ui.manage.activity.StudentForeignTranslationActivity;
-import com.manage_system.ui.manage.activity.StudentGraduationThesisActivity;
-import com.manage_system.ui.manage.activity.StudentGraduationThesisMainActivity;
-import com.manage_system.ui.manage.activity.StudentGuideReportActivity;
-import com.manage_system.ui.manage.activity.StudentGuideReportMainActivity;
-import com.manage_system.ui.manage.activity.StudentLiteratureReviewActivity;
-import com.manage_system.ui.manage.activity.StudentMiddleCheckActivity;
-import com.manage_system.ui.manage.activity.StudentOpenReportActivity;
+import com.manage_system.ui.manage.activity.student.StudentForeignTranslationActivity;
+import com.manage_system.ui.manage.activity.student.StudentGraduationThesisMainActivity;
+import com.manage_system.ui.manage.activity.student.StudentGuideReportMainActivity;
+import com.manage_system.ui.manage.activity.student.StudentLiteratureReviewActivity;
+import com.manage_system.ui.manage.activity.student.StudentMiddleCheckActivity;
+import com.manage_system.ui.manage.activity.student.StudentOpenReportActivity;
 import com.manage_system.utils.OkManager;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocumentAdapter.AuthorViewHolder> {
 

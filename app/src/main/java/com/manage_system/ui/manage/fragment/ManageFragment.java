@@ -95,18 +95,16 @@ public class ManageFragment extends BaseFragment {
     }
 
     public void initView() {
-        getData();
         List<String> strings = new ArrayList<>();
-        SharedPreferences sp1=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
         //sp.getString() userName, "";
-        String authority = sp1.getString("authority" , "");
+        String authority = sp.getString("authority" , "");
         if(authority.equals("1")){
+            getData();
             mTabTitles[0] = "学生选题";
             mTabTitles[1] = "过程文档";
             mTabTitles[2] = "答辩管理";
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
-            //设置tablayout距离上下左右的距离
-            //tab_title.setPadding(20,20,20,20);
             mFragmentArrays[0] = ChooseTitleFragment.newInstance();
             mFragmentArrays[1] = ProcessDocumentFragment.newInstance();
             mFragmentArrays[2] = ReplyFragment.newInstance();
@@ -149,7 +147,6 @@ public class ManageFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage, container,false);
-//        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         initView();

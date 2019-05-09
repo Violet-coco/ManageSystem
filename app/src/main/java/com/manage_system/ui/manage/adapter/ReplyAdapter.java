@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.manage_system.R;
-import com.manage_system.ui.manage.activity.StudentReplyGradeActivity;
-import com.manage_system.ui.manage.activity.StudentReplyPlanActivity;
+import com.manage_system.ui.manage.activity.student.StudentReplyGradeActivity;
+import com.manage_system.ui.manage.activity.student.StudentReplyPlanActivity;
 
 public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.AuthorViewHolder> {
 
