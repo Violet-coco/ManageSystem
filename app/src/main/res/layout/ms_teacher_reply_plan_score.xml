@@ -12,7 +12,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="答辩打分" />
+            android:text="答辩打分详情" />
 
     </RelativeLayout>
 
@@ -29,11 +29,12 @@
                 <TextView
                     android:id="@+id/subject_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="课题题目" />
+                    android:text="学生姓名（学号）" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/stu_name_id"
                     android:layout_below="@+id/subject_title"
                     />
 
@@ -46,11 +47,12 @@
                 <TextView
                     android:id="@+id/subject_source"
                     style="@style/edit_item_ms_border_title"
-                    android:text="学生姓名（学号）" />
+                    android:text="课题题目" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/pName"
                     android:layout_below="@+id/subject_source"
                     />
 
@@ -58,63 +60,118 @@
 
             <View style="@style/divider_horizontal_1px" />
 
-            <RelativeLayout style="@style/edit_item_ms_all" >
+            <LinearLayout style="@style/edit_item" >
 
                 <TextView
-                    android:id="@+id/subject_type"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="指导教师（工号）" />
+                    style="@style/edit_item_left_tv"
+                    android:layout_width="140dp"
+                    android:text="答辩成绩" />
 
                 <EditText
-                    style="@style/edit_item_ms_border_content"
+                    android:id="@+id/scoreTotal"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
                     android:editable="false"
-                    android:layout_below="@+id/subject_type"
                     />
 
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/subject_choose_number"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="分　　数" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_content"
-                    android:editable="false"
-                    android:layout_below="@+id/subject_choose_number"
-                    />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="25dp">
-
-                <Button
-                    android:id="@+id/ct_item_del"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/login_button_selector"
-                    android:text="打　分"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
             </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
 
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:layout_width="140dp"
+                    android:text="报告过程得分" />
+
+                <EditText
+                    android:id="@+id/scoreProcess"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:layout_width="140dp"
+                    android:text="报告内容得分" />
+
+                <EditText
+                    android:id="@+id/scoreReport"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:layout_width="140dp"
+                    android:text="实用价值得分" />
+
+                <EditText
+                    android:id="@+id/scoreWorth"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:layout_width="140dp"
+                    android:text="答辩得分" />
+
+                <EditText
+                    android:id="@+id/scoreDefence"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:layout_width="140dp"
+                    android:text="评语 " />
+
+                <EditText
+                    android:id="@+id/comment"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
 
         </LinearLayout>
+
     </ScrollView>
+
 
     <LinearLayout
         android:id="@+id/llUserBottomMenuContainer"

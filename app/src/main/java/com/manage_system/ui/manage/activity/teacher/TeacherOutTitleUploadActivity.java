@@ -274,6 +274,7 @@ public class TeacherOutTitleUploadActivity extends AppCompatActivity implements 
                             Toast.makeText(TeacherOutTitleUploadActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(TeacherOutTitleUploadActivity.this,TeacherOutTitleMainActivity.class);
                             startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(TeacherOutTitleUploadActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

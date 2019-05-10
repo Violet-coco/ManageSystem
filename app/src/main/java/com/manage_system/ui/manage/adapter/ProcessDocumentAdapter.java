@@ -16,6 +16,7 @@ import com.manage_system.ui.manage.activity.student.StudentLiteratureReviewActiv
 import com.manage_system.ui.manage.activity.student.StudentMiddleCheckActivity;
 import com.manage_system.ui.manage.activity.student.StudentOpenReportActivity;
 import com.manage_system.ui.manage.activity.teacher.TeacherReplyTypeActivity;
+import com.manage_system.ui.manage.activity.teacher.TeacherScoreMainActivity;
 import com.manage_system.utils.OkManager;
 
 import static android.content.ContentValues.TAG;
@@ -102,7 +103,7 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
             holder.teacher_find_reply_grade.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(v.getContext(),StudentLiteratureReviewActivity.class);
+                    Intent intent=new Intent(v.getContext(),TeacherScoreMainActivity.class);
                     v.getContext().startActivity(intent);
                 }
             });

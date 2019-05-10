@@ -170,6 +170,9 @@
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherCheckTitleActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherReplyMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherReplyTypeActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherScoreMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherScoreActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherScoreDetailActivity"/>
 
     </application>
 

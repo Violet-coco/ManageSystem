@@ -121,6 +121,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
                     v.getContext().startActivity(intent);
                 }
             });
+        }else if(string.equals("2005")){
+            holder.project_title.setText(list.get(position).get("pName").toString());
+            holder.project_date.setText("答辩学生："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
+            holder.project_teacher.setText("答辩教师："+list.get(position).get("gt_name").toString()+"（"+list.get(position).get("gt_identifier").toString()+"）");
+            holder.project_number.setText("分数："+list.get(position).get("scoreTotal").toString());
+            holder.project_state.setVisibility(View.GONE);
+            holder.project_teachers.setVisibility(View.GONE);
         }
 
 
