@@ -39,10 +39,10 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
-                    android:id="@+id/tvUserTag"
+                    android:id="@+id/stu_name"
                     android:layout_below="@+id/gt_name_title"
                     android:editable="false"
-                    android:text="流萤梦" />
+                   />
 
             </RelativeLayout>
 
@@ -58,8 +58,9 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/stu_id"
                     android:layout_below="@+id/gt_position_title"
-                    android:text="2019-01-05 17:47:28" />
+                />
 
             </RelativeLayout>
 
@@ -70,13 +71,32 @@
                 <TextView
                     android:id="@+id/gt_email_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="院系" />
+                    android:text="学院" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:layout_below="@+id/gt_email_title"
+                    android:id="@+id/stu_college"
                     android:editable="false"
-                    android:text="6A-404" />
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/gt_department_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="系" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:layout_below="@+id/gt_department_title"
+                    android:id="@+id/stu_department"
+                    android:editable="false"
+                    />
 
             </RelativeLayout>
 
@@ -92,8 +112,9 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/stu_major"
                     android:layout_below="@+id/gt_phone_title"
-                    android:text="2019-01-05 17:47:28" />
+                     />
 
             </RelativeLayout>
 
@@ -109,8 +130,9 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/stu_class"
                     android:layout_below="@+id/gt_college_title"
-                    android:text="2019-01-05 17:47:28" />
+                     />
 
             </RelativeLayout>
 
@@ -126,8 +148,45 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/stu_sex"
                     android:layout_below="@+id/stu_sex_title"
-                    android:text="2019-01-05 17:47:28" />
+                     />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/gt_tel_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="联系电话" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:id="@+id/stu_tel"
+                    android:layout_below="@+id/gt_tel_title"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/gt_bindemail_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="联系邮箱" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:id="@+id/stu_email"
+                    android:layout_below="@+id/gt_bindemail_title"
+                    />
 
             </RelativeLayout>
 

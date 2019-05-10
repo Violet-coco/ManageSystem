@@ -19,7 +19,7 @@
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
-                    android:text="选题" />
+                    android:text="已出题目" />
 
                 <ImageView style="@style/content_item_rt_img" />
             </LinearLayout>
@@ -33,7 +33,7 @@
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
-                    android:text="已选课题" />
+                    android:text="上传题目" />
 
                 <ImageView style="@style/content_item_rt_img" />
             </LinearLayout>
@@ -42,7 +42,6 @@
 
             <LinearLayout
                 android:id="@+id/student_choose_done_check"
-                android:visibility="gone"
                 style="@style/content_item_white" >
 
                 <TextView

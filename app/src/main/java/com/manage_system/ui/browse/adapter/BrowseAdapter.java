@@ -23,7 +23,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.AuthorView
 //        holder.student_choose_title.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent=new Intent(v.getContext(),StudentChooseTitleActivity.class);
+//                Intent intent=new Intent(v.getContext(),TeacherOutTitleActivity.class);
 //                v.getContext().startActivity(intent);
 //            }
 //        });

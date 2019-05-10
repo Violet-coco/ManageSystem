@@ -38,6 +38,15 @@
                     android:textColor="@color/blue_light"/>
 
                 <TextView
+                    android:id="@+id/project_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="指导老师"
+                    android:textColor="@android:color/black"
+                    />
+
+                <TextView
                     android:id="@+id/project_teacher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,6 +70,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="可选人数"
+                    android:textColor="@android:color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/project_teachers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="答辩教师"
                     android:textColor="@android:color/black"
                     />
             </LinearLayout>

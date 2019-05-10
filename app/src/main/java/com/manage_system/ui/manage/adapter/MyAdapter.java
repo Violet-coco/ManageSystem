@@ -1,6 +1,9 @@
 package com.manage_system.ui.manage.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,10 +12,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.manage_system.R;
+import com.manage_system.ui.personal.GuideStudentInfoActivity;
+import com.manage_system.ui.personal.GuideTeacherInfoActivity;
+import com.manage_system.utils.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> {
     private Context context;
@@ -46,16 +54,73 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             holder.project_teacher.setText("指导老师："+list.get(position).get("name").toString());
             holder.project_number.setText("可选人数："+list.get(position).get("rest").toString());
             holder.project_state.setVisibility(View.GONE);
+            holder.project_date.setVisibility(View.GONE);
+            holder.project_teachers.setVisibility(View.GONE);
         }else if(string.equals("1002")){
             holder.project_title.setText(list.get(position).get("title").toString());
             holder.project_teacher.setText("指导老师："+list.get(position).get("name").toString());
             holder.project_number.setText("审核状态："+list.get(position).get("cStatus").toString());
             holder.project_state.setVisibility(View.GONE);
+            holder.project_date.setVisibility(View.GONE);
+            holder.project_teachers.setVisibility(View.GONE);
         }else if(string.equals("1003")){
             holder.project_title.setText(list.get(position).get("title").toString());
             holder.project_teacher.setText("提交时间："+list.get(position).get("submitDate").toString());
             holder.project_number.setText("记录编号："+list.get(position).get("record_times").toString());
             holder.project_state.setText("审核状态："+list.get(position).get("cStatus").toString());
+            holder.project_date.setVisibility(View.GONE);
+            holder.project_teachers.setVisibility(View.GONE);
+        }else if(string.equals("2001")){
+            holder.project_title.setText(list.get(position).get("title").toString());
+            holder.project_teacher.setText("可选人数/容纳人数："+list.get(position).get("rest").toString()+"/"+list.get(position).get("number").toString());
+            holder.project_number.setText("审核状态："+list.get(position).get("cStatus").toString());
+            holder.project_state.setText("任务书："+list.get(position).get("taskBook").toString());
+            holder.project_date.setVisibility(View.GONE);
+            holder.project_teachers.setVisibility(View.GONE);
+        }else if(string.equals("2002")){
+            holder.project_title.setText(list.get(position).get("title").toString());
+            holder.project_teacher.setText("学生（学号）："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
+            holder.project_number.setText("审核状态："+list.get(position).get("cStatus").toString());
+            holder.project_state.setVisibility(View.GONE);
+            holder.project_date.setVisibility(View.GONE);
+            holder.project_teachers.setVisibility(View.GONE);
+        }else if(string.equals("2003")){
+            holder.project_title.setVisibility(View.GONE);
+            holder.project_date.setText("答辩时间："+DateUtil.getDateFormat(list.get(position).get("defDate").toString())+" "+"第"+list.get(position).get("defWeek").toString()+"周 星期"+list.get(position).get("defDay").toString());
+            holder.project_teacher.setText("答辩教室："+list.get(position).get("defClass").toString());
+            holder.project_number.setText("答辩组长："+list.get(position).get("leader_name").toString());
+            holder.project_state.setText("分组："+"第"+list.get(position).get("groupNum").toString()+"组");
+            holder.project_teachers.setText("答辩教师："+list.get(position).get("reply_teachers").toString());
+
+            holder.project_number.setTextColor(Color.BLUE);
+
+            holder.project_number.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),GuideTeacherInfoActivity.class);
+                    intent.putExtra("tea_info","from_reply");
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }else if(string.equals("2004")){
+            holder.project_title.setText(list.get(position).get("pName").toString());
+            holder.project_date.setText("答辩学生："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
+            holder.project_teacher.setText("答辩教师："+list.get(position).get("gt_name").toString()+"（"+list.get(position).get("gt_identifier").toString()+"）");
+            holder.project_number.setVisibility(View.GONE);
+            holder.project_state.setVisibility(View.GONE);
+            holder.project_teachers.setVisibility(View.GONE);
+
+            holder.project_date.setTextColor(Color.BLUE);
+
+            holder.project_date.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),GuideStudentInfoActivity.class);
+                    intent.putExtra("stu_info","from_reply");
+                    intent.putExtra("stu_id",list.get(position).get("identifier").toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
 
 
@@ -81,12 +146,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
         private TextView project_teacher;
         private TextView project_number;
         private TextView project_state;
+        private TextView project_date;
+        private TextView project_teachers;
         public AuthorViewHolder(View itemView) {
             super(itemView);
             project_title = (TextView)itemView.findViewById(R.id.project_title);
             project_teacher = (TextView)itemView.findViewById(R.id.project_teacher);
             project_number = (TextView)itemView.findViewById(R.id.project_number);
             project_state = (TextView)itemView.findViewById(R.id.project_state);
+            project_date = (TextView)itemView.findViewById(R.id.project_date);
+            project_teachers = (TextView)itemView.findViewById(R.id.project_teachers);
         }
     }
 

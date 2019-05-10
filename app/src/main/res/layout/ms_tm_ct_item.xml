@@ -33,7 +33,9 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
+                    android:id="@+id/ot_title"
                     android:editable="false"
+                    android:textColor="@color/blue"
                     android:layout_below="@+id/subject_title"
                     />
 
@@ -51,6 +53,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_source"
                     android:layout_below="@+id/subject_source"
                     />
 
@@ -68,6 +71,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_type"
                     android:layout_below="@+id/subject_type"
                     />
 
@@ -85,6 +89,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_able"
                     android:layout_below="@+id/subject_choose_number"
                     />
 
@@ -102,6 +107,8 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:textColor="@color/blue"
+                    android:id="@+id/ot_taskBook"
                     android:layout_below="@+id/subject_task"
                     />
 
@@ -119,6 +126,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_state"
                     android:layout_below="@+id/subject_check_status"
                     />
 
@@ -133,7 +141,7 @@
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/ct_item_edit"
+                    android:id="@+id/ot_item_edit"
                     android:layout_width="120dp"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"
@@ -146,7 +154,7 @@
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/ct_item_del"
+                    android:id="@+id/ot_item_del"
                     android:layout_width="120dp"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"
@@ -157,6 +165,28 @@
                     android:text="删　除"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:id="@+id/btn_taskBook"
+                android:layout_marginTop="25dp">
+
+                <Button
+                    android:id="@+id/ot_item_edit_taskBook"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="修改任务书"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
             </LinearLayout>
 
         </LinearLayout>

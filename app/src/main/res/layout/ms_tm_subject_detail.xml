@@ -34,6 +34,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_title"
                     android:layout_below="@+id/subject_title"
                     />
 
@@ -52,7 +53,7 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_edit"
-                    android:id="@+id/tvUserTag"
+                    android:id="@+id/ot_intro"
                     android:editable="false"
                     android:layout_below="@+id/fortra_translate_con_title" />
 
@@ -70,6 +71,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_source"
                     android:layout_below="@+id/subject_source"
                     />
 
@@ -87,6 +89,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_type"
                     android:layout_below="@+id/subject_type"
                     />
 
@@ -104,6 +107,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_time"
                     android:layout_below="@+id/subject_time"
                     />
 
@@ -121,6 +125,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_able"
                     android:layout_below="@+id/subject_choose_number"
                     />
 
@@ -133,29 +138,13 @@
                 <TextView
                     android:id="@+id/subject_is_really"
                     style="@style/edit_item_ms_border_title"
-                    android:text="是否真题真做的题目" />
+                    android:text="选题范围" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_range"
                     android:layout_below="@+id/subject_is_really"
-                    />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/subject_principal"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="委托方名称" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_content"
-                    android:editable="false"
-                    android:layout_below="@+id/subject_principal"
                     />
 
             </RelativeLayout>
@@ -172,6 +161,8 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_taskBook"
+                    android:textColor="@color/blue"
                     android:layout_below="@+id/subject_task"
                     />
 
@@ -189,6 +180,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/ot_state"
                     android:layout_below="@+id/subject_check_status"
                     />
 
@@ -206,6 +198,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_edit"
                     android:editable="false"
+                    android:id="@+id/ot_suggest"
                     android:layout_below="@+id/subject_check_sug"
                     />
 
@@ -216,10 +209,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:id="@+id/tm_pass"
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/ct_item_edit"
+                    android:id="@+id/ot_item_edit"
                     android:layout_width="120dp"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"
@@ -232,7 +226,7 @@
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/ct_item_del"
+                    android:id="@+id/ot_item_del"
                     android:layout_width="120dp"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"

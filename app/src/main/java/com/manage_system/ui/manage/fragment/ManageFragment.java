@@ -110,8 +110,8 @@ public class ManageFragment extends BaseFragment {
             mFragmentArrays[2] = ReplyFragment.newInstance();
         }else if(authority.equals("2")){
             mTabTitles[0] = "题目管理";
-            mTabTitles[1] = "材料管理";
-            mTabTitles[2] = "答辩管理";
+            mTabTitles[1] = "答辩管理";
+            mTabTitles[2] = "学生管理";
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
             mFragmentArrays[0] = ChooseTitleFragment.newInstance();

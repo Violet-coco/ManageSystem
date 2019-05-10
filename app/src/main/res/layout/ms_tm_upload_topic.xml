@@ -24,266 +24,293 @@
 
         <LinearLayout style="@style/ll_vertical_match_match" >
 
-            <RelativeLayout style="@style/edit_item_ms_all" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/up_main"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/subject_title"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="课题题目" />
+                <RelativeLayout style="@style/edit_item_ms_all" >
 
-                <EditText
-                    style="@style/edit_item_ms_border_content"
-                    android:layout_below="@+id/subject_title"
-                    />
+                    <TextView
+                        android:id="@+id/subject_title"
+                        style="@style/edit_item_ms_border_title"
+                        android:text="课题题目" />
 
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout
-                android:id="@+id/llUserTag"
-                style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/fortra_translate_con_title"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="题目简介" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_edit"
-                    android:id="@+id/tvUserTag"
-                    android:layout_below="@+id/fortra_translate_con_title" />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/ut_annex"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="附件" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_content"
-                    android:layout_below="@+id/ut_annex"
-                    />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/subject_source"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="题目来源" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/subject_source"
-                    android:layout_height="match_parent">
-                    <Spinner
-                        style="@style/edit_item_ms_pull"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:id="@+id/spinner2"
-                        android:entries="@array/subject_source"
-                     />
-
-                    <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/white_selected"
-                        android:src="@drawable/pull_down"
-                        />
-                </LinearLayout>
-
-
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/subject_type"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="题目类型" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/subject_type"
-                    android:layout_height="match_parent">
-                    <Spinner
-                        style="@style/edit_item_ms_pull"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:id="@+id/spinner3"
-                        android:entries="@array/subject_source"
+                    <EditText
+                        style="@style/edit_item_ms_border_content"
+                        android:id="@+id/ot_title"
+                        android:layout_below="@+id/subject_title"
                         />
 
-                    <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/white_selected"
-                        android:src="@drawable/pull_down"
+                </RelativeLayout>
+
+                <View style="@style/divider_horizontal_1px" />
+
+                <RelativeLayout
+                    android:id="@+id/llUserTag"
+                    style="@style/edit_item_ms_all" >
+
+                    <TextView
+                        android:id="@+id/fortra_translate_con_title"
+                        style="@style/edit_item_ms_border_title"
+                        android:text="题目简介" />
+
+                    <EditText
+                        style="@style/edit_item_ms_border_edit"
+                        android:id="@+id/ot_intro"
+                        android:layout_below="@+id/fortra_translate_con_title" />
+
+                </RelativeLayout>
+
+                <View style="@style/divider_horizontal_1px" />
+
+                <RelativeLayout style="@style/edit_item_ms_all" >
+
+                    <TextView
+                        android:id="@+id/ut_annex"
+                        style="@style/edit_item_ms_border_title"
+                        android:text="附件" />
+
+                    <LinearLayout
+                        android:id="@+id/or_submit_annex_title"
+                        android:layout_below="@+id/ut_annex"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <EditText
+                            style="@style/edit_item_ms_border_check"
+                            android:textColor="@color/blue"
+                            android:background="@color/white"
+                            android:id="@+id/ot_annex"
+                            android:layout_weight="1"
+                            android:editable="false"
+                            android:layout_below="@+id/open_record_annex_title"
+                            />
+
+                        <Button
+                            style="@style/edit_item_ms_border_state"
+                            android:textColor="@color/white"
+                            android:layout_width="120dp"
+                            android:id="@+id/ot_annex_submit"
+                            android:gravity="center"
+                            android:background="@drawable/login_button_selector"
+                            android:text="浏览"
+                            />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/divider_horizontal_1px" />
+
+                <RelativeLayout style="@style/edit_item_ms_all" >
+
+                    <TextView
+                        android:id="@+id/subject_source"
+                        style="@style/edit_item_ms_border_title"
+                        android:text="题目来源" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/subject_source"
+                        android:layout_height="match_parent">
+                        <Spinner
+                            style="@style/edit_item_ms_pull"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:id="@+id/ot_source"
+                            android:entries="@array/subject_source"
+                            />
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white_selected"
+                            android:src="@drawable/pull_down"
+                            />
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+
+                <View style="@style/divider_horizontal_1px" />
+
+                <RelativeLayout style="@style/edit_item_ms_all" >
+
+                    <TextView
+                        android:id="@+id/subject_type"
+                        style="@style/edit_item_ms_border_title"
+                        android:text="题目类型" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/subject_type"
+                        android:layout_height="match_parent">
+                        <Spinner
+                            style="@style/edit_item_ms_pull"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:id="@+id/ot_type"
+                            android:entries="@array/subject_type"
+                            />
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white_selected"
+                            android:src="@drawable/pull_down"
+                            />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/divider_horizontal_1px" />
+
+                <RelativeLayout style="@style/edit_item_ms_all" >
+
+                    <TextView
+                        android:id="@+id/subject_choose_number"
+                        style="@style/edit_item_ms_border_title"
+                        android:text="可选人数" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/subject_choose_number"
+                        android:layout_height="match_parent">
+                        <Spinner
+                            style="@style/edit_item_ms_pull"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:id="@+id/ot_able"
+                            android:entries="@array/subject_number"
+                            />
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white_selected"
+                            android:src="@drawable/pull_down"
+                            />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/divider_horizontal_1px" />
+
+                <RelativeLayout style="@style/edit_item_ms_all" >
+
+                    <TextView
+                        android:id="@+id/ut_choose_pro"
+                        style="@style/edit_item_ms_border_title"
+                        android:text="可选专业" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/ut_choose_pro"
+                        android:layout_height="match_parent">
+                        <Spinner
+                            style="@style/edit_item_ms_pull"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:id="@+id/ot_range"
+                            android:entries="@array/subject_major"
+                            />
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white_selected"
+                            android:src="@drawable/pull_down"
+                            />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/divider_horizontal_1px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    style="@style/edit_item_ms_all" >
+
+                    <TextView
+                        android:id="@+id/up_task"
+                        style="@style/edit_item_ms_border_title"
+                        android:text="毕业设计（论文）的主要任务和要求（选填）" />
+
+                    <EditText
+                        style="@style/edit_item_ms_border_edit"
+                        android:id="@+id/ot_task"
+                        android:layout_below="@+id/up_task" />
+
+                </RelativeLayout>
+
+                <View style="@style/divider_horizontal_1px" />
+
+                <RelativeLayout style="@style/edit_item_ms_all" >
+
+                    <TextView
+                        android:id="@+id/subject_task"
+                        style="@style/edit_item_ms_border_title"
+                        android:text="推荐的主要参考文献和资料（选填）" />
+
+                    <EditText
+                        style="@style/edit_item_ms_border_edit"
+                        android:id="@+id/ot_referData"
+                        android:layout_below="@+id/subject_task"
                         />
-                </LinearLayout>
 
-            </RelativeLayout>
+                </RelativeLayout>
 
-            <View style="@style/divider_horizontal_1px" />
+                <View style="@style/divider_horizontal_1px" />
 
-            <RelativeLayout style="@style/edit_item_ms_all" >
+                <RelativeLayout style="@style/edit_item_ms_all" >
 
-                <TextView
-                    android:id="@+id/subject_choose_number"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="可选人数" />
+                    <TextView
+                        android:id="@+id/subject_check_status"
+                        style="@style/edit_item_ms_border_title"
+                        android:text="附件（可不上传）" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/subject_choose_number"
-                    android:layout_height="match_parent">
-                    <Spinner
-                        style="@style/edit_item_ms_pull"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:id="@+id/spinner5"
-                        android:entries="@array/subject_source"
-                        />
+                    <LinearLayout
+                        android:layout_below="@+id/subject_check_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/white_selected"
-                        android:src="@drawable/pull_down"
-                        />
-                </LinearLayout>
+                        <EditText
+                            style="@style/edit_item_ms_border_check"
+                            android:textColor="@color/blue"
+                            android:background="@color/white"
+                            android:id="@+id/ot_taskBook"
+                            android:layout_weight="1"
+                            android:editable="false"
+                            android:layout_below="@+id/open_record_annex_title"
+                            />
 
-            </RelativeLayout>
+                        <Button
+                            style="@style/edit_item_ms_border_state"
+                            android:textColor="@color/white"
+                            android:layout_width="120dp"
+                            android:id="@+id/ot_taskBook_submit"
+                            android:gravity="center"
+                            android:background="@drawable/login_button_selector"
+                            android:text="浏览"
+                            />
 
-            <View style="@style/divider_horizontal_1px" />
+                    </LinearLayout>
 
-            <RelativeLayout style="@style/edit_item_ms_all" >
+                </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/subject_is_really"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="所属专业" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/subject_is_really"
-                    android:layout_height="match_parent">
-                    <Spinner
-                        style="@style/edit_item_ms_pull"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:id="@+id/spinner4"
-                        android:entries="@array/subject_source"
-                        />
-
-                    <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/white_selected"
-                        android:src="@drawable/pull_down"
-                        />
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/ut_choose_pro"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="可选专业" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_below="@+id/ut_choose_pro"
-                    android:layout_height="match_parent">
-                    <Spinner
-                        style="@style/edit_item_ms_pull"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:id="@+id/spinner6"
-                        android:entries="@array/subject_source"
-                        />
-
-                    <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/white_selected"
-                        android:src="@drawable/pull_down"
-                        />
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout
-                style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/up_task"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="毕业设计（论文）的主要任务和要求（选填）" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_edit"
-                    android:id="@+id/up_task_con"
-                    android:layout_below="@+id/up_task" />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/subject_task"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="推荐的主要参考文献和资料（选填）" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_edit"
-                    android:layout_below="@+id/subject_task"
-                    />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/subject_check_status"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="附件（可不上传）" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_content"
-                    android:layout_below="@+id/subject_check_status"
-                    />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
+                <View style="@style/divider_horizontal_1px" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -292,7 +319,7 @@
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/ct_item_del"
+                    android:id="@+id/ot_item_submit"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"

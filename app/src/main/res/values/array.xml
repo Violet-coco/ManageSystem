@@ -6,6 +6,26 @@
         <item>其他</item>
     </string-array>
 
+    <string-array name="subject_type">
+        <item>艺美设计</item>
+        <item>工程工业设计</item>
+        <item>应用研究</item>
+        <item>理论研究</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="subject_number">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="subject_major">
+        <item>本系</item>
+        <item>全院</item>
+    </string-array>
+
     <string-array name="choose_title">
         <item>选题</item>
         <item>已选课题</item>

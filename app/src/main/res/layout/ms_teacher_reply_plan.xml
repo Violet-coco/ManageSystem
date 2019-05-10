@@ -2,9 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/activity_page" >
 
+    <RelativeLayout
+        style="@style/topbar_bg"
+        android:id="@+id/tool_bar"
+        >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:id="@+id/top_title"
+            android:layout_centerHorizontal="true"
+            android:text="答辩安排" />
+
+        <Button
+            style="@style/topbar_right_btn"
+            android:id="@+id/add"
+            />
+
+    </RelativeLayout>
+
     <ScrollView
         style="@style/ll_vertical_match_match"
         android:layout_weight="1" >
+
 
         <LinearLayout style="@style/ll_vertical_match_match" >
 
@@ -13,7 +36,7 @@
                 android:layout_marginTop="30dp" />
 
             <LinearLayout
-                android:id="@+id/student_find_reply_plan"
+                android:id="@+id/teacher_info"
                 style="@style/content_item_white" >
 
                 <TextView
@@ -27,7 +50,7 @@
             <View style="@style/divider_horizontal_1px" />
 
             <LinearLayout
-                android:id="@+id/student_find_reply_grade"
+                android:id="@+id/student_info"
                 style="@style/content_item_white" >
 
                 <TextView
