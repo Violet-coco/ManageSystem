@@ -31,7 +31,7 @@
                     android:text="课题题目" />
 
                 <EditText
-                    android:id="@+id/ps_title"
+                    android:id="@+id/stu_pName"
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -48,7 +48,7 @@
                     android:text="学生姓名" />
 
                 <EditText
-                    android:id="@+id/ps_stu_name"
+                    android:id="@+id/stu_name"
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -65,7 +65,7 @@
                     android:text="学生学号" />
 
                 <EditText
-                    android:id="@+id/ps_stu_id"
+                    android:id="@+id/stu_id"
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -82,7 +82,7 @@
                     android:text="指导教师" />
 
                 <EditText
-                    android:id="@+id/person_name"
+                    android:id="@+id/stu_guide_teacher"
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -107,7 +107,7 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/iv_logo"
+                    android:id="@+id/scoreLiterature"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="70dp"
@@ -155,7 +155,7 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/et_two"
+                    android:id="@+id/scoreInstruction"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="100dp"
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="16.0dip"
-                    android:layout_toLeftOf="@id/et_two"
+                    android:layout_toLeftOf="@id/scoreInstruction"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="设计质量及设计说明书质量（满分：10分）"
@@ -203,7 +203,7 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/et_three_logo"
+                    android:id="@+id/scoreWorkload"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
@@ -220,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="16.0dip"
-                    android:layout_toLeftOf="@id/et_three_logo"
+                    android:layout_toLeftOf="@id/scoreWorkload"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="工作量、难度（满分：5分）"
@@ -251,7 +251,7 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/et_four_logo"
+                    android:id="@+id/scoreInnovate"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="30dp"
@@ -268,7 +268,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="16.0dip"
-                    android:layout_toLeftOf="@id/et_four_logo"
+                    android:layout_toLeftOf="@id/scoreInnovate"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="创新（满分：2分）"
@@ -299,7 +299,7 @@
 
                 <EditText
                     style="@style/edit_item_ms_border_edit"
-                    android:id="@+id/tvUserTag"
+                    android:id="@+id/comment"
                     android:hint="评语"
                     android:layout_below="@+id/fortra_translate_con_title" />
 
@@ -312,7 +312,7 @@
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/ct_item_del"
+                    android:id="@+id/ct_item_submit"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"

@@ -142,6 +142,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             holder.project_number.setText("是否同意答辩："+list.get(position).get("attendDefence").toString());
             holder.project_state.setVisibility(View.GONE);
             holder.project_teachers.setVisibility(View.GONE);
+        }else if(string.equals("2011")){
+            holder.project_title.setText(list.get(position).get("pName").toString());
+            holder.project_teacher.setText("答辩学生："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
+            holder.project_number.setText("分　　数："+list.get(position).get("scoreTotal").toString());
+            holder.project_state.setVisibility(View.GONE);
+            holder.project_date.setVisibility(View.GONE);
+            holder.project_teachers.setVisibility(View.GONE);
         }
 
 

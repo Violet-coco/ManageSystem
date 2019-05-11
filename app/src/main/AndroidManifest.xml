@@ -180,6 +180,9 @@
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherGtCommentMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherGtCommentLookActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherGradeMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherThesisCommentActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherThesisCommentDetailActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherThesisCommentMainActivity"/>
     </application>
 
 </manifest>
