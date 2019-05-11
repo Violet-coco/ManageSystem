@@ -30,7 +30,7 @@ public class ProcessDocumentFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new ProcessDocumentAdapter(sp.getString("authority","")));
+        recyclerView.setAdapter(new ProcessDocumentAdapter(sp.getString("authority",""),sp.getString("leader","")));
         return rootView;
     }
 }

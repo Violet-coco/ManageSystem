@@ -115,7 +115,6 @@
                         android:background="@color/white"
                         android:id="@+id/lr_annex"
                         android:layout_weight="1"
-                        android:editable="false"
                         android:layout_below="@+id/open_record_annex_title"
                         />
 

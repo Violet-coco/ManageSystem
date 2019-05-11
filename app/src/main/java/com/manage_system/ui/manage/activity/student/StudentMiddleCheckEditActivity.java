@@ -47,8 +47,8 @@ public class StudentMiddleCheckEditActivity extends AppCompatActivity implements
     @BindView(R.id.mc_submit_annex)
     Button mc_submit_annex;
     private String TAG = "提交中期报告";
-    private String intro,uploadfile;
-    private String path;
+    private String intro;
+    private String path,uploadfile;
     private File file;
 
 
@@ -83,7 +83,7 @@ public class StudentMiddleCheckEditActivity extends AppCompatActivity implements
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.open_record_submit:
+            case R.id.middle_check_submit:
                 Log.w(TAG,"点击提交");
                 initData();
                 break;
@@ -101,6 +101,8 @@ public class StudentMiddleCheckEditActivity extends AppCompatActivity implements
         uploadfile=mc_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
         RequestBody requestBody;
+        Log.w(TAG,intro);
+        Log.w(TAG,uploadfile);
         if(file == null){
             requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
@@ -115,7 +117,7 @@ public class StudentMiddleCheckEditActivity extends AppCompatActivity implements
                     .build();
         }
 
-        manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
+        manager.postFile(ApiConstants.studentApi + "/commitMidInspection", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -130,8 +132,9 @@ public class StudentMiddleCheckEditActivity extends AppCompatActivity implements
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
                             Toast.makeText(StudentMiddleCheckEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentMiddleCheckEditActivity.this,StudentOpenReportActivity.class);
+                            Intent intent = new Intent(StudentMiddleCheckEditActivity.this,StudentMiddleCheckActivity.class);
                             startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentMiddleCheckEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.base.BaseFragment;
+import com.manage_system.ui.manage.activity.teacher.TeacherReplyMainActivity;
+import com.manage_system.ui.manage.adapter.MyAdapter;
 import com.manage_system.utils.OkManager;
 
 import java.io.IOException;
@@ -94,6 +98,47 @@ public class ManageFragment extends BaseFragment {
         });
     }
 
+    public void initLeaderData() {
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        manager.post(ApiConstants.teacherApi + "/showDefPlan", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                final String msg = obj.getString("msg");
+                Log.e(TAG,responseBody);
+                if(obj.get("statusCode").equals(100)){
+                    JSONArray array = new JSONArray(obj.getJSONObject("data").getJSONArray("teaGroup"));
+                    Log.d(TAG,array.toString());
+                    for (int i = 0; i < array.size(); i++) {
+                        Log.e(TAG,"ttt");
+                        JSONObject object = array.getJSONObject(i);
+                        Log.w(TAG,object.toString());
+                        if(object.getBooleanValue("leader")){
+                            Log.w(TAG,"是不是");
+                            SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+                            //获取编辑器
+                            SharedPreferences.Editor editor=sp.edit();
+                            editor.putString("leader", "1");
+                            //提交修改
+                            editor.commit();
+                        }
+                    }
+
+                }else{
+                    Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
+
     public void initView() {
         List<String> strings = new ArrayList<>();
         SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
@@ -109,6 +154,7 @@ public class ManageFragment extends BaseFragment {
             mFragmentArrays[1] = ProcessDocumentFragment.newInstance();
             mFragmentArrays[2] = ReplyFragment.newInstance();
         }else if(authority.equals("2")){
+            initLeaderData();
             mTabTitles[0] = "题目管理";
             mTabTitles[1] = "答辩管理";
             mTabTitles[2] = "学生管理";

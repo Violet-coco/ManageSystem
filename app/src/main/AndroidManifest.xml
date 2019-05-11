@@ -173,7 +173,7 @@
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherScoreMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherScoreActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherScoreDetailActivity"/>
-
+        <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherLeaderMainActivity"/>
     </application>
 
 </manifest>

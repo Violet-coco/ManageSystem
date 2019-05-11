@@ -1,6 +1,7 @@
 package com.manage_system.ui.manage.adapter;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,19 +16,23 @@ import com.manage_system.ui.manage.activity.student.StudentGuideReportMainActivi
 import com.manage_system.ui.manage.activity.student.StudentLiteratureReviewActivity;
 import com.manage_system.ui.manage.activity.student.StudentMiddleCheckActivity;
 import com.manage_system.ui.manage.activity.student.StudentOpenReportActivity;
+import com.manage_system.ui.manage.activity.teacher.TeacherLeaderMainActivity;
 import com.manage_system.ui.manage.activity.teacher.TeacherReplyTypeActivity;
 import com.manage_system.ui.manage.activity.teacher.TeacherScoreMainActivity;
 import com.manage_system.utils.OkManager;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocumentAdapter.AuthorViewHolder> {
 
-    private String authority ;
+    private String authority,leader ;
 
-    public ProcessDocumentAdapter(String string) {
+    public ProcessDocumentAdapter(String string,String str) {
         authority = string;
+        leader = str;
         Log.w(TAG,"传过来的"+string);
+        Log.w(TAG,"传过来的leader===="+str);
     }
 
     @Override
@@ -115,6 +120,19 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
                     v.getContext().startActivity(intent);
                 }
             });
+
+            if(leader.equals("1")){
+                holder.teacher_find_reply_submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(v.getContext(),TeacherLeaderMainActivity.class);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+            }else{
+                holder.teacher_find_reply_submit.setVisibility(View.GONE);
+            }
+
         }
 
     }
@@ -136,6 +154,7 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
         LinearLayout teacher_find_reply_plan;
         LinearLayout teacher_find_reply_grade;
         LinearLayout teacher_find_reply_comment;
+        LinearLayout teacher_find_reply_submit;
 
         public AuthorViewHolder(View itemView) {
             super(itemView);
@@ -150,6 +169,7 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
                 teacher_find_reply_plan = (LinearLayout) itemView.findViewById(R.id.teacher_find_reply_plan);
                 teacher_find_reply_grade = (LinearLayout) itemView.findViewById(R.id.teacher_find_reply_grade);
                 teacher_find_reply_comment = (LinearLayout) itemView.findViewById(R.id.teacher_find_reply_comment);
+                teacher_find_reply_submit = (LinearLayout) itemView.findViewById(R.id.teacher_find_reply_submit);
             }
 
         }

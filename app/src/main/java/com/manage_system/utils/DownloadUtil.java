@@ -77,7 +77,7 @@ public class DownloadUtil {
                 try {
                     is = response.body().byteStream();
                     long total = response.body().contentLength();
-                    File file = new File(savePath, getNameFromUrl(url));
+                    File file = new File(savePath, getNameFromUrl(fileName));
                     Log.w(TAG,"最终路径："+file);
                     fos = new FileOutputStream(file);
                     long sum = 0;
@@ -133,7 +133,7 @@ public class DownloadUtil {
      */
     @NonNull
     public String getNameFromUrl(String url) {
-        return url.substring(url.lastIndexOf("/") + 1);
+        return url;
     }
 
     public interface OnDownloadListener {

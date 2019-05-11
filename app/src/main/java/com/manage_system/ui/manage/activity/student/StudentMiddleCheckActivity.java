@@ -205,6 +205,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                             Toast.makeText(StudentMiddleCheckActivity.this, msg, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentMiddleCheckActivity.this,StudentMiddleCheckEditActivity.class);
                             startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentMiddleCheckActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
@@ -254,6 +255,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                             Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentMiddleCheckActivity.this,StudentMiddleCheckActivity.class);
                             startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
