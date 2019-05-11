@@ -19,7 +19,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/iv_portrait"
+                android:id="@+id/stu_line"
                 android:layout_width="60dp"
                 android:layout_height="70dp"
                 android:layout_margin="5dp"
@@ -27,7 +27,7 @@
                 android:text="1"
                 android:padding="8dp"
                 android:textStyle="bold"
-                android:textSize="40dp"
+                android:textSize="30dp"
 
                 android:src="@mipmap/ic_launcher" />
 
@@ -38,7 +38,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_nickname"
+                    android:id="@+id/stu_name_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -47,14 +47,29 @@
                     android:text="王珊珊（3120150905119）"
                     android:textColor="@color/blue_light"/>
 
-                <TextView
-                    android:id="@+id/tv_motto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="成绩：90"
-                    android:textColor="@android:color/black"
-                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/stu_grade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text="成绩：90"
+                        android:textColor="@android:color/black"
+                        />
+
+                    <TextView
+                        android:id="@+id/stu_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="等级：A"
+                        android:textColor="@android:color/black"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 

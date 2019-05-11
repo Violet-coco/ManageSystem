@@ -3,6 +3,7 @@ package com.manage_system.ui.manage.fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -132,7 +133,9 @@ public class ManageFragment extends BaseFragment {
                     }
 
                 }else{
+                    Looper.prepare();
                     Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                    Looper.loop();
                 }
 
             }

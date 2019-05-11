@@ -34,6 +34,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/pName"
                     android:layout_below="@+id/subject_title"
                     />
 
@@ -51,6 +52,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
+                    android:id="@+id/stu_name_id"
                     android:layout_below="@+id/subject_source"
                     />
 
@@ -65,7 +67,7 @@
                     android:text="调查论证" />
 
                 <EditText
-                    android:id="@+id/person0_name"
+                    android:id="@+id/scoreInvestigation"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -82,7 +84,7 @@
                     android:text="方案设计与技术路线" />
 
                 <EditText
-                    android:id="@+id/person_name"
+                    android:id="@+id/scoreTechnology"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -99,7 +101,7 @@
                     android:text="分析与解决问题的能力" />
 
                 <EditText
-                    android:id="@+id/person1_name"
+                    android:id="@+id/scoreAnalysis"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -116,7 +118,7 @@
                     android:text="工作量、工作态度" />
 
                 <EditText
-                    android:id="@+id/person2_name"
+                    android:id="@+id/scoreWorkload"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -133,8 +135,8 @@
                     android:text="设计质量及设计说明书质量" />
 
                 <EditText
-                    android:id="@+id/person3_name"
-                    style="@style/edit_item_right_et"
+                    android:id="@+id/scoreInstruction"
+                    style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
                     android:editable="false"
@@ -150,7 +152,7 @@
                     android:text="创新 " />
 
                 <EditText
-                    android:id="@+id/person4_name"
+                    android:id="@+id/scoreInnovate"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -164,10 +166,44 @@
 
                 <TextView
                     style="@style/edit_item_left_tv"
-                    android:text="总分 " />
+                    android:text="评审分数" />
 
                 <EditText
-                    android:id="@+id/person5_name"
+                    android:id="@+id/scoreTotal"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="评语" />
+
+                <EditText
+                    android:id="@+id/comment"
+                    style="@style/edit_item_right_et_r"
+                    android:layout_weight="1"
+                    android:maxLength="90"
+                    android:editable="false"
+                    />
+
+            </LinearLayout>
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout style="@style/edit_item" >
+
+                <TextView
+                    style="@style/edit_item_left_tv"
+                    android:text="评审日期" />
+
+                <EditText
+                    android:id="@+id/reviewDate"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -183,36 +219,15 @@
                     style="@style/edit_item_left_tv"
                     android:text="附件" />
 
-                <EditText
-                    android:id="@+id/person6_name"
+                <TextView
+                    android:id="@+id/annex"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
-                    android:editable="false"
                     />
 
             </LinearLayout>
             <View style="@style/divider_horizontal_1px" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="25dp">
-
-                <Button
-                    android:id="@+id/ct_item_del"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/login_button_selector"
-                    android:text="打　分"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
 
         </LinearLayout>
 

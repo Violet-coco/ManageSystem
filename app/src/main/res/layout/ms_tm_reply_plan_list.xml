@@ -24,57 +24,59 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_nickname"
+                    android:id="@+id/stu_name_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:text="廖永衡（3120150905119）"
                     android:textColor="@color/blue_light"/>
 
                 <TextView
-                    android:id="@+id/tv_motto"
+                    android:id="@+id/stu_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="答辩时间：2019-01-05 17:47:28"
                     android:textColor="@android:color/black"
                     />
 
                 <TextView
-                    android:id="@+id/tv_motto1"
+                    android:id="@+id/stu_class"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="答辩教室：6A-404"
                     android:textColor="@android:color/black"
                     />
 
                 <TextView
-                    android:id="@+id/tv_motto2"
+                    android:id="@+id/stu_leader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="答辩组长：廖永衡"
                     android:textColor="@android:color/black"
                     />
 
                 <TextView
-                    android:id="@+id/tv_motto3"
+                    android:id="@+id/stu_reply_teacher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="答辩教师：廖永衡 廖永衡 廖永衡 何太碧"
                     android:textColor="@android:color/black"
                     />
 
                 <TextView
-                    android:id="@+id/tv_motto4"
+                    android:id="@+id/stu_comment_teacher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="分　　组：第一组"
+                    android:textColor="@android:color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/stu_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:textColor="@android:color/black"
                     />
             </LinearLayout>

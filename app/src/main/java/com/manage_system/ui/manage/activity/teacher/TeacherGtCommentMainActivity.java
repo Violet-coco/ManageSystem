@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -34,7 +33,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class TeacherScoreMainActivity extends AppCompatActivity {
+public class TeacherGtCommentMainActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler)
     RecyclerView recycleView;
@@ -42,8 +41,6 @@ public class TeacherScoreMainActivity extends AppCompatActivity {
     RelativeLayout tool_bar;
     @BindView(R.id.iv_back)
     ImageButton iv_back;
-    @BindView(R.id.top_title)
-    TextView top_title;
 
     public List<Map<String,Object>> list=new ArrayList<>();
 
@@ -55,7 +52,6 @@ public class TeacherScoreMainActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_tab);
         ButterKnife.bind(this);
         tool_bar.setVisibility(View.VISIBLE);
-        top_title.setText("答辩打分");
         initData();
     }
 
@@ -64,13 +60,13 @@ public class TeacherScoreMainActivity extends AppCompatActivity {
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, TeacherScoreMainActivity.class);
+        return new Intent(context, TeacherGtCommentMainActivity.class);
     }
 
     public void initData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showDefStudents", map,new okhttp3.Callback() {
+        manager.post(ApiConstants.teacherApi + "/showGtStudentList", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -86,52 +82,58 @@ public class TeacherScoreMainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
-                            final JSONArray array = new JSONArray(obj.getJSONObject("data").getJSONArray("studentList"));
+                            final JSONArray array = new JSONArray(obj.getJSONArray("data"));
                             SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
                             SharedPreferences.Editor editor=sp.edit();
-                            editor.putString("showDefStudents",obj.getJSONObject("data").toString());
+                            editor.putString("teacher_gt_comment",obj.toString());
                             editor.commit();
-                            String score;
                             for (int i = 0; i < array.size(); i++) {
                                 JSONObject object = array.getJSONObject(i);
+                                Log.e(TAG,object.toString());
                                 Map<String, Object> map = new HashMap<>();
-                                map.put("identifier", object.getString("identifier"));
                                 map.put("name", object.getString("name"));
+                                map.put("identifier", object.getString("identifier"));
                                 map.put("pName", object.getString("pName"));
-                                map.put("gt_identifier", object.getJSONObject("gt").getString("id"));
-                                map.put("gt_name", object.getJSONObject("gt").getString("name"));
-                                if(object.getJSONObject("defScore").getBooleanValue("hasScored")){
-                                    score = object.getJSONObject("defScore").getString("scoreTotal");
+                                if(object.getJSONObject("guidanceTeaGroup").getBoolean("hasReviewed")){
+                                    map.put("score",object.getJSONObject("guidanceTeaGroup").getString("scoreTotal"));
                                 }else{
-                                    score = "未打分";
+                                    map.put("score","暂无分数");
                                 }
-                                map.put("scoreTotal", score);
+                                if(object.getJSONObject("guidanceTeaGroup").getBoolean("attendDefence")){
+                                    map.put("attendDefence","同意");
+                                }else{
+                                    map.put("attendDefence","不同意");
+                                }
                                 list.add(map);
                             }
-                            recycleView.setLayoutManager(new LinearLayoutManager(TeacherScoreMainActivity.this,LinearLayoutManager.VERTICAL,false));
-//                            设置适配器
-                            MyAdapter adapter = new MyAdapter(TeacherScoreMainActivity.this,list,"2005");
+                            recycleView.setLayoutManager(new LinearLayoutManager(TeacherGtCommentMainActivity.this,LinearLayoutManager.VERTICAL,false));
+                            //设置适配器
+                            MyAdapter adapter = new MyAdapter(TeacherGtCommentMainActivity.this,list,"2009");
                             adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(int position) {
                                     // 这里本来是跳转页面 ，我们就在这里直接让其弹toast来演示
                                     Log.w(TAG,"位置是："+position);
-                                    if(array.getJSONObject(position).getJSONObject("defScore").getBooleanValue("hasScored")){
-                                        Intent intent = new Intent(TeacherScoreMainActivity.this,TeacherScoreActivity.class);
+//                                    Intent intent = new Intent(TeacherGtCommentMainActivity.this,TeacherGtCommentActivity.class);
+//                                    intent.putExtra("position",position + "");
+//                                    startActivity(intent);
+
+                                    if(array.getJSONObject(position).getJSONObject("guidanceTeaGroup").getBoolean("hasReviewed")){
+                                        Intent intent = new Intent(TeacherGtCommentMainActivity.this,TeacherGtCommentLookActivity.class);
                                         intent.putExtra("position",position + "");
                                         startActivity(intent);
                                     }else{
-                                        Intent intent = new Intent(TeacherScoreMainActivity.this,TeacherScoreDetailActivity.class);
+                                        Intent intent = new Intent(TeacherGtCommentMainActivity.this,TeacherGtCommentActivity.class);
                                         intent.putExtra("position",position + "");
                                         startActivity(intent);
                                     }
-
                                 }
                             });
                             recycleView.setAdapter(adapter);
+                            // 设置数据后就要给RecyclerView设置点击事件
 
                         }else{
-                            Toast.makeText(TeacherScoreMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TeacherGtCommentMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -31,7 +31,7 @@
                     android:text="课题题目" />
 
                 <EditText
-                    android:id="@+id/ps_title"
+                    android:id="@+id/stu_pName"
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -48,7 +48,7 @@
                     android:text="学生姓名" />
 
                 <EditText
-                    android:id="@+id/ps_stu_name"
+                    android:id="@+id/stu_name"
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -65,7 +65,7 @@
                     android:text="学生学号" />
 
                 <EditText
-                    android:id="@+id/ps_stu_id"
+                    android:id="@+id/stu_id"
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -82,7 +82,7 @@
                     android:text="指导教师" />
 
                 <EditText
-                    android:id="@+id/person_name"
+                    android:id="@+id/stu_guide_teacher"
                     style="@style/edit_item_right_et"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -107,7 +107,7 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/iv_logo"
+                    android:id="@+id/scoreInvestigation"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="50dp"
@@ -155,7 +155,7 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/et_two"
+                    android:id="@+id/scoreTechnology"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="60dp"
@@ -203,7 +203,7 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/et_three_logo"
+                    android:id="@+id/scoreAnalysis"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="50dp"
@@ -251,7 +251,7 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/et_four_logo"
+                    android:id="@+id/scoreWorkload"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="70dp"
@@ -299,7 +299,7 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/et_five_logo"
+                    android:id="@+id/scoreInstruction"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="90dp"
@@ -316,7 +316,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="16.0dip"
-                    android:layout_toLeftOf="@id/et_five_logo"
+                    android:layout_toLeftOf="@id/scoreInstruction"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="设计质量及设计说明书质量（满分：10分）"
@@ -347,7 +347,7 @@
                 android:padding="16dp">
 
                 <EditText
-                    android:id="@+id/et_six_logo"
+                    android:id="@+id/scoreInnovate"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="50dp"
@@ -364,7 +364,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="16.0dip"
-                    android:layout_toLeftOf="@id/et_six_logo"
+                    android:layout_toLeftOf="@id/scoreInnovate"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="创新（满分：4分）"
@@ -395,16 +395,31 @@
                     style="@style/edit_item_left_tv_child"
                     android:text="是否同意答辩" />
 
-                <Spinner
-                    style="@style/edit_item_ms_border_content"
-                    android:id="@+id/spinner6"
-                    android:entries="@array/subject_source"
-                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/login_button_border_selector">
+
+                    <Spinner
+                        style="@style/edit_item_ms_border_spinner"
+                        android:id="@+id/attendDefence"
+                        android:layout_weight="1"
+                        android:entries="@array/attend_reply"
+                        />
+
+                    <ImageButton
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_selected"
+                        android:src="@drawable/pull_down"
+                        />
+                </LinearLayout>
 
             </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/llUserTag"
+                android:visibility="gone"
                 style="@style/edit_item_ms_all" >
 
                 <EditText
@@ -422,7 +437,7 @@
                 android:layout_marginTop="25dp">
 
                 <Button
-                    android:id="@+id/ct_item_del"
+                    android:id="@+id/ct_item_submit"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"
