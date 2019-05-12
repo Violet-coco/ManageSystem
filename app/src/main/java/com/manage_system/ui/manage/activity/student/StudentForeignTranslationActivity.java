@@ -117,7 +117,7 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
             tm_check_main.setVisibility(View.GONE);
             for_tra_sure.setVisibility(View.GONE);
             initData();
-        }else if(sp.getString("authority","").equals("2")){
+        }else{
             for_tra_edit.setVisibility(View.GONE);
             initCheckData();
         }

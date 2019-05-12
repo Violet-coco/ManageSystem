@@ -16,6 +16,7 @@ import com.manage_system.ui.base.BaseActivity;
 import com.manage_system.ui.base.SupportFragment;
 import com.manage_system.ui.browse.fragment.BrowseFragment;
 import com.manage_system.ui.index.fragment.IndexFragment;
+import com.manage_system.ui.manage.fragment.LeaderFragment;
 import com.manage_system.ui.manage.fragment.ManageFragment;
 import com.manage_system.ui.personal.PersonalFragment;
 import com.manage_system.utils.OkManager;
@@ -41,8 +42,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.bottomBar)
     BottomBar mBottomBar;
 
+    private SupportFragment[] mtFragments = new SupportFragment[5];
     private SupportFragment[] mFragments = new SupportFragment[4];
-
 
     @Override
     public int getContentLayout() {
@@ -62,6 +63,103 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
+
+        initData();
+
+        SharedPreferences spt = getSharedPreferences("loginInfo", MODE_PRIVATE);
+        if(spt.getString("authority" , "").equals("3")){
+            Log.e(TAG,"身份："+spt.getString("authority" , "").equals("3"));
+            StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0, null);
+            if (savedInstanceState == null) {
+                mtFragments[0] = IndexFragment.newInstance();
+                mtFragments[1] = BrowseFragment.newInstance();
+                mtFragments[2] = ManageFragment.newInstance();
+                mtFragments[3] = LeaderFragment.newInstance();
+                mtFragments[4] = PersonalFragment.newInstance();
+
+                getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 0,
+                        mtFragments[0],
+                        mtFragments[1],
+                        mtFragments[2],
+                        mtFragments[3],
+                        mtFragments[4]);
+            } else {
+                mtFragments[0] = findFragment(IndexFragment.class);
+                mtFragments[1] = findFragment(BrowseFragment.class);
+                mtFragments[2] = findFragment(ManageFragment.class);
+                mtFragments[3] = findFragment(LeaderFragment.class);
+                mtFragments[3] = findFragment(PersonalFragment.class);
+            }
+
+            mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_index, "首页"))
+                    .addItem(new BottomBarTab(this, R.drawable.ic_browse, "浏览"))
+                    .addItem(new BottomBarTab(this, R.drawable.ic_manage, "管理"))
+                    .addItem(new BottomBarTab(this, R.drawable.ic_manage, "系主任"))
+                    .addItem(new BottomBarTab(this, R.drawable.ic_my, "我的"));
+            mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(int position, int prePosition) {
+                    getSupportDelegate().showHideFragment(mtFragments[position], mtFragments[prePosition]);
+                    Log.w(TAG,position+"位置");
+                }
+
+                @Override
+                public void onTabUnselected(int position) {
+
+                }
+
+                @Override
+                public void onTabReselected(int position) {
+
+                }
+            });
+        }else{
+            StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0, null);
+            if (savedInstanceState == null) {
+                mFragments[0] = IndexFragment.newInstance();
+                mFragments[1] = BrowseFragment.newInstance();
+                mFragments[2] = ManageFragment.newInstance();
+                mFragments[3] = PersonalFragment.newInstance();
+
+                getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 0,
+                        mFragments[0],
+                        mFragments[1],
+                        mFragments[2],
+                        mFragments[3]);
+            } else {
+                mFragments[0] = findFragment(IndexFragment.class);
+                mFragments[1] = findFragment(BrowseFragment.class);
+                mFragments[2] = findFragment(ManageFragment.class);
+                mFragments[3] = findFragment(PersonalFragment.class);
+            }
+
+            mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_index, "首页"))
+                    .addItem(new BottomBarTab(this, R.drawable.ic_browse, "浏览"))
+                    .addItem(new BottomBarTab(this, R.drawable.ic_manage, "管理"))
+                    .addItem(new BottomBarTab(this, R.drawable.ic_my, "我的"));
+            mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(int position, int prePosition) {
+                    getSupportDelegate().showHideFragment(mFragments[position], mFragments[prePosition]);
+                    Log.w(TAG,position+"位置");
+                }
+
+                @Override
+                public void onTabUnselected(int position) {
+
+                }
+
+                @Override
+                public void onTabReselected(int position) {
+
+                }
+            });
+        }
+
+    }
+
+    @Override
+    public void initData() {
         // 连接接口
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
@@ -119,53 +217,6 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-
-        StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, 0, null);
-        if (savedInstanceState == null) {
-            mFragments[0] = IndexFragment.newInstance();
-            mFragments[1] = BrowseFragment.newInstance();
-            mFragments[2] = ManageFragment.newInstance();
-            mFragments[3] = PersonalFragment.newInstance();
-
-            getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 0,
-                    mFragments[0],
-                    mFragments[1],
-                    mFragments[2],
-                    mFragments[3]);
-        } else {
-            mFragments[0] = findFragment(IndexFragment.class);
-            mFragments[1] = findFragment(BrowseFragment.class);
-            mFragments[2] = findFragment(ManageFragment.class);
-            mFragments[3] = findFragment(PersonalFragment.class);
-        }
-
-        mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_index, "首页"))
-                .addItem(new BottomBarTab(this, R.drawable.ic_browse, "浏览"))
-                .addItem(new BottomBarTab(this, R.drawable.ic_manage, "管理"))
-                .addItem(new BottomBarTab(this, R.drawable.ic_my, "我的"));
-        mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(int position, int prePosition) {
-                getSupportDelegate().showHideFragment(mFragments[position], mFragments[prePosition]);
-                Log.w(TAG,position+"位置");
-            }
-
-            @Override
-            public void onTabUnselected(int position) {
-
-            }
-
-            @Override
-            public void onTabReselected(int position) {
-
-            }
-        });
-
-    }
-
-    @Override
-    public void initData() {
-
     }
 
     @Override

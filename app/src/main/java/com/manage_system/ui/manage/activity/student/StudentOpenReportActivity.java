@@ -118,7 +118,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
             open_record_submit.setVisibility(View.GONE);
             open_record_sure.setVisibility(View.GONE);
             initData();
-        }else if(sp.getString("authority","").equals("2")){
+        }else{
             or_submit_annex.setVisibility(View.GONE);
             open_record_edit.setVisibility(View.GONE);
             open_record_submit.setVisibility(View.GONE);

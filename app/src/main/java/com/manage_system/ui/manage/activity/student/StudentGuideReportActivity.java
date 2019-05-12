@@ -112,7 +112,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
             guide_record_check.setVisibility(View.GONE);
             guide_record_sure.setVisibility(View.GONE);
             initData();
-        }else if(sp.getString("authority","").equals("2")){
+        }else{
             guide_record_edit.setVisibility(View.GONE);
             initCheckData();
         }

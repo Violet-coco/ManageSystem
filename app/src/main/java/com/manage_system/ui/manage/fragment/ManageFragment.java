@@ -156,20 +156,11 @@ public class ManageFragment extends BaseFragment {
             mFragmentArrays[0] = ChooseTitleFragment.newInstance();
             mFragmentArrays[1] = ProcessDocumentFragment.newInstance();
             mFragmentArrays[2] = ReplyFragment.newInstance();
-        }else if(authority.equals("2")){
+        }else{
             initLeaderData();
             mTabTitles[0] = "题目管理";
             mTabTitles[1] = "答辩管理";
             mTabTitles[2] = "学生管理";
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
-
-            mFragmentArrays[0] = ChooseTitleFragment.newInstance();
-            mFragmentArrays[1] = ProcessDocumentFragment.newInstance();
-            mFragmentArrays[2] = ReplyFragment.newInstance();
-        }else if(authority.equals("3")){
-            mTabTitles[0] = "题目管理";
-            mTabTitles[1] = "统计报表";
-            mTabTitles[2] = "答辩管理";
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
             mFragmentArrays[0] = ChooseTitleFragment.newInstance();

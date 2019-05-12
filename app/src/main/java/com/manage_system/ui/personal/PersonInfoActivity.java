@@ -105,7 +105,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 
 		if(login.getString("authority","").equals("1")){
 			person_class.setText(sp.getString("grade" , "")+"级-"+sp.getString("classNo" , "")+"班");
-		}else if(login.getString("authority","").equals("2")){
+		}{
 			tm_id.setText("工号");
 			tm_class.setVisibility(View.GONE);
 		}

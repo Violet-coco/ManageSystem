@@ -183,6 +183,11 @@
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherThesisCommentActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherThesisCommentDetailActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherThesisCommentMainActivity"/>
+
+        <!--系主任题目管理-->
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerCtReportMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerCtListMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerCtListActivity"/>
     </application>
 
 </manifest>

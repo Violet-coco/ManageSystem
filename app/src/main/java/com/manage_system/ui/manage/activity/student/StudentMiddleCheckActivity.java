@@ -107,7 +107,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
             tm_middle_check.setVisibility(View.GONE);
             middle_check_sure.setVisibility(View.GONE);
             initData();
-        }else if(sp.getString("authority","").equals("2")){
+        }else{
             middle_check_edit.setVisibility(View.GONE);
             initCheckData();
         }

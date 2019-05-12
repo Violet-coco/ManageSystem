@@ -109,7 +109,7 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
             lite_review_check.setVisibility(View.GONE);
             lite_review_sure.setVisibility(View.GONE);
             initData();
-        }else if(sp.getString("authority","").equals("2")){
+        }else{
             lite_review_edit.setVisibility(View.GONE);
             initCheckData();
         }

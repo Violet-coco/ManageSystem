@@ -27,6 +27,33 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        style="@style/topbar_bg"
+        android:background="@color/activity_bg"
+        android:id="@+id/show_tab"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <TextView
+            style="@style/topbar_title"
+            android:id="@+id/show_tab_item1"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/red_interest"
+           />
+
+        <TextView
+            style="@style/topbar_title"
+            android:id="@+id/show_tab_item2"
+            android:textColor="@color/red_interest"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="8dp"
+        />
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"

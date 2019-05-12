@@ -52,6 +52,13 @@ public class GuideTeacherInfoActivity extends AppCompatActivity implements View.
         Intent intent = getIntent();
         if(intent.getStringExtra("tea_info").equals("from_reply")){
             initData();
+        }else if(intent.getStringExtra("tea_info").equals("from_m_reply")){
+            JSONObject obj = JSON.parseObject(intent.getStringExtra("teacher_info"));
+            t_name_id.setText(obj.getString("name")+"（"+obj.getString("identifier")+"）");
+            t_pro.setText(obj.getString("title"));
+            t_email.setText(obj.getString("email"));
+            t_phone.setText(obj.getString("bindTel"));
+            t_college.setText(obj.getString("college"));
         }else{
             SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
             Log.w(TAG,sp.getString("teacher" , ""));

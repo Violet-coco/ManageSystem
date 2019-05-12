@@ -66,7 +66,7 @@ public class StudentGraduationThesisMainActivity extends AppCompatActivity {
         SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
         if(sp.getString("authority","").equals("1")){
             initData();
-        }else if(sp.getString("authority","").equals("2")){
+        }else{
             add.setVisibility(View.GONE);
             initCheckData();
         }

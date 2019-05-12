@@ -117,7 +117,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
             tm_check_main.setVisibility(View.GONE);
             graduation_thesis_sure.setVisibility(View.GONE);
             initData();
-        }else if(sp.getString("authority","").equals("2")){
+        }else{
             graduation_thesis_edit.setVisibility(View.GONE);
             initCheckData();
         }
