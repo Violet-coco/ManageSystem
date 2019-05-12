@@ -62,7 +62,14 @@ public class StudentGraduationThesisMainActivity extends AppCompatActivity {
         top_title.setText("提交记录");
         add.setText("新增");
         tool_bar.setVisibility(View.VISIBLE);
-        initData();
+
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        if(sp.getString("authority","").equals("1")){
+            initData();
+        }else if(sp.getString("authority","").equals("2")){
+            add.setVisibility(View.GONE);
+            initCheckData();
+        }
     }
 
     /**启动这个Activity的Intent
@@ -142,6 +149,86 @@ public class StudentGraduationThesisMainActivity extends AppCompatActivity {
                             Toast.makeText(StudentGraduationThesisMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentGraduationThesisMainActivity.this,StudentGraduationThesisEditActivity.class);
                             startActivity(intent);
+                        }else{
+                            Toast.makeText(StudentGraduationThesisMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    public void initCheckData() {
+        final Intent intent = getIntent();
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("sid",intent.getStringExtra("stu_id"));
+        manager.post(ApiConstants.teacherApi + "/showStuGraduationProject", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                final String msg = obj.getString("msg");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            JSONArray array = new JSONArray(obj.getJSONArray("data"));
+                            times = array.size();
+                            for (int i = 0; i < array.size(); i++) {
+                                JSONObject object = array.getJSONObject(i);
+                                Log.e(TAG,object.toString());
+                                SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
+                                String status = object.getString("cStatus");
+                                String cStatus = null;
+                                Log.w(TAG,status+"喔喔");
+                                if(status.equals("0")){
+                                    cStatus = "审核不通过";
+                                }else if(status.equals("1")){
+                                    cStatus = "审核通过";
+                                }else if(status.equals("2")|| status.equals("3")){
+                                    cStatus = "审核中";
+                                }
+
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("id", object.getString("id"));
+
+                                map.put("title",intent.getStringExtra("pName"));
+                                map.put("submitDate", DateUtil.getDateFormat(object.getString("submitDate")));
+                                map.put("cStatus", cStatus);
+                                map.put("record_times", i+1);
+                                list.add(map);
+                            }
+                            recycleView.setLayoutManager(new LinearLayoutManager(StudentGraduationThesisMainActivity.this,LinearLayoutManager.VERTICAL,false));
+                            //设置适配器
+                            MyAdapter adapter = new MyAdapter(StudentGraduationThesisMainActivity.this,list,"1003");
+                            adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(int position) {
+                                    // 这里本来是跳转页面 ，我们就在这里直接让其弹toast来演示
+                                    Log.w(TAG,"位置是："+position);
+                                    Intent intent = new Intent(StudentGraduationThesisMainActivity.this,StudentGraduationThesisActivity.class);
+                                    intent.putExtra("id",list.get(position).get("id").toString());
+                                    intent.putExtra("position",position + "");
+                                    Intent intent1 = getIntent();
+                                    intent.putExtra("stu_id",intent1.getStringExtra("stu_id"));
+                                    SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor=sp.edit();
+                                    editor.putString("graduation_thesis",obj.getJSONArray("data").getJSONObject(position).toString());
+                                    editor.commit();
+                                    startActivity(intent);
+                                    Toast.makeText(StudentGraduationThesisMainActivity.this , list.get(position).get("title").toString() , Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            recycleView.setAdapter(adapter);
+                            // 设置数据后就要给RecyclerView设置点击事件
+
                         }else{
                             Toast.makeText(StudentGraduationThesisMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }

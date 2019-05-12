@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -25,6 +26,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
+import com.manage_system.ui.manage.activity.teacher.TeacherCheckDataMainActivity;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.DownloadUtil;
 import com.manage_system.utils.OkManager;
@@ -85,6 +89,12 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
     Button or_submit_annex;
     @BindView(R.id.open_record_submit)
     Button open_record_submit;
+    @BindView(R.id.open_record_sure)
+    Button open_record_sure;
+    @BindView(R.id.open_record_check)
+    EditText open_record_check;
+    @BindView(R.id.open_record_result)
+    Spinner open_record_result;
     private String aim,content,tech,plan,uploadfile;
     private String fileId = "0";
     private String path;
@@ -98,12 +108,22 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ms_student_pd_openrecord);
         ButterKnife.bind(this);
-        or_submit_annex.setVisibility(View.GONE);
-        tm_open_record.setVisibility(View.GONE);
-        open_record_submit.setVisibility(View.GONE);
         getId();
         initEditStatus();
-        initData();
+
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        if(sp.getString("authority","").equals("1")){
+            or_submit_annex.setVisibility(View.GONE);
+            tm_open_record.setVisibility(View.GONE);
+            open_record_submit.setVisibility(View.GONE);
+            open_record_sure.setVisibility(View.GONE);
+            initData();
+        }else if(sp.getString("authority","").equals("2")){
+            or_submit_annex.setVisibility(View.GONE);
+            open_record_edit.setVisibility(View.GONE);
+            open_record_submit.setVisibility(View.GONE);
+            initCheckData();
+        }
         // 申请并获得权限
         if (ContextCompat.checkSelfPermission(StudentOpenReportActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(StudentOpenReportActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE} ,1);
@@ -129,7 +149,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
         open_record_edit.setOnClickListener(this);
     }
 
-    @OnClick({R.id.open_record_submit,R.id.or_submit_annex,R.id.or_annex})
+    @OnClick({R.id.open_record_submit,R.id.or_submit_annex,R.id.or_annex,R.id.open_record_sure})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
@@ -150,6 +170,11 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                 break;
             case R.id.or_annex:
                 downLoad("下载文件","确认下载附件？",fileId);
+                break;
+            case R.id.open_record_sure:
+                nav_title.setText("开题报告详情");
+                Log.w(TAG,"点击提交");
+                submitCheckData();
                 break;
             default:
                 break;
@@ -296,6 +321,133 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                             Toast.makeText(StudentOpenReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentOpenReportActivity.this,StudentOpenReportActivity.class);
                             startActivity(intent);
+                            finish();
+                        }else {
+                            Toast.makeText(StudentOpenReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+
+    }
+
+    public void initCheckData() {
+        Intent intent = getIntent();
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        Log.e(TAG,intent.getStringExtra("stu_id"));
+        Log.e(TAG,intent.getStringExtra("doc_type"));
+        map.put("sid",intent.getStringExtra("stu_id"));
+        map.put("docType",intent.getStringExtra("doc_type"));
+        manager.post(ApiConstants.teacherApi + "/showStudentDocument", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                final String msg = obj.getString("msg");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            JSONObject object = obj.getJSONObject("data");
+                            Log.w(TAG,obj.getJSONObject("data").toString());
+                            or_time.setText(DateUtil.getDateFormat(object.getString("submitDate")));
+                            String status = object.getString("cStatus");
+                            String cStatus = null;
+                            if(status.equals("0")){
+                                cStatus = "审核不通过";
+                                or_annotation.setEnabled(true);
+                            }else if(status.equals("1")){
+                                cStatus = "审核通过";
+                                open_record_submit.setVisibility(View.GONE);
+                                open_record_sure.setVisibility(View.GONE);
+                                open_record_check.setEnabled(false);
+                                setSpinnerItemSelectedByValue(open_record_result,cStatus);
+                                open_record_result.setEnabled(false);
+                            }else if(status.equals("2")|| status.equals("3")){
+                                cStatus = "审核中";
+                                or_annotation.setEnabled(true);
+                            }
+                            or_state.setText(cStatus);
+                            or_aim.setText(object.getString("aim"));
+                            or_content.setText(object.getString("content"));
+                            or_tech.setText(object.getString("tech"));
+                            or_plan.setText(object.getString("plan"));
+                            or_annotation.setText(object.getString("annotation"));
+                            open_record_check.setText(object.getString("cSuggest"));
+                            fileId = object.getString("fileId");
+                            if(object.containsKey("file")){
+                                fileName = object.getJSONObject("file").getString("fileName");
+                                or_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
+                            }else{
+                                fileName = object.getString("title");
+                                or_annex.setText("暂无附件");
+                                or_annex.setEnabled(false);
+                            }
+
+                        }else{
+                            Toast.makeText(StudentOpenReportActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    public void setSpinnerItemSelectedByValue(Spinner spinner,String value) {
+        SpinnerAdapter apsAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
+        int k = apsAdapter.getCount();
+        for (int i = 0; i < k; i++) {
+            if (value.equals(apsAdapter.getItem(i).toString())) {
+//                spinner.setSelection(i,true);// 默认选中项
+                spinner.setSelection(i);// 默认选中项
+                break;
+            }
+        }
+    }
+
+    public void submitCheckData() {
+        Intent intent = getIntent();
+        String status;
+        if(open_record_result.getSelectedItem().toString().equals("审核通过")){
+            status="1";
+        }else{
+            status="0";
+        }
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("sid",intent.getStringExtra("stu_id"));
+        map.put("docType",intent.getStringExtra("doc_type"));
+        map.put("annotation",or_annotation.getText().toString().trim());
+        map.put("status",status);
+        map.put("suggest",open_record_check.getText().toString().trim());
+        manager.post(ApiConstants.teacherApi + "/verifyDocument", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            Toast.makeText(StudentOpenReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentOpenReportActivity.this,TeacherCheckDataMainActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentOpenReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

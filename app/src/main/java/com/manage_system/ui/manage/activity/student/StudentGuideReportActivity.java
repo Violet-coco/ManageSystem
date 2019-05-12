@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,9 +84,15 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
     Button guide_record_submit;
     @BindView(R.id.guide_record_check)
     LinearLayout guide_record_check;
+    @BindView(R.id.guide_record_sure)
+    Button guide_record_sure;
+    @BindView(R.id.gr_check)
+    EditText gr_check;
+    @BindView(R.id.gr_result)
+    Spinner gr_result;
     private String TAG = "指导记录";
     private String fileId = "0";
-    private String path,id,theme,work,date,uploadfile;
+    private String path,id,sid,theme,work,date,uploadfile;
     private File file;
     private String fileName = null;
     private Context mContext;
@@ -95,11 +103,19 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.ms_student_pd_guide_record);
         ButterKnife.bind(this);
         guide_record_annex.setVisibility(View.GONE);
-        guide_record_check.setVisibility(View.GONE);
         guide_record_submit.setVisibility(View.GONE);
         initEditStatus();
         getId();
-        initDate();
+
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        if(sp.getString("authority","").equals("1")){
+            guide_record_check.setVisibility(View.GONE);
+            guide_record_sure.setVisibility(View.GONE);
+            initData();
+        }else if(sp.getString("authority","").equals("2")){
+            guide_record_edit.setVisibility(View.GONE);
+            initCheckData();
+        }
     }
 
     /**启动这个Activity的Intent
@@ -140,7 +156,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
         guide_record_edit.setOnClickListener(this);
     }
 
-    @OnClick({R.id.guide_record_submit,R.id.gr_date,R.id.guide_record_annex,R.id.gr_annex})
+    @OnClick({R.id.guide_record_submit,R.id.gr_date,R.id.guide_record_annex,R.id.gr_annex,R.id.guide_record_sure})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
@@ -152,6 +168,9 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                 break;
             case R.id.guide_record_submit:
                 submitData();
+                break;
+            case R.id.guide_record_sure:
+                submitCheckData();
                 break;
             case R.id.gr_date:
                 showDatePicker();
@@ -167,7 +186,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
         }
     }
 
-    public void initDate() {
+    public void initData() {
         SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
         Log.w(TAG,sp.getString("obj" , ""));
         JSONObject obj = JSON.parseObject(sp.getString("guide_record" , ""));
@@ -186,6 +205,48 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
         }
         gr_state.setText(cStatus);
         gr_suggest.setText(obj.getString("cSuggest"));
+        gr_theme.setText(obj.getString("theme"));
+        gr_date.setText(DateUtil.getDateFormatNoTime(obj.getString("date")));
+        gr_work.setText(obj.getString("work"));
+        gr_annotation.setText(obj.getString("annotation"));
+        fileId = obj.getString("fileId");
+        if(obj.containsKey("file")){
+            fileName = obj.getJSONObject("file").getString("fileName");
+            gr_annex.setText(Html.fromHtml("<u>"+obj.getJSONObject("file").getString("fileName")+"</u>"));
+        }else{
+            fileName = obj.getString("title");
+            gr_annex.setText("暂无附件");
+            gr_annex.setEnabled(false);
+        }
+    }
+
+    public void initCheckData() {
+        SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
+        Log.w(TAG,sp.getString("obj" , ""));
+        JSONObject obj = JSON.parseObject(sp.getString("guide_record" , ""));
+        Log.w(TAG,obj.toString());
+        id = obj.getString("id");
+        String status = obj.getString("cStatus");
+        String cStatus = null;
+        Log.w(TAG,status+"喔喔");
+        if(status.equals("0")){
+            cStatus = "审核不通过";
+            gr_annotation.setEnabled(true);
+        }else if(status.equals("1")){
+            cStatus = "审核通过";
+            guide_record_edit.setVisibility(View.GONE);
+            guide_record_submit.setVisibility(View.GONE);
+            guide_record_sure.setVisibility(View.GONE);
+            gr_suggest.setEnabled(false);
+            setSpinnerItemSelectedByValue(gr_result,cStatus);
+            gr_result.setEnabled(false);
+        }else if(status.equals("2")|| status.equals("3")){
+            cStatus = "审核中";
+            gr_annotation.setEnabled(true);
+        }
+        gr_state.setText(cStatus);
+        gr_suggest.setText(obj.getString("cSuggest"));
+        gr_check.setText(obj.getString("cSuggest"));
         gr_theme.setText(obj.getString("theme"));
         gr_date.setText(DateUtil.getDateFormatNoTime(obj.getString("date")));
         gr_work.setText(obj.getString("work"));
@@ -251,6 +312,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                             Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentGuideReportActivity.this,StudentGuideReportMainActivity.class);
                             startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -259,6 +321,63 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
 
             }
         });
+    }
+
+    public void submitCheckData() {
+        final Intent intent1 = getIntent();
+        String status;
+        if(gr_result.getSelectedItem().toString().equals("审核通过")){
+            status="1";
+        }else{
+            status="0";
+        }
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("sid",intent1.getStringExtra("stu_id"));
+        map.put("docId",id);
+        map.put("annotation",gr_annotation.getText().toString().trim());
+        map.put("status",status);
+        map.put("suggest",gr_suggest.getText().toString().trim());
+        manager.post(ApiConstants.teacherApi + "/verifyGuidanceRecord", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentGuideReportActivity.this,StudentGuideReportMainActivity.class);
+                            intent.putExtra("stu_id",intent1.getStringExtra("stu_id"));
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    public void setSpinnerItemSelectedByValue(Spinner spinner,String value) {
+        SpinnerAdapter apsAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
+        int k = apsAdapter.getCount();
+        for (int i = 0; i < k; i++) {
+            if (value.equals(apsAdapter.getItem(i).toString())) {
+//                spinner.setSelection(i,true);// 默认选中项
+                spinner.setSelection(i);// 默认选中项
+                break;
+            }
+        }
     }
 
     public void showDatePicker() {

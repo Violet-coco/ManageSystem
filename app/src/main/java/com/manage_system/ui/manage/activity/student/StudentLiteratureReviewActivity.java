@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
+import com.manage_system.ui.manage.activity.teacher.TeacherCheckDataMainActivity;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.DownloadUtil;
 import com.manage_system.utils.OkManager;
@@ -38,6 +42,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -75,6 +80,12 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
     Button lite_review_annex;
     @BindView(R.id.lr_annotation_main)
     RelativeLayout lr_annotation_main;
+    @BindView(R.id.lite_review_sure)
+    Button lite_review_sure;
+    @BindView(R.id.lr_suggest)
+    EditText lr_suggest;
+    @BindView(R.id.lr_result)
+    Spinner lr_result;
     private String TAG = "文献综述";
     private String intro,uploadfile;
     private String fileId = "0";
@@ -90,10 +101,18 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
         ButterKnife.bind(this);
         getId();
         lite_review_annex.setVisibility(View.GONE);
-        lite_review_check.setVisibility(View.GONE);
         lite_review_submit.setVisibility(View.GONE);
         initEditStatus();
-        initData();
+
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        if(sp.getString("authority","").equals("1")){
+            lite_review_check.setVisibility(View.GONE);
+            lite_review_sure.setVisibility(View.GONE);
+            initData();
+        }else if(sp.getString("authority","").equals("2")){
+            lite_review_edit.setVisibility(View.GONE);
+            initCheckData();
+        }
     }
 
     /**启动这个Activity的Intent
@@ -130,7 +149,7 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
         iv_back.setOnClickListener(this);
     }
 
-    @OnClick({R.id.lite_review_edit,R.id.lite_review_submit,R.id.lite_review_annex,R.id.lr_annex})
+    @OnClick({R.id.lite_review_edit,R.id.lite_review_submit,R.id.lite_review_annex,R.id.lr_annex,R.id.lite_review_sure})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
@@ -142,6 +161,9 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                 break;
             case R.id.lite_review_submit:
                 submitData();
+                break;
+            case R.id.lite_review_sure:
+                submitCheckData();
                 break;
             case R.id.lite_review_annex:
                 showFileChooser();
@@ -217,6 +239,77 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
         });
     }
 
+    public void initCheckData() {
+        Intent intent = getIntent();
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        Log.e(TAG,intent.getStringExtra("stu_id"));
+        Log.e(TAG,intent.getStringExtra("doc_type"));
+        map.put("sid",intent.getStringExtra("stu_id"));
+        map.put("docType",intent.getStringExtra("doc_type"));
+        manager.post(ApiConstants.teacherApi + "/showStudentDocument", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                final String msg = obj.getString("msg");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            JSONObject object = obj.getJSONObject("data");
+                            Log.w(TAG,obj.getJSONObject("data").toString());
+                            lr_time.setText(DateUtil.getDateFormat(object.getString("submitDate")));
+                            String status = object.getString("cStatus");
+                            String cStatus = null;
+                            Log.w(TAG,status+"喔喔");
+                            if(status.equals("0")){
+                                cStatus = "审核不通过";
+                                lr_annotation.setEnabled(true);
+                            }else if(status.equals("1")){
+                                cStatus = "审核通过";
+                                lite_review_submit.setVisibility(View.GONE);
+                                lite_review_sure.setVisibility(View.GONE);
+                                lr_suggest.setEnabled(false);
+                                setSpinnerItemSelectedByValue(lr_result,cStatus);
+                                lr_result.setEnabled(false);
+                            }else if(status.equals("2")|| status.equals("3")){
+                                cStatus = "审核中";
+                                lr_annotation.setEnabled(true);
+                            }
+                            lr_state.setText(cStatus);
+                            lr_intro.setText(object.getString("intro"));
+                            lr_annotation.setText(object.getString("annotation"));
+                            lr_suggest.setText(object.getString("cSuggest"));
+                            fileId = object.getString("fileId");
+                            if(object.get("fileId").equals(0)){
+                                lr_annex.setText("暂无附件");
+                                lr_annex.setEnabled(false);
+                            }else{
+                                if(!object.getJSONObject("file").getString("fileName").isEmpty()){
+                                    fileName = object.getJSONObject("file").getString("fileName");
+                                    lr_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
+                                }else{
+                                    fileName = object.getString("title");
+                                    lr_annex.setText(Html.fromHtml("<u>"+"中期检查.附件"+"</u>"));
+                                }
+                            }
+
+                        }else{
+                            Toast.makeText(StudentLiteratureReviewActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
     public void submitData() {
         intro=lr_intro.getText().toString().trim();
         uploadfile=lr_annex.getText().toString().trim();
@@ -263,6 +356,61 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
 
             }
         });
+    }
+
+    public void submitCheckData() {
+        Intent intent = getIntent();
+        String status;
+        if(lr_result.getSelectedItem().toString().equals("审核通过")){
+            status="1";
+        }else{
+            status="0";
+        }
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("sid",intent.getStringExtra("stu_id"));
+        map.put("docType",intent.getStringExtra("doc_type"));
+        map.put("annotation",lr_annotation.getText().toString().trim());
+        map.put("status",status);
+        map.put("suggest",lr_suggest.getText().toString().trim());
+        manager.post(ApiConstants.teacherApi + "/verifyDocument", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentLiteratureReviewActivity.this,TeacherCheckDataMainActivity.class);
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    public void setSpinnerItemSelectedByValue(Spinner spinner,String value) {
+        SpinnerAdapter apsAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
+        int k = apsAdapter.getCount();
+        for (int i = 0; i < k; i++) {
+            if (value.equals(apsAdapter.getItem(i).toString())) {
+//                spinner.setSelection(i,true);// 默认选中项
+                spinner.setSelection(i);// 默认选中项
+                break;
+            }
+        }
     }
 
     //打开文件选择器

@@ -74,25 +74,6 @@
 
             <View style="@style/divider_horizontal_1px" />
 
-            <RelativeLayout
-                android:id="@+id/mc_annotation_main"
-                style="@style/edit_item_ms_all"
-                >
-
-                <TextView
-                    android:id="@+id/middle_check_comment_title"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="批注内容" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_edit"
-                    android:id="@+id/mc_annotation"
-                    android:layout_below="@+id/middle_check_comment_title" />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
             <RelativeLayout style="@style/edit_item_ms_all" >
 
                 <TextView
@@ -132,6 +113,25 @@
 
             <View style="@style/divider_horizontal_1px" />
 
+            <RelativeLayout
+                android:id="@+id/mc_annotation_main"
+                style="@style/edit_item_ms_all"
+                >
+
+                <TextView
+                    android:id="@+id/middle_check_comment_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="批注内容" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit"
+                    android:id="@+id/mc_annotation"
+                    android:layout_below="@+id/middle_check_comment_title" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,10 +142,11 @@
                     <TextView
                         android:id="@+id/open_record_check"
                         style="@style/edit_item_ms_border_title"
-                        android:text="中期检查审核" />
+                        android:text="审核意见" />
 
                     <EditText
                         style="@style/edit_item_ms_border_content"
+                        android:id="@+id/middle_check_suggest"
                         android:layout_below="@+id/open_record_check"
                         />
 
@@ -158,13 +159,26 @@
                         android:id="@+id/open_record_result"
                         style="@style/edit_item_ms_border_title"
                         android:text="审核结果" />
-
-                    <Spinner
-                        style="@style/edit_item_ms_border_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/open_record_result"
-                        android:id="@+id/spinner2"
-                        android:entries="@array/subject_source"
-                        />
+                        >
+
+                        <Spinner
+                            style="@style/edit_item_ms_border_content"
+                            android:id="@+id/middle_check_result"
+                            android:layout_weight="1"
+                            android:entries="@array/check_result"
+                            />
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white_selected"
+                            android:src="@drawable/pull_down"
+                            />
+                    </LinearLayout>
 
                 </RelativeLayout>
 
@@ -193,6 +207,19 @@
 
                 <Button
                     android:id="@+id/middle_check_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="提　交"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/middle_check_sure"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="25dp"

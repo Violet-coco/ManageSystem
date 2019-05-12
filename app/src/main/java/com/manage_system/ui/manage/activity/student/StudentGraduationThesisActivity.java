@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +87,12 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
     LinearLayout tm_check_main;
     @BindView(R.id.gt_annotation_main)
     RelativeLayout gt_annotation_main;
+    @BindView(R.id.graduation_thesis_sure)
+    Button graduation_thesis_sure;
+    @BindView(R.id.gt_check)
+    EditText gt_check;
+    @BindView(R.id.gt_result)
+    Spinner gt_result;
     private String TAG = "毕业论文展示";
     private String id,fileName,path,uploadfile;
     private String fileId,docFileId;
@@ -101,10 +109,18 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         ButterKnife.bind(this);
         gt_word_submit.setVisibility(View.GONE);
         gt_annex_submit.setVisibility(View.GONE);
-        tm_check_main.setVisibility(View.GONE);
         graduation_thesis_submit.setVisibility(View.GONE);
         initEditStatus();
-        initData();
+
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        if(sp.getString("authority","").equals("1")){
+            tm_check_main.setVisibility(View.GONE);
+            graduation_thesis_sure.setVisibility(View.GONE);
+            initData();
+        }else if(sp.getString("authority","").equals("2")){
+            graduation_thesis_edit.setVisibility(View.GONE);
+            initCheckData();
+        }
     }
 
     /**启动这个Activity的Intent
@@ -138,7 +154,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         graduation_thesis_submit.setVisibility(View.VISIBLE);
     }
 
-    @OnClick({R.id.iv_back,R.id.graduation_thesis_edit,R.id.graduation_thesis_submit,R.id.gt_word_submit,R.id.gt_annex_submit,R.id.gt_word,R.id.gt_annex})
+    @OnClick({R.id.iv_back,R.id.graduation_thesis_edit,R.id.graduation_thesis_submit,R.id.gt_word_submit,R.id.gt_annex_submit,R.id.gt_word,R.id.gt_annex,R.id.graduation_thesis_sure})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
@@ -150,6 +166,9 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
                 break;
             case R.id.graduation_thesis_submit:
                 submitData();
+                break;
+            case R.id.graduation_thesis_sure:
+                submitCheckData();
                 break;
             case R.id.gt_word_submit:
                 fileIdType = 1;
@@ -190,6 +209,58 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         }
         gt_state.setText(cStatus);
         gt_suggest.setText(obj.getString("cSuggest"));
+        gt_keywords.setText(obj.getString("keywords"));
+        gt_innovatePoint.setText(obj.getString("innovatePoint"));
+        gt_cnSummary.setText(obj.getString("cnSummary"));
+        gt_enSummary.setText(obj.getString("enSummary"));
+        gt_annotation.setText(obj.getString("annotation"));
+        gt_other.setText(obj.getString("other"));
+        fileId = obj.getString("fileId");
+        docFileId = obj.getString("docFileId");
+        if(obj.containsKey("docFile")){
+            fileName = obj.getJSONObject("docFile").getString("fileName");
+            gt_word.setText(Html.fromHtml("<u>"+obj.getJSONObject("file").getString("fileName")+"</u>"));
+        }else{
+            gt_word.setText("暂无附件");
+            gt_word.setEnabled(false);
+        }
+        if(obj.containsKey("file")){
+            fileName = obj.getJSONObject("file").getString("fileName");
+            gt_annex.setText(Html.fromHtml("<u>"+obj.getJSONObject("file").getString("fileName")+"</u>"));
+        }else{
+            gt_annex.setText("暂无附件");
+            gt_annex.setEnabled(false);
+        }
+    }
+
+    public void initCheckData() {
+        SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
+        Log.w(TAG,sp.getString("obj" , ""));
+        JSONObject obj = JSON.parseObject(sp.getString("graduation_thesis" , ""));
+        Log.w(TAG,obj.toString());
+        id = obj.getString("id");
+        String status = obj.getString("cStatus");
+        String cStatus = null;
+        Log.w(TAG,status+"喔喔");
+        if(status.equals("0")){
+            cStatus = "审核不通过";
+            graduation_thesis_edit.setVisibility(View.GONE);
+            gt_annotation.setEnabled(true);
+        }else if(status.equals("1")){
+            cStatus = "审核通过";
+            graduation_thesis_edit.setVisibility(View.GONE);
+            graduation_thesis_submit.setVisibility(View.GONE);
+            graduation_thesis_sure.setVisibility(View.GONE);
+            gt_suggest.setEnabled(false);
+            setSpinnerItemSelectedByValue(gt_result,cStatus);
+            gt_result.setEnabled(false);
+        }else if(status.equals("2")|| status.equals("3")){
+            cStatus = "审核中";
+            gt_annotation.setEnabled(true);
+        }
+        gt_state.setText(cStatus);
+        gt_suggest.setText(obj.getString("cSuggest"));
+        gt_check.setText(obj.getString("cSuggest"));
         gt_keywords.setText(obj.getString("keywords"));
         gt_innovatePoint.setText(obj.getString("innovatePoint"));
         gt_cnSummary.setText(obj.getString("cnSummary"));
@@ -280,6 +351,62 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
 
             }
         });
+    }
+
+    public void submitCheckData() {
+        final Intent intent1 = getIntent();
+        String status;
+        if(gt_result.getSelectedItem().toString().equals("审核通过")){
+            status="1";
+        }else{
+            status="0";
+        }
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("sid",intent1.getStringExtra("stu_id"));
+        map.put("docId",id);
+        map.put("annotation",gt_annotation.getText().toString().trim());
+        map.put("status",status);
+        map.put("suggest",gt_suggest.getText().toString().trim());
+        manager.post(ApiConstants.teacherApi + "/verifyGraduationProject", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            Toast.makeText(StudentGraduationThesisActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentGraduationThesisActivity.this,StudentGraduationThesisMainActivity.class);
+                            intent.putExtra("stu_id",intent1.getStringExtra("stu_id"));
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(StudentGraduationThesisActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    public void setSpinnerItemSelectedByValue(Spinner spinner,String value) {
+        SpinnerAdapter apsAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
+        int k = apsAdapter.getCount();
+        for (int i = 0; i < k; i++) {
+            if (value.equals(apsAdapter.getItem(i).toString())) {
+//                spinner.setSelection(i,true);// 默认选中项
+                spinner.setSelection(i);// 默认选中项
+                break;
+            }
+        }
     }
 
     //打开文件选择器

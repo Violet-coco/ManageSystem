@@ -35,4 +35,9 @@
         <item>选题</item>
         <item>已选课题</item>
     </string-array>
+
+    <string-array name="check_result">
+        <item>审核通过</item>
+        <item>审核不通过</item>
+    </string-array>
 </resources>

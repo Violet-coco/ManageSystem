@@ -89,6 +89,14 @@ public class TeacherCheckDataMainActivity extends AppCompatActivity {
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("name", object.getString("name"));
                                 map.put("identifier", object.getString("identifier"));
+                                JSONArray proChooseList_array = new JSONArray(object.getJSONArray("proChooseList"));
+                                if(proChooseList_array.size()>0){
+                                    JSONObject proChooseList = proChooseList_array.getJSONObject(0);
+                                    map.put("pName",proChooseList.getJSONObject("project").getString("title"));
+                                }else{
+                                    map.put("pName","");
+                                }
+
                                 JSONArray progressList = new JSONArray(object.getJSONArray("progressList"));
                                 Log.w(TAG,progressList.toString());
                                 map.put("progressList1", progressList.toArray()[0] + "%");

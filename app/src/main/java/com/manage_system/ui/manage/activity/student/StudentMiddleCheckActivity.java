@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
+import com.manage_system.ui.manage.activity.teacher.TeacherCheckDataMainActivity;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.DownloadUtil;
 import com.manage_system.utils.OkManager;
@@ -72,8 +76,14 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
     Button mc_submit_annex;
     @BindView(R.id.middle_check_submit)
     Button middle_check_submit;
+    @BindView(R.id.middle_check_sure)
+    Button middle_check_sure;
     @BindView(R.id.mc_annotation_main)
     RelativeLayout mc_annotation_main;
+    @BindView(R.id.middle_check_suggest)
+    EditText middle_check_suggest;
+    @BindView(R.id.middle_check_result)
+    Spinner middle_check_result;
     private String TAG = "中期检查";
     private String intro,uploadfile;
     private String fileId = "0";
@@ -88,11 +98,19 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.ms_student_pd_middlecheck);
         ButterKnife.bind(this);
         mc_submit_annex.setVisibility(View.GONE);
-        tm_middle_check.setVisibility(View.GONE);
         middle_check_submit.setVisibility(View.GONE);
         getId();
         initEditStatus();
-        initData();
+
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        if(sp.getString("authority","").equals("1")){
+            tm_middle_check.setVisibility(View.GONE);
+            middle_check_sure.setVisibility(View.GONE);
+            initData();
+        }else if(sp.getString("authority","").equals("2")){
+            middle_check_edit.setVisibility(View.GONE);
+            initCheckData();
+        }
     }
 
     /**启动这个Activity的Intent
@@ -114,7 +132,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
         middle_check_edit.setOnClickListener(this);
     }
 
-    @OnClick({R.id.middle_check_submit,R.id.mc_submit_annex,R.id.mc_annex})
+    @OnClick({R.id.middle_check_submit,R.id.mc_submit_annex,R.id.mc_annex,R.id.middle_check_sure})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         switch (v.getId()) {
             case R.id.iv_back:
@@ -126,6 +144,10 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
             case R.id.middle_check_submit:
                 nav_title.setText("修改中期检查");
                 submitData();
+                break;
+            case R.id.middle_check_sure:
+                nav_title.setText("中期检查详情");
+                submitCheckData();
                 break;
             case R.id.mc_submit_annex:
                 showFileChooser();
@@ -216,6 +238,73 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
         });
     }
 
+    public void initCheckData() {
+        Intent intent = getIntent();
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        Log.e(TAG,intent.getStringExtra("stu_id"));
+        Log.e(TAG,intent.getStringExtra("doc_type"));
+        map.put("sid",intent.getStringExtra("stu_id"));
+        map.put("docType",intent.getStringExtra("doc_type"));
+        manager.post(ApiConstants.teacherApi + "/showStudentDocument", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                final String msg = obj.getString("msg");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            JSONObject object = obj.getJSONObject("data");
+                            Log.w(TAG,obj.getJSONObject("data").toString());
+                            mc_time.setText(DateUtil.getDateFormat(object.getString("submitDate")));
+                            String status = object.getString("cStatus");
+                            String cStatus = null;
+                            Log.w(TAG,status+"喔喔");
+                            if(status.equals("0")){
+                                cStatus = "审核不通过";
+                                mc_annotation.setEnabled(true);
+                            }else if(status.equals("1")){
+                                cStatus = "审核通过";
+                                middle_check_submit.setVisibility(View.GONE);
+                                middle_check_sure.setVisibility(View.GONE);
+                                middle_check_suggest.setEnabled(false);
+                                setSpinnerItemSelectedByValue(middle_check_result,cStatus);
+                                middle_check_result.setEnabled(false);
+                            }else if(status.equals("2")|| status.equals("3")){
+                                cStatus = "审核中";
+                                mc_annotation.setEnabled(true);
+                            }
+                            mc_state.setText(cStatus);
+                            mc_intro.setText(object.getString("intro"));
+                            mc_annotation.setText(object.getString("annotation"));
+                            middle_check_suggest.setText(object.getString("cSuggest"));
+                            fileId = object.getString("fileId");
+                            if(object.containsKey("file")){
+                                fileName = object.getJSONObject("file").getString("fileName");
+                                mc_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
+                            }else{
+                                fileName = object.getString("title");
+                                mc_annex.setEnabled(false);
+                                mc_annex.setText("暂无附件");
+                            }
+
+                        }else{
+                            Toast.makeText(StudentMiddleCheckActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
     public void submitData() {
         intro=mc_intro.getText().toString().trim();
         uploadfile=mc_annex.getText().toString().trim();
@@ -266,6 +355,61 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
         });
     }
 
+    public void submitCheckData() {
+        Intent intent = getIntent();
+        String status;
+        if(middle_check_result.getSelectedItem().toString().equals("审核通过")){
+            status="1";
+        }else{
+            status="0";
+        }
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("sid",intent.getStringExtra("stu_id"));
+        map.put("docType",intent.getStringExtra("doc_type"));
+        map.put("annotation",mc_annotation.getText().toString().trim());
+        map.put("status",status);
+        map.put("suggest",middle_check_suggest.getText().toString().trim());
+        manager.post(ApiConstants.teacherApi + "/verifyDocument", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentMiddleCheckActivity.this,TeacherCheckDataMainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    public void setSpinnerItemSelectedByValue(Spinner spinner,String value) {
+        SpinnerAdapter apsAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
+        int k = apsAdapter.getCount();
+        for (int i = 0; i < k; i++) {
+            if (value.equals(apsAdapter.getItem(i).toString())) {
+//                spinner.setSelection(i,true);// 默认选中项
+                spinner.setSelection(i);// 默认选中项
+                break;
+            }
+        }
+    }
 
     //打开文件选择器
     private void showFileChooser() {
