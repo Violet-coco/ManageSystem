@@ -2,7 +2,6 @@ package com.manage_system.ui.manage.activity.manager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,9 +19,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
-import com.manage_system.ui.manage.activity.teacher.TeacherCheckTitleActivity;
 import com.manage_system.ui.manage.adapter.LeaderAdapter;
-import com.manage_system.ui.manage.adapter.MyAdapter;
 import com.manage_system.utils.OkManager;
 
 import java.io.IOException;
@@ -37,7 +34,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class ManagerCtReportMainActivity extends AppCompatActivity {
+public class ManagerXtReportMainActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler)
     RecyclerView recycleView;
@@ -56,7 +53,7 @@ public class ManagerCtReportMainActivity extends AppCompatActivity {
 
     public List<Map<String,Object>> list=new ArrayList<>();
 
-    private static String TAG = "教师界面";
+    private static String TAG = "ManagerXtReportMainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +61,7 @@ public class ManagerCtReportMainActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_tab);
         ButterKnife.bind(this);
         tool_bar.setVisibility(View.VISIBLE);
-        top_title.setText("教师列表");
+        top_title.setText("学生列表");
         initCount();
         initData();
     }
@@ -74,13 +71,13 @@ public class ManagerCtReportMainActivity extends AppCompatActivity {
      * @return
      */
     public static Intent createIntent(Context context) {
-        return new Intent(context, ManagerCtReportMainActivity.class);
+        return new Intent(context, ManagerXtReportMainActivity.class);
     }
 
     public void initCount() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showDepTeaCount", map,new okhttp3.Callback() {
+        manager.post(ApiConstants.teacherApi + "/showDepStuCount", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -97,10 +94,10 @@ public class ManagerCtReportMainActivity extends AppCompatActivity {
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
                             show_tab.setVisibility(View.VISIBLE);
-                            show_tab_item1.setText("已出题教师："+obj.getJSONObject("data").getString("has_set"));
-                            show_tab_item2.setText("未出题教师："+obj.getJSONObject("data").getString("has_not_set"));
+                            show_tab_item1.setText("已选题学生："+obj.getJSONObject("data").getString("has_choose"));
+                            show_tab_item2.setText("未选题学生："+obj.getJSONObject("data").getString("has_not_choose"));
                         }else{
-                            Toast.makeText(ManagerCtReportMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ManagerXtReportMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -113,7 +110,7 @@ public class ManagerCtReportMainActivity extends AppCompatActivity {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
         map.put("limit","10000");
-        manager.post(ApiConstants.teacherApi + "/showDepTeachers", map,new okhttp3.Callback() {
+        manager.post(ApiConstants.teacherApi + "/showDepStudents", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -129,7 +126,7 @@ public class ManagerCtReportMainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
-                            JSONArray array = new JSONArray(obj.getJSONObject("data").getJSONArray("teacherList"));
+                            JSONArray array = new JSONArray(obj.getJSONObject("data").getJSONArray("studentList"));
                             Log.d(TAG,array.getJSONObject(0).toString());
                             for (int i = 0; i < array.size(); i++) {
                                 JSONObject object = array.getJSONObject(i);
@@ -137,24 +134,23 @@ public class ManagerCtReportMainActivity extends AppCompatActivity {
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("identifier", object.getString("identifier"));
                                 map.put("name", object.getString("name"));
-                                map.put("m_teacher",object.toString());
-                                JSONArray proSetList = new JSONArray(object.getJSONArray("proSetList"));
-                                if(proSetList.size()>0){
+                                map.put("m_student",object.toString());
+                                map.put("pName",object.getString("pName"));
+                                if(object.containsKey("checkedPro")){
                                     map.put("is_ct","是");
                                 }else{
                                     map.put("is_ct","否");
                                 }
-                                map.put("number",proSetList.size());
                                 list.add(map);
                             }
-                            recycleView.setLayoutManager(new LinearLayoutManager(ManagerCtReportMainActivity.this,LinearLayoutManager.VERTICAL,false));
+                            recycleView.setLayoutManager(new LinearLayoutManager(ManagerXtReportMainActivity.this,LinearLayoutManager.VERTICAL,false));
                             //设置适配器
-                            LeaderAdapter adapter = new LeaderAdapter(ManagerCtReportMainActivity.this,list,"3001");
+                            LeaderAdapter adapter = new LeaderAdapter(ManagerXtReportMainActivity.this,list,"3003");
                             recycleView.setAdapter(adapter);
                             // 设置数据后就要给RecyclerView设置点击事件
 
                         }else{
-                            Toast.makeText(ManagerCtReportMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ManagerXtReportMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

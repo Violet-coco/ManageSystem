@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.manage_system.R;
 import com.manage_system.ui.manage.activity.manager.ManagerCtListMainActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerCtReportMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerXtListActivity;
 import com.manage_system.ui.personal.GuideStudentInfoActivity;
 import com.manage_system.ui.personal.GuideTeacherInfoActivity;
 import com.manage_system.utils.DateUtil;
@@ -84,6 +86,36 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
             holder.project_ct.setVisibility(View.GONE);
             holder.project_number.setVisibility(View.GONE);
             holder.look_title.setVisibility(View.GONE);
+        }else if(string.equals("3003")){
+            holder.project_title.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
+            holder.project_ct.setText("是否选题："+list.get(position).get("is_ct").toString());
+            holder.project_number.setText("课题题目："+Html.fromHtml("<u>"+list.get(position).get("pName").toString()+"</u>"));
+
+            if(list.get(position).get("is_ct").toString().equals("否")){
+                holder.look_title.setEnabled(false);
+                holder.look_title.setText("暂无课题");
+                holder.look_title.setBackgroundColor(Color.parseColor("#dddddd"));
+                holder.look_title.setTextColor(Color.GRAY);
+            }
+
+            holder.look_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),ManagerXtListActivity.class);
+                    intent.putExtra("stu_info_ct",list.get(position).get("m_student").toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
+
+            holder.project_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),GuideStudentInfoActivity.class);
+                    intent.putExtra("stu_info","from_m_reply");
+                    intent.putExtra("student_info",list.get(position).get("m_student").toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
 
 

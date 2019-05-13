@@ -82,17 +82,17 @@ public class ManagerCtListMainActivity extends AppCompatActivity {
         recycleView.setLayoutManager(new LinearLayoutManager(ManagerCtListMainActivity.this,LinearLayoutManager.VERTICAL,false));
         //设置适配器
         LeaderAdapter adapter = new LeaderAdapter(ManagerCtListMainActivity.this,list,"3002");
-                            adapter.setOnItemClickListener(new LeaderAdapter.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(int position) {
-                                    // 这里本来是跳转页面 ，我们就在这里直接让其弹toast来演示
-                                    Log.w(TAG,"位置是："+position);
-                                    Intent intent = new Intent(ManagerCtListMainActivity.this,ManagerCtListActivity.class);
-                                    intent.putExtra("position",position+"");
-                                    intent.putExtra("teacher_info_ct",intent1.getStringExtra("teacher_info"));
-                                    startActivity(intent);
-                                }
-                            });
+        adapter.setOnItemClickListener(new LeaderAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // 这里本来是跳转页面 ，我们就在这里直接让其弹toast来演示
+                Log.w(TAG,"位置是："+position);
+                Intent intent = new Intent(ManagerCtListMainActivity.this,ManagerCtListActivity.class);
+                intent.putExtra("position",position+"");
+                intent.putExtra("teacher_info_ct",intent1.getStringExtra("teacher_info"));
+                startActivity(intent);
+            }
+        });
         recycleView.setAdapter(adapter);
     }
 

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.manage_system.R;
 import com.manage_system.ui.manage.activity.manager.ManagerCtReportMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerXtReportMainActivity;
 import com.manage_system.ui.manage.activity.student.StudentChooseDoneTitleMainActivity;
 import com.manage_system.ui.manage.activity.student.StudentChooseTitleMainActivity;
 import com.manage_system.ui.manage.activity.teacher.TeacherCheckTitleMainActivity;
@@ -56,11 +57,11 @@ public class LeaderTitleAdapter extends RecyclerView.Adapter<LeaderTitleAdapter.
             }
         });
 
+        // 选题情况统计报表
         holder.m_xt_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),TeacherOutTitleUploadActivity.class);
-                intent.putExtra("method", "upload");
+                Intent intent=new Intent(v.getContext(),ManagerXtReportMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
