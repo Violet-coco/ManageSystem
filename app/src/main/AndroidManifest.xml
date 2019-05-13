@@ -192,6 +192,9 @@
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerXtListActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerTotalListMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerTotalReportMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerXtCheckMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerShowCheckActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerCtCheckMainActivity"/>
     </application>
 
 </manifest>

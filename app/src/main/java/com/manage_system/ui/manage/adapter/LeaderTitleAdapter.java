@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.manage_system.R;
+import com.manage_system.ui.manage.activity.manager.ManagerCtCheckMainActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerCtReportMainActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerTotalReportMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerXtCheckMainActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerXtReportMainActivity;
 import com.manage_system.ui.manage.activity.student.StudentChooseDoneTitleMainActivity;
 import com.manage_system.ui.manage.activity.student.StudentChooseTitleMainActivity;
@@ -32,19 +34,20 @@ public class LeaderTitleAdapter extends RecyclerView.Adapter<LeaderTitleAdapter.
     @Override
     public void onBindViewHolder(AuthorViewHolder holder, int position) {
 
+        // 出题审核
         holder.m_ct_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),TeacherOutTitleMainActivity.class);
+                Intent intent=new Intent(v.getContext(),ManagerCtCheckMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
 
+        // 选题审核
         holder.m_xt_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),TeacherOutTitleUploadActivity.class);
-                intent.putExtra("method", "upload");
+                Intent intent=new Intent(v.getContext(),ManagerXtCheckMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
