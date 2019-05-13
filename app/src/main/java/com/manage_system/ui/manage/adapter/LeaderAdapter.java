@@ -3,7 +3,6 @@ package com.manage_system.ui.manage.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -15,11 +14,10 @@ import android.widget.TextView;
 
 import com.manage_system.R;
 import com.manage_system.ui.manage.activity.manager.ManagerCtListMainActivity;
-import com.manage_system.ui.manage.activity.manager.ManagerCtReportMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerTotalListMainActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerXtListActivity;
 import com.manage_system.ui.personal.GuideStudentInfoActivity;
 import com.manage_system.ui.personal.GuideTeacherInfoActivity;
-import com.manage_system.utils.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +114,57 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                     v.getContext().startActivity(intent);
                 }
             });
+        }else if(string.equals("3004")){
+            holder.project_title.setText(Html.fromHtml("<u>"+list.get(position).get("pName").toString()+"</u>"));
+            holder.project_ct.setText("选题学生："+Html.fromHtml("<u>"+list.get(position).get("c_stu").toString()+"</u>"));
+            holder.project_number.setText("出题教师："+Html.fromHtml("<u>"+list.get(position).get("c_teacher_name").toString()+"（"+list.get(position).get("c_teacher_id").toString()+"）"+"</u>"));
+            holder.project_item.setText("可选人数/容纳人数："+list.get(position).get("rest").toString()+"/"+list.get(position).get("number").toString());
+            holder.project_item.setVisibility(View.VISIBLE);
+            if(list.get(position).get("c_stu").toString().equals("暂无学生选题")){
+                holder.look_title.setEnabled(false);
+                holder.look_title.setText("暂无信息");
+                holder.look_title.setBackgroundColor(Color.parseColor("#dddddd"));
+                holder.look_title.setTextColor(Color.GRAY);
+            }else{
+                holder.look_title.setText("查看学生");
+                holder.look_title.setBackgroundColor(Color.parseColor("#F55A5D"));
+                holder.look_title.setTextColor(Color.WHITE);
+            }
+
+            holder.project_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),ManagerXtListActivity.class);
+                    intent.putExtra("total_info","from_m_total");
+                    intent.putExtra("total_project",list.get(position).get("total_project").toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
+
+            holder.project_number.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),GuideTeacherInfoActivity.class);
+                    intent.putExtra("tea_info","from_m_total");
+                    intent.putExtra("teacher_info",list.get(position).get("m_total").toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
+
+            holder.look_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),ManagerTotalListMainActivity.class);
+                    intent.putExtra("total_list","from_m_total");
+                    intent.putExtra("total_stu_info",list.get(position).get("total_project").toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }else if(string.equals("3006")){
+            holder.project_title.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
+            holder.project_ct.setVisibility(View.GONE);
+            holder.project_number.setVisibility(View.GONE);
+            holder.look_title.setVisibility(View.GONE);
         }
 
 
@@ -141,12 +190,14 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
         private TextView project_title;
         private TextView project_ct;
         private TextView project_number;
+        private TextView project_item;
         private Button look_title;
         public AuthorViewHolder(View itemView) {
             super(itemView);
             project_title = (TextView)itemView.findViewById(R.id.project_title);
             project_ct = (TextView)itemView.findViewById(R.id.project_ct);
             project_number = (TextView)itemView.findViewById(R.id.project_number);
+            project_item = (TextView)itemView.findViewById(R.id.project_item);
             look_title = (Button)itemView.findViewById(R.id.look_title);
         }
     }

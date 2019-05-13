@@ -33,24 +33,55 @@
         android:id="@+id/show_tab"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:visibility="gone"
         >
 
-        <TextView
-            style="@style/topbar_title"
-            android:id="@+id/show_tab_item1"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/red_interest"
-           />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                style="@style/topbar_title"
+                android:id="@+id/show_tab_item1"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/red_interest"
+                />
 
-        <TextView
-            style="@style/topbar_title"
-            android:id="@+id/show_tab_item2"
-            android:textColor="@color/red_interest"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="8dp"
-        />
+            <TextView
+                style="@style/topbar_title"
+                android:id="@+id/show_tab_item2"
+                android:textColor="@color/red_interest"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="8dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/show_tab_right"
+            android:layout_weight="1">
+            <TextView
+                style="@style/topbar_title"
+                android:id="@+id/show_tab_item3"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/red_interest"
+                />
+
+            <TextView
+                style="@style/topbar_title"
+                android:id="@+id/show_tab_item4"
+                android:textColor="@color/red_interest"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="8dp"
+                />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

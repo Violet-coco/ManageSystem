@@ -68,7 +68,21 @@ public class GuideStudentInfoActivity extends AppCompatActivity implements View.
             stu_class.setText(obj.getString("grade")+"级"+obj.getString("classNo")+"班");
             stu_sex.setText(obj.getString("sex"));
             stu_major.setText(obj.getString("major"));
-            stu_department.setVisibility(View.GONE);
+//            stu_department.setVisibility(View.GONE);
+            stu_tel.setText(obj.getString("contactTel"));
+            stu_email.setText(obj.getString("email"));
+        }else if(intent.getStringExtra("stu_info").equals("from_m_total")){
+            JSONObject object = JSON.parseObject(intent.getStringExtra("total_stu_info"));
+            Log.w(TAG,object.toString());
+            JSONArray array = new JSONArray(object.getJSONArray("choose_stu_list"));
+            JSONObject obj = array.getJSONObject(Integer.parseInt(intent.getStringExtra("position")));
+            stu_name.setText(obj.getString("name"));
+            stu_id.setText(obj.getString("identifier"));
+            stu_college.setText(obj.getString("college"));
+            stu_class.setText(obj.getString("grade")+"级"+obj.getString("classNo")+"班");
+            stu_sex.setText(obj.getString("sex"));
+            stu_major.setText(obj.getString("major"));
+//            stu_department.setVisibility(View.GONE);
             stu_tel.setText(obj.getString("contactTel"));
             stu_email.setText(obj.getString("email"));
         }else {

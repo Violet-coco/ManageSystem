@@ -73,7 +73,13 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ms_manager_ct_detail);
         ButterKnife.bind(this);
-        initData();
+
+        Intent intent = getIntent();
+        if(intent.getStringExtra("total_info").equals("from_m_total")){
+            initTotalData();
+        }else{
+            initData();
+        }
     }
 
     /**启动这个Activity的Intent
@@ -129,6 +135,36 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
             ct_annex.setText("暂无附件");
         }
         ct_detail.setText(object.getJSONObject("checkedPro").getString("briefIntro"));
+    }
+
+    public void initTotalData(){
+        Intent intent = getIntent();
+        JSONObject object = JSON.parseObject(intent.getStringExtra("total_project"));
+
+        Log.e(TAG,object.toString());
+        ct_topic.setText(object.getString("title"));
+        ct_type.setText(object.getString("genre"));
+        ct_resource.setText(object.getString("source"));
+        ct_number.setText(object.getString("rest")+"/"+object.getString("number"));
+        ct_belong_major.setText(object.getString("major"));
+        ct_profession.setText(object.getString("range"));
+//        ct_time.setText(DateUtil.getDateFormat(object.getJSONObject("checkedPro").getString("setDate")));
+        if(object.containsKey("taskBook")){
+            task_fileId = object.getJSONObject("taskBook").getString("fileId");
+            ct_task.setText(Html.fromHtml("<u>"+object.getJSONObject("taskBook").getString("task")+"</u>"));
+        }else{
+            ct_task.setEnabled(false);
+            ct_task.setText("暂无任务书");
+        }
+
+        if(object.containsKey("file")){
+            fileId = object.getString("fileId");
+            ct_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
+        }else{
+            ct_annex.setEnabled(false);
+            ct_annex.setText("暂无附件");
+        }
+        ct_detail.setText(object.getString("briefIntro"));
     }
 
     public void downLoad(String title,String message,final String fileId){

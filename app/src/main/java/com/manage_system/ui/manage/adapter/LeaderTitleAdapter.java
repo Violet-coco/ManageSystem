@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.manage_system.R;
 import com.manage_system.ui.manage.activity.manager.ManagerCtReportMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerTotalReportMainActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerXtReportMainActivity;
 import com.manage_system.ui.manage.activity.student.StudentChooseDoneTitleMainActivity;
 import com.manage_system.ui.manage.activity.student.StudentChooseTitleMainActivity;
@@ -66,10 +67,11 @@ public class LeaderTitleAdapter extends RecyclerView.Adapter<LeaderTitleAdapter.
             }
         });
 
+        // 题目情况统计表
         holder.m_tm_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),TeacherCheckTitleMainActivity.class);
+                Intent intent=new Intent(v.getContext(),ManagerTotalReportMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });

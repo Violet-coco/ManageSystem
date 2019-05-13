@@ -64,6 +64,15 @@
                             android:text="答辩教师"
                             android:textColor="@android:color/black"
                             />
+
+                        <TextView
+                            android:id="@+id/project_item"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone"
+                            android:textColor="@android:color/black"
+                            />
                     </LinearLayout>
 
                     <LinearLayout

@@ -190,6 +190,8 @@
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerCtListActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerXtReportMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerXtListActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerTotalListMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerTotalReportMainActivity"/>
     </application>
 
 </manifest>
