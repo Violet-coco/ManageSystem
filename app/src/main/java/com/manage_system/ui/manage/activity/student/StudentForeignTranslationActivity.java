@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -224,6 +225,7 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                             }else if(status.equals("1")){
                                 cStatus = "审核通过";
                                 for_tra_submit.setVisibility(View.GONE);
+                                for_tra_edit.setVisibility(View.GONE);
                             }else if(status.equals("2")|| status.equals("3")){
                                 cStatus = "审核中";
                             }
@@ -234,36 +236,30 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
 
                             oriFileId = object.getString("oriFileId");
                             forFileId = object.getString("forFileId");
-                            if(object.get("forFileId").equals(0)){
+
+                            if(object.containsKey("forFile")){
+                                fileName = object.getJSONObject("forFile").getString("fileName");
+                                ft_forFile.setText(Html.fromHtml("<u>"+object.getJSONObject("forFile").getString("fileName")+"</u>"));
+                            }else{
                                 ft_forFile.setText("暂无附件");
                                 ft_forFile.setEnabled(false);
-                            }else{
-                                if(!object.getJSONObject("forFile").getString("fileName").isEmpty()){
-                                    fileName = object.getJSONObject("forFile").getString("fileName");
-                                    ft_forFile.setText(Html.fromHtml("<u>"+object.getJSONObject("forFile").getString("fileName")+"</u>"));
-                                }else{
-                                    fileName = object.getString("title");
-                                    ft_forFile.setText(Html.fromHtml("<u>"+"外文译文.附件"+"</u>"));
-                                }
+                                ft_forFile.setTextColor(Color.parseColor("#666666"));
                             }
 
-                            if(object.get("oriFileId").equals(0)){
+                            if(object.containsKey("oriFile")){
+                                fileName = object.getJSONObject("oriFile").getString("fileName");
+                                ft_oriFile.setText(Html.fromHtml("<u>"+object.getJSONObject("oriFile").getString("fileName")+"</u>"));
+                            }else{
                                 ft_oriFile.setText("暂无附件");
                                 ft_oriFile.setEnabled(false);
-                            }else{
-                                if(!object.getJSONObject("oriFile").getString("fileName").isEmpty()){
-                                    fileName = object.getJSONObject("oriFile").getString("fileName");
-                                    ft_oriFile.setText(Html.fromHtml("<u>"+object.getJSONObject("oriFile").getString("fileName")+"</u>"));
-                                }else{
-                                    fileName = object.getString("title");
-                                    ft_oriFile.setText(Html.fromHtml("<u>"+"原文.附件"+"</u>"));
-                                }
+                                ft_oriFile.setTextColor(Color.parseColor("#666666"));
                             }
 
                         }else if(obj.get("statusCode").equals(101)){
                             Toast.makeText(StudentForeignTranslationActivity.this, msg, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentForeignTranslationActivity.this,StudentForeignTranslationEditActivity.class);
                             startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentForeignTranslationActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }

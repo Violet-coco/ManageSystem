@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.LoginActivity;
 import com.manage_system.R;
+import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.base.TextClearSuit;
 import com.manage_system.utils.OkManager;
 
@@ -45,9 +46,6 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 	LinearLayout tm_class;
 
 	private OkManager manager;
-	//登录验证请求
-	private String save_info_path="http://www.yuanbw.cn:20086/gpms/rol/modifyRoleInfo";
-	private String path="http://www.yuanbw.cn:20086/gpms/rol/showRoleInfo";
 
 	private String TAG = "保存个人信息修改页面：";
 
@@ -162,7 +160,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 		Log.w(TAG,email);
 		SharedPreferences sp1=getSharedPreferences("loginInfo", MODE_PRIVATE);
 		Log.w(TAG,sp1.getString("token",""));
-		manager.post(save_info_path, map,new okhttp3.Callback() {
+		manager.post(ApiConstants.commonApi + "/modifyRoleInfo", map,new okhttp3.Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
 				Log.e(TAG, "onFailure: ",e);
@@ -179,7 +177,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 							Toast.makeText(PersonInfoActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
 							// 连接接口
 							Map<String, String> map1 = new HashMap<String, String>();
-							manager.post(path, map1,new okhttp3.Callback() {
+							manager.post(ApiConstants.commonApi+"/showRoleInfo", map1,new okhttp3.Callback() {
 								@Override
 								public void onFailure(Call call, IOException e) {
 									Log.e(TAG, "onFailure: ",e);
@@ -204,7 +202,6 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 
 								}
 							});
-							finish();
 						}else{
 							Toast.makeText(PersonInfoActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
 						}

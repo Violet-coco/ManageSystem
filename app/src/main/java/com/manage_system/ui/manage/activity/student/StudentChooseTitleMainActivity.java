@@ -98,18 +98,17 @@ public class StudentChooseTitleMainActivity extends AppCompatActivity {
                         if(obj.get("statusCode").equals(100)){
                             JSONArray array = new JSONArray(obj.getJSONObject("data").getJSONArray("projects"));
                             Log.d(TAG,array.getJSONObject(0).toString());
-                            for (int i = 0; i < Integer.parseInt(obj.getJSONObject("data").getString("count")); i++) {
+                            for (int i = 0; i < array.size(); i++) {
                                 JSONObject object = array.getJSONObject(i);
                                 JSONObject project = object.getJSONObject("project");
                                 JSONObject teacher = object.getJSONObject("teacher");
                                 Log.e(TAG,object.toString());
-//                                String fileName = project.getJSONObject("file").getString("fileName");
-//                                String fileType =  project.getJSONObject("file").getString("fileType");
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("id", project.getString("id"));
                                 map.put("title", project.getString("title"));
                                 map.put("genre", project.getString("genre"));
-                                map.put("name", teacher.getString("name"));
+                                map.put("name", object.getJSONObject("setRole").getString("name"));
+                                map.put("type", object.getJSONObject("setRole").getString("authority"));
                                 map.put("rest", project.getString("rest"));
                                 map.put("number", project.getString("number"));
                                 list.add(map);

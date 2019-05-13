@@ -110,6 +110,7 @@
                         android:id="@+id/ft_forFile"
                         android:layout_weight="1"
                         android:editable="false"
+                        android:textSize="@dimen/sp_14"
                         android:layout_below="@+id/open_record_annex_title"
                         />
 
@@ -148,6 +149,7 @@
                         android:background="@color/white"
                         android:id="@+id/ft_oriFile"
                         android:editable="false"
+                        android:textSize="@dimen/sp_14"
                         android:layout_weight="1"
                         android:layout_below="@+id/open_record_annex_title"
                         />

@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -69,7 +70,7 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
     @BindView(R.id.lr_annotation)
     EditText lr_annotation;
     @BindView(R.id.lr_annex)
-    EditText lr_annex;
+    TextView lr_annex;
     @BindView(R.id.lite_review_edit)
     Button lite_review_edit;
     @BindView(R.id.lite_review_submit)
@@ -205,6 +206,7 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                             }else if(status.equals("1")){
                                 cStatus = "审核通过";
                                 lite_review_submit.setVisibility(View.GONE);
+                                lite_review_edit.setVisibility(View.GONE);
                             }else if(status.equals("2")|| status.equals("3")){
                                 cStatus = "审核中";
                             }
@@ -212,23 +214,21 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                             lr_intro.setText(object.getString("intro"));
                             lr_annotation.setText(object.getString("annotation"));
                             fileId = object.getString("fileId");
-                            if(object.get("fileId").equals(0)){
+                            if(object.containsKey("file")){
+                                lr_annex.setEnabled(true);
+                                fileName = object.getJSONObject("file").getString("fileName");
+                                lr_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
+                            }else{
                                 lr_annex.setText("暂无附件");
                                 lr_annex.setEnabled(false);
-                            }else{
-                                if(!object.getJSONObject("file").getString("fileName").isEmpty()){
-                                    fileName = object.getJSONObject("file").getString("fileName");
-                                    lr_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
-                                }else{
-                                    fileName = object.getString("title");
-                                    lr_annex.setText(Html.fromHtml("<u>"+"中期检查.附件"+"</u>"));
-                                }
+                                lr_annex.setTextColor(Color.parseColor("#666666"));
                             }
 
                         }else if(obj.get("statusCode").equals(101)){
                             Toast.makeText(StudentLiteratureReviewActivity.this, msg, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentLiteratureReviewActivity.this,StudentLiteratureReviewEditActivity.class);
                             startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentLiteratureReviewActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }

@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.manage_system.R;
@@ -53,23 +55,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             holder.project_title.setText(list.get(position).get("title").toString());
             holder.project_teacher.setText("指导老师："+list.get(position).get("name").toString());
             holder.project_number.setText("可选人数："+list.get(position).get("rest").toString());
-            holder.project_state.setVisibility(View.GONE);
-            holder.project_date.setVisibility(View.GONE);
-            holder.project_teachers.setVisibility(View.GONE);
+            holder.project_state_main.setVisibility(View.GONE);
+            holder.project_date_main.setVisibility(View.GONE);
+            holder.project_teachers_main.setVisibility(View.GONE);
         }else if(string.equals("1002")){
             holder.project_title.setText(list.get(position).get("title").toString());
             holder.project_teacher.setText("指导老师："+list.get(position).get("name").toString());
             holder.project_number.setText("审核状态："+list.get(position).get("cStatus").toString());
-            holder.project_state.setVisibility(View.GONE);
-            holder.project_date.setVisibility(View.GONE);
-            holder.project_teachers.setVisibility(View.GONE);
+            holder.project_state_main.setVisibility(View.GONE);
+            holder.project_date_main.setVisibility(View.GONE);
+            holder.project_teachers_main.setVisibility(View.GONE);
         }else if(string.equals("1003")){
             holder.project_title.setText(list.get(position).get("title").toString());
             holder.project_teacher.setText("提交时间："+list.get(position).get("submitDate").toString());
             holder.project_number.setText("记录编号："+list.get(position).get("record_times").toString());
             holder.project_state.setText("审核状态："+list.get(position).get("cStatus").toString());
-            holder.project_date.setVisibility(View.GONE);
-            holder.project_teachers.setVisibility(View.GONE);
+            holder.project_date_main.setVisibility(View.GONE);
+            holder.project_teachers_main.setVisibility(View.GONE);
         }else if(string.equals("2001")){
             holder.project_title.setText(list.get(position).get("title").toString());
             holder.project_teacher.setText("可选人数/容纳人数："+list.get(position).get("rest").toString()+"/"+list.get(position).get("number").toString());
@@ -176,6 +178,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
         private TextView project_state;
         private TextView project_date;
         private TextView project_teachers;
+
+        private TextView project_teacher_item;
+        private TextView project_number_item;
+        private TextView project_state_item;
+        private TextView project_date_item;
+        private TextView project_teachers_item;
+
+        private LinearLayout project_teacher_main;
+        private LinearLayout project_number_main;
+        private LinearLayout project_state_main;
+        private LinearLayout project_date_main;
+        private LinearLayout project_teachers_main;
         public AuthorViewHolder(View itemView) {
             super(itemView);
             project_title = (TextView)itemView.findViewById(R.id.project_title);
@@ -184,6 +198,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             project_state = (TextView)itemView.findViewById(R.id.project_state);
             project_date = (TextView)itemView.findViewById(R.id.project_date);
             project_teachers = (TextView)itemView.findViewById(R.id.project_teachers);
+
+            project_teacher_item = (TextView)itemView.findViewById(R.id.project_teacher_item);
+            project_number_item = (TextView)itemView.findViewById(R.id.project_number_item);
+            project_state_item = (TextView)itemView.findViewById(R.id.project_state_item);
+            project_date_item = (TextView)itemView.findViewById(R.id.project_date_item);
+            project_teachers_item = (TextView)itemView.findViewById(R.id.project_teachers_item);
+
+            project_teacher_main= (LinearLayout) itemView.findViewById(R.id.project_teacher_main);
+            project_number_main = (LinearLayout)itemView.findViewById(R.id.project_number_main);
+            project_state_main = (LinearLayout)itemView.findViewById(R.id.project_state_main);
+            project_date_main= (LinearLayout)itemView.findViewById(R.id.project_date_main);
+            project_teachers_main = (LinearLayout)itemView.findViewById(R.id.project_teachers_main);
         }
     }
 

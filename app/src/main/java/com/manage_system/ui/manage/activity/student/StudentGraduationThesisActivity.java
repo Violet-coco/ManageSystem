@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -97,7 +98,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
     private String id,fileName,path,uploadfile;
     private String fileId,docFileId;
     private int fileIdType = 0;
-    private File file;
+    private File file,file1;
     private Context mContext;
     private String keywords,innovatePoint,cnSummary,enSummary,other,uploadDocFile,uploadAttFile;
 
@@ -223,6 +224,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         }else{
             gt_word.setText("暂无附件");
             gt_word.setEnabled(false);
+            gt_word.setTextColor(Color.parseColor("#666666"));
         }
         if(obj.containsKey("file")){
             fileName = obj.getJSONObject("file").getString("fileName");
@@ -230,6 +232,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         }else{
             gt_annex.setText("暂无附件");
             gt_annex.setEnabled(false);
+            gt_annex.setTextColor(Color.parseColor("#666666"));
         }
     }
 
@@ -275,6 +278,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         }else{
             gt_word.setText("暂无附件");
             gt_word.setEnabled(false);
+            gt_word.setTextColor(Color.parseColor("#666666"));
         }
         if(obj.containsKey("file")){
             fileName = obj.getJSONObject("file").getString("fileName");
@@ -282,6 +286,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         }else{
             gt_annex.setText("暂无附件");
             gt_annex.setEnabled(false);
+            gt_annex.setTextColor(Color.parseColor("#666666"));
         }
     }
 
@@ -294,36 +299,37 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         uploadDocFile=gt_word.getText().toString().trim();
         uploadAttFile=gt_annex.getText().toString().trim();
         OkManager manager = OkManager.getInstance();
-        RequestBody requestBody;
-        if(file == null){
-            requestBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("id", id)
-                    .addFormDataPart("keywords", keywords)
-                    .addFormDataPart("innovatePoint", innovatePoint)
-                    .addFormDataPart("cnSummary", cnSummary)
-                    .addFormDataPart("enSummary", enSummary)
-                    .addFormDataPart("other", other)
-                    .addFormDataPart("docFileId", docFileId)
-                    .addFormDataPart("fileId", fileId)
-                    .addFormDataPart("uploadDocFile", uploadDocFile)
-                    .addFormDataPart("uploadAttFile", uploadAttFile)
-                    .build();
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.setType(MultipartBody.FORM)
+                .addFormDataPart("id", id)
+                .addFormDataPart("keywords", keywords)
+                .addFormDataPart("innovatePoint", innovatePoint)
+                .addFormDataPart("cnSummary", cnSummary)
+                .addFormDataPart("enSummary", enSummary)
+                .addFormDataPart("other", other)
+                .addFormDataPart("docFileId", docFileId)
+                .addFormDataPart("fileId", fileId);
+
+        if(file == null || file1 == null){
+            if(file == null&& file1 !=null){
+                builder.addFormDataPart("uploadDocFile", uploadDocFile)
+                        .addFormDataPart("uploadAttFile", uploadAttFile,RequestBody.create(MediaType.parse("*/*"),file1))
+                        .build();
+            }else if(file1 == null&&file!=null){
+                builder.addFormDataPart("uploadDocFile", uploadDocFile,RequestBody.create(MediaType.parse("*/*"), file))
+                        .addFormDataPart("uploadAttFile", uploadAttFile)
+                        .build();
+            }else{
+                builder.addFormDataPart("uploadDocFile", uploadDocFile)
+                        .addFormDataPart("uploadAttFile", uploadAttFile)
+                        .build();
+            }
         }else{
-            requestBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("id", id)
-                    .addFormDataPart("keywords", keywords)
-                    .addFormDataPart("innovatePoint", innovatePoint)
-                    .addFormDataPart("cnSummary", cnSummary)
-                    .addFormDataPart("enSummary", enSummary)
-                    .addFormDataPart("other", other)
-                    .addFormDataPart("docFileId", docFileId)
-                    .addFormDataPart("fileId", fileId)
-                    .addFormDataPart("uploadDocFile", uploadDocFile, RequestBody.create(MediaType.parse("*/*"), file))
-                    .addFormDataPart("uploadAttFile", uploadAttFile, RequestBody.create(MediaType.parse("*/*"), file))
+            builder.addFormDataPart("uploadDocFile", uploadDocFile,RequestBody.create(MediaType.parse("*/*"), file))
+                    .addFormDataPart("uploadAttFile", uploadAttFile,RequestBody.create(MediaType.parse("*/*"), file1))
                     .build();
         }
+        RequestBody requestBody = builder.build();
 
         manager.postFile(ApiConstants.studentApi + "/modifyGraduationProject", requestBody,new okhttp3.Callback() {
             @Override
@@ -343,6 +349,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
                             Toast.makeText(StudentGraduationThesisActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentGraduationThesisActivity.this,StudentGraduationThesisMainActivity.class);
                             startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentGraduationThesisActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -424,12 +431,14 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
             Uri uri = data.getData();
             if ("file".equalsIgnoreCase(uri.getScheme())){//使用第三方应用打开
                 path = uri.getPath();
-                file = new File(path);
-                uploadfile = file.getName();
                 if(fileIdType == 1){
+                    file = new File(path);
+                    uploadfile = file.getName();
                     gt_word.setText(uploadfile);
                 }
                 if(fileIdType == 2){
+                    file1 = new File(path);
+                    uploadfile = file1.getName();
                     gt_annex.setText(uploadfile);
                 }
                 Toast.makeText(this,path+"11111",Toast.LENGTH_SHORT).show();
@@ -438,12 +447,14 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
                 path = getPath(this, uri);
                 Log.w(TAG,path);
-                file = new File(path);
-                uploadfile = file.getName();
                 if(fileIdType == 1){
+                    file = new File(path);
+                    uploadfile = file.getName();
                     gt_word.setText(uploadfile);
                 }
                 if(fileIdType == 2){
+                    file1 = new File(path);
+                    uploadfile = file1.getName();
                     gt_annex.setText(uploadfile);
                 }
                 Toast.makeText(this,path,Toast.LENGTH_SHORT).show();

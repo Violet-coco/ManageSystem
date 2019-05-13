@@ -69,7 +69,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
     @BindView(R.id.mc_annotation)
     EditText mc_annotation;
     @BindView(R.id.mc_annex)
-    EditText mc_annex;
+    TextView mc_annex;
     @BindView(R.id.tm_middle_check)
     LinearLayout tm_middle_check;
     @BindView(R.id.mc_submit_annex)
@@ -207,6 +207,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                             }else if(status.equals("1")){
                                 cStatus = "审核通过";
                                 middle_check_submit.setVisibility(View.GONE);
+                                middle_check_edit.setVisibility(View.GONE);
                             }else if(status.equals("2")|| status.equals("3")){
                                 cStatus = "审核中";
                             }
@@ -216,6 +217,7 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                             fileId = object.getString("fileId");
                             if(object.containsKey("file")){
                                 fileName = object.getJSONObject("file").getString("fileName");
+                                mc_annex.setEnabled(true);
                                 mc_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
                             }else{
                                 fileName = object.getString("title");

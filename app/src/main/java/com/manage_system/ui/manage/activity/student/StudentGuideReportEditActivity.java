@@ -150,8 +150,9 @@ public class StudentGuideReportEditActivity extends AppCompatActivity implements
                             editor.putString("guide_record",obj.toString());
                             editor.commit();
                             Toast.makeText(StudentGuideReportEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(StudentGuideReportEditActivity.this,StudentGuideReportActivity.class);
+                            Intent intent = new Intent(StudentGuideReportEditActivity.this,StudentGuideReportMainActivity.class);
                             startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentGuideReportEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

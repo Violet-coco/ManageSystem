@@ -102,7 +102,7 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
                 ct_type.setText(project.getString("genre"));
                 ct_resource.setText(project.getString("source"));
                 ct_number.setText(project.getString("rest"));
-                ct_teacher.setText(teacher.getString("name"));
+                ct_teacher.setText(Html.fromHtml("<u>"+teacher.getString("name")+"</u>"));
                 ct_profession.setText(project.getString("major"));
                 ct_time.setText(DateUtil.getDateFormat(object.getString("setDate")));
                 ct_detail.setText(project.getString("briefIntro"));
@@ -161,6 +161,7 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
                 break;
             case R.id.ct_teacher:
                 Intent intent = new Intent(StudentChooseDoneTitleActivity.this,GuideTeacherInfoActivity.class);
+                intent.putExtra("tea_info","from_student_ct_done");
                 startActivity(intent);
                 break;
             case R.id.ct_task:

@@ -159,6 +159,7 @@
                         android:id="@+id/gt_word"
                         android:layout_weight="1"
                         android:editable="false"
+                        android:textSize="@dimen/sp_14"
                         android:layout_below="@+id/litreview_annex_title"
                         />
 
@@ -198,6 +199,7 @@
                         android:background="@color/white"
                         android:id="@+id/gt_annex"
                         android:layout_weight="1"
+                        android:textSize="@dimen/sp_14"
                         android:editable="false"
                         android:layout_below="@+id/litreview_annex_title"
                         />

@@ -198,7 +198,7 @@ public class MainActivity extends BaseActivity {
                             editor.putString("department", obj.getJSONObject("data").getString("department"));
                             editor.putString("email", obj.getJSONObject("data").getString("email"));
                             Log.e(TAG,sp.getString("authority",""));
-                            if(sp.getString("authority","").equals("1")){
+                            if(sp1.getString("authority","").equals("1")){
                                 editor.putString("grade", obj.getJSONObject("data").getString("grade"));
                                 editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
                                 editor.putString("pName", obj.getJSONObject("data").getString("pName"));

@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -90,21 +91,27 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
         JSONArray array = new JSONArray(obj.getJSONObject("data").getJSONArray("projects"));
         JSONObject object = array.getJSONObject(Integer.parseInt(intent.getStringExtra("position")));
         JSONObject project = object.getJSONObject("project");
-        JSONObject teacher = object.getJSONObject("teacher");
-        SharedPreferences.Editor editor=sp.edit();
-        editor.putString("teacher",teacher.toString());
-        editor.commit();
         Log.e(TAG,object.toString());
         if(project.containsKey("file")){
             fileName = project.getJSONObject("file").getString("fileName");
         }else{
             fileName = project.getString("title");
         }
-        ct_topic.setText(project.getString("title"));
+        ct_topic.setText(Html.fromHtml("<u>"+project.getString("title")+"</u>"));
         ct_type.setText(project.getString("genre"));
         ct_resource.setText(project.getString("source"));
         ct_number.setText(project.getString("rest"));
-        ct_teacher.setText(teacher.getString("name"));
+
+        if(object.getJSONObject("setRole").get("authority").equals(4)){
+            ct_teacher.setText(object.getJSONObject("setRole").getString("name"));
+            ct_teacher.setTextColor(Color.parseColor("#666666"));
+            ct_teacher.setEnabled(false);
+        }else{
+            ct_teacher.setText(Html.fromHtml("<u>"+object.getJSONObject("setRole").getString("name")+"</u>"));
+            SharedPreferences.Editor editor=sp.edit();
+            editor.putString("teacher",object.getJSONObject("teacher").toString());
+            editor.commit();
+        }
         ct_profession.setText(project.getString("major"));
         ct_time.setText(DateUtil.getDateFormat(object.getString("setDate")));
         if(project.containsKey("taskBook")){
@@ -113,6 +120,7 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
         }else{
             ct_task.setEnabled(false);
             ct_task.setText("暂无任务书");
+            ct_task.setTextColor(Color.parseColor("#666666"));
         }
 
         if(project.containsKey("file")){
@@ -121,6 +129,7 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
         }else{
             ct_annex.setEnabled(false);
             ct_annex.setText("暂无附件");
+            ct_annex.setTextColor(Color.parseColor("#666666"));
         }
         ct_detail.setText(project.getString("briefIntro"));
 
@@ -158,6 +167,7 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
                 break;
             case R.id.ct_teacher:
                 Intent intent = new Intent(StudentChooseTitleActivity.this,GuideTeacherInfoActivity.class);
+                intent.putExtra("tea_info","from_student_ct");
                 startActivity(intent);
                 break;
             case R.id.ct_task:

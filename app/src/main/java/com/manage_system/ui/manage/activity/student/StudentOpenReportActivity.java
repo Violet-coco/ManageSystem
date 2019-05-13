@@ -80,7 +80,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
     @BindView(R.id.or_annotation)
     EditText or_annotation;
     @BindView(R.id.or_annex)
-    EditText or_annex;
+    TextView or_annex;
     @BindView(R.id.or_annotation_main)
     RelativeLayout or_annotation_main;
     @BindView(R.id.tm_open_record)
@@ -235,6 +235,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                             }else if(status.equals("1")){
                                 cStatus = "审核通过";
                                 open_record_submit.setVisibility(View.GONE);
+                                open_record_edit.setVisibility(View.GONE);
                             }else if(status.equals("2")|| status.equals("3")){
                                 cStatus = "审核中";
                             }
@@ -247,6 +248,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                             fileId = object.getString("fileId");
                             if(object.containsKey("file")){
                                 fileName = object.getJSONObject("file").getString("fileName");
+                                or_annex.setEnabled(true);
                                 or_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
                             }else{
                                 fileName = object.getString("title");

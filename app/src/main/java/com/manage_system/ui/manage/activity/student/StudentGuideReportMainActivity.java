@@ -115,6 +115,9 @@ public class StudentGuideReportMainActivity extends AppCompatActivity {
                                     cStatus = "审核中";
                                 }
 
+                                Log.w(TAG,"=================");
+                                Log.w(TAG,sp.getString("name" , ""));
+                                Log.w(TAG,sp.getString("pName" , ""));
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("id", object.getString("id"));
                                 map.put("title", sp.getString("pName" , ""));
@@ -139,6 +142,7 @@ public class StudentGuideReportMainActivity extends AppCompatActivity {
                                     editor.putString("guide_record",obj.getJSONArray("data").getJSONObject(position).toString());
                                     editor.commit();
                                     startActivity(intent);
+                                    finish();
                                     Toast.makeText(StudentGuideReportMainActivity.this , list.get(position).get("title").toString() , Toast.LENGTH_SHORT).show();
                                 }
                             });
