@@ -185,6 +185,7 @@
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherThesisCommentActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherThesisCommentDetailActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherThesisCommentMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.teacher.TeacherListMainActivity"/>
 
         <!--系主任题目管理-->
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerCtReportMainActivity"/>

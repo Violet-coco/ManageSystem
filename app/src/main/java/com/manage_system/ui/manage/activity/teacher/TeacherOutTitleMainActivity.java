@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -41,6 +42,8 @@ public class TeacherOutTitleMainActivity extends AppCompatActivity {
     RelativeLayout tool_bar;
     @BindView(R.id.iv_back)
     ImageButton iv_back;
+    @BindView(R.id.top_title)
+    TextView top_title;
 
     public List<Map<String,Object>> list=new ArrayList<>();
 
@@ -52,6 +55,7 @@ public class TeacherOutTitleMainActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_tab);
         ButterKnife.bind(this);
         tool_bar.setVisibility(View.VISIBLE);
+        top_title.setText("已出课题");
         initData();
     }
 
@@ -107,7 +111,7 @@ public class TeacherOutTitleMainActivity extends AppCompatActivity {
                                     cStatus = "审核中";
                                 }
                                 map.put("cStatus", cStatus);
-                                if(project.containsKey("taskBook")){
+                                if(project.getJSONObject("taskBook").containsKey("file")){
                                     map.put("taskBook", "已上传");
                                 }else{
                                     map.put("taskBook", "未上传");
@@ -127,6 +131,7 @@ public class TeacherOutTitleMainActivity extends AppCompatActivity {
                                     intent.putExtra("position",position + "");
                                     startActivity(intent);
                                     Toast.makeText(TeacherOutTitleMainActivity.this , list.get(position).get("title").toString() , Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             });
                             recycleView.setAdapter(adapter);

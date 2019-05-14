@@ -100,6 +100,7 @@ public class TeacherCheckTitleActivity extends AppCompatActivity implements View
         String cStatus = null;
         if(object.getString("cStatus").equals("0")){
             cStatus = "审核不通过";
+            ot_check_pass.setVisibility(View.GONE);
         }else if(object.getString("cStatus").equals("1")){
             cStatus = "审核通过";
             ot_check_pass.setVisibility(View.GONE);
@@ -131,6 +132,7 @@ public class TeacherCheckTitleActivity extends AppCompatActivity implements View
                 break;
             case R.id.ot_name_id:
                 intent = new Intent(TeacherCheckTitleActivity.this,GuideStudentInfoActivity.class);
+                intent.putExtra("stu_info","");
                 startActivity(intent);
                 break;
             default:

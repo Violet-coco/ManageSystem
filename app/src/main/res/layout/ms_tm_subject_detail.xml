@@ -158,11 +158,11 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="任务书" />
 
-                <EditText
+                <TextView
                     style="@style/edit_item_ms_border_content"
-                    android:editable="false"
                     android:id="@+id/ot_taskBook"
                     android:textColor="@color/blue"
+                    android:textSize="@dimen/sp_14"
                     android:layout_below="@+id/subject_task"
                     />
 

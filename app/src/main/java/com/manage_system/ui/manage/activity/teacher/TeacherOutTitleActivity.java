@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -62,7 +63,7 @@ public class TeacherOutTitleActivity extends AppCompatActivity implements View.O
     @BindView(R.id.ot_able)
     EditText ot_able;
     @BindView(R.id.ot_taskBook)
-    EditText ot_taskBook;
+    TextView ot_taskBook;
     @BindView(R.id.ot_state)
     EditText ot_state;
     @BindView(R.id.ot_item_edit)
@@ -94,18 +95,25 @@ public class TeacherOutTitleActivity extends AppCompatActivity implements View.O
         editor.commit();
         JSONObject project = object.getJSONObject("project");
         Log.e(TAG,object.toString());
-        ot_title.setText(project.getString("title"));
+        ot_title.setText(Html.fromHtml("<u>"+project.getString("title")+"</u>"));
         ot_type.setText(project.getString("genre"));
         ot_source.setText(project.getString("source"));
         ot_able.setText(project.getString("rest")+"/"+project.getString("number"));
         if(project.containsKey("taskBook")){
-            task_fileId = project.getJSONObject("taskBook").getString("fileId");
-            fileName = project.getJSONObject("taskBook").getJSONObject("file").getString("fileName");
-            ot_taskBook.setText(Html.fromHtml("<u>"+project.getJSONObject("taskBook").getJSONObject("file").getString("fileName")+"</u>"));
-        }else{
-            fileName = project.getString("title");
             ot_taskBook.setEnabled(false);
             ot_taskBook.setText("暂无任务书");
+            ot_taskBook.setTextColor(Color.parseColor("#666666"));
+            task_fileId = project.getJSONObject("taskBook").getString("fileId");
+            if(project.getJSONObject("taskBook").containsKey("file")){
+                ot_taskBook.setEnabled(true);
+                ot_taskBook.setTextColor(Color.BLUE);
+                fileName = project.getJSONObject("taskBook").getJSONObject("file").getString("fileName");
+                ot_taskBook.setText(Html.fromHtml("<u>"+project.getJSONObject("taskBook").getJSONObject("file").getString("fileName")+"</u>"));
+            }
+        }else{
+            ot_taskBook.setEnabled(false);
+            ot_taskBook.setText("暂无任务书");
+            ot_taskBook.setTextColor(Color.parseColor("#666666"));
         }
         String cStatus = null;
         if(object.getString("cStatus").equals("0")){
@@ -140,6 +148,7 @@ public class TeacherOutTitleActivity extends AppCompatActivity implements View.O
                 intent = new Intent(TeacherOutTitleActivity.this,TeacherOutTitleDetailActivity.class);
                 intent.putExtra("from_way","ot_out");
                 startActivity(intent);
+                finish();
                 break;
             case R.id.ot_taskBook:
                 downLoad("下载文件","确认下载任务书？",task_fileId);
@@ -148,11 +157,13 @@ public class TeacherOutTitleActivity extends AppCompatActivity implements View.O
                 intent = new Intent(TeacherOutTitleActivity.this,TeacherOutTitleUploadActivity.class);
                 intent.putExtra("method", "edit_all");
                 startActivity(intent);
+                finish();
                 break;
             case R.id.ot_item_edit_taskBook:
                 intent = new Intent(TeacherOutTitleActivity.this,TeacherOutTitleUploadActivity.class);
                 intent.putExtra("method", "edit_task");
                 startActivity(intent);
+                finish();
                 break;
             case R.id.ot_item_del:
                 showDialog();

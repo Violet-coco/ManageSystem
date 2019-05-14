@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.manage_system.R;
+import com.manage_system.ui.manage.activity.teacher.TeacherListMainActivity;
 import com.manage_system.ui.personal.GuideStudentInfoActivity;
 import com.manage_system.ui.personal.GuideTeacherInfoActivity;
 import com.manage_system.utils.DateUtil;
@@ -77,44 +79,59 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             holder.project_teacher.setText("可选人数/容纳人数："+list.get(position).get("rest").toString()+"/"+list.get(position).get("number").toString());
             holder.project_number.setText("审核状态："+list.get(position).get("cStatus").toString());
             holder.project_state.setText("任务书："+list.get(position).get("taskBook").toString());
-            holder.project_date.setVisibility(View.GONE);
-            holder.project_teachers.setVisibility(View.GONE);
+            holder.project_date_main.setVisibility(View.GONE);
+            holder.project_teachers_main.setVisibility(View.GONE);
         }else if(string.equals("2002")){
             holder.project_title.setText(list.get(position).get("title").toString());
             holder.project_teacher.setText("学生（学号）："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
             holder.project_number.setText("审核状态："+list.get(position).get("cStatus").toString());
-            holder.project_state.setVisibility(View.GONE);
-            holder.project_date.setVisibility(View.GONE);
-            holder.project_teachers.setVisibility(View.GONE);
+            holder.project_state_main.setVisibility(View.GONE);
+            holder.project_date_main.setVisibility(View.GONE);
+            holder.project_teachers_main.setVisibility(View.GONE);
         }else if(string.equals("2003")){
             holder.project_title.setVisibility(View.GONE);
             holder.project_date.setText("答辩时间："+DateUtil.getDateFormat(list.get(position).get("defDate").toString())+" "+"第"+list.get(position).get("defWeek").toString()+"周 星期"+list.get(position).get("defDay").toString());
             holder.project_teacher.setText("答辩教室："+list.get(position).get("defClass").toString());
-            holder.project_number.setText("答辩组长："+list.get(position).get("leader_name").toString());
+            holder.project_number.setText("答辩组长：");
+            holder.project_number_item.setText(list.get(position).get("leader_name").toString());
             holder.project_state.setText("分组："+"第"+list.get(position).get("groupNum").toString()+"组");
-            holder.project_teachers.setText("答辩教师："+list.get(position).get("reply_teachers").toString());
+            holder.project_teachers.setText("答辩教师：");
+            holder.project_teachers_item.setText(list.get(position).get("reply_teachers").toString());
 
-            holder.project_number.setTextColor(Color.BLUE);
+            holder.project_number_item.setTextColor(Color.BLUE);
+            holder.project_teachers_item.setTextColor(Color.BLUE);
 
-            holder.project_number.setOnClickListener(new View.OnClickListener() {
+            holder.look_info.setVisibility(View.VISIBLE);
+            holder.look_info.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(v.getContext(),GuideTeacherInfoActivity.class);
-                    intent.putExtra("tea_info","from_reply");
+                    Intent intent=new Intent(v.getContext(),TeacherListMainActivity.class);
+                    Log.w(TAG,list.get(position).get("teachersInfo").toString());
+                    intent.putExtra("teachersInfo",list.get(position).get("teachersInfo").toString());
                     v.getContext().startActivity(intent);
                 }
             });
+
+//            holder.project_number_item.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent=new Intent(v.getContext(),GuideTeacherInfoActivity.class);
+//                    intent.putExtra("tea_info","from_reply");
+//                    v.getContext().startActivity(intent);
+//                }
+//            });
         }else if(string.equals("2004")){
             holder.project_title.setText(list.get(position).get("pName").toString());
-            holder.project_date.setText("答辩学生："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
+            holder.project_date.setText("答辩学生：");
+            holder.project_date_item.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
             holder.project_teacher.setText("答辩教师："+list.get(position).get("gt_name").toString()+"（"+list.get(position).get("gt_identifier").toString()+"）");
-            holder.project_number.setVisibility(View.GONE);
-            holder.project_state.setVisibility(View.GONE);
-            holder.project_teachers.setVisibility(View.GONE);
+            holder.project_number_main.setVisibility(View.GONE);
+            holder.project_state_main.setVisibility(View.GONE);
+            holder.project_teachers_main.setVisibility(View.GONE);
 
             holder.project_date.setTextColor(Color.BLUE);
 
-            holder.project_date.setOnClickListener(new View.OnClickListener() {
+            holder.project_date_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(v.getContext(),GuideStudentInfoActivity.class);
@@ -128,29 +145,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             holder.project_date.setText("答辩学生："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
             holder.project_teacher.setText("答辩教师："+list.get(position).get("gt_name").toString()+"（"+list.get(position).get("gt_identifier").toString()+"）");
             holder.project_number.setText("分数："+list.get(position).get("scoreTotal").toString());
-            holder.project_state.setVisibility(View.GONE);
-            holder.project_teachers.setVisibility(View.GONE);
+            holder.project_state_main.setVisibility(View.GONE);
+            holder.project_teachers_main.setVisibility(View.GONE);
         }else if(string.equals("2006")){
             holder.project_title.setText(list.get(position).get("pName").toString());
             holder.project_date.setText("答辩学生："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
             holder.project_teacher.setText(list.get(position).get("def_name1").toString() + "　"+list.get(position).get("scoreTotal1").toString());
             holder.project_number.setText(list.get(position).get("def_name2").toString() + "　"+list.get(position).get("scoreTotal2").toString());
             holder.project_state.setText(list.get(position).get("def_name3").toString() + "　"+list.get(position).get("scoreTotal3").toString());
-            holder.project_teachers.setVisibility(View.GONE);
+            holder.project_teachers_main.setVisibility(View.GONE);
         }else if(string.equals("2009")){
             holder.project_title.setText(list.get(position).get("pName").toString());
             holder.project_date.setText("答辩学生："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
             holder.project_teacher.setText("评审分数："+list.get(position).get("score").toString());
             holder.project_number.setText("是否同意答辩："+list.get(position).get("attendDefence").toString());
-            holder.project_state.setVisibility(View.GONE);
-            holder.project_teachers.setVisibility(View.GONE);
+            holder.project_state_main.setVisibility(View.GONE);
+            holder.project_teachers_main.setVisibility(View.GONE);
         }else if(string.equals("2011")){
             holder.project_title.setText(list.get(position).get("pName").toString());
             holder.project_teacher.setText("答辩学生："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
             holder.project_number.setText("分　　数："+list.get(position).get("scoreTotal").toString());
-            holder.project_state.setVisibility(View.GONE);
-            holder.project_date.setVisibility(View.GONE);
-            holder.project_teachers.setVisibility(View.GONE);
+            holder.project_state_main.setVisibility(View.GONE);
+            holder.project_date_main.setVisibility(View.GONE);
+            holder.project_teachers_main.setVisibility(View.GONE);
         }
 
 
@@ -178,6 +195,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
         private TextView project_state;
         private TextView project_date;
         private TextView project_teachers;
+        private Button look_info;
 
         private TextView project_teacher_item;
         private TextView project_number_item;
@@ -198,6 +216,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             project_state = (TextView)itemView.findViewById(R.id.project_state);
             project_date = (TextView)itemView.findViewById(R.id.project_date);
             project_teachers = (TextView)itemView.findViewById(R.id.project_teachers);
+            look_info = (Button)itemView.findViewById(R.id.look_info);
 
             project_teacher_item = (TextView)itemView.findViewById(R.id.project_teacher_item);
             project_number_item = (TextView)itemView.findViewById(R.id.project_number_item);

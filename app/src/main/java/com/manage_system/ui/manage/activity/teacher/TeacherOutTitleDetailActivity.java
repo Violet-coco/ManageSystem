@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -69,7 +70,7 @@ public class TeacherOutTitleDetailActivity extends AppCompatActivity implements 
     @BindView(R.id.ot_range)
     EditText ot_range;
     @BindView(R.id.ot_taskBook)
-    EditText ot_taskBook;
+    TextView ot_taskBook;
     @BindView(R.id.tm_pass)
     LinearLayout tm_pass;
     private static String TAG = "选题详细界面";
@@ -124,10 +125,11 @@ public class TeacherOutTitleDetailActivity extends AppCompatActivity implements 
         ot_range.setText(project.getString("range"));
         ot_able.setText(project.getString("rest")+"/"+project.getString("number"));
         ot_intro.setText(project.getString("briefIntro"));
-//        ot_time.setText(DateUtil.getDateFormat(obj.getString("setDate")));
-        if(project.containsKey("taskBook")){
+        ot_time.setText(DateUtil.getDateFormat(obj.getString("setDate")));
+        if(project.getJSONObject("taskBook").containsKey("file")){
             task_fileId = project.getJSONObject("taskBook").getString("fileId");
-            ot_taskBook.setText(Html.fromHtml("<u>"+project.getJSONObject("taskBook").getString("task")+"</u>"));
+            ot_taskBook.setTextColor(Color.BLUE);
+            ot_taskBook.setText(Html.fromHtml("<u>"+project.getJSONObject("taskBook").getJSONObject("file").getString("fileName")+"</u>"));
         }else{
             ot_taskBook.setEnabled(false);
             ot_taskBook.setText("暂无任务书");

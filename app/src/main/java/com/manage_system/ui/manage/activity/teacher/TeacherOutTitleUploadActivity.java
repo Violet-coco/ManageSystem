@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -75,13 +76,13 @@ public class TeacherOutTitleUploadActivity extends AppCompatActivity implements 
     @BindView(R.id.ot_range)
     Spinner ot_range;
     @BindView(R.id.ot_taskBook)
-    EditText ot_taskBook;
+    TextView ot_taskBook;
     @BindView(R.id.ot_referData)
     EditText ot_referData;
     @BindView(R.id.ot_task)
     EditText ot_task;
     @BindView(R.id.ot_annex)
-    EditText ot_annex;
+    TextView ot_annex;
     @BindView(R.id.up_main)
     LinearLayout up_main;
     private static String TAG = "上传选题界面";
@@ -177,13 +178,23 @@ public class TeacherOutTitleUploadActivity extends AppCompatActivity implements 
         }else{
             ot_annex.setEnabled(false);
             ot_annex.setText("暂无附件");
+            ot_taskBook.setTextColor(Color.parseColor("#666666"));
         }
         if(project.containsKey("taskBook")){
+            ot_taskBook.setEnabled(false);
+            ot_taskBook.setText("暂无任务书");
+            ot_taskBook.setTextColor(Color.parseColor("#666666"));
             task_fileId = project.getJSONObject("taskBook").getString("fileId");
-            ot_taskBook.setText(Html.fromHtml("<u>"+project.getJSONObject("taskBook").getJSONObject("file").getString("fileName")+"</u>"));
+            if(project.getJSONObject("taskBook").containsKey("file")){
+                ot_taskBook.setEnabled(true);
+                ot_taskBook.setTextColor(Color.BLUE);
+                ot_taskBook.setText(Html.fromHtml("<u>"+project.getJSONObject("taskBook").getJSONObject("file").getString("fileName")+"</u>"));
+            }
+
         }else{
             ot_taskBook.setEnabled(false);
             ot_taskBook.setText("暂无任务书");
+            ot_taskBook.setTextColor(Color.parseColor("#666666"));
         }
     }
 

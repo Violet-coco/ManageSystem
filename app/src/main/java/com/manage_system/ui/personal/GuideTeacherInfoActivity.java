@@ -134,16 +134,13 @@ public class GuideTeacherInfoActivity extends AppCompatActivity implements View.
                         if(obj.get("statusCode").equals(100)){
                             JSONArray array = new JSONArray(obj.getJSONArray("data"));
                             Log.d(TAG,array.toString());
-                            for (int i = 0; i < array.size(); i++) {
-                                JSONObject object = array.getJSONObject(i);
-                                if(object.getBooleanValue("defLeader")){
-                                    t_name_id.setText(object.getString("name")+"（"+object.getString("identifier")+"）");
-                                    t_pro.setText(object.getString("title"));
-                                    t_email.setText(object.getString("email"));
-                                    t_phone.setText(object.getString("bindTel"));
-                                    t_college.setText(object.getString("college"));
-                                }
-                            }
+                            Intent intent = getIntent();
+                            JSONObject object = array.getJSONObject(Integer.parseInt(intent.getStringExtra("position")));
+                            t_name_id.setText(object.getString("name")+"（"+object.getString("identifier")+"）");
+                            t_pro.setText(object.getString("title"));
+                            t_email.setText(object.getString("email"));
+                            t_phone.setText(object.getString("bindTel"));
+                            t_college.setText(object.getString("college"));
 
                         }else{
                             Toast.makeText(GuideTeacherInfoActivity.this, msg, Toast.LENGTH_SHORT).show();

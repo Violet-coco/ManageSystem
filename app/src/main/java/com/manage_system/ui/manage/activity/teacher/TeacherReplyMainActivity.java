@@ -90,7 +90,6 @@ public class TeacherReplyMainActivity extends AppCompatActivity {
                 Log.e(TAG,responseBody);
                 final JSONObject obj = JSON.parseObject(responseBody);
                 final String msg = obj.getString("msg");
-                Log.e(TAG,responseBody);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -108,21 +107,19 @@ public class TeacherReplyMainActivity extends AppCompatActivity {
                             String reply_teachers = "";
                             Log.d(TAG,array.toString());
                             for (int i = 0; i < array.size(); i++) {
-                                Log.e(TAG,"ttt");
                                 JSONObject object = array.getJSONObject(i);
                                 if(object.getBooleanValue("leader")){
-                                    leader_name = object.getJSONObject("teaAuth").getString("name");
-                                    Log.e(TAG,"hhh");
+                                    leader_name = leader_name + "  " + object.getJSONObject("teaAuth").getString("name");
                                 }else {
                                     reply_teacher_name = object.getJSONObject("teaAuth").getString("name");
                                     reply_teachers = reply_teachers + reply_teacher_name + " ";
                                 }
                             }
-                            Log.e(TAG,leader_name+"111");
-                            Log.e(TAG,reply_teacher_name+"2222");
-                            Log.e(TAG,reply_teachers+"2222");
+                            map.put("teachersInfo",obj.getJSONObject("data").toString());
+
                             map.put("leader_name",leader_name);
                             map.put("reply_teachers",reply_teachers);
+
                             list.add(map);
                             recycleView.setLayoutManager(new LinearLayoutManager(TeacherReplyMainActivity.this,LinearLayoutManager.VERTICAL,false));
 //                            设置适配器

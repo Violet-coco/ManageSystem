@@ -85,6 +85,12 @@
         -->
     </style>
 
+    <style name="lv" parent="match_match">
+        <item name="android:listSelector">@drawable/to_alpha</item>
+        <item name="android:divider">@color/alpha_3</item>
+        <item name="android:dividerHeight">1px</item>
+    </style>
+
     <!-- 以后新增的任何系统组件(View)名都用简写（取单词首字母，SurfaceView简写为sfv）；其它都不简写 -->
     <style name="content_item">
         <item name="android:layout_height">50dp</item>
