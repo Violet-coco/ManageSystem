@@ -48,7 +48,7 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
 
     ImageButton iv_back;
     Button ct_is_choose;
-    EditText ct_teacher;
+    TextView ct_teacher;
     EditText ct_topic,ct_type,ct_resource,ct_number;
     private String id = null;
     private String task_fileId = null;
@@ -60,9 +60,9 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
     @BindView(R.id.ct_time)
     EditText ct_time;
     @BindView(R.id.ct_task)
-    EditText ct_task;
+    TextView ct_task;
     @BindView(R.id.ct_annex)
-    EditText ct_annex;
+    TextView ct_annex;
     @BindView(R.id.ct_detail)
     EditText ct_detail;
 
@@ -97,7 +97,7 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
         }else{
             fileName = project.getString("title");
         }
-        ct_topic.setText(Html.fromHtml("<u>"+project.getString("title")+"</u>"));
+        ct_topic.setText(project.getString("title"));
         ct_type.setText(project.getString("genre"));
         ct_resource.setText(project.getString("source"));
         ct_number.setText(project.getString("rest"));
@@ -152,7 +152,7 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
         iv_back.setOnClickListener(this);
         ct_is_choose = (Button)findViewById(R.id.ct_is_choose);
         ct_is_choose.setOnClickListener(this);
-        ct_teacher = (EditText)findViewById(R.id.ct_teacher);
+        ct_teacher = (TextView) findViewById(R.id.ct_teacher);
         ct_teacher.setOnClickListener(this);
     }
 

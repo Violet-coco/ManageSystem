@@ -152,13 +152,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <EditText
+                    <TextView
                         style="@style/edit_item_ms_border_check"
                         android:textColor="@color/blue"
                         android:background="@color/white"
                         android:id="@+id/gt_word"
                         android:layout_weight="1"
-                        android:editable="false"
                         android:textSize="@dimen/sp_14"
                         android:layout_below="@+id/litreview_annex_title"
                         />
@@ -193,14 +192,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <EditText
+                    <TextView
                         style="@style/edit_item_ms_border_check"
                         android:textColor="@color/blue"
                         android:background="@color/white"
                         android:id="@+id/gt_annex"
                         android:layout_weight="1"
                         android:textSize="@dimen/sp_14"
-                        android:editable="false"
                         android:layout_below="@+id/litreview_annex_title"
                         />
 

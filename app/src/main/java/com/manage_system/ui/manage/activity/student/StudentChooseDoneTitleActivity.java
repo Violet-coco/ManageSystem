@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -47,7 +48,7 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
 
     ImageButton iv_back;
     Button ct_is_choose;
-    EditText ct_teacher;
+    TextView ct_teacher;
     EditText ct_topic,ct_type,ct_resource,ct_number;
     private String id = null;
     private String task_fileId = null;
@@ -59,9 +60,9 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
     @BindView(R.id.ct_time)
     EditText ct_time;
     @BindView(R.id.ct_task)
-    EditText ct_task;
+    TextView ct_task;
     @BindView(R.id.ct_annex)
-    EditText ct_annex;
+    TextView ct_annex;
     @BindView(R.id.ct_detail)
     EditText ct_detail;
     private String TAG = "已选题界面";
@@ -112,6 +113,7 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
                 }else{
                     ct_task.setEnabled(false);
                     ct_task.setText("暂无任务书");
+                    ct_annex.setTextColor(Color.parseColor("#666666"));
                 }
 
                 if(project.containsKey("file")){
@@ -120,6 +122,7 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
                 }else{
                     ct_annex.setEnabled(false);
                     ct_annex.setText("暂无附件");
+                    ct_annex.setTextColor(Color.parseColor("#666666"));
                 }
                 SharedPreferences.Editor editor=sp.edit();
                 editor.putString("teacher",teacher.toString());
@@ -146,7 +149,7 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
         iv_back.setOnClickListener(this);
         ct_is_choose = (Button)findViewById(R.id.ct_is_choose);
         ct_is_choose.setOnClickListener(this);
-        ct_teacher = (EditText)findViewById(R.id.ct_teacher);
+        ct_teacher = (TextView) findViewById(R.id.ct_teacher);
         ct_teacher.setOnClickListener(this);
     }
 

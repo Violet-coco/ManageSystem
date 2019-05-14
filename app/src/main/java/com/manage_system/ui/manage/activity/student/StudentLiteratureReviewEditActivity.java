@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -41,7 +42,7 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
     @BindView(R.id.lr_intro)
     EditText lr_intro;
     @BindView(R.id.lr_annex)
-    EditText lr_annex;
+    TextView lr_annex;
     @BindView(R.id.lite_review_submit)
     Button lite_review_submit;
     @BindView(R.id.lite_review_annex)

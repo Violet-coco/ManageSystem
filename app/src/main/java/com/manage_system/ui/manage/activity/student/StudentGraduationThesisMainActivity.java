@@ -140,6 +140,7 @@ public class StudentGraduationThesisMainActivity extends AppCompatActivity {
                                     editor.commit();
                                     startActivity(intent);
                                     Toast.makeText(StudentGraduationThesisMainActivity.this , list.get(position).get("title").toString() , Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             });
                             recycleView.setAdapter(adapter);
@@ -149,6 +150,7 @@ public class StudentGraduationThesisMainActivity extends AppCompatActivity {
                             Toast.makeText(StudentGraduationThesisMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentGraduationThesisMainActivity.this,StudentGraduationThesisEditActivity.class);
                             startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentGraduationThesisMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }

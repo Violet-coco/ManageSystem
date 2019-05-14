@@ -103,13 +103,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <EditText
+                    <TextView
                         style="@style/edit_item_ms_border_check"
                         android:textColor="@color/blue"
                         android:background="@color/white"
                         android:id="@+id/ft_forFile"
                         android:layout_weight="1"
-                        android:editable="false"
                         android:textSize="@dimen/sp_14"
                         android:layout_below="@+id/open_record_annex_title"
                         />
@@ -143,12 +142,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <EditText
+                    <TextView
                         style="@style/edit_item_ms_border_check"
                         android:textColor="@color/blue"
                         android:background="@color/white"
                         android:id="@+id/ft_oriFile"
-                        android:editable="false"
                         android:textSize="@dimen/sp_14"
                         android:layout_weight="1"
                         android:layout_below="@+id/open_record_annex_title"

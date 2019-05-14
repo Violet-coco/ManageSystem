@@ -79,6 +79,7 @@
                 <TextView
                     android:id="@+id/guide_record_annex_title"
                     style="@style/edit_item_ms_border_title"
+                    android:textSize="@dimen/sp_14"
                     android:text="附件" />
 
                 <LinearLayout

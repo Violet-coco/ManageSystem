@@ -132,6 +132,8 @@
         <activity android:name="com.manage_system.test.MainActivity1" />
         <activity android:name="com.manage_system.test.ClipImageActivity"/>
 
+        <!--公共模块-->
+
         <!--学生选题-->
         <activity android:name="com.manage_system.ui.manage.activity.student.StudentChooseTitleActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.student.StudentChooseTitleMainActivity"/>

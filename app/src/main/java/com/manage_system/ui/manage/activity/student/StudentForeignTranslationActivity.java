@@ -71,9 +71,9 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
     @BindView(R.id.ft_annotation)
     EditText ft_annotation;
     @BindView(R.id.ft_forFile)
-    EditText ft_forFile;
+    TextView ft_forFile;
     @BindView(R.id.ft_oriFile)
-    EditText ft_oriFile;
+    TextView ft_oriFile;
     @BindView(R.id.for_tra_edit)
     Button for_tra_edit;
     @BindView(R.id.for_tra_submit)
@@ -404,6 +404,7 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                             Toast.makeText(StudentForeignTranslationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentForeignTranslationActivity.this,StudentForeignTranslationActivity.class);
                             startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentForeignTranslationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -447,6 +448,7 @@ public class StudentForeignTranslationActivity extends AppCompatActivity impleme
                             Toast.makeText(StudentForeignTranslationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentForeignTranslationActivity.this,TeacherCheckDataMainActivity.class);
                             startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentForeignTranslationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

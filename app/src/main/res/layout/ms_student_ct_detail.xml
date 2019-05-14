@@ -89,9 +89,8 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="指导教师" />
 
-                <EditText
+                <TextView
                     style="@style/edit_item_ms_border_content"
-                    android:editable="false"
                     android:id="@+id/ct_teacher"
                     android:layout_below="@+id/ct_teacher_title"
                     android:textColor="@color/blue_light"
@@ -162,11 +161,10 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="任务书" />
 
-                <EditText
+                <TextView
                     style="@style/edit_item_ms_border_content"
                     android:textColor="@color/blue"
                     android:autoLink="all"
-                    android:editable="false"
                     android:id="@+id/ct_task"
                     android:layout_below="@+id/ct_task_title"
                      />
@@ -182,11 +180,10 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="附件" />
 
-                <EditText
+                <TextView
                     style="@style/edit_item_ms_border_content"
                     android:textColor="@color/blue"
                     android:autoLink="all"
-                    android:editable="false"
                     android:id="@+id/ct_annex"
                     android:layout_below="@+id/ct_annex_title"
                      />

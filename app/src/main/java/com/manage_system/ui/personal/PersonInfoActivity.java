@@ -1,5 +1,6 @@
 package com.manage_system.ui.personal;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +22,7 @@ import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.base.TextClearSuit;
+import com.manage_system.ui.manage.Manage;
 import com.manage_system.utils.OkManager;
 
 import java.io.IOException;
@@ -136,7 +138,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 				finish();
 				break;
 			case R.id.person_info_save:
-				savePersonInfo();
+				showDialog();
 				break;
 			default:
 				break;
@@ -151,9 +153,17 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 		// 连接接口
 		manager = OkManager.getInstance();
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("bindTel", bindTel);
-		map.put("contactTel", contactTel);
-		map.put("email", email);
+
+		SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
+		if(!bindTel.equals(sp.getString("bindTel" , ""))){
+			map.put("bindTel", bindTel);
+		}
+		if(!contactTel.equals(sp.getString("contactTel" , ""))){
+			map.put("contactTel", contactTel);
+		}
+		if(!email.equals(sp.getString("email" , ""))){
+			map.put("email", email);
+		}
 
 		Log.w(TAG,bindTel);
 		Log.w(TAG,contactTel);
@@ -175,39 +185,42 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 					public void run() {
 						if(obj.get("statusCode").equals(100)){
 							Toast.makeText(PersonInfoActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-							// 连接接口
-							Map<String, String> map1 = new HashMap<String, String>();
-							manager.post(ApiConstants.commonApi+"/showRoleInfo", map1,new okhttp3.Callback() {
-								@Override
-								public void onFailure(Call call, IOException e) {
-									Log.e(TAG, "onFailure: ",e);
-								}
-								@Override
-								public void onResponse(Call call, Response response) throws IOException {
-									String responseBody = response.body().string();
-									final JSONObject obj = JSON.parseObject(responseBody);
-									Log.e(TAG,obj.toString());
-									runOnUiThread(new Runnable() {
-										@Override
-										public void run() {
-											SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
-											//获取编辑器
-											SharedPreferences.Editor editor=sp.edit();
-											editor.putString("bindTel",obj.getJSONObject("data").getString("bindTel"));
-											editor.putString("contactTel",obj.getJSONObject("data").getString("contactTel"));
-											editor.putString("email",obj.getJSONObject("data").getString("email"));
-											editor.commit();
-										}
-									});
-
-								}
-							});
+							Intent intent = new Intent(PersonInfoActivity.this,PersonInfoActivity.class);
+							startActivity(intent);
+							finish();
+							Manage.getPersonData();
 						}else{
 							Toast.makeText(PersonInfoActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
 						}
 					}
 				});
 
+			}
+		});
+	}
+
+	public void showDialog(){
+		final Dialog dialog = new Dialog(PersonInfoActivity.this, R.style.MyDialog);
+		//设置它的ContentView
+		dialog.setContentView(R.layout.alert_dialog);
+		((TextView)dialog.findViewById(R.id.tvAlertDialogTitle)).setText("提示");
+		((TextView)dialog.findViewById(R.id.tvAlertDialogMessage)).setText("保存修改信息？");
+		dialog.show();
+
+		Button confirm = (Button)dialog.findViewById(R.id.btnAlertDialogPositive);
+		confirm.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				savePersonInfo();
+			}
+		});
+		Button cancel = (Button) dialog.findViewById(R.id.btnAlertDialogNegative);
+		cancel.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
 			}
 		});
 	}

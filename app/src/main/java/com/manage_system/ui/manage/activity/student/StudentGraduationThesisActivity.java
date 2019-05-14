@@ -73,9 +73,9 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
     @BindView(R.id.gt_other)
     EditText gt_other;
     @BindView(R.id.gt_word)
-    EditText gt_word;
+    TextView gt_word;
     @BindView(R.id.gt_annex)
-    EditText gt_annex;
+    TextView gt_annex;
     @BindView(R.id.gt_word_submit)
     Button gt_word_submit;
     @BindView(R.id.gt_annex_submit)
@@ -220,7 +220,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         docFileId = obj.getString("docFileId");
         if(obj.containsKey("docFile")){
             fileName = obj.getJSONObject("docFile").getString("fileName");
-            gt_word.setText(Html.fromHtml("<u>"+obj.getJSONObject("file").getString("fileName")+"</u>"));
+            gt_word.setText(Html.fromHtml("<u>"+obj.getJSONObject("docFile").getString("fileName")+"</u>"));
         }else{
             gt_word.setText("暂无附件");
             gt_word.setEnabled(false);

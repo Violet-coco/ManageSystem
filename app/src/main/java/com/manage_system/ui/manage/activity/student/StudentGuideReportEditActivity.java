@@ -105,9 +105,7 @@ public class StudentGuideReportEditActivity extends AppCompatActivity implements
     public void initData() {
         theme=gr_theme.getText().toString().trim();
         work=gr_work.getText().toString().trim();
-        date=DateUtil.DateToString(DateUtil.string2Date(gr_date.getText().toString().trim(),"yyyy-MM-dd"));
-        Log.w(TAG,DateUtil.string2Date(gr_date.getText().toString().trim(),"yyyy-MM-dd")+"哈哈 1");
-        Log.w(TAG,date+"哈哈 ");
+        date = DateUtil.date2TimeStamp(gr_date.getText().toString().trim());
         uploadfile=gr_annex.getText().toString().trim();
         Log.e(TAG,date);
         OkManager manager = OkManager.getInstance();

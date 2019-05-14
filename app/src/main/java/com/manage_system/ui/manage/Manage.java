@@ -51,4 +51,30 @@ public class Manage {
             }
         });
     }
+
+    public static void getPersonData(){
+        // 连接接口
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        manager.post(ApiConstants.commonApi+"/showRoleInfo", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseBody = response.body().string();
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("personInfo", MODE_PRIVATE);
+                //获取编辑器
+                SharedPreferences.Editor editor=sp.edit();
+                editor.putString("bindTel",obj.getJSONObject("data").getString("bindTel"));
+                editor.putString("contactTel",obj.getJSONObject("data").getString("contactTel"));
+                editor.putString("email",obj.getJSONObject("data").getString("email"));
+                editor.commit();
+
+            }
+        });
+    }
 }

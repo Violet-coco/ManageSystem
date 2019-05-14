@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -75,7 +76,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
     @BindView(R.id.gr_annotation)
     EditText gr_annotation;
     @BindView(R.id.gr_annex)
-    EditText gr_annex;
+    TextView gr_annex;
     @BindView(R.id.guide_record_annex)
     Button guide_record_annex;
     @BindView(R.id.gr_annotation_main)
@@ -217,6 +218,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
             fileName = obj.getString("title");
             gr_annex.setText("暂无附件");
             gr_annex.setEnabled(false);
+            gr_annex.setTextColor(Color.parseColor("#666666"));
         }
     }
 

@@ -142,8 +142,8 @@ public class StudentGuideReportMainActivity extends AppCompatActivity {
                                     editor.putString("guide_record",obj.getJSONArray("data").getJSONObject(position).toString());
                                     editor.commit();
                                     startActivity(intent);
-                                    finish();
                                     Toast.makeText(StudentGuideReportMainActivity.this , list.get(position).get("title").toString() , Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
                             });
                             recycleView.setAdapter(adapter);
@@ -153,6 +153,7 @@ public class StudentGuideReportMainActivity extends AppCompatActivity {
                             Toast.makeText(StudentGuideReportMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentGuideReportMainActivity.this,StudentGuideReportEditActivity.class);
                             startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentGuideReportMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
