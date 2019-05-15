@@ -2,6 +2,7 @@ package com.manage_system.ui.manage.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.AuthorViewHold
     public void onBindViewHolder(AuthorViewHolder holder, final int position) {
         Log.e(TAG,"是否有接受参数");
         Log.w(TAG,string);
-        holder.stu_name_id.setText(list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
+        if(string.equals("2011")){
+            holder.stu_name_id.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
+        }else if(string.equals("3002")){
+            holder.stu_name_id.setText(Html.fromHtml("<u>"+list.get(position).get("pName").toString()+"</u>"));
+        }else if(string.equals("3006")){
+            holder.stu_name_id.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
+
+        }
 
         // 点击事件一般都写在绑定数据这里，当然写到上边的创建布局时候也是可以的
         if (mOnItemClickListener != null){

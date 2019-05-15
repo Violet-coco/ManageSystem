@@ -62,7 +62,7 @@ public class ManagerXtCheckMainActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_tab);
         ButterKnife.bind(this);
         tool_bar.setVisibility(View.VISIBLE);
-        top_title.setText("学生列表");
+        top_title.setText("选题审核");
         initData();
     }
 

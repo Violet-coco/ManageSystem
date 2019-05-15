@@ -31,8 +31,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:maxLines="1"
+                    android:ellipsize="end"
                     android:textStyle="bold"
                     android:text="新闻标题"
                     android:textColor="@color/blue_light"/>
@@ -47,32 +48,76 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_weight="1">
-                        <TextView
-                            android:id="@+id/project_ct"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="可选人数"
-                            android:textColor="@android:color/black"
-                            />
 
-                        <TextView
-                            android:id="@+id/project_number"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="答辩教师"
-                            android:textColor="@android:color/black"
-                            />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/project_item"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/project_ct"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="可选人数"
+                                android:textColor="@android:color/black"
+                                />
+
+                            <TextView
+                                android:id="@+id/project_ct_item"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@android:color/black"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/project_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="答辩教师"
+                                android:textColor="@android:color/black"
+                                />
+
+                            <TextView
+                                android:id="@+id/project_number_item"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@android:color/black"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:visibility="gone"
-                            android:textColor="@android:color/black"
-                            />
+                            android:id="@+id/project_last_main"
+                            android:visibility="gone">
+                            <TextView
+                                android:id="@+id/project_item"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@android:color/black"
+                                />
+                            <TextView
+                                android:id="@+id/project_item_item"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:visibility="gone"
+                                android:textColor="@android:color/black"
+                                />
+
+                        </LinearLayout>
+
+
                     </LinearLayout>
 
                     <LinearLayout

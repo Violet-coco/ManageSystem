@@ -106,7 +106,7 @@ public class ManagerCtCheckMainActivity extends AppCompatActivity {
                                 map.put("pName",object.getJSONObject("project").getString("title"));
                                 map.put("setDate",DateUtil.getDateFormat(object.getString("setDate")));
                                 map.put("teacher_info",object.getJSONObject("teacher").toString());
-                                map.put("project_info",object.getJSONObject("project").toString());
+                                map.put("project_info",object.toString());
                                 String status;
                                 if(object.getString("cStatus").equals("0")){
                                     status = "审核不通过";

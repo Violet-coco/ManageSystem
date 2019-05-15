@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +16,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.activity.teacher.TeacherOutTitleMainActivity;
@@ -60,11 +63,13 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
     @BindView(R.id.ct_time)
     EditText ct_time;
     @BindView(R.id.ct_task)
-    EditText ct_task;
+    TextView ct_task;
     @BindView(R.id.ct_annex)
-    EditText ct_annex;
+    TextView ct_annex;
     @BindView(R.id.ct_detail)
     EditText ct_detail;
+    @BindView(R.id.ct_time_main)
+    RelativeLayout ct_time_main;
     private static String TAG = "ManagerCtListActivity";
     private String fileId,task_fileId;
 
@@ -120,13 +125,14 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
         ct_number.setText(object.getJSONObject("checkedPro").getString("rest")+"/"+object.getJSONObject("checkedPro").getString("number"));
         ct_belong_major.setText(object.getJSONObject("checkedPro").getString("major"));
         ct_profession.setText(object.getJSONObject("checkedPro").getString("range"));
-//        ct_time.setText(DateUtil.getDateFormat(object.getJSONObject("checkedPro").getString("setDate")));
+        ct_time_main.setVisibility(View.GONE);
         if(object.getJSONObject("checkedPro").containsKey("taskBook")){
             task_fileId = object.getJSONObject("checkedPro").getJSONObject("taskBook").getString("fileId");
             ct_task.setText(Html.fromHtml("<u>"+object.getJSONObject("checkedPro").getJSONObject("taskBook").getString("task")+"</u>"));
         }else{
             ct_task.setEnabled(false);
             ct_task.setText("暂无任务书");
+            ct_task.setTextColor(Color.GRAY);
         }
 
         if(object.getJSONObject("checkedPro").containsKey("file")){
@@ -135,6 +141,7 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
         }else{
             ct_annex.setEnabled(false);
             ct_annex.setText("暂无附件");
+            ct_annex.setTextColor(Color.GRAY);
         }
         ct_detail.setText(object.getJSONObject("checkedPro").getString("briefIntro"));
     }
@@ -150,13 +157,14 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
         ct_number.setText(object.getString("rest")+"/"+object.getString("number"));
         ct_belong_major.setText(object.getString("major"));
         ct_profession.setText(object.getString("range"));
-//        ct_time.setText(DateUtil.getDateFormat(object.getJSONObject("checkedPro").getString("setDate")));
+        ct_time_main.setVisibility(View.GONE);
         if(object.containsKey("taskBook")){
             task_fileId = object.getJSONObject("taskBook").getString("fileId");
             ct_task.setText(Html.fromHtml("<u>"+object.getJSONObject("taskBook").getString("task")+"</u>"));
         }else{
             ct_task.setEnabled(false);
             ct_task.setText("暂无任务书");
+            ct_task.setTextColor(Color.GRAY);
         }
 
         if(object.containsKey("file")){
@@ -165,13 +173,16 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
         }else{
             ct_annex.setEnabled(false);
             ct_annex.setText("暂无附件");
+            ct_annex.setTextColor(Color.GRAY);
         }
         ct_detail.setText(object.getString("briefIntro"));
     }
 
     public void initCtData(){
         Intent intent = getIntent();
-        JSONObject object = JSON.parseObject(intent.getStringExtra("project_info"));
+        JSONObject obj = JSON.parseObject(intent.getStringExtra("project_info"));
+        Log.e(TAG,obj.toString());
+        JSONObject object = obj.getJSONObject("project");
 
         Log.e(TAG,object.toString());
         ct_topic.setText(object.getString("title"));
@@ -180,13 +191,14 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
         ct_number.setText(object.getString("rest")+"/"+object.getString("number"));
         ct_belong_major.setText(object.getString("major"));
         ct_profession.setText(object.getString("range"));
-//        ct_time.setText(DateUtil.getDateFormat(object.getJSONObject("checkedPro").getString("setDate")));
+        ct_time.setText(DateUtil.getDateFormat(obj.getString("setDate")));
         if(object.containsKey("taskBook")){
             task_fileId = object.getJSONObject("taskBook").getString("fileId");
             ct_task.setText(Html.fromHtml("<u>"+object.getJSONObject("taskBook").getString("task")+"</u>"));
         }else{
             ct_task.setEnabled(false);
             ct_task.setText("暂无任务书");
+            ct_task.setTextColor(Color.GRAY);
         }
 
         if(object.containsKey("file")){
@@ -195,6 +207,7 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
         }else{
             ct_annex.setEnabled(false);
             ct_annex.setText("暂无附件");
+            ct_annex.setTextColor(Color.GRAY);
         }
         ct_detail.setText(object.getString("briefIntro"));
     }

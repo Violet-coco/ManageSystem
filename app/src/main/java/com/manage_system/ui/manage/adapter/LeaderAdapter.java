@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,11 +100,6 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                     v.getContext().startActivity(intent);
                 }
             });
-        }else if(string.equals("3002")){
-            holder.project_title.setText(list.get(position).get("pName").toString());
-            holder.project_ct.setVisibility(View.GONE);
-            holder.project_number.setVisibility(View.GONE);
-            holder.look_title.setVisibility(View.GONE);
         }else if(string.equals("3003")){
             holder.project_title.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
             holder.project_ct.setText("是否选题："+list.get(position).get("is_ct").toString());
@@ -121,6 +117,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                 public void onClick(View v) {
                     Intent intent=new Intent(v.getContext(),ManagerXtListActivity.class);
                     intent.putExtra("stu_info_ct",list.get(position).get("m_student").toString());
+                    intent.putExtra("total_info","");
                     v.getContext().startActivity(intent);
                 }
             });
@@ -180,26 +177,26 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                     v.getContext().startActivity(intent);
                 }
             });
-        }else if(string.equals("3006")){
-            holder.project_title.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
-            holder.project_ct.setVisibility(View.GONE);
-            holder.project_number.setVisibility(View.GONE);
-            holder.look_title.setVisibility(View.GONE);
         }else if(string.equals("3007")){
             holder.project_item.setVisibility(View.VISIBLE);
             holder.project_title.setText(list.get(position).get("pName").toString());
             holder.project_ct.setText("学生姓名："+list.get(position).get("name").toString());
             holder.project_number.setText("选题时间："+list.get(position).get("chooseDate").toString());
             holder.project_item.setText("审核状态："+list.get(position).get("status").toString());
-            if(!list.get(position).get("status").toString().equals("审核通过")){
-                holder.look_title.setText("审核");
-                holder.look_title.setBackgroundColor(Color.parseColor("#F55A5D"));
-                holder.look_title.setTextColor(Color.WHITE);
-            }else {
+            if (list.get(position).get("status").toString().equals("审核通过")) {
                 holder.look_title.setText("已审核");
                 holder.look_title.setEnabled(false);
                 holder.look_title.setBackgroundColor(Color.parseColor("#dddddd"));
                 holder.look_title.setTextColor(Color.GRAY);
+            } else if(list.get(position).get("status").toString().equals("审核不通过")) {
+                holder.look_title.setText("审核不通过");
+                holder.look_title.setEnabled(false);
+                holder.look_title.setBackgroundColor(Color.parseColor("#F5F5F5"));
+                holder.look_title.setTextColor(Color.GRAY);
+            }else{
+                holder.look_title.setText("审核");
+                holder.look_title.setBackgroundColor(Color.parseColor("#F55A5D"));
+                holder.look_title.setTextColor(Color.WHITE);
             }
 
             holder.look_title.setOnClickListener(new View.OnClickListener() {
@@ -212,20 +209,27 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
             });
 
         }else if(string.equals("3008")) {
-            holder.project_item.setVisibility(View.VISIBLE);
+            holder.project_last_main.setVisibility(View.VISIBLE);
             holder.project_title.setText(list.get(position).get("pName").toString());
-            holder.project_ct.setText("指导老师：" + list.get(position).get("name").toString());
+            holder.project_ct.setText("指导老师：");
+            holder.project_ct_item.setTextColor(Color.BLUE);
+            holder.project_ct_item.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"</u>"));
             holder.project_number.setText("申报时间：" + list.get(position).get("setDate").toString());
             holder.project_item.setText("审核状态：" + list.get(position).get("status").toString());
-            if (!list.get(position).get("status").toString().equals("审核通过")) {
-                holder.look_title.setText("审核");
-                holder.look_title.setBackgroundColor(Color.parseColor("#F55A5D"));
-                holder.look_title.setTextColor(Color.WHITE);
-            } else {
+            if (list.get(position).get("status").toString().equals("审核通过")) {
                 holder.look_title.setText("已审核");
                 holder.look_title.setEnabled(false);
                 holder.look_title.setBackgroundColor(Color.parseColor("#dddddd"));
                 holder.look_title.setTextColor(Color.GRAY);
+            } else if(list.get(position).get("status").toString().equals("审核不通过")) {
+                holder.look_title.setText("审核不通过");
+                holder.look_title.setEnabled(false);
+                holder.look_title.setBackgroundColor(Color.parseColor("#F5F5F5"));
+                holder.look_title.setTextColor(Color.GRAY);
+            }else{
+                holder.look_title.setText("审核");
+                holder.look_title.setBackgroundColor(Color.parseColor("#F55A5D"));
+                holder.look_title.setTextColor(Color.WHITE);
             }
 
             holder.project_title.setOnClickListener(new View.OnClickListener() {
@@ -238,7 +242,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                 }
             });
 
-            holder.project_ct.setOnClickListener(new View.OnClickListener() {
+            holder.project_ct_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(v.getContext(),GuideTeacherInfoActivity.class);
@@ -451,6 +455,10 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
         private TextView project_number;
         private TextView project_item;
         private Button look_title;
+
+        private TextView project_ct_item;
+        private TextView project_number_item;
+        private LinearLayout project_last_main;
         public AuthorViewHolder(View itemView) {
             super(itemView);
             project_title = (TextView)itemView.findViewById(R.id.project_title);
@@ -458,6 +466,10 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
             project_number = (TextView)itemView.findViewById(R.id.project_number);
             project_item = (TextView)itemView.findViewById(R.id.project_item);
             look_title = (Button)itemView.findViewById(R.id.look_title);
+
+            project_ct_item = (TextView)itemView.findViewById(R.id.project_ct_item);
+            project_number_item = (TextView)itemView.findViewById(R.id.project_number_item);
+            project_last_main = (LinearLayout)itemView.findViewById(R.id.project_last_main);
         }
     }
 

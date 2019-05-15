@@ -38,6 +38,7 @@
                 <EditText
                     style="@style/edit_item_ms_border_content"
                     android:id="@+id/ct_topic"
+                    android:ellipsize="end"
                     android:layout_below="@+id/ct_topic_title"
                     android:editable="false"
                     />
@@ -136,7 +137,9 @@
 
             <View style="@style/divider_horizontal_1px" />
 
-            <RelativeLayout style="@style/edit_item_ms_all" >
+            <RelativeLayout
+                style="@style/edit_item_ms_all"
+                android:id="@+id/ct_time_main">
 
                 <TextView
                     android:id="@+id/ct_time_title"
@@ -161,11 +164,10 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="任务书" />
 
-                <EditText
+                <TextView
                     style="@style/edit_item_ms_border_content"
                     android:textColor="@color/blue"
                     android:autoLink="all"
-                    android:editable="false"
                     android:id="@+id/ct_task"
                     android:layout_below="@+id/ct_task_title"
                      />
@@ -181,11 +183,10 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="附件" />
 
-                <EditText
+                <TextView
                     style="@style/edit_item_ms_border_content"
                     android:textColor="@color/blue"
                     android:autoLink="all"
-                    android:editable="false"
                     android:id="@+id/ct_annex"
                     android:layout_below="@+id/ct_annex_title"
                      />

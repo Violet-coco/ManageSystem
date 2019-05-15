@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -65,9 +66,9 @@ public class ManagerCtListActivity extends AppCompatActivity implements View.OnC
     @BindView(R.id.ct_time)
     EditText ct_time;
     @BindView(R.id.ct_task)
-    EditText ct_task;
+    TextView ct_task;
     @BindView(R.id.ct_annex)
-    EditText ct_annex;
+    TextView ct_annex;
     @BindView(R.id.ct_detail)
     EditText ct_detail;
     private static String TAG = "ManagerCtListActivity";
@@ -117,6 +118,7 @@ public class ManagerCtListActivity extends AppCompatActivity implements View.OnC
         }else{
             ct_task.setEnabled(false);
             ct_task.setText("暂无任务书");
+            ct_task.setTextColor(Color.GRAY);
         }
 
         if(object.containsKey("file")){
@@ -124,6 +126,7 @@ public class ManagerCtListActivity extends AppCompatActivity implements View.OnC
         }else{
             ct_annex.setEnabled(false);
             ct_annex.setText("暂无附件");
+            ct_task.setTextColor(Color.GRAY);
         }
         ct_detail.setText(object.getString("briefIntro"));
     }

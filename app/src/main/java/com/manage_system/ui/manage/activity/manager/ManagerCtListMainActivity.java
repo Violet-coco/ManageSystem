@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.adapter.LeaderAdapter;
+import com.manage_system.ui.manage.adapter.ListAdapter;
 import com.manage_system.ui.manage.adapter.MyAdapter;
 import com.manage_system.utils.OkManager;
 
@@ -81,8 +82,8 @@ public class ManagerCtListMainActivity extends AppCompatActivity {
         }
         recycleView.setLayoutManager(new LinearLayoutManager(ManagerCtListMainActivity.this,LinearLayoutManager.VERTICAL,false));
         //设置适配器
-        LeaderAdapter adapter = new LeaderAdapter(ManagerCtListMainActivity.this,list,"3002");
-        adapter.setOnItemClickListener(new LeaderAdapter.OnItemClickListener() {
+        ListAdapter adapter = new ListAdapter(ManagerCtListMainActivity.this,list,"3002");
+        adapter.setOnItemClickListener(new ListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 // 这里本来是跳转页面 ，我们就在这里直接让其弹toast来演示

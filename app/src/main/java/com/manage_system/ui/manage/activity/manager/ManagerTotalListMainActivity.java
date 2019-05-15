@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.ui.manage.adapter.LeaderAdapter;
+import com.manage_system.ui.manage.adapter.ListAdapter;
 import com.manage_system.ui.personal.GuideStudentInfoActivity;
 
 import java.util.ArrayList;
@@ -111,8 +112,8 @@ public class ManagerTotalListMainActivity extends AppCompatActivity {
         }
         recycleView.setLayoutManager(new LinearLayoutManager(ManagerTotalListMainActivity.this,LinearLayoutManager.VERTICAL,false));
         //设置适配器
-        LeaderAdapter adapter = new LeaderAdapter(ManagerTotalListMainActivity.this,list,"3006");
-        adapter.setOnItemClickListener(new LeaderAdapter.OnItemClickListener() {
+        ListAdapter adapter = new ListAdapter(ManagerTotalListMainActivity.this,list,"3006");
+        adapter.setOnItemClickListener(new ListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 // 这里本来是跳转页面 ，我们就在这里直接让其弹toast来演示

@@ -30,6 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="16dp"
+                    android:ellipsize="end"
                     android:textStyle="bold"
                     android:text="王珊珊（3120150905119）"
                     android:textColor="@color/blue_light"/>

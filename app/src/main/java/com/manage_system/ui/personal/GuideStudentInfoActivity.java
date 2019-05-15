@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -48,6 +49,8 @@ public class GuideStudentInfoActivity extends AppCompatActivity implements View.
     EditText stu_tel;
     @BindView(R.id.stu_email)
     EditText stu_email;
+    @BindView(R.id.gt_department_main)
+    RelativeLayout gt_department_main;
     private String TAG = "学生信息";
 
     @Override
@@ -68,7 +71,7 @@ public class GuideStudentInfoActivity extends AppCompatActivity implements View.
             stu_class.setText(obj.getString("grade")+"级"+obj.getString("classNo")+"班");
             stu_sex.setText(obj.getString("sex"));
             stu_major.setText(obj.getString("major"));
-//            stu_department.setVisibility(View.GONE);
+            gt_department_main.setVisibility(View.GONE);
             stu_tel.setText(obj.getString("contactTel"));
             stu_email.setText(obj.getString("email"));
         }else if(intent.getStringExtra("stu_info").equals("from_m_total")){
@@ -82,7 +85,7 @@ public class GuideStudentInfoActivity extends AppCompatActivity implements View.
             stu_class.setText(obj.getString("grade")+"级"+obj.getString("classNo")+"班");
             stu_sex.setText(obj.getString("sex"));
             stu_major.setText(obj.getString("major"));
-//            stu_department.setVisibility(View.GONE);
+            gt_department_main.setVisibility(View.GONE);
             stu_tel.setText(obj.getString("contactTel"));
             stu_email.setText(obj.getString("email"));
         }else {

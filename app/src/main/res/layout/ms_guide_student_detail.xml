@@ -84,7 +84,9 @@
 
             <View style="@style/divider_horizontal_1px" />
 
-            <RelativeLayout style="@style/edit_item_ms_all" >
+            <RelativeLayout
+                style="@style/edit_item_ms_all"
+                android:id="@+id/gt_department_main">
 
                 <TextView
                     android:id="@+id/gt_department_title"
