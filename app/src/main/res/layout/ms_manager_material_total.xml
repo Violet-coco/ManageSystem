@@ -12,7 +12,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="材料归档" />
+            android:text="过程文档情况" />
 
     </RelativeLayout>
 
@@ -32,6 +32,7 @@
                     android:text="学生姓名（学号）" />
 
                 <EditText
+                    android:id="@+id/stu_name_id"
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
                     android:layout_below="@+id/subject_title"
@@ -46,15 +47,20 @@
                 <TextView
                     android:id="@+id/subject_source"
                     style="@style/edit_item_ms_border_title"
-                    android:text="指导教师（编号）" />
+                    android:text="课题题目" />
 
                 <EditText
                     style="@style/edit_item_ms_border_content"
+                    android:id="@+id/stu_pName"
                     android:editable="false"
                     android:layout_below="@+id/subject_source"
                     />
 
             </RelativeLayout>
+
+            <View
+                style="@style/divider_horizontal_1px"
+                android:layout_marginBottom="@dimen/padding_huge" />
 
             <View style="@style/divider_horizontal_1px" />
 
@@ -65,7 +71,7 @@
                     android:text="开题报告" />
 
                 <EditText
-                    android:id="@+id/person0_name"
+                    android:id="@+id/pd_open_record"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -82,7 +88,7 @@
                     android:text="中期检查" />
 
                 <EditText
-                    android:id="@+id/person_name"
+                    android:id="@+id/pd_middle_check"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -99,7 +105,7 @@
                     android:text="指导记录" />
 
                 <EditText
-                    android:id="@+id/person1_name"
+                    android:id="@+id/pd_guide_record"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -116,7 +122,7 @@
                     android:text="外文译文和原文" />
 
                 <EditText
-                    android:id="@+id/person2_name"
+                    android:id="@+id/pd_for_ori"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -133,8 +139,8 @@
                     android:text="文献综述" />
 
                 <EditText
-                    android:id="@+id/person3_name"
-                    style="@style/edit_item_right_et"
+                    android:id="@+id/pd_lit_review"
+                    style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
                     android:editable="false"
@@ -150,7 +156,7 @@
                     android:text="毕业设计（论文）" />
 
                 <EditText
-                    android:id="@+id/person4_name"
+                    android:id="@+id/pd_thesis"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"

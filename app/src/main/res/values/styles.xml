@@ -411,6 +411,8 @@
     <style name="edit_item_right_et_r" parent="edit_item_right_et">
         <item name="android:gravity">center|right</item>
         <item name="android:paddingRight">20dp</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/gray_3</item>
     </style>
 
     <style name="edit_item_right_et_child" parent="edit_item">
@@ -658,11 +660,12 @@
         <item name="android:paddingTop">@dimen/item_left_tv_padding</item>
         <item name="android:paddingBottom">@dimen/item_left_tv_padding</item>
         <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/gray_3</item>
         <item name="android:background">@color/white_selected</item>
         <item name="android:gravity">center|left</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/gray_3</item>
+
     </style>
 
     <style name="edit_item_ms_border_spinner" parent="edit_item">

@@ -205,6 +205,10 @@
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerScoreListMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerGroupStudentMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerScoreTotalMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerDataTotalMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerPdListActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerGradeListActivity"/>
+
     </application>
 
 </manifest>

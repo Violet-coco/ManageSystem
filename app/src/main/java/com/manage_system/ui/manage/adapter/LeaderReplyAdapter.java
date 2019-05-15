@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.manage_system.R;
+import com.manage_system.ui.manage.activity.manager.ManagerDataTotalMainActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerGroupStudentMainActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerReplyTypeActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerScoreListMainActivity;
@@ -51,7 +52,7 @@ public class LeaderReplyAdapter extends RecyclerView.Adapter<LeaderReplyAdapter.
                 v.getContext().startActivity(intent);
             }
         });
-        holder.m_reply_teacher_group.setVisibility(View.GONE);
+
 
         // 学生答辩分组统计报表
         holder.m_reply_student_group.setOnClickListener(new View.OnClickListener() {
@@ -71,10 +72,11 @@ public class LeaderReplyAdapter extends RecyclerView.Adapter<LeaderReplyAdapter.
             }
         });
 
+        // 材料归档统计报表
         holder.m_reply_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),TeacherGradeMainActivity.class);
+                Intent intent=new Intent(v.getContext(),ManagerDataTotalMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
@@ -90,7 +92,6 @@ public class LeaderReplyAdapter extends RecyclerView.Adapter<LeaderReplyAdapter.
 
         LinearLayout m_reply_group;
         LinearLayout m_reply_grade;
-        LinearLayout m_reply_teacher_group;
         LinearLayout m_reply_student_group;
         LinearLayout m_reply_total_grade;
         LinearLayout m_reply_data;
@@ -99,7 +100,6 @@ public class LeaderReplyAdapter extends RecyclerView.Adapter<LeaderReplyAdapter.
             super(itemView);
             m_reply_group = (LinearLayout) itemView.findViewById(R.id.m_reply_group);
             m_reply_grade = (LinearLayout) itemView.findViewById(R.id.m_reply_grade);
-            m_reply_teacher_group = (LinearLayout) itemView.findViewById(R.id.m_reply_teacher_group);
             m_reply_student_group = (LinearLayout) itemView.findViewById(R.id.m_reply_student_group);
             m_reply_total_grade = (LinearLayout) itemView.findViewById(R.id.m_reply_total_grade);
             m_reply_data = (LinearLayout) itemView.findViewById(R.id.m_reply_data);

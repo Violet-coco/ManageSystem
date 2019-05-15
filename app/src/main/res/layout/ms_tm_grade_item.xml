@@ -12,7 +12,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="答辩成绩" />
+            android:text="成绩情况" />
 
     </RelativeLayout>
 
@@ -24,31 +24,6 @@
 
         <LinearLayout style="@style/ll_vertical_match_match" >
 
-            <TextView
-                style="@style/edit_item_ms_border_title"
-                android:text="权重信息" />
-
-            <EditText
-                style="@style/edit_item_ms_border_content"
-                android:editable="false"
-                android:text="评分 = 毕设/论文材料*30% + 答辩*30% + 系统*40%"
-                />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/subject_level"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="成绩排名" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_content"
-                    android:editable="false"
-                    android:layout_below="@+id/subject_level"
-                    />
-
-            </RelativeLayout>
-
             <View style="@style/divider_horizontal_1px" />
 
             <RelativeLayout style="@style/edit_item_ms_all" >
@@ -59,6 +34,7 @@
                     android:text="学生姓名（学号）" />
 
                 <EditText
+                    android:id="@+id/stu_name_id"
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
                     android:layout_below="@+id/subject_title"
@@ -76,6 +52,7 @@
                     android:text="课题题目" />
 
                 <EditText
+                    android:id="@+id/stu_pName"
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
                     android:layout_below="@+id/subject_source"
@@ -83,16 +60,19 @@
 
             </RelativeLayout>
 
+            <View style="@style/divider_horizontal_1px"
+                android:layout_marginBottom="15dp"/>
+
             <View style="@style/divider_horizontal_1px" />
 
             <LinearLayout style="@style/edit_item" >
 
                 <TextView
                     style="@style/edit_item_left_tv_child"
-                    android:text="指导教师评分" />
+                    android:text="指导成绩" />
 
                 <EditText
-                    android:id="@+id/person0_name"
+                    android:id="@+id/stu_gt"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -106,10 +86,10 @@
 
                 <TextView
                     style="@style/edit_item_left_tv_child"
-                    android:text="评阅人评分" />
+                    android:text="评阅成绩" />
 
                 <EditText
-                    android:id="@+id/person_name"
+                    android:id="@+id/stu_mt"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -123,10 +103,10 @@
 
                 <TextView
                     style="@style/edit_item_left_tv_child"
-                    android:text="答辩评分" />
+                    android:text="答辩成绩" />
 
                 <EditText
-                    android:id="@+id/person1_name"
+                    android:id="@+id/stu_def"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -143,7 +123,7 @@
                     android:text="综合评定成绩" />
 
                 <EditText
-                    android:id="@+id/person2_name"
+                    android:id="@+id/stu_total"
                     style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
@@ -157,11 +137,11 @@
 
                 <TextView
                     style="@style/edit_item_left_tv_child"
-                    android:text="毕业设计成绩等级" />
+                    android:text="综合评定等级" />
 
                 <EditText
-                    android:id="@+id/person3_name"
-                    style="@style/edit_item_right_et"
+                    android:id="@+id/stu_level"
+                    style="@style/edit_item_right_et_r"
                     android:layout_weight="1"
                     android:maxLength="90"
                     android:editable="false"

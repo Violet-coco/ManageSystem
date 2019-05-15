@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.manage_system.R;
+import com.manage_system.ui.manage.activity.manager.ManagerDataTotalMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerGradeListActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerPdListActivity;
 import com.manage_system.ui.manage.activity.teacher.TeacherListMainActivity;
 import com.manage_system.ui.personal.GuideStudentInfoActivity;
 import com.manage_system.ui.personal.GuideTeacherInfoActivity;
@@ -112,14 +115,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
                 }
             });
 
-//            holder.project_number_item.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent=new Intent(v.getContext(),GuideTeacherInfoActivity.class);
-//                    intent.putExtra("tea_info","from_reply");
-//                    v.getContext().startActivity(intent);
-//                }
-//            });
         }else if(string.equals("2004")){
             holder.project_title.setText(list.get(position).get("pName").toString());
             holder.project_date.setText("答辩学生：");
@@ -168,6 +163,47 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             holder.project_state_main.setVisibility(View.GONE);
             holder.project_date_main.setVisibility(View.GONE);
             holder.project_teachers_main.setVisibility(View.GONE);
+        }else if(string.equals("3109")){
+            holder.project_title.setVisibility(View.GONE);
+            holder.project_date.setText("学生姓名：");
+            holder.project_date_item.setTextColor(Color.BLUE);
+            holder.project_date_item.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
+            holder.project_number.setText("指导老师："+list.get(position).get("gt_name").toString()+"（"+list.get(position).get("gt_id").toString()+"）");
+            holder.project_teacher.setText("课题题目："+list.get(position).get("pName").toString());
+            holder.project_state.setText("过程文档：");
+            holder.project_state_item.setTextColor(Color.BLUE);
+            holder.project_state_item.setText(Html.fromHtml("<u>"+"过程文档提交情况"+"</u>"));
+            holder.project_teachers.setText("成　　绩：");
+            holder.project_teachers_item.setTextColor(Color.BLUE);
+            holder.project_teachers_item.setText(Html.fromHtml("<u>"+"成绩情况"+"</u>"));
+
+            holder.project_date_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),GuideStudentInfoActivity.class);
+                    intent.putExtra("stu_info","from_data_total");
+                    intent.putExtra("stu_data",list.get(position).get("stu_info").toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
+
+            holder.project_state_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),ManagerPdListActivity.class);
+                    intent.putExtra("stu_data",list.get(position).get("stu_info").toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
+
+            holder.project_teachers_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),ManagerGradeListActivity.class);
+                    intent.putExtra("stu_data",list.get(position).get("stu_info").toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
 
 
