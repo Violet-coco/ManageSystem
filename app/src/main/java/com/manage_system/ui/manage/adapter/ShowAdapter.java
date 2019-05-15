@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -164,17 +165,60 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
                     v.getContext().startActivity(intent);
                 }
             });
-        }
+        }else if(string.equals("3100")){
+            holder.stu_name_id.setTextSize(16);
+            holder.stu_name_id.setText("分　　组：第"+list.get(position).get("groupId").toString()+"组");
+            holder.stu_date.setText("答辩时间："+list.get(position).get("date").toString());
+            holder.stu_class.setText("答辩周数："+list.get(position).get("week").toString());
+            holder.stu_leader.setText("答辩教室："+list.get(position).get("class").toString());
+            holder.stu_reply_teacher.setText("答辩组长："+list.get(position).get("leader").toString());
+            holder.stu_comment_teacher.setText("答辩教师："+list.get(position).get("groups").toString());
+            holder.stu_group.setText("人数限制/现有人数："+list.get(position).get("groupSize").toString()+"/"+list.get(position).get("groupNum").toString());
+        }else if(string.equals("3101")){
+            holder.stu_name_id.setVisibility(View.GONE);
+            holder.stu_date.setText("指导老师（指导人数）："+list.get(position).get("guide_teacher").toString());
+            holder.stu_class.setText("分　　组：第"+list.get(position).get("groupId").toString()+"组");
+            holder.stu_leader_main.setVisibility(View.GONE);
+            holder.stu_reply_teacher_main.setVisibility(View.GONE);
+            holder.stu_comment_teacher_main.setVisibility(View.GONE);
+            holder.stu_group.setText("人数限制/现有人数："+list.get(position).get("groupSize").toString()+"/"+list.get(position).get("groupNum").toString());
+        }else if(string.equals("3106")){
+            holder.stu_name_id.setTextSize(14);
+            holder.stu_name_id.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString() + "（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
+            holder.stu_date.setText("课题题目："+list.get(position).get("pName").toString());
+            holder.stu_class.setText("指导教师评分："+list.get(position).get("scoreGt").toString());
+            holder.stu_leader.setText("评阅人评分："+list.get(position).get("scoreMt").toString());
+            holder.stu_reply_teacher.setText("答辩评分："+list.get(position).get("scoreDef").toString());
+            holder.stu_comment_teacher.setText("综合评定成绩："+list.get(position).get("scoreTotal").toString());
+            holder.stu_group.setText("毕业设计成绩等级："+list.get(position).get("grade").toString());
 
-        // 点击事件一般都写在绑定数据这里，当然写到上边的创建布局时候也是可以的
-        if (mOnItemClickListener != null){
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.stu_name_id.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // 这里利用回调来给RecyclerView设置点击事件
-                    mOnItemClickListener.onItemClick(position);
+                    Intent intent=new Intent(v.getContext(),GuideStudentInfoActivity.class);
+                    intent.putExtra("stu_info","from_score");
+                    intent.putExtra("stu_data",list.get(position).get("stu_info").toString());
+                    v.getContext().startActivity(intent);
                 }
             });
+        }else if(string.equals("3107")){
+            holder.stu_name_id.setTextSize(14);
+            holder.stu_name_id.setTextColor(Color.GRAY);
+            holder.stu_name_id.setText("学生姓名："+list.get(position).get("name").toString() + "（"+list.get(position).get("identifier").toString()+"）");
+            holder.stu_date.setText("指导老师："+list.get(position).get("gt_name").toString());
+            holder.stu_class.setText("答辩组长：");
+            holder.stu_leader.setText("答辩教师：");
+            holder.stu_reply_teacher.setText("评阅教师："+list.get(position).get("mt_name").toString());
+            if(list.get(position).get("defDate").toString().equals("暂无数据")) {
+                holder.stu_comment_teacher.setText("分　　组："+"暂无数据");
+            }else{
+                holder.stu_comment_teacher.setText("分　　组：第"+list.get(position).get("groupId").toString()+"组");
+            }
+            if(list.get(position).get("defDate").toString().equals("暂无数据")){
+                holder.stu_group.setText("暂无数据");
+            }else{
+                holder.stu_group.setText("答辩时间："+DateUtil.getDateFormat(list.get(position).get("defDate").toString())+"/第"+list.get(position).get("defWeek").toString()+"周 星期"+list.get(position).get("defDay").toString());
+            }
         }
     }
 
@@ -198,6 +242,13 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
         private TextView stu_reply_teacher_item;
         private TextView stu_comment_teacher_item;
         private TextView stu_group_item;
+
+        private LinearLayout stu_date_main;
+        private LinearLayout stu_class_main;
+        private LinearLayout stu_leader_main;
+        private LinearLayout stu_reply_teacher_main;
+        private LinearLayout stu_comment_teacher_main;
+        private LinearLayout stu_group_main;
         public AuthorViewHolder(View itemView) {
             super(itemView);
             stu_name_id = (TextView)itemView.findViewById(R.id.stu_name_id);
@@ -214,6 +265,13 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
             stu_reply_teacher_item = (TextView)itemView.findViewById(R.id.stu_reply_teacher_item);
             stu_comment_teacher_item = (TextView)itemView.findViewById(R.id.stu_comment_teacher_item);
             stu_group_item = (TextView)itemView.findViewById(R.id.stu_group_item);
+
+            stu_date_main = (LinearLayout)itemView.findViewById(R.id.stu_date_main);
+            stu_class_main = (LinearLayout)itemView.findViewById(R.id.stu_class_main);
+            stu_leader_main = (LinearLayout)itemView.findViewById(R.id.stu_leader_main);
+            stu_reply_teacher_main = (LinearLayout)itemView.findViewById(R.id.stu_reply_teacher_main);
+            stu_comment_teacher_main = (LinearLayout)itemView.findViewById(R.id.stu_comment_teacher_main);
+            stu_group_main = (LinearLayout)itemView.findViewById(R.id.stu_group_main);
         }
     }
 

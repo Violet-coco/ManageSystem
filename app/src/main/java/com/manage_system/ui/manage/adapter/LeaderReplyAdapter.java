@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.manage_system.R;
+import com.manage_system.ui.manage.activity.manager.ManagerGroupStudentMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerReplyTypeActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerScoreListMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerScoreTotalMainActivity;
 import com.manage_system.ui.manage.activity.student.StudentReplyGradeActivity;
 import com.manage_system.ui.manage.activity.student.StudentReplyPlanActivity;
 import com.manage_system.ui.manage.activity.teacher.TeacherCheckDataMainActivity;
@@ -30,41 +34,39 @@ public class LeaderReplyAdapter extends RecyclerView.Adapter<LeaderReplyAdapter.
 
     @Override
     public void onBindViewHolder(AuthorViewHolder holder, int position) {
+        // 答辩分组
         holder.m_reply_group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),TeacherReplyPlanMainActivity.class);
+                Intent intent=new Intent(v.getContext(),ManagerReplyTypeActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
 
+        // 计算答辩总成绩
         holder.m_reply_grade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),TeacherCheckDataMainActivity.class);
+                Intent intent=new Intent(v.getContext(),ManagerScoreListMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
-        holder.m_reply_teacher_group.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),TeacherGtCommentMainActivity.class);
-                v.getContext().startActivity(intent);
-            }
-        });
+        holder.m_reply_teacher_group.setVisibility(View.GONE);
 
+        // 学生答辩分组统计报表
         holder.m_reply_student_group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),TeacherGradeMainActivity.class);
+                Intent intent=new Intent(v.getContext(),ManagerGroupStudentMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
 
+        // 成绩汇总统计报表
         holder.m_reply_total_grade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(),TeacherGtCommentMainActivity.class);
+                Intent intent=new Intent(v.getContext(),ManagerScoreTotalMainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });

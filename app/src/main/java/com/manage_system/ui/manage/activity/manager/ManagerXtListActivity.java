@@ -84,6 +84,8 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
             initTotalData();
         }else if(intent.getStringExtra("total_info").equals("from_m_ct")){
             initCtData();
+        }else if(intent.getStringExtra("total_info").equals("from_grade_detail")){
+            initScoreData();
         }else{
             initData();
         }
@@ -192,6 +194,41 @@ public class ManagerXtListActivity extends AppCompatActivity implements View.OnC
         ct_belong_major.setText(object.getString("major"));
         ct_profession.setText(object.getString("range"));
         ct_time.setText(DateUtil.getDateFormat(obj.getString("setDate")));
+        if(object.containsKey("taskBook")){
+            task_fileId = object.getJSONObject("taskBook").getString("fileId");
+            ct_task.setText(Html.fromHtml("<u>"+object.getJSONObject("taskBook").getString("task")+"</u>"));
+        }else{
+            ct_task.setEnabled(false);
+            ct_task.setText("暂无任务书");
+            ct_task.setTextColor(Color.GRAY);
+        }
+
+        if(object.containsKey("file")){
+            fileId = object.getString("fileId");
+            ct_annex.setText(Html.fromHtml("<u>"+object.getJSONObject("file").getString("fileName")+"</u>"));
+        }else{
+            ct_annex.setEnabled(false);
+            ct_annex.setText("暂无附件");
+            ct_annex.setTextColor(Color.GRAY);
+        }
+        ct_detail.setText(object.getString("briefIntro"));
+    }
+
+    public void initScoreData(){
+        Intent intent = getIntent();
+        JSONObject obj = JSON.parseObject(intent.getStringExtra("pName_data"));
+        Log.e(TAG,obj.toString());
+        JSONObject object = obj.getJSONObject("checkedPro");
+
+        Log.e(TAG,object.toString());
+        ct_topic.setText(object.getString("title"));
+        ct_type.setText(object.getString("genre"));
+        ct_resource.setText(object.getString("source"));
+        ct_number.setText(object.getString("rest")+"/"+object.getString("number"));
+        ct_belong_major.setText(object.getString("major"));
+        ct_profession.setText(object.getString("range"));
+//        ct_time.setText(DateUtil.getDateFormat(obj.getString("setDate")));
+        ct_time_main.setVisibility(View.GONE);
         if(object.containsKey("taskBook")){
             task_fileId = object.getJSONObject("taskBook").getString("fileId");
             ct_task.setText(Html.fromHtml("<u>"+object.getJSONObject("taskBook").getString("task")+"</u>"));

@@ -29,10 +29,10 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.AuthorViewHo
     @Override
     public AuthorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View childView = inflater.inflate(R.layout.ms_student_reply, parent, false);
+        View childView;
         if(authority.equals("1")){
             childView = inflater.inflate(R.layout.ms_student_reply, parent, false);
-        }else if(authority.equals("2")){
+        }else{
             childView = inflater.inflate(R.layout.ms_teacher_manager_student, parent, false);
         }
         AuthorViewHolder viewHolder = new AuthorViewHolder(childView);
@@ -57,7 +57,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.AuthorViewHo
                     v.getContext().startActivity(intent);
                 }
             });
-        }else if(authority.equals("2")){
+        }else{
             holder.sm_reply_plan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -113,7 +113,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.AuthorViewHo
             if(authority.equals("1")){
                 student_find_reply_plan = (LinearLayout) itemView.findViewById(R.id.student_find_reply_plan);
                 student_find_reply_grade = (LinearLayout) itemView.findViewById(R.id.student_find_reply_grade);
-            }else if(authority.equals("2")){
+            }else{
                 sm_reply_plan = (LinearLayout) itemView.findViewById(R.id.sm_reply_plan);
                 sm_check_data = (LinearLayout) itemView.findViewById(R.id.sm_check_data);
                 sm_gt_comment = (LinearLayout) itemView.findViewById(R.id.sm_gt_comment);

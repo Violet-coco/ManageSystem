@@ -88,6 +88,32 @@ public class GuideStudentInfoActivity extends AppCompatActivity implements View.
             gt_department_main.setVisibility(View.GONE);
             stu_tel.setText(obj.getString("contactTel"));
             stu_email.setText(obj.getString("email"));
+        }else if(intent.getStringExtra("stu_info").equals("from_score")){
+            JSONObject obj = JSON.parseObject(intent.getStringExtra("stu_data"));
+            Log.w(TAG,obj.toString());
+
+            stu_name.setText(obj.getString("name"));
+            stu_id.setText(obj.getString("identifier"));
+            stu_college.setText(obj.getString("college"));
+            stu_class.setText(obj.getString("grade")+"级"+obj.getString("classNo")+"班");
+            stu_sex.setText(obj.getString("sex"));
+            stu_major.setText(obj.getString("major"));
+            gt_department_main.setVisibility(View.GONE);
+            stu_tel.setText(obj.getString("contactTel"));
+            stu_email.setText(obj.getString("email"));
+        }else if(intent.getStringExtra("stu_info").equals("from_grade_detail")){
+            JSONObject obj = JSON.parseObject(intent.getStringExtra("stu_data"));
+            Log.w(TAG,obj.toString());
+
+            stu_name.setText(obj.getString("name"));
+            stu_id.setText(obj.getString("identifier"));
+            stu_college.setText(obj.getString("college"));
+            stu_class.setText(obj.getString("grade")+"级"+obj.getString("classNo")+"班");
+            stu_sex.setText(obj.getString("sex"));
+            stu_major.setText(obj.getString("major"));
+            gt_department_main.setVisibility(View.GONE);
+            stu_tel.setText(obj.getString("contactTel"));
+            stu_email.setText(obj.getString("email"));
         }else {
             SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
             Log.w(TAG,sp.getString("student" , ""));

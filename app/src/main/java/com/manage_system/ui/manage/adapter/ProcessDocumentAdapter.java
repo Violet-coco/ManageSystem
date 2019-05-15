@@ -39,10 +39,10 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
     @Override
     public AuthorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View childView = inflater.inflate(R.layout.ms_student_pd, parent, false);
+        View childView;
         if(authority.equals("1")){
             childView = inflater.inflate(R.layout.ms_student_pd, parent, false);
-        }else if(authority.equals("2")){
+        }else{
             childView = inflater.inflate(R.layout.ms_teacher_reply, parent, false);
         }
         AuthorViewHolder viewHolder = new AuthorViewHolder(childView);
@@ -98,7 +98,8 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
                     v.getContext().startActivity(intent);
                 }
             });
-        }else if(authority.equals("2")){
+        }else{
+            // 答辩管理
             holder.teacher_find_reply_plan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -166,7 +167,7 @@ public class ProcessDocumentAdapter extends RecyclerView.Adapter<ProcessDocument
                 student_submit_foreign_translation = (LinearLayout) itemView.findViewById(R.id.student_submit_foreign_translation);
                 student_submit_literature_review = (LinearLayout) itemView.findViewById(R.id.student_submit_literature_review);
                 student_submit_graduation_thesis = (LinearLayout) itemView.findViewById(R.id.student_submit_graduation_thesis);
-            }else if(authority.equals("2")){
+            }else{
                 teacher_find_reply_plan = (LinearLayout) itemView.findViewById(R.id.teacher_find_reply_plan);
                 teacher_find_reply_grade = (LinearLayout) itemView.findViewById(R.id.teacher_find_reply_grade);
                 teacher_find_reply_comment = (LinearLayout) itemView.findViewById(R.id.teacher_find_reply_comment);

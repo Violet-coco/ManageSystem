@@ -41,6 +41,7 @@
 
                 <TextView
                     style="@style/content_item_lf_tv"
+                    android:id="@+id/teacher"
                     android:layout_weight="1"
                     android:text="教师信息" />
 
@@ -56,6 +57,7 @@
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
+                    android:id="@+id/student"
                     android:text="学生信息" />
 
                 <ImageView style="@style/content_item_rt_img" />

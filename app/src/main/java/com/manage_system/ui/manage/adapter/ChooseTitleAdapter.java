@@ -26,10 +26,10 @@ public class ChooseTitleAdapter extends RecyclerView.Adapter<ChooseTitleAdapter.
     @Override
     public AuthorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View childView = inflater.inflate(R.layout.ms_student_choose_title, parent, false);
+        View childView;
         if(authority.equals("1")){
             childView = inflater.inflate(R.layout.ms_student_choose_title, parent, false);
-        }else if(authority.equals("2")){
+        }else{
             childView = inflater.inflate(R.layout.ms_teacher_out_title, parent, false);
         }
 
@@ -57,7 +57,7 @@ public class ChooseTitleAdapter extends RecyclerView.Adapter<ChooseTitleAdapter.
                 }
             });
 
-        }else if(authority.equals("2")){
+        }else{
             holder.student_choose_title.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

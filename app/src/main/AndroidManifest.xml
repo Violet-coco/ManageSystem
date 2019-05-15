@@ -198,6 +198,13 @@
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerXtCheckMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerShowCheckActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerCtCheckMainActivity"/>
+
+        <!--系主任答辩管理-->
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerReplyGroupMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerReplyTypeActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerScoreListMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerGroupStudentMainActivity"/>
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerScoreTotalMainActivity"/>
     </application>
 
 </manifest>
