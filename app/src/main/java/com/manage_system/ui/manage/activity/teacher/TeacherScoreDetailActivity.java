@@ -84,9 +84,7 @@ public class TeacherScoreDetailActivity extends AppCompatActivity implements Vie
         Log.w(TAG,"position==="+intent.getStringExtra("position"));
 
         JSONObject object = array.getJSONObject(Integer.parseInt(intent.getStringExtra("position")));
-        JSONObject defScore = object.getJSONObject("defScore");
 
-        Log.e(TAG,defScore.toString());
         stu_name.setText(object.getString("name"));
         stu_id.setText(object.getString("identifier"));
         pName.setText(object.getString("pName"));

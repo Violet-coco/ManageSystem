@@ -75,6 +75,9 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
         getId();
 
         Intent intent = getIntent();
+        if(!intent.getStringExtra("status").equals("审核中")){
+            ct_is_choose.setVisibility(View.GONE);
+        }
         id = intent.getStringExtra("id");
         Log.w(TAG,id);
 
@@ -118,6 +121,7 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
 
                 if(project.containsKey("file")){
                     annex_fileId = project.getString("fileId");
+                    ct_annex.setTextColor(Color.BLUE);
                     ct_annex.setText(Html.fromHtml("<u>"+project.getJSONObject("file").getString("fileName")+"</u>"));
                 }else{
                     ct_annex.setEnabled(false);

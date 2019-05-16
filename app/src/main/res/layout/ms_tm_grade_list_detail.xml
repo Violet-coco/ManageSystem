@@ -74,17 +74,6 @@
                         android:textColor="@android:color/black"
                         />
 
-                    <Button
-                        android:id="@+id/look_title"
-                        android:layout_width="80dp"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
-                        android:text="设为优秀"
-                        android:layout_marginTop="4dp"
-                        android:layout_alignParentRight="true"
-                        android:textColor="@android:color/white"
-                        android:background="@drawable/read_bt_bg"
-                        />
                 </LinearLayout>
 
             </LinearLayout>

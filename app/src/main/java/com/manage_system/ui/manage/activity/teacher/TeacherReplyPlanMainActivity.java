@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -43,6 +44,8 @@ public class TeacherReplyPlanMainActivity extends AppCompatActivity {
     RelativeLayout tool_bar;
     @BindView(R.id.iv_back)
     ImageButton iv_back;
+    @BindView(R.id.top_title)
+    TextView top_title;
 
     public List<Map<String,Object>> list=new ArrayList<>();
 
@@ -54,6 +57,7 @@ public class TeacherReplyPlanMainActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_tab);
         ButterKnife.bind(this);
         tool_bar.setVisibility(View.VISIBLE);
+        top_title.setText("答辩安排");
         initData();
     }
 
@@ -99,7 +103,7 @@ public class TeacherReplyPlanMainActivity extends AppCompatActivity {
                                     map.put("defClass", object.getJSONObject("defInfo").getString("defClass"));
                                     JSONArray array_group = new JSONArray(object.getJSONObject("defInfo").getJSONArray("teaGroup"));
                                     String reply_teacher_name,reply_teachers = "";
-                                    for (int j=0;i<array_group.size();j++){
+                                    for (int j=0;j<array_group.size();j++){
                                         JSONObject object_group = array_group.getJSONObject(j);
                                         if(object_group.getBoolean("leader")){
                                             map.put("leader",object_group.getJSONObject("teaAuth").getString("name"));
@@ -109,7 +113,7 @@ public class TeacherReplyPlanMainActivity extends AppCompatActivity {
                                         }
                                     }
                                     map.put("reply_teacher", reply_teachers);
-                                    map.put("group",object.getJSONObject("defInfo").getString("groupNum"));
+                                    map.put("group",object.getJSONObject("defInfo").getString("groupId"));
                                 }else{
                                     map.put("date", "暂无安排");
                                     map.put("defWeek", "0");
@@ -124,7 +128,7 @@ public class TeacherReplyPlanMainActivity extends AppCompatActivity {
                                 if(object.containsKey("mt")){
                                     map.put("comment_teacher",object.getJSONObject("mt").getString("name"));
                                 }else{
-                                    map.put("comment_teacher","0");
+                                    map.put("comment_teacher","暂无");
                                 }
 
                                 list.add(map);

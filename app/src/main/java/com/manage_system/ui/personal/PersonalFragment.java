@@ -34,10 +34,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.manage_system.BuildConfig;
 import com.manage_system.R;
 import com.manage_system.component.ApplicationComponent;
+import com.manage_system.net.ApiConstants;
 import com.manage_system.test.ClipImageActivity;
 import com.manage_system.test.util.FileUtil;
 import com.manage_system.test.view.CircleImageView;
 import com.manage_system.ui.base.BaseFragment;
+import com.manage_system.ui.manage.Manage;
 import com.manage_system.utils.OkManager;
 
 import java.io.File;
@@ -72,8 +74,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     private int type;
 
     private OkManager manager;
-    //登录验证请求
-    private String path="http://www.yuanbw.cn:20086/gpms/rol/logout";
 
     public static PersonalFragment newInstance() {
         Bundle args = new Bundle();
@@ -94,14 +94,34 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
-        TextView person_name=(TextView) view.findViewById(R.id.person_name);
-        TextView person_id=(TextView) view.findViewById(R.id.person_id);
+        final TextView person_name=(TextView) view.findViewById(R.id.person_name);
+        final TextView person_id=(TextView) view.findViewById(R.id.person_id);
+
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        manager.post(ApiConstants.commonApi + "/showRoleInfo", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                if(obj.get("statusCode").equals(100)){
+                    person_name.setText(obj.getJSONObject("data").getString("name"));
+                    person_id.setText(obj.getJSONObject("data").getString("identifier"));
+                }
+
+            }
+        });
         Log.w(TAG,"hhh");
-        SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
-        Log.w(TAG,sp.getString("token" , ""));
-        Log.w(TAG,sp.getString("name" , "")+"啦啦");
-        person_name.setText(sp.getString("name" , ""));
-        person_id.setText(sp.getString("id" , ""));
+    }
+
+    public void initPersonData() {
+        Log.e(TAG,"调用了");
+
     }
 
     public void showDialog(){
@@ -118,27 +138,12 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
             public void onClick(View v) {
                 dialog.dismiss();
                 Toast.makeText(getActivity(), "退出成功", Toast.LENGTH_SHORT).show();
-                SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
-                SharedPreferences sp1=getActivity().getSharedPreferences("personInfo", MODE_PRIVATE);
-                SharedPreferences sp2=getActivity().getSharedPreferences("processData", MODE_PRIVATE);
-                //获取编辑器
-                SharedPreferences.Editor editor=sp.edit();
-                SharedPreferences.Editor editor1=sp1.edit();
-                SharedPreferences.Editor editor2=sp2.edit();
-                //修改token
-//                editor.putString("token", null);
-                editor.clear();
-                editor1.clear();
-                editor2.clear();
-                //提交修改
-                editor.commit();
-                editor1.commit();
-                editor2.commit();
+                Manage.startClear();
                 // 连接接口
                 manager = OkManager.getInstance();
                 Map<String, String> map = new HashMap<String, String>();
 
-                manager.post(path, map,new okhttp3.Callback() {
+                manager.post(ApiConstants.commonApi+"/logout", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);
@@ -151,7 +156,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
+                                Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -181,17 +186,14 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 type = 1;
                 break;
             case R.id.person_info:
-                Log.w(TAG,"点击1");
                 intent.setClass(this.getActivity(), PersonInfoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.person_edit_password:
-                Log.w(TAG,"点击2");
                 intent.setClass(this.getActivity(), EditPasswordActivity.class);
                 startActivity(intent);
                 break;
             case R.id.person_exit:
-                Log.w(TAG,"点击3");
                 showDialog();
                 break;
             default:

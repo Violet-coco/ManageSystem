@@ -51,10 +51,12 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
     TextView show_tab_item2;
     @BindView(R.id.show_tab_right)
     LinearLayout show_tab_right;
+    @BindView(R.id.top_title)
+    TextView top_title;
 
     public List<Map<String,Object>> list=new ArrayList<>();
 
-    private static String TAG = "已出题界面";
+    private static String TAG = "ManagerReplyGroupMainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,10 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
         initDefDate();
         Intent intent = getIntent();
         if(intent.getStringExtra("reply_group").equals("teacher_reply")){
+            top_title.setText("答辩教师");
             initData();
         }else{
+            top_title.setText("指导教师");
             initGuideData();
         }
 
@@ -200,6 +204,8 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
                                 map.put("groupId",object.getString("groupId"));
                                 map.put("groupSize",object.getString("groupSize"));
                                 map.put("groupNum",object.getString("groupNum"));
+                                map.put("gid",object.getString("id"));
+                                map.put("gt_data",object.toString());
                                 JSONArray gt = new JSONArray(object.getJSONArray("gtGroup"));
                                 String guide_teacher="";
                                 for(int j=0;j<gt.size();j++){
@@ -212,6 +218,7 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
                             //设置适配器
                             ShowAdapter adapter = new ShowAdapter(ManagerReplyGroupMainActivity.this,list,"3101");
                             recycleView.setAdapter(adapter);
+                            finish();
                             // 设置数据后就要给RecyclerView设置点击事件
 
                         }else{

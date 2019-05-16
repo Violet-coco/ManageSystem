@@ -100,11 +100,16 @@ public class TeacherScoreMainActivity extends AppCompatActivity {
                                 map.put("pName", object.getString("pName"));
                                 map.put("gt_identifier", object.getJSONObject("gt").getString("id"));
                                 map.put("gt_name", object.getJSONObject("gt").getString("name"));
-                                if(object.getJSONObject("defScore").getBooleanValue("hasScored")){
-                                    score = object.getJSONObject("defScore").getString("scoreTotal");
+                                if(object.containsKey("defScore")){
+                                    if(object.getJSONObject("defScore").getBooleanValue("hasScored")){
+                                        score = object.getJSONObject("defScore").getString("scoreTotal");
+                                    }else{
+                                        score = "未打分";
+                                    }
                                 }else{
                                     score = "未打分";
                                 }
+
                                 map.put("scoreTotal", score);
                                 list.add(map);
                             }
@@ -116,15 +121,22 @@ public class TeacherScoreMainActivity extends AppCompatActivity {
                                 public void onItemClick(int position) {
                                     // 这里本来是跳转页面 ，我们就在这里直接让其弹toast来演示
                                     Log.w(TAG,"位置是："+position);
-                                    if(array.getJSONObject(position).getJSONObject("defScore").getBooleanValue("hasScored")){
-                                        Intent intent = new Intent(TeacherScoreMainActivity.this,TeacherScoreActivity.class);
-                                        intent.putExtra("position",position + "");
-                                        startActivity(intent);
+                                    if(array.getJSONObject(position).containsKey("defScore")){
+                                        if(array.getJSONObject(position).getJSONObject("defScore").getBooleanValue("hasScored")){
+                                            Intent intent = new Intent(TeacherScoreMainActivity.this,TeacherScoreActivity.class);
+                                            intent.putExtra("position",position + "");
+                                            startActivity(intent);
+                                        }else{
+                                            Intent intent = new Intent(TeacherScoreMainActivity.this,TeacherScoreDetailActivity.class);
+                                            intent.putExtra("position",position + "");
+                                            startActivity(intent);
+                                        }
                                     }else{
                                         Intent intent = new Intent(TeacherScoreMainActivity.this,TeacherScoreDetailActivity.class);
                                         intent.putExtra("position",position + "");
                                         startActivity(intent);
                                     }
+
 
                                 }
                             });

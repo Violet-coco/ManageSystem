@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.manage_system.net.ApiConstants;
+import com.manage_system.ui.manage.Manage;
 import com.manage_system.ui.personal.EditPasswordActivity;
 import com.manage_system.ui.personal.FindPasswordActivity;
 import com.manage_system.ui.personal.HelpActivity;
@@ -59,10 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
     //登录验证请求
     private String login_path = ApiConstants.commonApi + "/idloginMobile";
-//    private String login_path="http://www.yuanbw.cn:20086/gpms/rol/idloginMobile";
 
     private String person_info_path = ApiConstants.commonApi + "/showRoleInfo";
-//    private String person_info_path="http://www.yuanbw.cn:20086/gpms/rol/showRoleInfo";
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -139,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Manage.startClear();
                 SharedPreferences sp1=getSharedPreferences("loginInfo", MODE_PRIVATE);
                 Log.w(Tag,sp1.getString("token","")+"登录");
                 Log.w(Tag,"点击登录");

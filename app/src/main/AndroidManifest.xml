@@ -208,7 +208,7 @@
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerDataTotalMainActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerPdListActivity"/>
         <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerGradeListActivity"/>
-
+        <activity android:name="com.manage_system.ui.manage.activity.manager.ManagerGroupGuideEditActivity"/>
     </application>
 
 </manifest>

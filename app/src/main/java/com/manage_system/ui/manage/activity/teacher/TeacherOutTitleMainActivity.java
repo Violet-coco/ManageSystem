@@ -111,8 +111,12 @@ public class TeacherOutTitleMainActivity extends AppCompatActivity {
                                     cStatus = "审核中";
                                 }
                                 map.put("cStatus", cStatus);
-                                if(project.getJSONObject("taskBook").containsKey("file")){
-                                    map.put("taskBook", "已上传");
+                                if(project.containsKey("taskBook")){
+                                    if(project.getJSONObject("taskBook").containsKey("file")){
+                                        map.put("taskBook", "已上传");
+                                    }else{
+                                        map.put("taskBook", "未上传");
+                                    }
                                 }else{
                                     map.put("taskBook", "未上传");
                                 }

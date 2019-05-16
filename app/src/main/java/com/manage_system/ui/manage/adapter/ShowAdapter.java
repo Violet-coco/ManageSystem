@@ -1,14 +1,17 @@
 package com.manage_system.ui.manage.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +21,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonArray;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
+import com.manage_system.ui.manage.activity.manager.ManagerCtCheckMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerGroupGuideEditActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerGroupStudentMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerReplyGroupMainActivity;
 import com.manage_system.ui.manage.activity.student.StudentForeignTranslationActivity;
 import com.manage_system.ui.manage.activity.student.StudentGraduationThesisActivity;
 import com.manage_system.ui.manage.activity.student.StudentGraduationThesisMainActivity;
@@ -175,6 +182,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
             holder.stu_comment_teacher.setText("答辩教师："+list.get(position).get("groups").toString());
             holder.stu_group.setText("人数限制/现有人数："+list.get(position).get("groupSize").toString()+"/"+list.get(position).get("groupNum").toString());
         }else if(string.equals("3101")){
+            holder.look_main.setVisibility(View.VISIBLE);
             holder.stu_name_id.setVisibility(View.GONE);
             holder.stu_date.setText("指导老师（指导人数）："+list.get(position).get("guide_teacher").toString());
             holder.stu_class.setText("分　　组：第"+list.get(position).get("groupId").toString()+"组");
@@ -182,6 +190,22 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
             holder.stu_reply_teacher_main.setVisibility(View.GONE);
             holder.stu_comment_teacher_main.setVisibility(View.GONE);
             holder.stu_group.setText("人数限制/现有人数："+list.get(position).get("groupSize").toString()+"/"+list.get(position).get("groupNum").toString());
+            holder.look_edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),ManagerGroupGuideEditActivity.class);
+                    intent.putExtra("gt_data",list.get(position).get("gt_data").toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
+
+            holder.look_del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String gid = list.get(position).get("gid").toString();
+                    showDialog(v,gid);
+                }
+            });
         }else if(string.equals("3106")){
             holder.stu_name_id.setTextSize(14);
             holder.stu_name_id.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString() + "（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
@@ -222,6 +246,59 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
         }
     }
 
+    public void showDialog(View vt,final String gid){
+        final Dialog dialog = new Dialog(vt.getContext(), R.style.MyDialog);
+        //设置它的ContentView
+        dialog.setContentView(R.layout.alert_dialog);
+        ((TextView)dialog.findViewById(R.id.tvAlertDialogTitle)).setText("删除");
+        ((TextView)dialog.findViewById(R.id.tvAlertDialogMessage)).setText("确认删除该分组？");
+        dialog.show();
+
+        Button confirm = (Button)dialog.findViewById(R.id.btnAlertDialogPositive);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                dialog.dismiss();
+                OkManager manager = OkManager.getInstance();
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("gid", gid);
+                manager.post(ApiConstants.teacherApi+"/deleteDefTeaGroup", map,new okhttp3.Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.e(TAG, "onFailure: ",e);
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String responseBody = response.body().string();
+                        final JSONObject obj = JSON.parseObject(responseBody);
+                        Log.e(TAG,obj.toString());
+                        if(obj.get("statusCode").equals(100)) {
+                            Looper.prepare();
+                            Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(v.getContext(),ManagerReplyGroupMainActivity.class);
+                            intent.putExtra("reply_group","teacher_guide");
+                            v.getContext().startActivity(intent);
+                            Looper.loop();
+                        }else{
+                            Looper.prepare();
+                            Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }
+
+                    }
+                });
+            }
+        });
+        Button cancel = (Button) dialog.findViewById(R.id.btnAlertDialogNegative);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                // TODO Auto-generated method stub
+                dialog.dismiss();
+            }
+        });
+    }
+
     @Override
     public int getItemCount() {
         return list.size();
@@ -249,6 +326,9 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
         private LinearLayout stu_reply_teacher_main;
         private LinearLayout stu_comment_teacher_main;
         private LinearLayout stu_group_main;
+        private LinearLayout look_main;
+        private Button look_edit;
+        private Button look_del;
         public AuthorViewHolder(View itemView) {
             super(itemView);
             stu_name_id = (TextView)itemView.findViewById(R.id.stu_name_id);
@@ -272,6 +352,10 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
             stu_reply_teacher_main = (LinearLayout)itemView.findViewById(R.id.stu_reply_teacher_main);
             stu_comment_teacher_main = (LinearLayout)itemView.findViewById(R.id.stu_comment_teacher_main);
             stu_group_main = (LinearLayout)itemView.findViewById(R.id.stu_group_main);
+            look_main = (LinearLayout)itemView.findViewById(R.id.look_main);
+
+            look_edit = (Button)itemView.findViewById(R.id.look_edit);
+            look_del = (Button)itemView.findViewById(R.id.look_del);
         }
     }
 

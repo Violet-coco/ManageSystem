@@ -97,7 +97,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             holder.project_teacher.setText("答辩教室："+list.get(position).get("defClass").toString());
             holder.project_number.setText("答辩组长：");
             holder.project_number_item.setText(list.get(position).get("leader_name").toString());
-            holder.project_state.setText("分组："+"第"+list.get(position).get("groupNum").toString()+"组");
+            holder.project_state.setText("分组："+"第"+list.get(position).get("groupId").toString()+"组");
             holder.project_teachers.setText("答辩教师：");
             holder.project_teachers_item.setText(list.get(position).get("reply_teachers").toString());
 
@@ -124,7 +124,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
             holder.project_state_main.setVisibility(View.GONE);
             holder.project_teachers_main.setVisibility(View.GONE);
 
-            holder.project_date.setTextColor(Color.BLUE);
+            holder.project_date_item.setTextColor(Color.BLUE);
 
             holder.project_date_item.setOnClickListener(new View.OnClickListener() {
                 @Override

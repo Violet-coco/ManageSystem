@@ -77,4 +77,22 @@ public class Manage {
             }
         });
     }
+
+    public static void startClear() {
+        SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        SharedPreferences sp1=MyApp.getAppContext().getSharedPreferences("personInfo", MODE_PRIVATE);
+        SharedPreferences sp2=MyApp.getAppContext().getSharedPreferences("processData", MODE_PRIVATE);
+        //获取编辑器
+        SharedPreferences.Editor editor=sp.edit();
+        SharedPreferences.Editor editor1=sp1.edit();
+        SharedPreferences.Editor editor2=sp2.edit();
+        //修改token
+        editor.clear();
+        editor1.clear();
+        editor2.clear();
+        //提交修改
+        editor.commit();
+        editor1.commit();
+        editor2.commit();
+    }
 }

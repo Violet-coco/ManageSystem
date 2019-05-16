@@ -118,17 +118,20 @@ public class ManageFragment extends BaseFragment {
                     JSONArray array = new JSONArray(obj.getJSONObject("data").getJSONArray("teaGroup"));
                     Log.d(TAG,array.toString());
                     for (int i = 0; i < array.size(); i++) {
-                        Log.e(TAG,"ttt");
                         JSONObject object = array.getJSONObject(i);
                         Log.w(TAG,object.toString());
                         if(object.getBooleanValue("leader")){
-                            Log.w(TAG,"是不是");
+
                             SharedPreferences sp=getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
                             //获取编辑器
-                            SharedPreferences.Editor editor=sp.edit();
-                            editor.putString("leader", "1");
-                            //提交修改
-                            editor.commit();
+                            Log.w(TAG,sp.getString("loginUserName",""));
+                            if(object.getJSONObject("teaAuth").getString("id").equals(sp.getString("loginUserName",""))){
+                                SharedPreferences.Editor editor=sp.edit();
+                                editor.putString("leader", "1");
+                                //提交修改
+                                editor.commit();
+                                Log.w(TAG,"是答辩组长");
+                            }
                         }
                     }
 

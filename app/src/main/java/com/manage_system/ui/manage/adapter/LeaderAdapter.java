@@ -71,7 +71,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
     public void onBindViewHolder(AuthorViewHolder holder, final int position) {
 
         if(string.equals("3001")){
-            holder.project_title.setText(list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
+            holder.project_title.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）"+"</u>"));
             holder.project_ct.setText("是否出题："+list.get(position).get("is_ct").toString());
             holder.project_number.setText("出题数目："+list.get(position).get("number").toString());
 
@@ -134,8 +134,9 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
         }else if(string.equals("3004")){
             holder.project_title.setText(Html.fromHtml("<u>"+list.get(position).get("pName").toString()+"</u>"));
             holder.project_ct.setText("选题学生："+Html.fromHtml("<u>"+list.get(position).get("c_stu").toString()+"</u>"));
-            holder.project_number.setText("出题教师："+Html.fromHtml("<u>"+list.get(position).get("c_teacher_name").toString()+"（"+list.get(position).get("c_teacher_id").toString()+"）"+"</u>"));
-            holder.project_item.setText("可选人数/容纳人数："+list.get(position).get("rest").toString()+"/"+list.get(position).get("number").toString());
+            holder.project_number.setText("出题教师：");
+            holder.project_number_item.setTextColor(Color.BLUE);
+            holder.project_number_item.setText(Html.fromHtml("<u>"+list.get(position).get("c_teacher_name").toString()+"（"+list.get(position).get("c_teacher_id").toString()+"）"+"</u>"));
             holder.project_item.setVisibility(View.VISIBLE);
             if(list.get(position).get("c_stu").toString().equals("暂无学生选题")){
                 holder.look_title.setEnabled(false);
@@ -210,7 +211,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
 
         }else if(string.equals("3008")) {
             holder.project_last_main.setVisibility(View.VISIBLE);
-            holder.project_title.setText(list.get(position).get("pName").toString());
+            holder.project_title.setText(Html.fromHtml("<u>"+list.get(position).get("pName").toString()+"</u>"));
             holder.project_ct.setText("指导老师：");
             holder.project_ct_item.setTextColor(Color.BLUE);
             holder.project_ct_item.setText(Html.fromHtml("<u>"+list.get(position).get("name").toString()+"</u>"));
@@ -308,11 +309,11 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                             Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(v.getContext(),ManagerCtCheckMainActivity.class);
                             v.getContext().startActivity(intent);
-                            Looper.getMainLooper();
+                            Looper.loop();
                         }else{
                             Looper.prepare();
                             Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Looper.getMainLooper();
+                            Looper.loop();
                         }
 
                     }
@@ -346,11 +347,11 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                             Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(v.getContext(),ManagerCtCheckMainActivity.class);
                             v.getContext().startActivity(intent);
-                            Looper.getMainLooper();
+                            Looper.loop();
                         }else{
                             Looper.prepare();
                             Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Looper.getMainLooper();
+                            Looper.loop();
                         }
 
                     }
@@ -393,11 +394,11 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                             Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(v.getContext(),ManagerCtCheckMainActivity.class);
                             v.getContext().startActivity(intent);
-                            Looper.getMainLooper();
+                            Looper.loop();
                         }else{
                             Looper.prepare();
                             Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Looper.getMainLooper();
+                            Looper.loop();
                         }
 
                     }
@@ -431,11 +432,11 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                             Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(v.getContext(),ManagerCtCheckMainActivity.class);
                             v.getContext().startActivity(intent);
-                            Looper.getMainLooper();
+                            Looper.loop();
                         }else{
                             Looper.prepare();
                             Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Looper.getMainLooper();
+                            Looper.loop();
                         }
 
                     }

@@ -126,10 +126,17 @@ public class TeacherOutTitleDetailActivity extends AppCompatActivity implements 
         ot_able.setText(project.getString("rest")+"/"+project.getString("number"));
         ot_intro.setText(project.getString("briefIntro"));
         ot_time.setText(DateUtil.getDateFormat(obj.getString("setDate")));
-        if(project.getJSONObject("taskBook").containsKey("file")){
-            task_fileId = project.getJSONObject("taskBook").getString("fileId");
-            ot_taskBook.setTextColor(Color.BLUE);
-            ot_taskBook.setText(Html.fromHtml("<u>"+project.getJSONObject("taskBook").getJSONObject("file").getString("fileName")+"</u>"));
+        if(project.containsKey("taskBook")){
+            if(project.getJSONObject("taskBook").containsKey("file")){
+                task_fileId = project.getJSONObject("taskBook").getString("fileId");
+                ot_taskBook.setTextColor(Color.BLUE);
+                ot_taskBook.setText(Html.fromHtml("<u>"+project.getJSONObject("taskBook").getJSONObject("file").getString("fileName")+"</u>"));
+            }else{
+                ot_taskBook.setEnabled(false);
+                ot_taskBook.setText("暂无任务书");
+                ot_taskBook.setTextColor(this.getResources().getColor(R.color.white_alpha));
+            }
+
         }else{
             ot_taskBook.setEnabled(false);
             ot_taskBook.setText("暂无任务书");

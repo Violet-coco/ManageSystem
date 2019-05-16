@@ -94,7 +94,6 @@ public class GradeDetailAdapter extends RecyclerView.Adapter<GradeDetailAdapter.
         private TextView stu_name_id;
         private TextView stu_grade;
         private TextView stu_pName;
-        private Button look_title;
 
         public AuthorViewHolder(View itemView) {
             super(itemView);
@@ -102,7 +101,6 @@ public class GradeDetailAdapter extends RecyclerView.Adapter<GradeDetailAdapter.
             stu_name_id = (TextView)itemView.findViewById(R.id.stu_name_id);
             stu_grade = (TextView)itemView.findViewById(R.id.stu_grade);
             stu_pName = (TextView)itemView.findViewById(R.id.stu_pName);
-            look_title = (Button)itemView.findViewById(R.id.look_title);
 
         }
     }

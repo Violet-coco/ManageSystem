@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -41,6 +42,8 @@ public class TeacherGtCommentMainActivity extends AppCompatActivity {
     RelativeLayout tool_bar;
     @BindView(R.id.iv_back)
     ImageButton iv_back;
+    @BindView(R.id.top_title)
+    TextView top_title;
 
     public List<Map<String,Object>> list=new ArrayList<>();
 
@@ -52,6 +55,7 @@ public class TeacherGtCommentMainActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_tab);
         ButterKnife.bind(this);
         tool_bar.setVisibility(View.VISIBLE);
+        top_title.setText("指导教师评审");
         initData();
     }
 

@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity {
             mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_index, "首页"))
                     .addItem(new BottomBarTab(this, R.drawable.ic_browse, "浏览"))
                     .addItem(new BottomBarTab(this, R.drawable.ic_manage, "管理"))
-                    .addItem(new BottomBarTab(this, R.drawable.ic_manage, "系主任"))
+                    .addItem(new BottomBarTab(this, R.drawable.ic_leader, "系主任"))
                     .addItem(new BottomBarTab(this, R.drawable.ic_my, "我的"));
             mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
                 @Override
@@ -202,7 +202,7 @@ public class MainActivity extends BaseActivity {
                                 editor.putString("grade", obj.getJSONObject("data").getString("grade"));
                                 editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
                                 editor.putString("pName", obj.getJSONObject("data").getString("pName"));
-                                editor.putString("mtName", obj.getJSONObject("data").getString("mtName"));
+                                editor.putString("mtName", obj.getJSONObject("data").getString("tName"));
                             }
                             //提交修改
                             editor.commit();

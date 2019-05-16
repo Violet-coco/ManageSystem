@@ -411,6 +411,23 @@ public class OkManager {
         client.newCall(request).enqueue(callback);
     }
 
+    public static void postJson(String url, RequestBody requestBody ,okhttp3.Callback callback)
+    {
+        OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(60000, TimeUnit.MILLISECONDS)
+                .readTimeout(60000, TimeUnit.MILLISECONDS)
+                .build();
+
+        RequestBody body = requestBody;
+
+        SharedPreferences sp=MyApp.getAppContext().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Request request = new Request.Builder()
+                .header("token",sp.getString("token" , ""))
+                .url(url)
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
 
     //回调
     public interface Fun1 {

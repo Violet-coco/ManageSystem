@@ -128,6 +128,7 @@ public class StudentChooseDoneTitleMainActivity extends AppCompatActivity {
                                     Intent intent = new Intent(StudentChooseDoneTitleMainActivity.this,StudentChooseDoneTitleActivity.class);
                                     intent.putExtra("id",list.get(position).get("id").toString());
                                     intent.putExtra("position",position+"");
+                                    intent.putExtra("status",cStatus);
                                     Bundle bundle = new Bundle();
                                     //须定义一个list用于在budnle中传递需要传递的ArrayList<Object>,这个是必须要的
                                     ArrayList bundlelist = new ArrayList();
