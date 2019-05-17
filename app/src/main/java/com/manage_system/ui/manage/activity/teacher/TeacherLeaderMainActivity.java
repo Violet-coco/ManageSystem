@@ -105,40 +105,37 @@ public class TeacherLeaderMainActivity extends AppCompatActivity {
                                 map.put("identifier", object.getString("identifier"));
                                 map.put("name", object.getString("name"));
                                 map.put("pName", object.getString("pName"));
+                                String name1="",name2="",name3="",name4="";
 
-                                if(array.getJSONObject(i).containsKey("defenceScore")){
+
+                                if(object.containsKey("defenceScore")){
                                     JSONArray array_teacher = object.getJSONObject("defenceScore").getJSONArray("defScoreList");
-                                    map.put("def_name1",array_teacher.getJSONObject(0).getJSONObject("tea").getString("name"));
-                                    map.put("def_name2",array_teacher.getJSONObject(1).getJSONObject("tea").getString("name"));
-                                    map.put("def_name3",array_teacher.getJSONObject(2).getJSONObject("tea").getString("name"));
+                                    name1 = array_teacher.getJSONObject(0).getJSONObject("tea").getString("name");
+                                    name2 = array_teacher.getJSONObject(1).getJSONObject("tea").getString("name");
+                                    name3 = array_teacher.getJSONObject(2).getJSONObject("tea").getString("name");
+                                    name4 = array_teacher.getJSONObject(3).getJSONObject("tea").getString("name");
+
                                     map.put("scoreTotal1",array_teacher.getJSONObject(0).getString("scoreTotal"));
                                     map.put("scoreTotal2",array_teacher.getJSONObject(1).getString("scoreTotal"));
                                     map.put("scoreTotal3",array_teacher.getJSONObject(2).getString("scoreTotal"));
+                                    map.put("scoreTotal4",array_teacher.getJSONObject(3).getString("scoreTotal"));
                                 }else{
-                                    map.put("def_name1","暂无打分信息");
-                                    map.put("def_name2","暂无打分信息");
-                                    map.put("def_name3","暂无打分信息");
-                                    map.put("scoreTotal1","");
-                                    map.put("scoreTotal2","");
-                                    map.put("scoreTotal3","");
+                                    map.put("scoreTotal1","暂无打分信息");
+                                    map.put("scoreTotal2","暂无打分信息");
+                                    map.put("scoreTotal3","暂无打分信息");
+                                    map.put("scoreTotal4","暂无打分信息");
                                 }
+
+                                map.put("def_name1",name1+"  ");
+                                map.put("def_name2",name2+"  ");
+                                map.put("def_name3",name3+"  ");
+                                map.put("def_name4",name4+"  ");
 
                                 list.add(map);
                             }
                             recycleView.setLayoutManager(new LinearLayoutManager(TeacherLeaderMainActivity.this,LinearLayoutManager.VERTICAL,false));
 //                            设置适配器
                             MyAdapter adapter = new MyAdapter(TeacherLeaderMainActivity.this,list,"2006");
-//                            adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
-//                                @Override
-//                                public void onItemClick(int position) {
-//                                    // 这里本来是跳转页面 ，我们就在这里直接让其弹toast来演示
-//                                    Log.w(TAG,"位置是："+position);
-//                                    Intent intent = new Intent(TeacherLeaderMainActivity.this,TeacherScoreActivity.class);
-//                                    intent.putExtra("position",position + "");
-//                                    startActivity(intent);
-//
-//                                }
-//                            });
                             recycleView.setAdapter(adapter);
 
                         }else{

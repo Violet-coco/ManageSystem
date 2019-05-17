@@ -22,6 +22,7 @@ import com.google.gson.JsonArray;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.activity.manager.ManagerCtCheckMainActivity;
+import com.manage_system.ui.manage.activity.manager.ManagerGroupAddActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerGroupGuideEditActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerGroupStudentMainActivity;
 import com.manage_system.ui.manage.activity.manager.ManagerReplyGroupMainActivity;
@@ -174,13 +175,32 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
             });
         }else if(string.equals("3100")){
             holder.stu_name_id.setTextSize(16);
+            holder.look_main.setVisibility(View.VISIBLE);
             holder.stu_name_id.setText("分　　组：第"+list.get(position).get("groupId").toString()+"组");
             holder.stu_date.setText("答辩时间："+list.get(position).get("date").toString());
             holder.stu_class.setText("答辩周数："+list.get(position).get("week").toString());
             holder.stu_leader.setText("答辩教室："+list.get(position).get("class").toString());
-            holder.stu_reply_teacher.setText("答辩组长："+list.get(position).get("leader").toString());
+            holder.stu_reply_teacher.setText("答辩组长：");
+            holder.stu_reply_teacher_item.setText(list.get(position).get("leader").toString());
             holder.stu_comment_teacher.setText("答辩教师："+list.get(position).get("groups").toString());
             holder.stu_group.setText("人数限制/现有人数："+list.get(position).get("groupSize").toString()+"/"+list.get(position).get("groupNum").toString());
+            holder.look_edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(v.getContext(),ManagerGroupAddActivity.class);
+                    intent.putExtra("gt_data",list.get(position).get("gt_data").toString());
+                    intent.putExtra("gt_from","from_edit");
+                    v.getContext().startActivity(intent);
+                }
+            });
+
+            holder.look_del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String gid = list.get(position).get("gid").toString();
+                    showDialog(v,gid,"/deleteDefGroup");
+                }
+            });
         }else if(string.equals("3101")){
             holder.look_main.setVisibility(View.VISIBLE);
             holder.stu_name_id.setVisibility(View.GONE);
@@ -203,7 +223,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
                 @Override
                 public void onClick(View v) {
                     String gid = list.get(position).get("gid").toString();
-                    showDialog(v,gid);
+                    showDialog(v,gid,"/deleteDefTeaGroup");
                 }
             });
         }else if(string.equals("3106")){
@@ -246,7 +266,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
         }
     }
 
-    public void showDialog(View vt,final String gid){
+    public void showDialog(View vt,final String gid,final String api){
         final Dialog dialog = new Dialog(vt.getContext(), R.style.MyDialog);
         //设置它的ContentView
         dialog.setContentView(R.layout.alert_dialog);
@@ -262,7 +282,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
                 OkManager manager = OkManager.getInstance();
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("gid", gid);
-                manager.post(ApiConstants.teacherApi+"/deleteDefTeaGroup", map,new okhttp3.Callback() {
+                manager.post(ApiConstants.teacherApi+api, map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);
@@ -298,6 +318,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

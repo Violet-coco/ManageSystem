@@ -145,10 +145,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.AuthorViewHolder> 
         }else if(string.equals("2006")){
             holder.project_title.setText(list.get(position).get("pName").toString());
             holder.project_date.setText("答辩学生："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");
-            holder.project_teacher.setText(list.get(position).get("def_name1").toString() + "　"+list.get(position).get("scoreTotal1").toString());
-            holder.project_number.setText(list.get(position).get("def_name2").toString() + "　"+list.get(position).get("scoreTotal2").toString());
-            holder.project_state.setText(list.get(position).get("def_name3").toString() + "　"+list.get(position).get("scoreTotal3").toString());
-            holder.project_teachers_main.setVisibility(View.GONE);
+            holder.project_teacher.setText(list.get(position).get("def_name1").toString() );
+            holder.project_teacher_item.setText( list.get(position).get("scoreTotal1").toString());
+
+            holder.project_number.setText(list.get(position).get("def_name2").toString() );
+            holder.project_number_item.setText(list.get(position).get("scoreTotal2").toString());
+
+            holder.project_state.setText(list.get(position).get("def_name3").toString());
+            holder.project_state_item.setText(list.get(position).get("scoreTotal3").toString());
+
+            holder.project_teachers.setText(list.get(position).get("def_name4").toString());
+            holder.project_teachers_item.setText(list.get(position).get("scoreTotal4").toString());
+
         }else if(string.equals("2009")){
             holder.project_title.setText(list.get(position).get("pName").toString());
             holder.project_date.setText("答辩学生："+list.get(position).get("name").toString()+"（"+list.get(position).get("identifier").toString()+"）");

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -53,6 +54,8 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
     LinearLayout show_tab_right;
     @BindView(R.id.top_title)
     TextView top_title;
+    @BindView(R.id.add)
+    Button add;
 
     public List<Map<String,Object>> list=new ArrayList<>();
 
@@ -68,6 +71,7 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent.getStringExtra("reply_group").equals("teacher_reply")){
             top_title.setText("答辩教师");
+            add.setText("新增+");
             initData();
         }else{
             top_title.setText("指导教师");
@@ -146,15 +150,18 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
                                 map.put("date", DateUtil.getDateFormat(object.getString("defDate")));
                                 map.put("week","第"+object.getString("defWeek")+"周 星期"+object.getString("defDay"));
                                 map.put("class", object.getString("defClass"));
-                                String groups = "";
+                                map.put("gid",object.getString("id"));
+                                map.put("gt_data",object.toString());
+                                String groups = "",leader="";
                                 JSONArray teaGroup = new JSONArray(object.getJSONArray("teaGroup"));
                                 for(int j=0;j<teaGroup.size();j++){
                                     if(teaGroup.getJSONObject(j).getBoolean("leader")){
-                                        map.put("leader",teaGroup.getJSONObject(j).getJSONObject("teaAuth").getString("name"));
+                                        leader = teaGroup.getJSONObject(j).getJSONObject("teaAuth").getString("name");
                                     }else{
                                         groups = groups + teaGroup.getJSONObject(j).getJSONObject("teaAuth").getString("name") + " ";
                                     }
                                 }
+                                map.put("leader",leader);
                                 map.put("groups",groups);
                                 map.put("groupSize",object.getString("groupSize"));
                                 map.put("groupNum",object.getString("groupNum"));
@@ -231,10 +238,16 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.iv_back)
+    @OnClick({R.id.iv_back,R.id.add})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:
+                finish();
+                break;
+            case R.id.add:
+                Intent intent = new Intent(ManagerReplyGroupMainActivity.this,ManagerGroupAddActivity.class);
+                intent.putExtra("gt_from","");
+                startActivity(intent);
                 finish();
                 break;
             default:

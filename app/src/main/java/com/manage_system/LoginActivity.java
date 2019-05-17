@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
     private void init() {
         //从main_title_bar中获取的id
         tv_main_title=(TextView) findViewById(R.id.tv_main_title);
-        tv_main_title.setText("登录");
         tv_back=(TextView)findViewById(R.id.tv_back);
         //从login.xml中获取的
         forget_password=(TextView)findViewById(R.id.forget_password);
@@ -85,14 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         help=(TextView)findViewById(R.id.help);
         //是否记住密码
         remember_password = (CheckBox) findViewById(R.id.remember_password);
-        //返回键的点击事件
-        tv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //登录界面销毁
-                LoginActivity.this.finish();
-            }
-        });
+
         //切换为手机账号登陆
         login_by_phone.setOnClickListener(new View.OnClickListener(){
            @Override

@@ -13,7 +13,12 @@ import com.manage_system.R;
 import com.manage_system.ui.index.adapter.SchoolNewsAdapter;
 import com.manage_system.ui.manage.adapter.ChooseTitleAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class SchoolNewsFragment extends Fragment {
+    public List<Map<String,Object>> list=new ArrayList<>();
 
     public static Fragment newInstance() {
         SchoolNewsFragment fragment = new SchoolNewsFragment();
@@ -27,7 +32,7 @@ public class SchoolNewsFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new SchoolNewsAdapter());
+        recyclerView.setAdapter(new SchoolNewsAdapter(getActivity(),list,"0000"));
         return rootView;
     }
 }
