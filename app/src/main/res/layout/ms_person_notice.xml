@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="发送通知" />
+
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <ScrollView
+        style="@style/match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <RelativeLayout
+                android:id="@+id/llUserTag"
+                style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/middle_check_con_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="通知内容" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_edit"
+                    android:id="@+id/notice_content"
+                    android:layout_below="@+id/middle_check_con_title" />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp">
+
+                <Button
+                    android:id="@+id/notice_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/login_button_selector"
+                    android:text="确　　定"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <LinearLayout
+        android:id="@+id/llUserBottomMenuContainer"
+        style="@style/ll_vertical_match_wrap" >
+    </LinearLayout>
+
+</LinearLayout>

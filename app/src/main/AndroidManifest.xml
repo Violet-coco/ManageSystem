@@ -133,7 +133,9 @@
         <activity android:name="com.manage_system.test.ClipImageActivity"/>
 
         <!--公共模块-->
-        <activity android:name="com.manage_system.ui.index.activity.IndexNewsMainActivity"/>
+        <activity android:name="com.manage_system.ui.personal.SendNoticeActivity"/>
+        <activity android:name=".ui.browse.activity.BrowseActivity"/>
+        <activity android:name=".ui.index.activity.SchoolNewsActivity"/>
 
         <!--学生选题-->
         <activity android:name="com.manage_system.ui.manage.activity.student.StudentChooseTitleActivity"/>

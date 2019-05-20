@@ -229,6 +229,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                 holder.look_title.setTextColor(Color.GRAY);
             }else{
                 holder.look_title.setText("审核");
+                holder.look_title.setEnabled(true);
                 holder.look_title.setBackgroundColor(Color.parseColor("#F55A5D"));
                 holder.look_title.setTextColor(Color.WHITE);
             }
@@ -258,6 +259,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                 public void onClick(View vt) {
                     String tid = list.get(position).get("tid").toString();
                     String pid = list.get(position).get("pid").toString();
+                    Log.w(TAG,"hhh");
                     showCtDialog(vt,tid,pid);
                 }
             });

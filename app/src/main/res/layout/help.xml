@@ -3,9 +3,75 @@
     android:layout_height="match_parent"
 >
 
-<WebView
-    android:id="@+id/webView1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <RelativeLayout
+        style="@style/topbar_bg"
+        android:id="@+id/nav_title">
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="校内新闻" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/news_main"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_below="@+id/nav_title">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:textColor="@color/blue"
+            android:textSize="18dp"
+            android:gravity="center_horizontal"
+            android:padding="8dp"
+            android:text="这是标题"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/time"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:text="2018-05-20"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/name"
+                android:gravity="right"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:text="管理员"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/source"
+            android:padding="8dp"
+            android:gravity="right"
+            android:text="软件工程"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/news_main">
+        <WebView
+            android:id="@+id/webView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <RelativeLayout style="@style/topbar_bg" >
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            style="@style/topbar_return_img" />
+
+        <TextView
+            style="@style/topbar_title"
+            android:layout_centerHorizontal="true"
+            android:text="浏览详情" />
+
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <ScrollView
+        style="@style/match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout
+                android:id="@+id/llUserTag"
+                style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/ct_topic_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="课题题目" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:id="@+id/exe_topic"
+                    android:ellipsize="end"
+                    android:layout_below="@+id/ct_topic_title"
+                    android:editable="false"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/ct_type_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="届" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:id="@+id/exe_grade"
+                    android:editable="false"
+                    android:layout_below="@+id/ct_type_title"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/ct_resource_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="优秀生" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:id="@+id/exe_name"
+                    android:layout_below="@+id/ct_resource_title"
+                    android:editable="false"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/ct_teacher_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="专业" />
+
+                <EditText
+                    style="@style/edit_item_ms_border_content"
+                    android:editable="false"
+                    android:id="@+id/exe_major"
+                    android:layout_below="@+id/ct_teacher_title"
+                    />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/ct_task_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="题目附件" />
+
+                <TextView
+                    style="@style/edit_item_ms_border_content"
+                    android:textColor="@color/blue"
+                    android:autoLink="all"
+                    android:id="@+id/exe_title_annex"
+                    android:layout_below="@+id/ct_task_title"
+                     />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <RelativeLayout style="@style/edit_item_ms_all" >
+
+                <TextView
+                    android:id="@+id/ct_annex_title"
+                    style="@style/edit_item_ms_border_title"
+                    android:text="论文附件" />
+
+                <TextView
+                    style="@style/edit_item_ms_border_content"
+                    android:textColor="@color/blue"
+                    android:autoLink="all"
+                    android:id="@+id/exe_word_annex"
+                    android:layout_below="@+id/ct_annex_title"
+                     />
+
+            </RelativeLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <LinearLayout
+        android:id="@+id/llUserBottomMenuContainer"
+        style="@style/ll_vertical_match_wrap" >
+    </LinearLayout>
+
+</LinearLayout>

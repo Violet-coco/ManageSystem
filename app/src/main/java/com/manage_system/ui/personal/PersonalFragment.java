@@ -64,6 +64,8 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     LinearLayout personEditPassword;
     @BindView(R.id.person_exit)
     LinearLayout personExit;
+    @BindView(R.id.person_notice)
+    LinearLayout person_notice;
 
     //头像1
     private CircleImageView person_icon;
@@ -117,11 +119,6 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
             }
         });
         Log.w(TAG,"hhh");
-    }
-
-    public void initPersonData() {
-        Log.e(TAG,"调用了");
-
     }
 
     public void showDialog(){
@@ -178,7 +175,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     private static final String TAG = "个人页面";
 
-    @OnClick({R.id.person_icon,R.id.person_info,R.id.person_edit_password,R.id.person_exit})
+    @OnClick({R.id.person_icon,R.id.person_info,R.id.person_edit_password,R.id.person_exit,R.id.person_notice})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         Intent intent = new Intent();
         switch (v.getId()) {
@@ -195,6 +192,10 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.person_exit:
                 showDialog();
+                break;
+            case R.id.person_notice:
+                intent.setClass(this.getActivity(), SendNoticeActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
