@@ -63,9 +63,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
-
+        initNewsData();
         initData();
-
         SharedPreferences spt = getSharedPreferences("loginInfo", MODE_PRIVATE);
         if(spt.getString("authority" , "").equals("3")){
             Log.e(TAG,"身份："+spt.getString("authority" , "").equals("3"));
@@ -203,6 +202,8 @@ public class MainActivity extends BaseActivity {
                                 editor.putString("classNo", obj.getJSONObject("data").getString("classNo"));
                                 editor.putString("pName", obj.getJSONObject("data").getString("pName"));
                                 editor.putString("mtName", obj.getJSONObject("data").getString("tName"));
+                                editor.putString("tId", obj.getJSONObject("data").getString("tId"));
+                                editor.putString("mtId", obj.getJSONObject("data").getString("mtId"));
                             }
                             //提交修改
                             editor.commit();
@@ -215,6 +216,32 @@ public class MainActivity extends BaseActivity {
                     }
                 });
 
+            }
+        });
+    }
+
+
+    public void initNewsData() {
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("limit","10000");
+        manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                if(obj.get("statusCode").equals(100)){
+                    SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putString("news_list", obj.toString());
+                    //提交修改
+                    editor.commit();
+                }
             }
         });
     }

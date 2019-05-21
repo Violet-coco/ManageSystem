@@ -75,8 +75,6 @@
                 style="@style/divider_horizontal_1px"
                 android:layout_marginTop="30dp" />
 
-            <View style="@style/divider_horizontal_1px" />
-
             <LinearLayout
                 android:id="@+id/person_info"
                 style="@style/content_item_white" >

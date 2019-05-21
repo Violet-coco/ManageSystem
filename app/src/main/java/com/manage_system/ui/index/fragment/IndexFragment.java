@@ -98,28 +98,7 @@ public class IndexFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        OkManager manager = OkManager.getInstance();
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("limit","10000");
-        manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e(TAG, "onFailure: ",e);
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String responseBody = response.body().string();
-                Log.e(TAG,responseBody);
-                final JSONObject obj = JSON.parseObject(responseBody);
-                if(obj.get("statusCode").equals(100)){
-                    SharedPreferences sp=getActivity().getSharedPreferences("processData", MODE_PRIVATE);
-                    SharedPreferences.Editor editor=sp.edit();
-                    editor.putString("news_list", obj.toString());
-                    //提交修改
-                    editor.commit();
-                }
-            }
-        });
+
     }
 
     @Override

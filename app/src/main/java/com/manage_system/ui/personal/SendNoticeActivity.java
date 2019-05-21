@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.manage_system.utils.OkManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +63,8 @@ public class SendNoticeActivity extends AppCompatActivity implements View.OnClic
     private List<String> list = new ArrayList<>();
     //用于存放已选择的条目
     public List<Map<String,Object>> listID=new ArrayList<>();
-    final List<String> listId = new ArrayList<>();
+    final List<BigInteger> listId = new ArrayList<>();
+    final List<BigInteger> listStuId = new ArrayList<>();
 
 
     @Override
@@ -70,7 +73,10 @@ public class SendNoticeActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.ms_person_notice);
         ButterKnife.bind(this);
         getId();
-        initData();
+        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+        if(!sp.getString("authority","").equals("1")){
+            initData();
+        }
     }
 
     /**启动这个Activity的Intent
@@ -97,7 +103,12 @@ public class SendNoticeActivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
             case R.id.notice_submit:
-                showMutilAlertDialog();
+                SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+                if(!sp.getString("authority","").equals("1")){
+                    showMutilAlertDialog();
+                }else{
+                    submitStuData();
+                }
                 break;
             default:
                 break;
@@ -145,15 +156,15 @@ public class SendNoticeActivity extends AppCompatActivity implements View.OnClic
     public void submitData() {
         OkManager manager = OkManager.getInstance();
 
-        Notice teacher = new Notice();
-        teacher.setContent(notice_content.getText().toString().trim());
-        teacher.setRecvIds(listId);
+        Notice notice = new Notice();
+        notice.setContent(notice_content.getText().toString().trim());
+        notice.setRecvIds(listId);
 
         Log.w(TAG,notice_content.getText().toString().trim());
         Log.w(TAG,listId.toString());
         Gson gson = new Gson();
         //使用Gson将对象转换为json字符串
-        String json = gson.toJson(teacher);
+        String json = gson.toJson(notice);
         Log.w(TAG,json);
 
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"),json);
@@ -174,9 +185,53 @@ public class SendNoticeActivity extends AppCompatActivity implements View.OnClic
                     @Override
                     public void run() {
                         if (obj.get("statusCode").equals(100)) {
-                            Intent intent = new Intent(SendNoticeActivity.this,ManagerReplyGroupMainActivity.class);
-                            intent.putExtra("reply_group","teacher_guide");
-                            startActivity(intent);
+                            finish();
+                            Toast.makeText(SendNoticeActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(SendNoticeActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    public void submitStuData() {
+        OkManager manager = OkManager.getInstance();
+
+        Notice notice = new Notice();
+        notice.setContent(notice_content.getText().toString().trim());
+        SharedPreferences sp=getSharedPreferences("personInfo", MODE_PRIVATE);
+        BigInteger data = new BigInteger(sp.getString("tId",""));
+        listStuId.add(data);
+        notice.setRecvIds(listStuId);
+
+        Log.w(TAG,notice_content.getText().toString().trim());
+        Log.w(TAG,listId.toString());
+        Gson gson = new Gson();
+        //使用Gson将对象转换为json字符串
+        String json = gson.toJson(notice);
+        Log.w(TAG,json);
+
+        RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"),json);
+        manager.postJson(ApiConstants.commonApi + "/sendRoleNotification", requestBody, new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ", e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG, responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                final String msg = obj.getString("msg");
+                Log.e(TAG, responseBody);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (obj.get("statusCode").equals(100)) {
                             finish();
                             Toast.makeText(SendNoticeActivity.this, msg, Toast.LENGTH_SHORT).show();
                         } else {
@@ -212,17 +267,21 @@ public class SendNoticeActivity extends AppCompatActivity implements View.OnClic
             public void onClick(DialogInterface dialogInterface, int i, boolean isChecked) {
                 if (isChecked) {
                     if(listId.contains(listID.get(i).get("id").toString())){
-                        listId.remove(listID.get(i).get("id").toString());
+                        BigInteger data = new BigInteger(listID.get(i).get("id").toString());
+                        listId.remove(data);
                     }else{
                         Log.w(TAG,listID.get(i).get("id").toString());
-                        listId.add(listID.get(i).get("id").toString());
+                        BigInteger data = new BigInteger(listID.get(i).get("id").toString());
+                        listId.add(data);
                     }
                     Toast.makeText(SendNoticeActivity.this, "选择" + items[i], Toast.LENGTH_SHORT).show();
                 } else {
                     if(listId.contains(listID.get(i).get("id").toString())){
-                        listId.remove(listID.get(i).get("id").toString());
+                        BigInteger data = new BigInteger(listID.get(i).get("id").toString());
+                        listId.remove(data);
                     }else{
-                        listId.add(listID.get(i).get("id").toString());
+                        BigInteger data = new BigInteger(listID.get(i).get("id").toString());
+                        listId.add(data);
                     }
                     Toast.makeText(SendNoticeActivity.this, "取消选择" + items[i], Toast.LENGTH_SHORT).show();
                 }
