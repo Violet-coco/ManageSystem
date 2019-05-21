@@ -42,6 +42,7 @@ import com.manage_system.utils.OpenFileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -79,7 +80,8 @@ public class ManagerGroupAddActivity extends AppCompatActivity implements View.O
     final List<String> listId = new ArrayList<>();
     JSONObject jb = new JSONObject();
     JSONArray jArray = new JSONArray();
-    String gid,leader_name = "",t_id = "";
+    String leader_name = "";
+    BigInteger gid,t_id;
     int type = 0;
 
     @Override
@@ -129,7 +131,7 @@ public class ManagerGroupAddActivity extends AppCompatActivity implements View.O
         c_date.setText(DateUtil.getDateFormatNoTime(object.getString("defDate")));
         c_class.setText(object.getString("defClass"));
         c_number.setText(object.getString("groupSize"));
-        gid = object.getString("id");
+        gid = new BigInteger(object.getString("id"));
         JSONArray array = new JSONArray(object.getJSONArray("teaGroup"));
         for(int i=0;i<array.size();i++){
             if(array.getJSONObject(i).getBoolean("leader")){
@@ -286,15 +288,19 @@ public class ManagerGroupAddActivity extends AppCompatActivity implements View.O
         final String[] items = list.toArray(new String[list.size()]);
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setTitle("选择答辩组长");
-        listId.add(listID.get(0).get("tid").toString());
-        leader_name = listID.get(0).get("name").toString();
         final JSONObject jObject = new JSONObject();
-        jObject.put("tid",listID.get(0).get("tid").toString());
-        jObject.put("leader", 1);
-        jArray.add(jObject);
-        jb.put("teaIdList",jArray);
-        Log.e(TAG,listId.toString());
-        Log.e(TAG,jb.toString());
+        if(listID.size()>0){
+            listId.add(listID.get(0).get("tid").toString());
+            leader_name = listID.get(0).get("name").toString();
+
+            t_id = new BigInteger(listID.get(0).get("tid").toString());
+            jObject.put("tid",t_id);
+            jObject.put("leader", 1);
+            jArray.add(jObject);
+            jb.put("teaIdList",jArray);
+            Log.e(TAG,listId.toString());
+            Log.e(TAG,jb.toString());
+        }
         alertBuilder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -306,8 +312,8 @@ public class ManagerGroupAddActivity extends AppCompatActivity implements View.O
                     JSONArray array = new JSONArray(jb.getJSONArray("teaIdList"));
                     jArray.remove(array.getJSONObject(0));
 
-                    t_id = listID.get(i).get("tid").toString();
-                    jObject.put("tid",listID.get(i).get("tid").toString());
+                    t_id = new BigInteger(listID.get(i).get("tid").toString());
+                    jObject.put("tid",t_id);
                     jObject.put("leader", 1);
                     jArray.add(jObject);
                     jb.put("teaIdList",jArray);
@@ -366,7 +372,8 @@ public class ManagerGroupAddActivity extends AppCompatActivity implements View.O
                             Toast.makeText(ManagerGroupAddActivity.this, "已选择其为答辩老师" , Toast.LENGTH_SHORT).show();
                         }else{
                             selectList.add(listID.get(i).get("tid").toString());
-                            jObject.put("tid",listID.get(i).get("tid").toString());
+                            BigInteger data = new BigInteger(listID.get(i).get("tid").toString());
+                            jObject.put("tid",data);
                             jObject.put("leader", 0);
                             jArray.add(jObject);
                             jb.put("teaIdList",jArray);

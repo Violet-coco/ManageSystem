@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/title_bar"
+    android:background="@color/colorPrimary"
     android:gravity="center"
     tools:context="com.manage_system.SplashActivity">
 
@@ -23,7 +22,7 @@
             android:layout_height="130dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="150dp"
-            android:src="@drawable/logo_icon"
+            android:src="@drawable/graduation"
             android:visibility="invisible" />
 
 
@@ -54,27 +53,27 @@
                 <TextView
                     android:id="@+id/tv3"
                     style="@style/TextStyle111"
-                    android:text="管" />
+                    android:text="设" />
 
                 <TextView
                     android:id="@+id/tv4"
                     style="@style/TextStyle111"
-                    android:text="理" />
+                    android:text="计" />
 
                 <TextView
                     android:id="@+id/tv5"
                     style="@style/TextStyle111"
-                    android:text="系" />
+                    android:text="管" />
 
                 <TextView
                     android:id="@+id/tv6"
                     style="@style/TextStyle111"
-                    android:text="统" />
+                    android:text="理" />
 
                 <TextView
                     android:id="@+id/tv7"
                     style="@style/TextStyle111"
-                    android:text=" " />
+                    android:text="系统" />
 
             </LinearLayout>
 
