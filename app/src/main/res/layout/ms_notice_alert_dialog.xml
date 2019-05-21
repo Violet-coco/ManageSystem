@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/login_button_border_selector"
+    android:clickable="true"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/item_distance" >
+
+        <TextView
+            android:id="@+id/tvAlertDialogTitle"
+            style="@style/text_huge_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/sp_14"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/item_left_tv_padding"
+            android:text="Title" />
+
+        <TextView
+            android:id="@+id/tvAlertDialogMessage"
+            style="@style/text_middle"
+            android:textColor="@color/gray_4"
+            android:layout_margin="@dimen/item_left_tv_padding"
+            android:textSize="@dimen/sp_12"
+            android:gravity="left|top" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_4"
+            android:textSize="@dimen/sp_12"
+            android:layout_marginRight="@dimen/dp_10"
+            android:gravity="right" />
+    </LinearLayout>
+
+    <View style="@style/divider_horizontal_1px" />
+
+    <LinearLayout style="@style/ll_horizontal_match_wrap" >
+
+        <Button
+            android:id="@+id/btnAlertDialogNegative"
+            style="@style/text_middle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/to_alpha"
+            android:padding="@dimen/item_distance"
+            android:text="关闭"
+            android:textColor="@color/gray_3"
+            android:visibility="visible" />
+
+        <View style="@style/divider_vertical_1px" />
+
+    </LinearLayout>
+
+</LinearLayout>

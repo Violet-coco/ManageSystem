@@ -111,19 +111,13 @@ public class IndexFragment extends BaseFragment {
                 final String responseBody = response.body().string();
                 Log.e(TAG,responseBody);
                 final JSONObject obj = JSON.parseObject(responseBody);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(obj.get("statusCode").equals(100)){
-                            SharedPreferences sp=getActivity().getSharedPreferences("processData", MODE_PRIVATE);
-                            SharedPreferences.Editor editor=sp.edit();
-                            editor.putString("news_list", obj.toString());
-                            //提交修改
-                            editor.commit();
-                        }
-                    }
-                });
-
+                if(obj.get("statusCode").equals(100)){
+                    SharedPreferences sp=getActivity().getSharedPreferences("processData", MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putString("news_list", obj.toString());
+                    //提交修改
+                    editor.commit();
+                }
             }
         });
     }

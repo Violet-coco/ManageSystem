@@ -45,14 +45,17 @@ public class SchoolNewsFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         SharedPreferences sp=getActivity().getSharedPreferences("processData", MODE_PRIVATE);
+        Log.w(TAG,"**************");
+        Log.w(TAG,sp.getString("news_list" , ""));
         JSONObject obj = JSON.parseObject(sp.getString("news_list" , ""));
+        Log.w(TAG,"**************");
+        Log.w(TAG,obj.toString());
         JSONArray array = new JSONArray(obj.getJSONObject("data").getJSONArray("newsList"));
         for (int i = 0; i < array.size(); i++) {
             JSONObject object = array.getJSONObject(i);
             Map<String, Object> map = new HashMap<>();
             map.put("time",DateUtil.getDateFormat(object.getString("sendDate")));
             map.put("title",object.getJSONObject("news").getString("title"));
-//            JSONArray array_image = new JSONArray(object.getJSONObject("news").getJSONArray("imgList"));
             map.put("web_data",object.getJSONObject("news").getString("content"));
             JSONArray images = new JSONArray(object.getJSONObject("news").getJSONArray("imgList"));
             if(images.size()>0){

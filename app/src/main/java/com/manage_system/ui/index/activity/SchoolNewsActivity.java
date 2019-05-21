@@ -79,15 +79,15 @@ public class SchoolNewsActivity extends AppCompatActivity implements View.OnClic
         return new Intent(context, SchoolNewsActivity.class);
     }
 
-//    @OnClick({R.id.iv_back})
+    @OnClick({R.id.iv_back})
     public void onClick(View v) {//直接调用不会显示v被点击效果
-//        switch (v.getId()) {
-//            case R.id.iv_back:
-//                finish();
-//                break;
-//            default:
-//                break;
-//        }
+        switch (v.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+            default:
+                break;
+        }
     }
 
 }

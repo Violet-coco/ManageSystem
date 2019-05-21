@@ -18,6 +18,7 @@
 
                 <TextView
                     style="@style/content_item_lf_tv"
+                    android:id="@+id/student_choose_title_text"
                     android:layout_weight="1"
                     android:text="选题" />
 
@@ -33,6 +34,7 @@
                 <TextView
                     style="@style/content_item_lf_tv"
                     android:layout_weight="1"
+                    android:id="@+id/student_choose_done_title_text"
                     android:text="已选课题" />
 
                 <ImageView style="@style/content_item_rt_img" />

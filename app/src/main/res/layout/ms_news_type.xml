@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/activity_page" >
+
+    <ScrollView
+        style="@style/ll_vertical_match_match"
+        android:layout_weight="1" >
+
+        <LinearLayout style="@style/ll_vertical_match_match" >
+            <RelativeLayout style="@style/topbar_bg" >
+
+                <ImageButton
+                    android:id="@+id/iv_back"
+                    style="@style/topbar_return_img" />
+
+                <TextView
+                    style="@style/topbar_title"
+                    android:layout_centerHorizontal="true"
+                    android:text="通知公告" />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divider_horizontal_1px"
+                android:layout_marginTop="30dp" />
+
+            <LinearLayout
+                android:id="@+id/student_choose_title"
+                style="@style/content_item_white" >
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/news_done"
+                    android:layout_marginRight="@dimen/dp_10"/>
+
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:id="@+id/student_choose_title_text"
+                    android:layout_weight="1"
+                    android:text="已读" />
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:id="@+id/student_choose_done_title"
+                style="@style/content_item_white" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/news_no_done"
+                        android:layout_marginRight="@dimen/dp_10"/>
+
+                    <TextView
+                        style="@style/content_item_lf_tv"
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/student_choose_done_title_text"
+                        android:text="未读" />
+
+                    <ImageView
+                        android:id="@+id/point"
+                        android:visibility="gone"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/news_point"
+                        android:layout_marginRight="@dimen/dp_10"/>
+                </LinearLayout>
+
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+            <LinearLayout
+                android:id="@+id/student_choose_done_check"
+                android:visibility="gone"
+                style="@style/content_item_white" >
+
+                <TextView
+                    style="@style/content_item_lf_tv"
+                    android:layout_weight="1"
+                    android:text="审核学生选题" />
+
+                <ImageView style="@style/content_item_rt_img" />
+            </LinearLayout>
+
+            <View style="@style/divider_horizontal_1px" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

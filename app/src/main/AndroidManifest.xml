@@ -136,6 +136,8 @@
         <activity android:name="com.manage_system.ui.personal.SendNoticeActivity"/>
         <activity android:name=".ui.browse.activity.BrowseActivity"/>
         <activity android:name=".ui.index.activity.SchoolNewsActivity"/>
+        <activity android:name=".ui.index.activity.NoticeActivity"/>
+        <activity android:name=".ui.index.activity.NoticeMainActivity"/>
 
         <!--学生选题-->
         <activity android:name="com.manage_system.ui.manage.activity.student.StudentChooseTitleActivity"/>
