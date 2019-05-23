@@ -76,6 +76,7 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
             initData();
         }else{
             top_title.setText("指导教师");
+            add.setText("分配");
             initGuideData();
         }
 
@@ -243,6 +244,62 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
         });
     }
 
+    public void autoData() {
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        manager.post(ApiConstants.teacherApi + "/assignDefStuGroup", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                final String msg = obj.getString("msg");
+                Log.e(TAG,responseBody);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            Toast.makeText(ManagerReplyGroupMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(ManagerReplyGroupMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+
+        manager.post(ApiConstants.teacherApi + "/assignReviewTeaGroup", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                final String msg = obj.getString("msg");
+                Log.e(TAG,responseBody);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+                            Toast.makeText(ManagerReplyGroupMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(ManagerReplyGroupMainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
     @OnClick({R.id.iv_back,R.id.add})
     public void onClick(View v) {
         switch (v.getId()) {
@@ -250,10 +307,15 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.add:
-                Intent intent = new Intent(ManagerReplyGroupMainActivity.this,ManagerGroupAddActivity.class);
-                intent.putExtra("gt_from","");
-                startActivity(intent);
-                finish();
+                Intent getintent = getIntent();
+                if(getintent.getStringExtra("reply_group").equals("teacher_reply")){
+                    Intent intent = new Intent(ManagerReplyGroupMainActivity.this,ManagerGroupAddActivity.class);
+                    intent.putExtra("gt_from","");
+                    startActivity(intent);
+                    finish();
+                }else{
+                    autoData();
+                }
                 break;
             default:
                 break;

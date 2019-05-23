@@ -112,10 +112,12 @@ public class TeacherThesisCommentMainActivity extends AppCompatActivity {
                                         Intent intent = new Intent(TeacherThesisCommentMainActivity.this,TeacherThesisCommentActivity.class);
                                         intent.putExtra("position",position + "");
                                         startActivity(intent);
+                                        finish();
                                     }else{
                                         Intent intent = new Intent(TeacherThesisCommentMainActivity.this,TeacherThesisCommentDetailActivity.class);
                                         intent.putExtra("position",position + "");
                                         startActivity(intent);
+                                        finish();
                                     }
 
                                 }
