@@ -113,12 +113,19 @@ public class TeacherLeaderMainActivity extends AppCompatActivity {
                                     name1 = array_teacher.getJSONObject(0).getJSONObject("tea").getString("name");
                                     name2 = array_teacher.getJSONObject(1).getJSONObject("tea").getString("name");
                                     name3 = array_teacher.getJSONObject(2).getJSONObject("tea").getString("name");
-                                    name4 = array_teacher.getJSONObject(3).getJSONObject("tea").getString("name");
+                                    if(array_teacher.size()>3){
+                                        name4 = array_teacher.getJSONObject(3).getJSONObject("tea").getString("name");
+                                        map.put("scoreTotal4",array_teacher.getJSONObject(3).getString("scoreTotal"));
+                                    }else{
+                                        name4 = "";
+                                        map.put("scoreTotal4","");
+                                    }
+
 
                                     map.put("scoreTotal1",array_teacher.getJSONObject(0).getString("scoreTotal"));
                                     map.put("scoreTotal2",array_teacher.getJSONObject(1).getString("scoreTotal"));
                                     map.put("scoreTotal3",array_teacher.getJSONObject(2).getString("scoreTotal"));
-                                    map.put("scoreTotal4",array_teacher.getJSONObject(3).getString("scoreTotal"));
+
                                 }else{
                                     map.put("scoreTotal1","暂无打分信息");
                                     map.put("scoreTotal2","暂无打分信息");

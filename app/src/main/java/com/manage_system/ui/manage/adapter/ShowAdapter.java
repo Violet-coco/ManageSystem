@@ -259,7 +259,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
                 holder.stu_comment_teacher.setText("分　　组：第"+list.get(position).get("groupId").toString()+"组");
             }
             if(list.get(position).get("defDate").toString().equals("暂无数据")){
-                holder.stu_group.setText("暂无数据");
+                holder.stu_group.setText("答辩时间：暂无数据");
             }else{
                 holder.stu_group.setText("答辩时间："+DateUtil.getDateFormat(list.get(position).get("defDate").toString())+"/第"+list.get(position).get("defWeek").toString()+"周 星期"+list.get(position).get("defDay").toString());
             }

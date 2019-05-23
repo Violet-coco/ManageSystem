@@ -159,7 +159,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                 }
             });
 
-            holder.project_number.setOnClickListener(new View.OnClickListener() {
+            holder.project_number_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(v.getContext(),GuideTeacherInfoActivity.class);

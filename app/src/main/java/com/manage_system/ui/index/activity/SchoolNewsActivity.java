@@ -1,22 +1,12 @@
 package com.manage_system.ui.index.activity;
 
-import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,16 +15,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.utils.DateUtil;
-import com.manage_system.utils.DownloadUtil;
-import com.manage_system.utils.OpenFileUtils;
+import com.manage_system.utils.OkManager;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class SchoolNewsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -64,6 +55,7 @@ public class SchoolNewsActivity extends AppCompatActivity implements View.OnClic
         time.setText(DateUtil.getDateFormat(obj.getString("sendDate")));
         name.setText(obj.getString("sendName"));
         source.setText(obj.getString("sendCol"));
+        initData(obj.getString("id"));
         URL = "<html><body>"+intent.getStringExtra("web_content")+"</body></html>";
         /**
          * 将文本HTML显示在webview中
@@ -77,6 +69,37 @@ public class SchoolNewsActivity extends AppCompatActivity implements View.OnClic
      */
     public static Intent createIntent(Context context) {
         return new Intent(context, SchoolNewsActivity.class);
+    }
+
+    public void initData(String nid) {
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("nid",nid);
+        manager.post(ApiConstants.commonApi + "/addPageView", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                final String msg = obj.getString("msg");
+                Log.e(TAG,responseBody);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)){
+
+                        }else{
+                            Toast.makeText(SchoolNewsActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
     }
 
     @OnClick({R.id.iv_back})

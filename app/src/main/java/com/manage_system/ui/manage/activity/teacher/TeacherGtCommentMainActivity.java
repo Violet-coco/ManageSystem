@@ -98,16 +98,24 @@ public class TeacherGtCommentMainActivity extends AppCompatActivity {
                                 map.put("name", object.getString("name"));
                                 map.put("identifier", object.getString("identifier"));
                                 map.put("pName", object.getString("pName"));
-                                if(object.getJSONObject("guidanceTeaGroup").getBoolean("hasReviewed")){
-                                    map.put("score",object.getJSONObject("guidanceTeaGroup").getString("scoreTotal"));
+                                if(object.containsKey("guidanceTeaGroup")){
+                                    if(object.getJSONObject("guidanceTeaGroup").getBoolean("hasReviewed")){
+                                        map.put("score",object.getJSONObject("guidanceTeaGroup").getString("scoreTotal"));
+                                    }else{
+                                        map.put("score","暂无分数");
+                                    }
+
+                                    if(object.getJSONObject("guidanceTeaGroup").getBoolean("attendDefence")){
+                                        map.put("attendDefence","同意");
+                                    }else{
+                                        map.put("attendDefence","不同意");
+                                    }
                                 }else{
                                     map.put("score","暂无分数");
+                                    map.put("attendDefence","");
                                 }
-                                if(object.getJSONObject("guidanceTeaGroup").getBoolean("attendDefence")){
-                                    map.put("attendDefence","同意");
-                                }else{
-                                    map.put("attendDefence","不同意");
-                                }
+
+
                                 list.add(map);
                             }
                             recycleView.setLayoutManager(new LinearLayoutManager(TeacherGtCommentMainActivity.this,LinearLayoutManager.VERTICAL,false));

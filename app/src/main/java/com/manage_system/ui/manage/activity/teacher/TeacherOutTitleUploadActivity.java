@@ -171,8 +171,6 @@ public class TeacherOutTitleUploadActivity extends AppCompatActivity implements 
         setSpinnerItemSelectedByValue(ot_able,project.getString("rest"));
         ot_intro.setText(project.getString("briefIntro"));
         fileId = project.getString("fileId");
-        ot_task.setText(project.getJSONObject("taskBook").getString("task"));
-        ot_referData.setText(project.getJSONObject("taskBook").getString("referData"));
         if(project.containsKey("file")){
             ot_annex.setText(Html.fromHtml("<u>"+project.getJSONObject("file").getString("fileName")+"</u>"));
         }else{
@@ -185,6 +183,8 @@ public class TeacherOutTitleUploadActivity extends AppCompatActivity implements 
             ot_taskBook.setText("暂无任务书");
             ot_taskBook.setTextColor(Color.parseColor("#666666"));
             task_fileId = project.getJSONObject("taskBook").getString("fileId");
+            ot_task.setText(project.getJSONObject("taskBook").getString("task"));
+            ot_referData.setText(project.getJSONObject("taskBook").getString("referData"));
             if(project.getJSONObject("taskBook").containsKey("file")){
                 ot_taskBook.setEnabled(true);
                 ot_taskBook.setTextColor(Color.BLUE);
