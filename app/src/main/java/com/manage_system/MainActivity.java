@@ -224,7 +224,7 @@ public class MainActivity extends BaseActivity {
     public void initNewsData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        map.put("limit","10000");
+        map.put("limit","50");
         manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

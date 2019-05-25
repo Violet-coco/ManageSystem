@@ -2,16 +2,13 @@
 <resources>
     <string-array name="subject_source">
         <item>生产实际（社会实践）题</item>
-        <item>教师科研课题</item>
-        <item>其他</item>
+        <item>自选题目</item>
     </string-array>
 
     <string-array name="subject_type">
-        <item>艺美设计</item>
-        <item>工程工业设计</item>
-        <item>应用研究</item>
-        <item>理论研究</item>
-        <item>其他</item>
+        <item>作品展演与创作报告</item>
+        <item>应用研发与设计</item>
+        <item>创意设计</item>
     </string-array>
 
     <string-array name="subject_number">
