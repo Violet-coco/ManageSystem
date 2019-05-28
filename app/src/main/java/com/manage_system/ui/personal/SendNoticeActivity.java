@@ -256,7 +256,7 @@ public class SendNoticeActivity extends AppCompatActivity implements View.OnClic
         }
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-        alertBuilder.setTitle("发送通知");
+        alertBuilder.setTitle("发送消息");
         /**
          *第一个参数:弹出框的消息集合，一般为字符串集合
          * 第二个参数：默认被选中的，布尔类数组

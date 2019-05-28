@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.activity.teacher.TeacherCheckDataMainActivity;
@@ -229,6 +230,11 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                             Intent intent = new Intent(StudentLiteratureReviewActivity.this,StudentLiteratureReviewEditActivity.class);
                             startActivity(intent);
                             finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentLiteratureReviewActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentLiteratureReviewActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
@@ -300,6 +306,11 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                                 }
                             }
 
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentLiteratureReviewActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentLiteratureReviewActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
@@ -348,6 +359,11 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                             Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentLiteratureReviewActivity.this,StudentLiteratureReviewActivity.class);
                             startActivity(intent);
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentLiteratureReviewActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -391,6 +407,11 @@ public class StudentLiteratureReviewActivity extends AppCompatActivity implement
                             Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentLiteratureReviewActivity.this,TeacherCheckDataMainActivity.class);
                             startActivity(intent);
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentLiteratureReviewActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentLiteratureReviewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

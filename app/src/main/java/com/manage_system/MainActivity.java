@@ -207,6 +207,11 @@ public class MainActivity extends BaseActivity {
                             }
                             //提交修改
                             editor.commit();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(MainActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(MainActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this,LoginActivity.class);
@@ -224,7 +229,7 @@ public class MainActivity extends BaseActivity {
     public void initNewsData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        map.put("limit","50");
+        map.put("limit","20");
         manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

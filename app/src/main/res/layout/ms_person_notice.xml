@@ -12,7 +12,7 @@
         <TextView
             style="@style/topbar_title"
             android:layout_centerHorizontal="true"
-            android:text="发送通知" />
+            android:text="发送消息" />
 
     </RelativeLayout>
 
@@ -31,7 +31,7 @@
                 <TextView
                     android:id="@+id/middle_check_con_title"
                     style="@style/edit_item_ms_border_title"
-                    android:text="通知内容" />
+                    android:text="消息内容" />
 
                 <EditText
                     style="@style/edit_item_ms_border_edit"

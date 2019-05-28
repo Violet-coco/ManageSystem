@@ -70,7 +70,6 @@
                     />
 
             </LinearLayout>
-            <View style="@style/divider_horizontal_1px" />
 
             <View
                 style="@style/divider_horizontal_1px"

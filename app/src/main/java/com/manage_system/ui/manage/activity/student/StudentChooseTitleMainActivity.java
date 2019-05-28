@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.adapter.MyAdapter;
@@ -131,6 +132,11 @@ public class StudentChooseTitleMainActivity extends AppCompatActivity {
                             recycleView.setAdapter(adapter);
                             // 设置数据后就要给RecyclerView设置点击事件
 
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentChooseTitleMainActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentChooseTitleMainActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentChooseTitleMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }

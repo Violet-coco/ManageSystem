@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.utils.DateUtil;
@@ -105,6 +106,11 @@ public class StudentReplyPlanActivity extends AppCompatActivity implements View.
                             reply_class.setText(object.getString("defClass"));
                             reply_teacher.setText(teachers);
                             reply_group.setText("第"+object.getString("groupNum")+"组");
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentReplyPlanActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentReplyPlanActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentReplyPlanActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }

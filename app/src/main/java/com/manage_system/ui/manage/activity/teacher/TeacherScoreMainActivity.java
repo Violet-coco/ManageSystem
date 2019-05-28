@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.adapter.MyAdapter;
@@ -142,6 +143,11 @@ public class TeacherScoreMainActivity extends AppCompatActivity {
                             });
                             recycleView.setAdapter(adapter);
 
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(TeacherScoreMainActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(TeacherScoreMainActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(TeacherScoreMainActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }

@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.activity.teacher.TeacherCheckDataMainActivity;
@@ -259,6 +260,11 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                         }else if(obj.get("statusCode").equals(101)){
                             Intent intent = new Intent(StudentOpenReportActivity.this,StudentOpenReportEditActivity.class);
                             startActivity(intent);
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentOpenReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentOpenReportActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentOpenReportActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
@@ -322,6 +328,11 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                         if(obj.get("statusCode").equals(100)){
                             Toast.makeText(StudentOpenReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentOpenReportActivity.this,StudentOpenReportActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentOpenReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentOpenReportActivity.this,LoginActivity.class);
                             startActivity(intent);
                             finish();
                         }else {
@@ -394,6 +405,11 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                                 or_annex.setEnabled(false);
                             }
 
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentOpenReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentOpenReportActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentOpenReportActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
@@ -448,6 +464,11 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                         if(obj.get("statusCode").equals(100)){
                             Toast.makeText(StudentOpenReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentOpenReportActivity.this,TeacherCheckDataMainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentOpenReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentOpenReportActivity.this,LoginActivity.class);
                             startActivity(intent);
                             finish();
                         }else {

@@ -118,6 +118,11 @@ public class EditPasswordActivity extends AppCompatActivity implements View.OnCl
                             Intent intent = new Intent(EditPasswordActivity.this,LoginActivity.class);
                             startActivity(intent);
                             finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(EditPasswordActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(EditPasswordActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(EditPasswordActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

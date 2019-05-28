@@ -110,6 +110,11 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                 holder.look_title.setText("暂无课题");
                 holder.look_title.setBackgroundColor(Color.parseColor("#dddddd"));
                 holder.look_title.setTextColor(Color.GRAY);
+            }else{
+                holder.look_title.setEnabled(true);
+                holder.look_title.setText("查看课题");
+                holder.look_title.setBackgroundColor(Color.parseColor("#F55A5D"));
+                holder.look_title.setTextColor(Color.WHITE);
             }
 
             holder.look_title.setOnClickListener(new View.OnClickListener() {

@@ -24,9 +24,11 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.Manage;
+import com.manage_system.ui.manage.activity.teacher.TeacherOutTitleUploadActivity;
 import com.manage_system.ui.personal.GuideTeacherInfoActivity;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.DownloadUtil;
@@ -218,6 +220,11 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
                                     startActivity(intent);
                                     finish();
                                     Manage.getData();
+                                }else if(obj.get("statusCode").equals(102)){
+                                    Toast.makeText(StudentChooseDoneTitleActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(StudentChooseDoneTitleActivity.this,LoginActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 }else{
                                     Toast.makeText(StudentChooseDoneTitleActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                                 }

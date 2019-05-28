@@ -23,6 +23,7 @@ import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.base.TextClearSuit;
 import com.manage_system.ui.manage.Manage;
+import com.manage_system.ui.manage.activity.teacher.TeacherLeaderMainActivity;
 import com.manage_system.utils.OkManager;
 
 import java.io.IOException;
@@ -189,6 +190,11 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 							startActivity(intent);
 							finish();
 							Manage.getPersonData();
+						}else if(obj.get("statusCode").equals(102)){
+							Toast.makeText(PersonInfoActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+							Intent intent = new Intent(PersonInfoActivity.this,LoginActivity.class);
+							startActivity(intent);
+							finish();
 						}else{
 							Toast.makeText(PersonInfoActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
 						}

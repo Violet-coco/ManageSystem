@@ -123,6 +123,11 @@ public class LoginByPhoneActivity extends AppCompatActivity implements View.OnCl
                     public void run() {
                         if(obj.get("statusCode").equals(100)){
                             Toast.makeText(LoginByPhoneActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(LoginByPhoneActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginByPhoneActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(LoginByPhoneActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -166,6 +171,11 @@ public class LoginByPhoneActivity extends AppCompatActivity implements View.OnCl
                             Toast.makeText(LoginByPhoneActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginByPhoneActivity.this,MainActivity.class);
                             startActivity(intent);
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(LoginByPhoneActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginByPhoneActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(LoginByPhoneActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

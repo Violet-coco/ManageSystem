@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.utils.OkManager;
@@ -133,6 +134,11 @@ public class StudentMiddleCheckEditActivity extends AppCompatActivity implements
                         if(obj.get("statusCode").equals(100)){
                             Toast.makeText(StudentMiddleCheckEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentMiddleCheckEditActivity.this,StudentMiddleCheckActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentMiddleCheckEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentMiddleCheckEditActivity.this,LoginActivity.class);
                             startActivity(intent);
                             finish();
                         }else {

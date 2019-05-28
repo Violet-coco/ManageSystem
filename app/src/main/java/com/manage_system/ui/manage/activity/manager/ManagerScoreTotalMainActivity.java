@@ -52,6 +52,8 @@ public class ManagerScoreTotalMainActivity extends AppCompatActivity {
     TextView show_tab_item2;
     @BindView(R.id.show_tab_right)
     LinearLayout show_tab_right;
+    @BindView(R.id.top_title)
+    TextView top_title;
 
     public List<Map<String,Object>> list=new ArrayList<>();
 
@@ -67,6 +69,7 @@ public class ManagerScoreTotalMainActivity extends AppCompatActivity {
         show_tab.setVisibility(View.VISIBLE);
         show_tab_item1.setTextSize(14);
         show_tab_item2.setTextSize(14);
+        top_title.setText("成绩汇总列表");
         show_tab_item1.setText("成绩栏依次表示的是：");
         show_tab_item2.setText("指导成绩 评阅成绩 答辩成绩 评定成绩 评定等级");
         initData();

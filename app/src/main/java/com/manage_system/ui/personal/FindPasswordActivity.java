@@ -131,6 +131,11 @@ public class FindPasswordActivity extends Activity implements View.OnClickListen
 
                                 }
                             });
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(FindPasswordActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(FindPasswordActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(FindPasswordActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -163,6 +168,11 @@ public class FindPasswordActivity extends Activity implements View.OnClickListen
                             check_main.setVisibility(View.GONE);
                             psw_main.setVisibility(View.VISIBLE);
                             Toast.makeText(FindPasswordActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(FindPasswordActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(FindPasswordActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(FindPasswordActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -200,6 +210,11 @@ public class FindPasswordActivity extends Activity implements View.OnClickListen
                             startActivity(intent);
                             finish();
                             Toast.makeText(FindPasswordActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(FindPasswordActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(FindPasswordActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(FindPasswordActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

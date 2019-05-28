@@ -29,11 +29,13 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.activity.student.StudentForeignTranslationEditActivity;
 import com.manage_system.ui.manage.activity.student.StudentGraduationThesisEditActivity;
 import com.manage_system.ui.manage.activity.student.StudentGraduationThesisMainActivity;
+import com.manage_system.ui.manage.activity.student.StudentOpenReportActivity;
 import com.manage_system.utils.DateUtil;
 import com.manage_system.utils.DownloadUtil;
 import com.manage_system.utils.OkManager;
@@ -284,6 +286,11 @@ public class TeacherOutTitleUploadActivity extends AppCompatActivity implements 
                         if(obj.get("statusCode").equals(100)){
                             Toast.makeText(TeacherOutTitleUploadActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(TeacherOutTitleUploadActivity.this,TeacherOutTitleMainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(TeacherOutTitleUploadActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(TeacherOutTitleUploadActivity.this,LoginActivity.class);
                             startActivity(intent);
                             finish();
                         }else {

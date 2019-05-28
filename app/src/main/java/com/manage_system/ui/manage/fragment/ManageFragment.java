@@ -25,6 +25,7 @@ import com.manage_system.R;
 import com.manage_system.component.ApplicationComponent;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.base.BaseFragment;
+import com.manage_system.ui.manage.activity.student.StudentChooseDoneTitleActivity;
 import com.manage_system.ui.manage.activity.teacher.TeacherReplyMainActivity;
 import com.manage_system.ui.manage.adapter.MyAdapter;
 import com.manage_system.utils.OkManager;
@@ -89,6 +90,10 @@ public class ManageFragment extends BaseFragment {
                     public void run() {
                         if(obj.get("statusCode").equals(100)) {
                             Log.w(TAG,"查询成功");
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(),LoginActivity.class);
+                            startActivity(intent);
                         }else{
                             Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }

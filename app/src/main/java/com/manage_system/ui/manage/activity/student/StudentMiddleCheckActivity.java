@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.manage.activity.teacher.TeacherCheckDataMainActivity;
@@ -230,6 +231,11 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                             Intent intent = new Intent(StudentMiddleCheckActivity.this,StudentMiddleCheckEditActivity.class);
                             startActivity(intent);
                             finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentMiddleCheckActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentMiddleCheckActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
@@ -297,6 +303,11 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                                 mc_annex.setText("暂无附件");
                             }
 
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentMiddleCheckActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Toast.makeText(StudentMiddleCheckActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
@@ -347,6 +358,11 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                             Intent intent = new Intent(StudentMiddleCheckActivity.this,StudentMiddleCheckActivity.class);
                             startActivity(intent);
                             finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentMiddleCheckActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -389,6 +405,11 @@ public class StudentMiddleCheckActivity extends AppCompatActivity implements Vie
                         if(obj.get("statusCode").equals(100)){
                             Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentMiddleCheckActivity.this,TeacherCheckDataMainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentMiddleCheckActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentMiddleCheckActivity.this,LoginActivity.class);
                             startActivity(intent);
                             finish();
                         }else {

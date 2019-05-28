@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.manage_system.LoginActivity;
 import com.manage_system.R;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.utils.DateUtil;
@@ -315,6 +316,11 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                             Intent intent = new Intent(StudentGuideReportActivity.this,StudentGuideReportMainActivity.class);
                             startActivity(intent);
                             finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentGuideReportActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }else {
                             Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
@@ -358,6 +364,11 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                             Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentGuideReportActivity.this,StudentGuideReportMainActivity.class);
                             intent.putExtra("stu_id",intent1.getStringExtra("stu_id"));
+                            startActivity(intent);
+                            finish();
+                        }else if(obj.get("statusCode").equals(102)){
+                            Toast.makeText(StudentGuideReportActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(StudentGuideReportActivity.this,LoginActivity.class);
                             startActivity(intent);
                             finish();
                         }else {
