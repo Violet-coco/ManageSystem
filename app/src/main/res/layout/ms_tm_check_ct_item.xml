@@ -86,7 +86,7 @@
                     style="@style/edit_item_ms_border_title"
                     android:text="学生（学号）" />
 
-                <EditText
+                <TextView
                     style="@style/edit_item_ms_border_content"
                     android:editable="false"
                     android:id="@+id/ot_name_id"
@@ -110,24 +110,6 @@
                     android:editable="false"
                     android:id="@+id/ot_guide_teacher"
                     android:layout_below="@+id/subject_choose_teacher"
-                    />
-
-            </RelativeLayout>
-
-            <View style="@style/divider_horizontal_1px" />
-
-            <RelativeLayout style="@style/edit_item_ms_all" >
-
-                <TextView
-                    android:id="@+id/subject_choose_status"
-                    style="@style/edit_item_ms_border_title"
-                    android:text="指导教师审核状态" />
-
-                <EditText
-                    style="@style/edit_item_ms_border_content"
-                    android:editable="false"
-                    android:id="@+id/ot_gt_state"
-                    android:layout_below="@+id/subject_choose_status"
                     />
 
             </RelativeLayout>

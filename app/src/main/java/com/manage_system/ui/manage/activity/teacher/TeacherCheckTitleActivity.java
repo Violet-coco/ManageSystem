@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -55,11 +56,9 @@ public class TeacherCheckTitleActivity extends AppCompatActivity implements View
     @BindView(R.id.ot_type)
     EditText ot_type;
     @BindView(R.id.ot_name_id)
-    EditText ot_name_id;
+    TextView ot_name_id;
     @BindView(R.id.ot_guide_teacher)
     EditText ot_guide_teacher;
-    @BindView(R.id.ot_gt_state)
-    EditText ot_gt_state;
     @BindView(R.id.ot_state)
     EditText ot_state;
     @BindView(R.id.ot_pass)
@@ -68,7 +67,7 @@ public class TeacherCheckTitleActivity extends AppCompatActivity implements View
     Button ot_no_pass;
     @BindView(R.id.ot_check_pass)
     LinearLayout ot_check_pass;
-    private static String TAG = "选题界面";
+    private static String TAG = "TeacherCheckTitleActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +92,11 @@ public class TeacherCheckTitleActivity extends AppCompatActivity implements View
         editor.commit();
         Log.e(TAG,object.toString());
         ot_title.setText(project.getString("title"));
+        ot_title.setEnabled(false);
+        ot_title.setTextColor(Color.parseColor("#666666"));
         ot_type.setText(project.getString("genre"));
         ot_source.setText(project.getString("source"));
-        ot_name_id.setText(student.getString("name")+"（"+student.getString("identifier")+"）");
+        ot_name_id.setText(Html.fromHtml("<u>"+student.getString("name")+"（"+student.getString("identifier")+"）"+"</u>"));
         ot_guide_teacher.setText(student.getString("tName"));
         String cStatus = null;
         if(object.getString("cStatus").equals("0")){
