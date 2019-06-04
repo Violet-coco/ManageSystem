@@ -45,9 +45,10 @@ import okhttp3.Response;
 public class TeacherCheckTitleActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String id = null;
-    private String task_fileId = null;
+    private String sid = null;
     private Context mContext;
     private String fileName = null;
+
 
     @BindView(R.id.ot_title)
     EditText ot_title;
@@ -86,6 +87,7 @@ public class TeacherCheckTitleActivity extends AppCompatActivity implements View
         JSONObject object = array.getJSONObject(Integer.parseInt(intent.getStringExtra("position")));
         JSONObject project = object.getJSONObject("project");
         JSONObject student = object.getJSONObject("student");
+        sid = student.getString("identifier");
         SharedPreferences.Editor editor=sp.edit();
         editor.putString("teacher_checkTitle_detail",object.toString());
         editor.putString("student",student.toString());
@@ -119,7 +121,7 @@ public class TeacherCheckTitleActivity extends AppCompatActivity implements View
         return new Intent(context, TeacherCheckTitleActivity.class);
     }
 
-    @OnClick({R.id.iv_back,R.id.ot_title,R.id.ot_name_id})
+    @OnClick({R.id.iv_back,R.id.ot_title,R.id.ot_name_id,R.id.ot_pass,R.id.ot_no_pass})
     public void onClick(View v) {//直接调用不会显示v被点击效果
         Intent intent;
         switch (v.getId()) {
@@ -136,9 +138,50 @@ public class TeacherCheckTitleActivity extends AppCompatActivity implements View
                 intent.putExtra("stu_info","");
                 startActivity(intent);
                 break;
+            case R.id.ot_pass:
+                isPass("2");
+                break;
+            case R.id.ot_no_pass:
+                isPass("0");
+                break;
             default:
                 break;
         }
+    }
+
+    public void isPass(String status) {
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("sid",sid);
+        map.put("pid", id);
+//        status   (审核结果,0或2)
+        map.put("status",status);
+        manager.post(ApiConstants.teacherApi+"/reviewProChoose", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseBody = response.body().string();
+                final JSONObject obj = JSON.parseObject(responseBody);
+                Log.e(TAG,obj.toString());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(obj.get("statusCode").equals(100)) {
+                            Toast.makeText(TeacherCheckTitleActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(TeacherCheckTitleActivity.this,TeacherOutTitleMainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Toast.makeText(TeacherCheckTitleActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
     }
 
     public void showDialog(){

@@ -152,6 +152,7 @@ public class StudentOpenReportEditActivity extends AppCompatActivity implements 
                             Toast.makeText(StudentOpenReportEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentOpenReportEditActivity.this,StudentOpenReportActivity.class);
                             startActivity(intent);
+                            finish();
                         }else if(obj.get("statusCode").equals(102)){
                             Toast.makeText(StudentOpenReportEditActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(StudentOpenReportEditActivity.this,LoginActivity.class);

@@ -295,7 +295,13 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
                         if(obj.get("statusCode").equals(100)) {
                             Looper.prepare();
                             Toast.makeText(v.getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(v.getContext(),ManagerReplyGroupMainActivity.class);
+                            Intent intent;
+                            if(api.equals("deleteDefGroup")){
+                                intent = new Intent(v.getContext(),ManagerReplyGroupMainActivity.class);
+                                intent.putExtra("reply_group","teacher_reply");
+                            }else{
+                                intent = new Intent(v.getContext(),ManagerReplyGroupMainActivity.class);
+                            }
                             intent.putExtra("reply_group","teacher_guide");
                             v.getContext().startActivity(intent);
                             Looper.loop();

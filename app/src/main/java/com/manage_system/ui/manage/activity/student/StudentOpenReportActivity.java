@@ -305,13 +305,12 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                     .addFormDataPart("content", content)
                     .addFormDataPart("tech", tech)
                     .addFormDataPart("plan", plan)
-
                     .addFormDataPart("fileId", fileId) // 提交普通字段
                     .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("application/msword"), file))
                     .build();
         }
 
-        manager.postFile(ApiConstants.studentApi + "/commitMidInspection", requestBody,new okhttp3.Callback() {
+        manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
