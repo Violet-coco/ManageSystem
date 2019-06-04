@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.manage_system.net.ApiConstants;
+import com.manage_system.ui.manage.Manage;
 import com.manage_system.ui.personal.HelpActivity;
 import com.manage_system.utils.OkManager;
 
@@ -84,6 +85,7 @@ public class LoginByPhoneActivity extends AppCompatActivity implements View.OnCl
         {
             case R.id.btn_checkCode:
                 mTimeCountUtil.start();
+                Manage.startClear();
                 getCode();
                 break;
             case R.id.btn_byphone_login:
@@ -138,6 +140,31 @@ public class LoginByPhoneActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
+    public void initNewsData() {
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<>();
+        map.put("limit","20");
+        manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                if(obj.get("statusCode").equals(100)){
+                    SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putString("news_list", obj.toString());
+                    //提交修改
+                    editor.commit();
+                }
+            }
+        });
+    }
+
     public void checkCode(){
         edit_phone = (EditText) findViewById(R.id.edit_phone);
         edit_cord = (EditText) findViewById(R.id.edit_cord);
@@ -171,6 +198,7 @@ public class LoginByPhoneActivity extends AppCompatActivity implements View.OnCl
                             Toast.makeText(LoginByPhoneActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginByPhoneActivity.this,MainActivity.class);
                             startActivity(intent);
+                            initNewsData();
                         }else if(obj.get("statusCode").equals(102)){
                             Toast.makeText(LoginByPhoneActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginByPhoneActivity.this,LoginActivity.class);
@@ -184,6 +212,8 @@ public class LoginByPhoneActivity extends AppCompatActivity implements View.OnCl
 
             }
         });
+
+
     }
 
 }

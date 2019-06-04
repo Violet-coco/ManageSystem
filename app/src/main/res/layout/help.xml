@@ -13,6 +13,7 @@
 
         <TextView
             style="@style/topbar_title"
+            android:id="@+id/news_title"
             android:layout_centerHorizontal="true"
             android:text="校内新闻" />
 
