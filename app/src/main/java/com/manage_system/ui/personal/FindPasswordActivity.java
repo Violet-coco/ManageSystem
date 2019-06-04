@@ -67,18 +67,22 @@ public class FindPasswordActivity extends Activity implements View.OnClickListen
 
 
     @OnClick({R.id.iv_back,R.id.btn_checkCode,R.id.btn_check,R.id.btn_submit})
-    public void onClick(View v) {//直接调用不会显示v被点击效果
+    public void onClick(View v) {
         switch (v.getId()) {
+            // 点击返回图标
             case R.id.iv_back:
                 finish();
                 break;
+            // 点击获取验证码
             case R.id.btn_checkCode:
                 mTimeCountUtil.start();
                 getBindPhone();
                 break;
+            // 点击验证按钮进行验证
             case R.id.btn_check:
                 checkCode();
                 break;
+            // 点击确定提交重置密码
             case R.id.btn_submit:
                 setPassword();
                 break;

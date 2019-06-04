@@ -77,9 +77,14 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
 
             if(list.get(position).get("number").toString().equals("0")){
                 holder.look_title.setEnabled(false);
-                holder.look_title.setText("查看选题");
+                holder.look_title.setText("暂未出题");
                 holder.look_title.setBackgroundColor(Color.parseColor("#dddddd"));
                 holder.look_title.setTextColor(Color.GRAY);
+            }else{
+                holder.look_title.setEnabled(true);
+                holder.look_title.setText("查看出题");
+                holder.look_title.setBackgroundColor(Color.parseColor("#F55A5D"));
+                holder.look_title.setTextColor(Color.WHITE);
             }
 
             holder.project_title.setOnClickListener(new View.OnClickListener() {

@@ -152,7 +152,7 @@ public class StudentChooseDoneTitleMainActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }else{
-                            Toast.makeText(StudentChooseDoneTitleMainActivity.this, obj.getJSONObject("data").getString("msg"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentChooseDoneTitleMainActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

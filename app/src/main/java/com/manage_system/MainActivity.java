@@ -63,7 +63,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
-        initNewsData();
         initData();
         SharedPreferences spt = getSharedPreferences("loginInfo", MODE_PRIVATE);
         if(spt.getString("authority" , "").equals("3")){
@@ -225,31 +224,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-
-    public void initNewsData() {
-        OkManager manager = OkManager.getInstance();
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("limit","20");
-        manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e(TAG, "onFailure: ",e);
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String responseBody = response.body().string();
-                Log.e(TAG,responseBody);
-                final JSONObject obj = JSON.parseObject(responseBody);
-                if(obj.get("statusCode").equals(100)){
-                    SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
-                    SharedPreferences.Editor editor=sp.edit();
-                    editor.putString("news_list", obj.toString());
-                    //提交修改
-                    editor.commit();
-                }
-            }
-        });
-    }
 
     @Override
     public void onRetry() {

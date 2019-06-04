@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -43,9 +44,9 @@ public class StudentForeignTranslationEditActivity extends AppCompatActivity imp
     @BindView(R.id.ft_original)
     EditText ft_original;
     @BindView(R.id.ft_forFile)
-    EditText ft_forFile;
+    TextView ft_forFile;
     @BindView(R.id.ft_oriFile)
-    EditText ft_oriFile;
+    TextView ft_oriFile;
     private int fileIdType = 0;
     private String TAG = "外文译文和原文修改";
     private String path;

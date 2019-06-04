@@ -4,11 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -16,17 +18,28 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.manage_system.component.ApplicationComponent;
+import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.base.BaseActivity;
 import com.manage_system.ui.common.helper.UiHelper;
+import com.manage_system.utils.OkManager;
 import com.manage_system.utils.Utils;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class SplashActivity extends BaseActivity {
 
     private RelativeLayout ll;
     private TextView[] ts;
+    private String TAG = "SplashActivity";
 
 
     private void startTextInAnim(TextView t) {
@@ -90,7 +103,14 @@ public class SplashActivity extends BaseActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        UiHelper.skipToOtherActivity(SplashActivity.this, LoginActivity.class);
+                        SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
+                        //sp.getString() userName, "";
+                        if(sp.getString("token","").isEmpty()){
+                            UiHelper.skipToOtherActivity(SplashActivity.this, LoginActivity.class);
+                        }else{
+                            initNewsData();
+                            UiHelper.skipToOtherActivity(SplashActivity.this, MainActivity.class);
+                        }
                     }
                 }, 2000);
             }
@@ -162,5 +182,30 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void onRetry() {
 
+    }
+
+    public void initNewsData() {
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<>();
+        map.put("limit","20");
+        manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                if(obj.get("statusCode").equals(100)){
+                    SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putString("news_list", obj.toString());
+                    //提交修改
+                    editor.commit();
+                }
+            }
+        });
     }
 }

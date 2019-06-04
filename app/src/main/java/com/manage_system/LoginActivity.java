@@ -48,20 +48,16 @@ public class LoginActivity extends AppCompatActivity {
     //复选框
     private CheckBox remember_password;
 
-    private final static int SUCCESS_SATUS = 1;
-    private final static int FAILURE = 0;
     private final static String Tag = "11111111";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private String TAG = "LoginActivity";
 
     private OkManager manager;
-
-    private OkHttpClient clients;
 
     //登录验证请求
     private String login_path = ApiConstants.commonApi + "/idloginMobile";
 
-    private String person_info_path = ApiConstants.commonApi + "/showRoleInfo";
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -203,11 +199,11 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.putString("et_user_name",userName);
                                         editor.putString("et_psw",psw);
                                         editor.putBoolean("remember_password",true);
-                                    }
-                                    else {
+                                    } else {
                                         editor.clear();
                                     }
                                     editor.apply();
+                                    initNewsData();
                                     Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                                     //跳转到主界面，登录成功的状态传递到 MainActivity 中
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -275,5 +271,30 @@ public class LoginActivity extends AppCompatActivity {
                 et_user_name.setSelection(userName.length());
             }
         }
+    }
+
+    public void initNewsData() {
+        OkManager manager = OkManager.getInstance();
+        Map<String, String> map = new HashMap<>();
+        map.put("limit","20");
+        manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "onFailure: ",e);
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                Log.e(TAG,responseBody);
+                final JSONObject obj = JSON.parseObject(responseBody);
+                if(obj.get("statusCode").equals(100)){
+                    SharedPreferences sp=getSharedPreferences("processData", MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putString("news_list", obj.toString());
+                    //提交修改
+                    editor.commit();
+                }
+            }
+        });
     }
 }

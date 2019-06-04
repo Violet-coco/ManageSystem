@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -198,7 +199,12 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.AuthorView
         //设置它的ContentView
         dialog.setContentView(R.layout.ms_notice_alert_dialog);
         ((TextView)dialog.findViewById(R.id.tvAlertDialogTitle)).setText(title);
-        ((TextView)dialog.findViewById(R.id.tvAlertDialogMessage)).setText(content);
+//        ((TextView)dialog.findViewById(R.id.tvAlertDialogMessage)).setText(content);
+        String URL = "<html><body>"+content+"</body></html>";
+        /**
+         * 将文本HTML显示在webview中
+         */
+        ((WebView)dialog.findViewById(R.id.webView1)).loadDataWithBaseURL(null,URL,"text/html","utf-8",null);
         ((TextView)dialog.findViewById(R.id.time)).setText(time);
         dialog.show();
 
