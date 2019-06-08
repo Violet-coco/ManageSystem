@@ -25,14 +25,10 @@
     <!-- 允许应用访问震动器 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
-    <!-- ZBLibrary <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- CommonUtil等类的部分功能需要，不需要的功能对应的权限可不复制粘贴 <<<<<< -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <!-- CommonUtil等类的部分功能需要，不需要的功能对应的权限可不复制粘贴 >>>>>> -->
-    <!-- ZBLibrary >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
     <uses-permission android:name="android:permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
@@ -108,8 +104,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Window"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name="com.manage_system.test.MainActivity1" />
-        <activity android:name="com.manage_system.test.ClipImageActivity"/>
 
         <!--公共模块-->
         <activity android:name="com.manage_system.ui.personal.SendNoticeActivity"/>
