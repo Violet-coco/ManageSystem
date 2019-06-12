@@ -10,9 +10,9 @@ import android.app.Activity;
  */
 public interface FragmentPresenter extends Presenter {
 
-	static final String ARGUMENT_ID = "ARGUMENT_ID";
-	static final String ARGUMENT_USER_ID = "ARGUMENT_USER_ID";
+	String ARGUMENT_ID = "ARGUMENT_ID";
+	String ARGUMENT_USER_ID = "ARGUMENT_USER_ID";
 
-	static final int RESULT_OK = Activity.RESULT_OK;
-	static final int RESULT_CANCELED = Activity.RESULT_CANCELED;
+	int RESULT_OK = Activity.RESULT_OK;
+	int RESULT_CANCELED = Activity.RESULT_CANCELED;
 }

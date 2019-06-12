@@ -88,7 +88,7 @@ public class NoticeMainActivity extends AppCompatActivity {
         Map<String, String> map = new HashMap<String, String>();
         map.put("hasRead","1");
         map.put("limit","100000");
-        manager.post(ApiConstants.commonApi + "/showAllNotifications", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/showAllNotifications", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -136,7 +136,7 @@ public class NoticeMainActivity extends AppCompatActivity {
         Map<String, String> map = new HashMap<String, String>();
         map.put("hasRead","0");
         map.put("limit","100000");
-        manager.post(ApiConstants.commonApi + "/showAllNotifications", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/showAllNotifications", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -197,7 +197,7 @@ public class NoticeMainActivity extends AppCompatActivity {
         Map<String, String> map = new HashMap<String, String>();
         map.put("hasRead","1");
         map.put("limit","100000");
-        manager.post(ApiConstants.commonApi + "/showAllAnnounces", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/showAllAnnounces", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -244,7 +244,7 @@ public class NoticeMainActivity extends AppCompatActivity {
         Map<String, String> map = new HashMap<String, String>();
         map.put("hasRead","0");
         map.put("limit","100000");
-        manager.post(ApiConstants.commonApi + "/showAllAnnounces", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/showAllAnnounces", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

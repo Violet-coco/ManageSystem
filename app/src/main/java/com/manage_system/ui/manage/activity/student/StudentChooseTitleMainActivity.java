@@ -81,7 +81,7 @@ public class StudentChooseTitleMainActivity extends AppCompatActivity {
         map.put("tecName","");
         map.put("offset","");
         map.put("limit","100000");
-        manager.post(ApiConstants.studentApi + "/showProjects", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.studentApi + "/showProjects", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

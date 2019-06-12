@@ -93,7 +93,7 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
     public void initDefDate() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showDepDefDate", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showDepDefDate", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -128,7 +128,7 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
     public void initData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showDepTeaDefGroup", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showDepTeaDefGroup", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -194,7 +194,7 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
     public void initGuideData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showDefInfoList", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showDefInfoList", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -247,7 +247,7 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
     public void autoData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/assignDefStuGroup", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/assignDefStuGroup", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -273,7 +273,7 @@ public class ManagerReplyGroupMainActivity extends AppCompatActivity {
             }
         });
 
-        manager.post(ApiConstants.teacherApi + "/assignReviewTeaGroup", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/assignReviewTeaGroup", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

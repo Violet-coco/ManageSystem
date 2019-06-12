@@ -69,7 +69,7 @@ public class ManageFragment extends BaseFragment {
         map.put("tecName","");
         map.put("offset","");
         map.put("limit","100000");
-        manager.post(ApiConstants.studentApi + "/showProjects", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.studentApi + "/showProjects", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -107,7 +107,7 @@ public class ManageFragment extends BaseFragment {
     public void initLeaderData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showDefPlan", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showDefPlan", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

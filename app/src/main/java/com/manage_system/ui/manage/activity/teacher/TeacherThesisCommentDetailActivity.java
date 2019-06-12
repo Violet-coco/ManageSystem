@@ -111,7 +111,7 @@ public class TeacherThesisCommentDetailActivity extends AppCompatActivity implem
         map.put("scoreInnovate",scoreInnovate.getText().toString().trim());
         map.put("comment",comment.getText().toString().trim());
 
-        manager.post(ApiConstants.teacherApi + "/markingMtDoc", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/markingMtDoc", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

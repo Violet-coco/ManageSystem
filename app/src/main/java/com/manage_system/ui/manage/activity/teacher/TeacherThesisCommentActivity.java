@@ -83,7 +83,7 @@ public class TeacherThesisCommentActivity extends AppCompatActivity implements V
         pName.setText(object.getString("pName"));
         scoreLiterature.setText(object.getJSONObject("reviewTeaGroup").getString("scoreLiterature"));
         scoreInstruction.setText(object.getJSONObject("reviewTeaGroup").getString("scoreInstruction"));
-        scoreInnovate.setText(object.getJSONObject("reviewTeaGroup").getString("scoreInnovate"));;
+        scoreInnovate.setText(object.getJSONObject("reviewTeaGroup").getString("scoreInnovate"));
         scoreWorkload.setText(object.getJSONObject("reviewTeaGroup").getString("scoreWorkload"));
         scoreTotal.setText(object.getJSONObject("reviewTeaGroup").getString("scoreTotal"));
         comment.setText(object.getJSONObject("reviewTeaGroup").getString("comment"));

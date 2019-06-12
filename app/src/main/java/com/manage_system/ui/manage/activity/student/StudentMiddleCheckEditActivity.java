@@ -118,7 +118,7 @@ public class StudentMiddleCheckEditActivity extends AppCompatActivity implements
                     .build();
         }
 
-        manager.postFile(ApiConstants.studentApi + "/commitMidInspection", requestBody,new okhttp3.Callback() {
+        OkManager.postFile(ApiConstants.studentApi + "/commitMidInspection", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

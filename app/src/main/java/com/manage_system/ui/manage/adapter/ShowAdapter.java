@@ -282,7 +282,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.AuthorViewHold
                 OkManager manager = OkManager.getInstance();
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("gid", gid);
-                manager.post(ApiConstants.teacherApi+api, map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.teacherApi+api, map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);

@@ -24,6 +24,7 @@ import com.manage_system.component.ApplicationComponent;
 import com.manage_system.net.ApiConstants;
 import com.manage_system.ui.base.BaseActivity;
 import com.manage_system.ui.common.helper.UiHelper;
+import com.manage_system.ui.manage.Manage;
 import com.manage_system.utils.OkManager;
 import com.manage_system.utils.Utils;
 
@@ -105,6 +106,7 @@ public class SplashActivity extends BaseActivity {
                     public void run() {
                         SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
                         //sp.getString() userName, "";
+                        Manage.startClear();
                         if(sp.getString("token","").isEmpty()){
                             UiHelper.skipToOtherActivity(SplashActivity.this, LoginActivity.class);
                         }else{
@@ -188,7 +190,7 @@ public class SplashActivity extends BaseActivity {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<>();
         map.put("limit","20");
-        manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

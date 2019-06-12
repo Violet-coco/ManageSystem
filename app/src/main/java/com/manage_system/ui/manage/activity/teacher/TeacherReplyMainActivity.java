@@ -79,7 +79,7 @@ public class TeacherReplyMainActivity extends AppCompatActivity {
     public void initData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showDefPlan", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showDefPlan", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -140,7 +140,7 @@ public class TeacherReplyMainActivity extends AppCompatActivity {
     public void initStudentData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showDefStudents", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showDefStudents", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

@@ -100,7 +100,7 @@ public class EditPasswordActivity extends AppCompatActivity implements View.OnCl
         Log.w(TAG,old_pwd);
         Log.w(TAG,pwd);
         Log.w(TAG,pwd_second);
-        manager.post(path, map,new okhttp3.Callback() {
+        OkManager.post(path, map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

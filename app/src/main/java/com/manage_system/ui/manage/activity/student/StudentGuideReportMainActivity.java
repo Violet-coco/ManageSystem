@@ -83,7 +83,7 @@ public class StudentGuideReportMainActivity extends AppCompatActivity {
     public void initData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.studentApi + "/showGuidanceRecord", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.studentApi + "/showGuidanceRecord", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -169,7 +169,7 @@ public class StudentGuideReportMainActivity extends AppCompatActivity {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
         map.put("sid",intent.getStringExtra("stu_id"));
-        manager.post(ApiConstants.teacherApi + "/showStuGuidanceRecords", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showStuGuidanceRecords", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

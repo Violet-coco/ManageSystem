@@ -269,7 +269,7 @@ public class TeacherOutTitleUploadActivity extends AppCompatActivity implements 
         }
         RequestBody requestBody = builder.build();
 
-        manager.postFile(ApiConstants.teacherApi + api, requestBody,new okhttp3.Callback() {
+        OkManager.postFile(ApiConstants.teacherApi + api, requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

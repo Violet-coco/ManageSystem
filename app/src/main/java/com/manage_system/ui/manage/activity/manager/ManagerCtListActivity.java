@@ -148,7 +148,7 @@ public class ManagerCtListActivity extends AppCompatActivity implements View.OnC
                 Map<String, String> map = new HashMap<String, String>();
                 Log.w(TAG,id+"嘻嘻");
                 map.put("pid", id);
-                manager.post(ApiConstants.teacherApi+"/deleteProject", map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.teacherApi+"/deleteProject", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);

@@ -84,7 +84,7 @@ public class StudentGraduationThesisMainActivity extends AppCompatActivity {
     public void initData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.studentApi + "/showGraduationProjects", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.studentApi + "/showGraduationProjects", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -172,7 +172,7 @@ public class StudentGraduationThesisMainActivity extends AppCompatActivity {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
         map.put("sid",intent.getStringExtra("stu_id"));
-        manager.post(ApiConstants.teacherApi + "/showStuGraduationProject", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showStuGraduationProject", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

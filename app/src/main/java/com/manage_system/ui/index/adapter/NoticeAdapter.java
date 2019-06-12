@@ -90,7 +90,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.AuthorView
                     OkManager manager = OkManager.getInstance();
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("nid",list.get(position).get("nid").toString());
-                    manager.post(ApiConstants.commonApi + "/setNoticeRead", map,new okhttp3.Callback() {
+                    OkManager.post(ApiConstants.commonApi + "/setNoticeRead", map,new okhttp3.Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
                             Log.e(TAG, "onFailure: ",e);
@@ -135,7 +135,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.AuthorView
                     OkManager manager = OkManager.getInstance();
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("aid",list.get(position).get("aid").toString());
-                    manager.post(ApiConstants.commonApi + "/setAnnounceRead", map,new okhttp3.Callback() {
+                    OkManager.post(ApiConstants.commonApi + "/setAnnounceRead", map,new okhttp3.Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
                             Log.e(TAG, "onFailure: ",e);

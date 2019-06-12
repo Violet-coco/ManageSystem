@@ -201,7 +201,7 @@ public class StudentChooseDoneTitleActivity extends AppCompatActivity implements
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("pid", id);
                 Log.w(TAG,id+"取消");
-                manager.post(ApiConstants.studentApi+"/cancelProject", map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.studentApi+"/cancelProject", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);

@@ -69,7 +69,7 @@ public class StudentChooseDoneTitleMainActivity extends AppCompatActivity {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
 
-        manager.post(ApiConstants.studentApi+"/showChoosePro", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.studentApi+"/showChoosePro", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

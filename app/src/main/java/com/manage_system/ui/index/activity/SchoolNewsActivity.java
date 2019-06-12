@@ -75,7 +75,7 @@ public class SchoolNewsActivity extends AppCompatActivity implements View.OnClic
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
         map.put("nid",nid);
-        manager.post(ApiConstants.commonApi + "/addPageView", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/addPageView", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

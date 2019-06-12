@@ -115,7 +115,7 @@ public class StudentLiteratureReviewEditActivity extends AppCompatActivity imple
                     .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("*/*"), file))
                     .build();
         }
-        manager.postFile(ApiConstants.studentApi + "/commitLiteratureReview", requestBody,new okhttp3.Callback() {
+        OkManager.postFile(ApiConstants.studentApi + "/commitLiteratureReview", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

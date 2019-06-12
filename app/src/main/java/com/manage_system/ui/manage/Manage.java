@@ -32,7 +32,7 @@ public class Manage {
         map.put("tecName","");
         map.put("offset","");
         map.put("limit","100000");
-        manager.post(ApiConstants.studentApi + "/showProjects", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.studentApi + "/showProjects", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -56,7 +56,7 @@ public class Manage {
         // 连接接口
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.commonApi+"/showRoleInfo", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi+"/showRoleInfo", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

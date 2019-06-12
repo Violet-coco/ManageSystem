@@ -101,7 +101,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.commonApi + "/showRoleInfo", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/showRoleInfo", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -140,7 +140,7 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
                 manager = OkManager.getInstance();
                 Map<String, String> map = new HashMap<String, String>();
 
-                manager.post(ApiConstants.commonApi+"/logout", map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.commonApi+"/logout", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);

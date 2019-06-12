@@ -128,7 +128,7 @@ public class ManagerGroupGuideEditActivity extends AppCompatActivity implements 
         Map<String, String> map = new HashMap<String, String>();
         map.put("gid", object.getString("id"));
         gid = object.getString("id");
-        manager.post(ApiConstants.teacherApi + "/showUnAssignedGtList", map, new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showUnAssignedGtList", map, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ", e);
@@ -246,7 +246,7 @@ public class ManagerGroupGuideEditActivity extends AppCompatActivity implements 
         Log.w(TAG,json);
 
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"),json);
-        manager.postJson(ApiConstants.teacherApi + "/modifyDefTeaGroup", requestBody, new okhttp3.Callback() {
+        OkManager.postJson(ApiConstants.teacherApi + "/modifyDefTeaGroup", requestBody, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ", e);

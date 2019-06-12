@@ -171,7 +171,7 @@ public class PersonInfoActivity extends AppCompatActivity implements View.OnClic
 		Log.w(TAG,email);
 		SharedPreferences sp1=getSharedPreferences("loginInfo", MODE_PRIVATE);
 		Log.w(TAG,sp1.getString("token",""));
-		manager.post(ApiConstants.commonApi + "/modifyRoleInfo", map,new okhttp3.Callback() {
+		OkManager.post(ApiConstants.commonApi + "/modifyRoleInfo", map,new okhttp3.Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
 				Log.e(TAG, "onFailure: ",e);

@@ -156,7 +156,7 @@ public class TeacherCheckTitleActivity extends AppCompatActivity implements View
         map.put("pid", id);
 //        status   (审核结果,0或2)
         map.put("status",status);
-        manager.post(ApiConstants.teacherApi+"/reviewProChoose", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi+"/reviewProChoose", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -201,7 +201,7 @@ public class TeacherCheckTitleActivity extends AppCompatActivity implements View
                 Map<String, String> map = new HashMap<String, String>();
                 Log.w(TAG,id+"嘻嘻");
                 map.put("pid", id);
-                manager.post(ApiConstants.teacherApi+"/deleteProject", map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.teacherApi+"/deleteProject", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);

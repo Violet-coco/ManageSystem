@@ -125,7 +125,7 @@ public class StudentForeignTranslationEditActivity extends AppCompatActivity imp
                     .build();
         }
 
-        manager.postFile(ApiConstants.studentApi + "/commitForeignOriginal", requestBody,new okhttp3.Callback() {
+        OkManager.postFile(ApiConstants.studentApi + "/commitForeignOriginal", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

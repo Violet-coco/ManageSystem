@@ -95,7 +95,7 @@ public class FindPasswordActivity extends Activity implements View.OnClickListen
         final OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<>();
         map.put("id",bind_phone.getText().toString().trim());
-        manager.post(ApiConstants.commonApi+"/forgetPwd_find", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi+"/forgetPwd_find", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -112,7 +112,7 @@ public class FindPasswordActivity extends Activity implements View.OnClickListen
                             Map<String, String> map = new HashMap<>();
                             tel = obj.getJSONObject("data").getString("bindTel");
                             map.put("tel",obj.getJSONObject("data").getString("bindTel"));
-                            manager.post(ApiConstants.commonApi+"/sendBindCode", map,new okhttp3.Callback() {
+                            OkManager.post(ApiConstants.commonApi+"/sendBindCode", map,new okhttp3.Callback() {
                                 @Override
                                 public void onFailure(Call call, IOException e) {
                                     Log.e(TAG, "onFailure: ",e);
@@ -155,7 +155,7 @@ public class FindPasswordActivity extends Activity implements View.OnClickListen
         Map<String, String> map = new HashMap<>();
         map.put("tel",tel);
         map.put("telCode",edit_cord.getText().toString().trim());
-        manager.post(ApiConstants.commonApi+"/forgetPwd_check", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi+"/forgetPwd_check", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -196,7 +196,7 @@ public class FindPasswordActivity extends Activity implements View.OnClickListen
         Log.w(TAG,bind_phone.getText().toString().trim());
         Log.w(TAG,psw_one.getText().toString().trim());
         Log.w(TAG,psw_two.getText().toString().trim());
-        manager.post(ApiConstants.commonApi+"/forgetPwd_update_Mobile", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi+"/forgetPwd_update_Mobile", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

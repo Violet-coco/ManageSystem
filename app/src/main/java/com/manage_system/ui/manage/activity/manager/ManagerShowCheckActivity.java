@@ -80,7 +80,7 @@ public class ManagerShowCheckActivity extends AppCompatActivity {
                 map.put("tid", tid);
                 map.put("pid", pid);
                 map.put("status", "1");
-                manager.post(ApiConstants.teacherApi+"/verifyTeaProject", map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.teacherApi+"/verifyTeaProject", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);

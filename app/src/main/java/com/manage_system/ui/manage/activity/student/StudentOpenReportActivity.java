@@ -210,7 +210,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
     public void initData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.studentApi + "/showOpeningReport", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.studentApi + "/showOpeningReport", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -310,7 +310,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
                     .build();
         }
 
-        manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
+        OkManager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -353,7 +353,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
         Log.e(TAG,intent.getStringExtra("doc_type"));
         map.put("sid",intent.getStringExtra("stu_id"));
         map.put("docType",intent.getStringExtra("doc_type"));
-        manager.post(ApiConstants.teacherApi + "/showStudentDocument", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showStudentDocument", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -446,7 +446,7 @@ public class StudentOpenReportActivity extends AppCompatActivity implements View
         map.put("annotation",or_annotation.getText().toString().trim());
         map.put("status",status);
         map.put("suggest",open_record_check.getText().toString().trim());
-        manager.post(ApiConstants.teacherApi + "/verifyDocument", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/verifyDocument", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

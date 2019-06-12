@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity {
         // 连接接口
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.commonApi + "/showRoleInfo", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/showRoleInfo", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

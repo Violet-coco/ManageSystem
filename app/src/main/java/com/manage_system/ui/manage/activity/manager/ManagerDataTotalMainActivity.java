@@ -69,7 +69,7 @@ public class ManagerDataTotalMainActivity extends AppCompatActivity {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
         map.put("limit","10000");
-        manager.post(ApiConstants.teacherApi + "/materialFiling", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/materialFiling", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

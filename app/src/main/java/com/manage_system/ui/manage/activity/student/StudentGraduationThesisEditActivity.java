@@ -136,7 +136,7 @@ public class StudentGraduationThesisEditActivity extends AppCompatActivity imple
         }
         RequestBody requestBody = builder.build();
 
-        manager.postFile(ApiConstants.studentApi + "/addGraduationProject", requestBody,new okhttp3.Callback() {
+        OkManager.postFile(ApiConstants.studentApi + "/addGraduationProject", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

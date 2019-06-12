@@ -129,7 +129,7 @@ public class StudentGuideReportEditActivity extends AppCompatActivity implements
                     .build();
         }
 
-        manager.postFile(ApiConstants.studentApi + "/addGuidanceRecord", requestBody,new okhttp3.Callback() {
+        OkManager.postFile(ApiConstants.studentApi + "/addGuidanceRecord", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

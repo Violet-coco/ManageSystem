@@ -176,7 +176,7 @@ public class GuideStudentInfoActivity extends AppCompatActivity implements View.
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
         map.put("sid",str);
-        manager.post(ApiConstants.teacherApi + "/showDefStudents", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showDefStudents", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

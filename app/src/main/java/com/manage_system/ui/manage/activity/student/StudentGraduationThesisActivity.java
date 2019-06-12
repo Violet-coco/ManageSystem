@@ -332,7 +332,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         }
         RequestBody requestBody = builder.build();
 
-        manager.postFile(ApiConstants.studentApi + "/modifyGraduationProject", requestBody,new okhttp3.Callback() {
+        OkManager.postFile(ApiConstants.studentApi + "/modifyGraduationProject", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -381,7 +381,7 @@ public class StudentGraduationThesisActivity extends AppCompatActivity implement
         map.put("annotation",gt_annotation.getText().toString().trim());
         map.put("status",status);
         map.put("suggest",gt_suggest.getText().toString().trim());
-        manager.post(ApiConstants.teacherApi + "/verifyGraduationProject", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/verifyGraduationProject", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

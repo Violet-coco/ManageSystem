@@ -306,7 +306,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                 map.put("tid", tid);
                 map.put("pid", pid);
                 map.put("status", "2");
-                manager.post(ApiConstants.teacherApi+"/verifyTeaProject", map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.teacherApi+"/verifyTeaProject", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);
@@ -344,7 +344,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                 map.put("tid", tid);
                 map.put("pid", pid);
                 map.put("status", "0");
-                manager.post(ApiConstants.teacherApi+"/verifyTeaProject", map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.teacherApi+"/verifyTeaProject", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);
@@ -391,7 +391,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                 map.put("sid", sid);
                 map.put("pid", pid);
                 map.put("status", "1");
-                manager.post(ApiConstants.teacherApi+"/verifyStuProject", map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.teacherApi+"/verifyStuProject", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);
@@ -429,7 +429,7 @@ public class LeaderAdapter extends RecyclerView.Adapter<LeaderAdapter.AuthorView
                 map.put("sid", sid);
                 map.put("pid", pid);
                 map.put("status", "0");
-                manager.post(ApiConstants.teacherApi+"/verifyStuProject", map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.teacherApi+"/verifyStuProject", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);

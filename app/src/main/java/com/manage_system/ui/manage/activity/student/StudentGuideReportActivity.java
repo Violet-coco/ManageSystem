@@ -297,7 +297,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
                     .build();
         }
 
-        manager.postFile(ApiConstants.studentApi + "/modifyGuidanceRecord", requestBody,new okhttp3.Callback() {
+        OkManager.postFile(ApiConstants.studentApi + "/modifyGuidanceRecord", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -346,7 +346,7 @@ public class StudentGuideReportActivity extends AppCompatActivity implements Vie
         map.put("annotation",gr_annotation.getText().toString().trim());
         map.put("status",status);
         map.put("suggest",gr_suggest.getText().toString().trim());
-        manager.post(ApiConstants.teacherApi + "/verifyGuidanceRecord", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/verifyGuidanceRecord", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.w(Tag,userName);
                 Log.w(Tag,psw);
 
-                manager.post(login_path, map,new okhttp3.Callback() {
+                OkManager.post(login_path, map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(Tag, "onFailure: ",e);
@@ -277,7 +277,7 @@ public class LoginActivity extends AppCompatActivity {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<>();
         map.put("limit","20");
-        manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

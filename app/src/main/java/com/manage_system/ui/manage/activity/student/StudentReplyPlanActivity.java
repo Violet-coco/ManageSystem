@@ -78,7 +78,7 @@ public class StudentReplyPlanActivity extends AppCompatActivity implements View.
     public void initData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.studentApi + "/showDefence", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.studentApi + "/showDefence", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

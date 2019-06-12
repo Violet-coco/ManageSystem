@@ -254,7 +254,7 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter> extend
 
     @Override
     public <T> LifecycleTransformer<T> bindToLife() {
-        return this.<T>bindToLifecycle();
+        return this.bindToLifecycle();
     }
 
 

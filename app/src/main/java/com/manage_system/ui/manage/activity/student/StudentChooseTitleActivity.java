@@ -199,7 +199,7 @@ public class StudentChooseTitleActivity extends AppCompatActivity implements Vie
                 Map<String, String> map = new HashMap<String, String>();
                 Log.w(TAG,id+"嘻嘻");
                 map.put("pid", id);
-                manager.post(ApiConstants.studentApi+"/chooseProject", map,new okhttp3.Callback() {
+                OkManager.post(ApiConstants.studentApi+"/chooseProject", map,new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.e(TAG, "onFailure: ",e);

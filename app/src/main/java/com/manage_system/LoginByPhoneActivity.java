@@ -110,7 +110,7 @@ public class LoginByPhoneActivity extends AppCompatActivity implements View.OnCl
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
         map.put("tel",tel);
-        manager.post(path, map,new okhttp3.Callback() {
+        OkManager.post(path, map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -144,7 +144,7 @@ public class LoginByPhoneActivity extends AppCompatActivity implements View.OnCl
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<>();
         map.put("limit","20");
-        manager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/showAllNews", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -174,7 +174,7 @@ public class LoginByPhoneActivity extends AppCompatActivity implements View.OnCl
         Map<String, String> map = new HashMap<String, String>();
         map.put("tel",tel);
         map.put("telCode",telCode);
-        manager.post(ApiConstants.commonApi + "/telLogin", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/telLogin", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

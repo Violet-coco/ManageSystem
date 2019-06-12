@@ -80,7 +80,7 @@ public class ManagerCtReportMainActivity extends AppCompatActivity {
     public void initCount() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showDepTeaCount", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showDepTeaCount", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -113,7 +113,7 @@ public class ManagerCtReportMainActivity extends AppCompatActivity {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
         map.put("limit","10000");
-        manager.post(ApiConstants.teacherApi + "/showDepTeachers", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showDepTeachers", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

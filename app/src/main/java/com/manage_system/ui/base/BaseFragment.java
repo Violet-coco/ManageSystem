@@ -244,7 +244,7 @@ public abstract class BaseFragment<T1 extends BaseContract.BasePresenter> extend
 
     @Override
     public <T> LifecycleTransformer<T> bindToLife() {
-        return this.<T>bindToLifecycle();
+        return this.bindToLifecycle();
     }
 
     @Override

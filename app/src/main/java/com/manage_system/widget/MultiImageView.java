@@ -219,6 +219,6 @@ public class MultiImageView extends LinearLayout {
 
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 }

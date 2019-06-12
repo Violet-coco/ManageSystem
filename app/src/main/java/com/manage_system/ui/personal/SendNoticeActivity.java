@@ -118,7 +118,7 @@ public class SendNoticeActivity extends AppCompatActivity implements View.OnClic
     public void initData() {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showTeaStudentDefInfos", map, new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showTeaStudentDefInfos", map, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ", e);
@@ -168,7 +168,7 @@ public class SendNoticeActivity extends AppCompatActivity implements View.OnClic
         Log.w(TAG,json);
 
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"),json);
-        manager.postJson(ApiConstants.commonApi + "/sendRoleNotification", requestBody, new okhttp3.Callback() {
+        OkManager.postJson(ApiConstants.commonApi + "/sendRoleNotification", requestBody, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ", e);
@@ -215,7 +215,7 @@ public class SendNoticeActivity extends AppCompatActivity implements View.OnClic
         Log.w(TAG,json);
 
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"),json);
-        manager.postJson(ApiConstants.commonApi + "/sendRoleNotification", requestBody, new okhttp3.Callback() {
+        OkManager.postJson(ApiConstants.commonApi + "/sendRoleNotification", requestBody, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ", e);

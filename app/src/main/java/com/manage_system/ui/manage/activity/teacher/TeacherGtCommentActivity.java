@@ -140,7 +140,7 @@ public class TeacherGtCommentActivity extends AppCompatActivity implements View.
         map.put("scoreInnovate",scoreInnovate.getText().toString().trim());
         map.put("attendDefence",rangeType);
         Log.w(TAG,scoreInvestigation.getText().toString().trim());
-        manager.post(ApiConstants.teacherApi + "/markingGtDoc", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/markingGtDoc", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

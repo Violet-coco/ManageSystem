@@ -143,7 +143,7 @@ public class ManagerGroupAddActivity extends AppCompatActivity implements View.O
     public void initData(){
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
-        manager.post(ApiConstants.teacherApi + "/showUnAssignedTeaList", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showUnAssignedTeaList", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);
@@ -183,7 +183,7 @@ public class ManagerGroupAddActivity extends AppCompatActivity implements View.O
         Log.e(TAG,json);
 
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"),json);
-        manager.postJson(ApiConstants.teacherApi + "/addDefGroup", requestBody, new okhttp3.Callback() {
+        OkManager.postJson(ApiConstants.teacherApi + "/addDefGroup", requestBody, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ", e);
@@ -231,7 +231,7 @@ public class ManagerGroupAddActivity extends AppCompatActivity implements View.O
         Log.e(TAG,json);
 
         RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"),json);
-        manager.postJson(ApiConstants.teacherApi + "/modifyDefGroup", requestBody, new okhttp3.Callback() {
+        OkManager.postJson(ApiConstants.teacherApi + "/modifyDefGroup", requestBody, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ", e);

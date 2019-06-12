@@ -67,7 +67,7 @@ public class TeacherCheckTitleMainActivity extends AppCompatActivity {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
         map.put("limit","100000");
-        manager.post(ApiConstants.teacherApi + "/showProChooses", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.teacherApi + "/showProChooses", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

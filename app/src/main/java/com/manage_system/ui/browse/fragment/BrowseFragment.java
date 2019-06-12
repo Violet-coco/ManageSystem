@@ -106,7 +106,7 @@ public class BrowseFragment extends BaseFragment {
         OkManager manager = OkManager.getInstance();
         Map<String, String> map = new HashMap<String, String>();
         map.put("limit","10000");
-        manager.post(ApiConstants.commonApi + "/showPastExcellent", map,new okhttp3.Callback() {
+        OkManager.post(ApiConstants.commonApi + "/showPastExcellent", map,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

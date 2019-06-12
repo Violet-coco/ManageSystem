@@ -135,7 +135,7 @@ public class StudentOpenReportEditActivity extends AppCompatActivity implements 
                     .addFormDataPart("uploadfile", uploadfile, RequestBody.create(MediaType.parse("application/msword"), file))
                     .build();
         }
-        manager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
+        OkManager.postFile(ApiConstants.studentApi + "/commitOpeningReport", requestBody,new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(TAG, "onFailure: ",e);

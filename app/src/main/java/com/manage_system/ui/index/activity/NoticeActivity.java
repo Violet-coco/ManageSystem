@@ -56,7 +56,7 @@ public class NoticeActivity extends Activity {
 	public void initData() {
 		OkManager manager = OkManager.getInstance();
 		Map<String, String> map = new HashMap<String, String>();
-		manager.post(ApiConstants.commonApi + "/showUnReadCount", map,new okhttp3.Callback() {
+		OkManager.post(ApiConstants.commonApi + "/showUnReadCount", map,new okhttp3.Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
 				Log.e(TAG, "onFailure: ",e);
