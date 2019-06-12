@@ -106,7 +106,6 @@ public class SplashActivity extends BaseActivity {
                     public void run() {
                         SharedPreferences sp=getSharedPreferences("loginInfo", MODE_PRIVATE);
                         //sp.getString() userName, "";
-                        Manage.startClear();
                         if(sp.getString("token","").isEmpty()){
                             UiHelper.skipToOtherActivity(SplashActivity.this, LoginActivity.class);
                         }else{
